@@ -1,0 +1,12 @@
+<div class="modal fade in" [style.display]="info.getDisplayStyle()" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <ng-content select="dialog-header-cmp"></ng-content>
+            <div class="modal-body">
+                <ng-content select="dialog-body-cmp"></ng-content>
+            </div>
+            <ng-content select="dialog-footer-cmp"></ng-content>
+        </div>
+    </div>
+</div>
+<div *ngIf="info.isShow" class="modal-backdrop fade in"></div>

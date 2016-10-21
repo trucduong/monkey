@@ -1,0 +1,10 @@
+<ul *ngIf="info" class="pagination">
+    <li class="paginate_button"><a (click)="onSelectPage(0)" class="glyphicon glyphicon-refresh"></a></li>
+    <!--<li class="paginate_button frist"><a (click)="onSelectPage(1)" class="glyphicon glyphicon-step-backward"></a></li>-->
+    <li class="paginate_button previous"><a (click)="previous()" class="glyphicon glyphicon-triangle-left" *ngIf="info.current>1"></a></li>
+    <li *ngFor="let page of pages" class="paginate_button" [class.active]="info.current==page"><a (click)="onSelectPage(page)">{{page}}</a></li>
+    <li class="paginate_button next"><a (click)="next()" class="glyphicon glyphicon-triangle-right" *ngIf="info.current<info.total"></a></li>
+    <!--<li class="paginate_button last"><a (click)="onSelectPage(info.total)" class="glyphicon glyphicon-step-forward" *ngIf="info.current<info.total"></a></li>-->
+</ul>
+
+

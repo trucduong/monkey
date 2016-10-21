@@ -1,0 +1,96 @@
+{
+"common.alertDanger.name":"Yêu cầu phải có tên",
+"common.alertDanger.maxLength100":"Tên không được dài quá 100 kí tự",
+"common.alertDanger.maxLength500":"Tên không được dài quá 500 kí tự",
+"common.alertDanger.phone":"Yêu cầu phải có số điện thoại",
+"common.alertDanger.customerGroup":"Yêu cầu phải lựa chọn nhóm khách hàng",
+"common.to":"đến",
+"common.alertDanger.inputPrice":"Chưa có giá nhập hàng",
+"common.alertDanger.retailPrice":"Chưa có giá bán lẻ",
+
+
+
+
+"common.list.action":"Tác vụ",
+"common.list.note":"Ghi chú",
+"common.list.status":"Trạng thái",
+"common.list.address":"Địa chỉ",
+"common.list.email":"Email",
+"common.list.fax":"Fax",
+"common.list.phone":"SDT",
+"common.list.add":"Thêm ",
+"common.list.sex":"Giới tính",
+"common.list.birthDay":"Ngày sinh",
+"common.list.purchaseDate":"Ngày mua hàng",
+"common.list.search":"Tìm kiếm",
+"common.list.importFromExcel":"Nhập từ excel",
+"common.list.exportToExcel":"Xuất ra excel",
+"common.list.id":"ID",
+"common.list.code":"Mã số",
+"common.list.unit":"Đơn vị tính",
+
+
+"ref.unit.kg": "Kg",
+
+
+"customer.group.title":"Danh sách nhóm khách hàng",
+"customer.group.list.id":"Mã số",
+"customer.group.list.name":"Tên",
+"customer.group.detail.title":"Chi tiết nhóm khách hàng",
+"customer.group.list.quantity":"Số lượng",
+
+"customer.title.customer":"Danh sách khách hàng",
+"customer.list.id":"Mã số ",
+"customer.list.name":"Tên khách hàng",
+"customer.list.customerGroup":"Nhóm khách hàng",
+"customer.list.revenune":"Doanh số",
+"customer.list.timesBought":"Số lần mua",
+"customer.list.balanceDue":"Dư nợ",
+"customer.detail.title":"Chi tiết khách hàng",
+"customer.list.revenuneFrom":"Doanh số từ",
+"customer.list.balanceDueFrom":"Dư nợ từ",
+"customer.list.timesBoughtFrom":"Số lần mua từ",
+"customer.list.purchaseDateFrom":"Ngày mua hàng từ",
+
+"supplier.group.title":"Danh sách nhóm nhà cung cấp",
+"supplier.group.list.id":"Mã số",
+"supplier.group.list.name":"Tên",
+"supplier.group.detail.title":"Chi tiết nhóm khách hàng",
+"supplier.group.list.quantity":"Số lượng",
+
+"supplier.title.supplier":"Danh sách khách hàng",
+"supplier.list.id":"Mã số ",
+"supplier.list.name":"Tên nhà cung cấp",
+"supplier.list.supplierGroup":"Nhóm khách hàng",
+"supplier.list.revenune":"Doanh số",
+"supplier.list.contact":"Người liên hệ",
+
+"product.group.title":"Danh sách nhóm sản phẩm",
+"product.group.list.id":"Mã số",
+"product.group.list.name":"Tên sản phẩm",
+
+"product.title.product":"Danh sách sản phẩm",
+"product.list.id":"Mã sản phẩm",
+"product.list.name":"Tên sản phẩm",
+"product.list.description":"Mô tả",
+"product.list.image":"Hình ảnh",
+"product.list.inputPrice":"Giá nhập",
+"product.list.wholesalePrice":"Giá sỉ",
+"product.list.retailPrice":"Giá lẻ",
+"product.list.group":"Nhóm sản phẩm",
+"product.list.alarmInventory":"Cảnh báo tồn kho",
+"product.list.unit":"Đơn vị tính",
+"product.list.inputFrom":"Nhập kho từ",
+"product.detail.title":"Chi tiết sản phẩm",
+
+"unit.list.tittle":"Đơn vị tính",
+"unit.list.id":"Mã DVT",
+"unit.list.name":"Tên DVT",
+
+"warehouse.title.warehouse":"Kho hàng",
+"warehouse.list.id":"Mã kho",
+"warehouse.list.name":"Tên kho",
+"warehouse.list.use":"Đang sử dụng",
+"warehouse.list.branch":"Chi nhánh",
+"warehouse.detail.title":"Chi tiết kho hàng"
+}

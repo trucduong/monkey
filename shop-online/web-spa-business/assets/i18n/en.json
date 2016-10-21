@@ -1,0 +1,91 @@
+{
+"common.alertDanger.name":"Name is required",
+"common.alertDanger.maxLength100":"Name cannot be more than 100 characters long.",
+"common.alertDanger.maxLength500":"Name cannot be more than 500 characters long.",
+"common.alertDanger.phone":"Phone is required",
+"common.alertDanger.customerGroup":"Name group is required",
+"common.to":"to",
+"common.alertDanger.inputPrice":"Input price is required",
+"common.alertDanger.retailPrice":"Retail price is required",
+
+
+
+
+"common.list.action":"Action",
+"common.list.note":"Note",
+"common.list.status":"Status",
+"common.list.address":"Address",
+"common.list.email":"Email",
+"common.list.fax":"Fax",
+"common.list.phone":"Phone",
+"common.list.add":"Add",
+"common.list.sex":"Sex",
+"common.list.birthDay":"Birth day",
+"common.list.purchaseDate":"Purchase Date",
+"common.list.search":"Search",
+"common.list.importFromExcel":"Import from excel",
+"common.list.exportToExcel":"Export to excel",
+"common.list.unit":"Unit",
+
+
+
+"customer.group.title":"Customer Groups",
+"customer.group.list.id":"Id",
+"customer.group.list.name":"Name",
+"customer.group.detail.title":"Customer Group Detail",
+"customer.group.list.quantity":"Quantity",
+
+"customer.title.customer":"Customers",
+"customer.list.id":"Id",
+"customer.list.name":"Name",
+"customer.list.customerGroup":"Customer group",
+"customer.list.revenune":"Revenune",
+"customer.list.timesBought":"Times bought",
+"customer.list.balanceDue":"Balance Due",
+"customer.detail.title":"Customer Detail",
+"customer.list.revenuneFrom":" Revenune From",
+"customer.list.balanceDueFrom":"Balance Due From",
+"customer.list.timesBoughtFrom":"Times bought from",
+"customer.list.purchaseDateFrom":"Purchase Date From",
+
+"supplier.group.title":"Supplier Groups",
+"supplier.group.list.id":"Id",
+"supplier.group.list.name":"Name",
+"supplier.group.detail.title":"Supplier Group Detail",
+"supplier.group.list.quantity":"Quantity",
+
+"supplier.title.supplier":"Suppliers",
+"supplier.list.id":"Id",
+"supplier.list.name":"Name",
+"supplier.list.supplierGroup":"Supplier groups",
+"supplier.list.revenune":"Revenune",
+"supplier.list.contact":"Contact",
+
+"product.group.title":"Product Groups",
+"product.group.list.id":"Id",
+"product.group.list.name":"Name",
+
+"product.title.product":"Products",
+"product.list.id":"Id",
+"product.list.name":"Name",
+"product.list.image":"Image",
+"product.list.inputPrice":"Input Price",
+"product.list.wholesalePrice":"Wholesale Price",
+"product.list.retailPrice":"Retail Price",
+"product.list.productGroup":"Product Group",
+"product.list.alarmInventory":"Alarm Inventory",
+"product.list.unit":"Unit",
+"product.list.inputFrom":"Input From",
+"product.detail.title":"Product Detail",
+
+"unit.list.tittle":"Unit",
+"unit.list.id":"Id",
+"unit.list.name":"Name",
+
+"warehouse.title.warehouse":"Warehouse",
+"warehouse.list.id":"Id",
+"warehouse.list.name":"Name",
+"warehouse.list.use":"Use",
+"warehouse.list.branch":"Branch",
+"warehouse.detail.title":"Warehouse Detail"
+}

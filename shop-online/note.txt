@@ -1,0 +1,13 @@
+CREATE SCHEMA `service-auth` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
+INSERT INTO `service-auth`.`user_accounts` (`login_name`, `version`, `account_type`, `password`, `permissions`, `shop_id`, `status`) VALUES ('admin', '0', 'ADMIN', 'admin', 'a,b,c', 'shop1', 'ACTIVE');
+
+#### Devleopment Notes ####
+
+### Json
+JsonFormatter
+	toJson
+	fromJson
+	
+### Services
+- All controller must extend: BaseServiceController
+
