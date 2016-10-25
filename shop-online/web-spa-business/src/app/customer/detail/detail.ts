@@ -3,8 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import { Customer, CustomerService } from '../shared/index';
-import { AlertType } from './../../shared/index';
-import { EditController } from './../../shared/index';
+import { EditController, AlertType, FormInfo } from './../../shared/index';
 
 @Component({
     selector: 'customer-detail',
@@ -22,6 +21,11 @@ export class CustomerDetailCmp extends EditController<Customer> implements OnIni
 
     getCurrentUrl(): string {
         return '/customer-detail';
+    }
+
+    createForm(): FormInfo {
+        let form = new FormInfo(this.createModel, 'customer.detail.title');
+        return form;
     }
 
     createModel(): Customer {

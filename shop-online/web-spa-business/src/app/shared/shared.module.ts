@@ -14,11 +14,18 @@ import { GridCmp } from './grid/grid';
 import { GridActionCmp } from './grid/action/action';
 import { GridContentCmp } from './grid/content/content';
 
+import { FormCmp } from './form/form';
+import { FormActionCmp } from './form/action/action';
+import { FormContentCmp } from './form/content/content';
+import { FormFieldCmp } from './form/field/field';
+
 import { DialogCmp } from './dialog/dialog';
 import { DialogHeaderCmp } from './dialog/header/header';
 import { DialogBodyCmp } from './dialog/body/body';
 import { DialogFooterCmp } from './dialog/footer/footer';
 import { DialogService } from './dialog/dialog.service';
+
+import { AlertDialogCmp } from './alert.dialog/alert.dialog';
 
 @NgModule({
   imports:      [ 
@@ -39,7 +46,9 @@ import { DialogService } from './dialog/dialog.service';
     AlertCmp,
     LoadingCmp,
     GridCmp, GridActionCmp, GridContentCmp,
-    DialogCmp, DialogHeaderCmp, DialogBodyCmp, DialogFooterCmp
+    FormCmp, FormActionCmp, FormContentCmp, FormFieldCmp,
+    DialogCmp, DialogHeaderCmp, DialogBodyCmp, DialogFooterCmp,
+    AlertDialogCmp
   ],
   exports: [ 
     CommonModule,
@@ -53,7 +62,9 @@ import { DialogService } from './dialog/dialog.service';
     AlertCmp,
     LoadingCmp,
     GridCmp, GridActionCmp, GridContentCmp,
-    DialogCmp, DialogHeaderCmp, DialogBodyCmp, DialogFooterCmp
+    FormCmp, FormActionCmp, FormContentCmp, FormFieldCmp,
+    DialogCmp, DialogHeaderCmp, DialogBodyCmp, DialogFooterCmp,
+    AlertDialogCmp
   ],
   providers: [
       DialogService

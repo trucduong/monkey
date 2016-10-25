@@ -56,8 +56,8 @@ export class CustomerCmp extends ListController<Customer> implements OnInit  {
     return '/customer-detail';
   }
 
-  delete(item: Customer): boolean {
-    return this.customerService.deleteCustomer(item.id);
-  }
+  // delete(item: Customer): boolean {
+  //   return this.customerService.deleteCustomer(item.id);
+  // }
 
 }

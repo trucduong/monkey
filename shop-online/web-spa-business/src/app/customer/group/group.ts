@@ -51,7 +51,4 @@ export class CustomerGroupCmp extends ListController<CustomerGroup> implements O
     return '/customer-group-detail';
   }
 
-  delete(item: CustomerGroup): boolean {
-    return this.customerService.deleteCustomerGroup(item.id);
-  }
 }

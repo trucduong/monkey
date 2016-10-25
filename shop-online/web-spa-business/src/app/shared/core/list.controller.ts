@@ -18,9 +18,9 @@ export abstract class ListController<T> extends BaseController {
         super(router, translate);
     }
 
-    idColumnName='id';
+    idColumnName = 'id';
     private gridInfo: GridInfo;
-    private dataSource: T[]; 
+    private dataSource: T[];
     private errors: { [key: string]: string; } = {};
 
     abstract load(): Promise<T[]>;
@@ -29,8 +29,8 @@ export abstract class ListController<T> extends BaseController {
 
     getActions(): GridAction[] {
         let actions: GridAction[] = [
-            {name:'edit', type:'btn-warning', icon:'fa fa-pencil'},
-            {name:'delete', type:'btn-danger', icon:'fa fa-times'},
+            { name: 'edit', type: 'btn-warning', icon: 'fa fa-pencil' },
+            { name: 'delete', type: 'btn-danger', icon: 'fa fa-times' },
         ];
         return actions;
     }
@@ -38,7 +38,7 @@ export abstract class ListController<T> extends BaseController {
     getDefaultSort(): SortInfo {
         return null;
     }
-    
+
     getDefaultFilter(): FilterInfo {
         return new FilterInfo([]);
     }
@@ -56,7 +56,7 @@ export abstract class ListController<T> extends BaseController {
     }
 
     onExecute(param: any) {
-        if(!param.action) {
+        if (!param.action) {
             return;
         }
 
@@ -68,7 +68,7 @@ export abstract class ListController<T> extends BaseController {
 
         } else if (param.action == 'delete') {
             this.onDelete(param.data);
-            
+
         } else if (param.action == 'select') {
             this.onSelect(param.data);
 
@@ -79,12 +79,12 @@ export abstract class ListController<T> extends BaseController {
 
     onLoad() {
         this.load()
-        .then(data => {
-            this.dataSource = data;
-        })
-        .catch(error => {
-            this.dataSource = [];
-        });
+            .then(data => {
+                this.dataSource = data;
+            })
+            .catch(error => {
+                this.dataSource = [];
+            });
     }
 
     onEdit(item: T) {
@@ -96,23 +96,29 @@ export abstract class ListController<T> extends BaseController {
     }
 
     onDelete(item: T) {
+        let mthis = this;
         // TODO: show confirm message
+        mthis.showQuestionMessage({ key: 'common.alert.content.delete', params: [] }, {
+            onExecute(event) {
+                if (event.action == 'yes') {
+                    // delete
+                    mthis.delete(item)
+                        .then(result => {
+                            if (result) {
+                                mthis.dataSource = mthis.dataSource.filter(e => {
+                                    return item[mthis.idColumnName] != e[mthis.idColumnName];
+                                });
 
-        // delete
-        this.delete(item)
-        .then(result => {
-            if (result) {
-                this.dataSource = this.dataSource.filter(e => {
-                    return item[this.idColumnName] != e[this.idColumnName];
-                });
-
-                this.alert(AlertType.success, 'Delete success!');
-            } else {
-                this.alert(AlertType.danger, 'Delete failure!');
+                                mthis.alert(AlertType.success, 'Delete success!');
+                            } else {
+                                mthis.alert(AlertType.danger, 'Delete failure!');
+                            }
+                        })
+                        .catch(error => {
+                            mthis.alert(AlertType.danger, 'Delete failure!');
+                        });
+                }
             }
-        })
-        .catch(error => {
-            this.alert(AlertType.danger, 'Delete failure!');
         });
     }
 

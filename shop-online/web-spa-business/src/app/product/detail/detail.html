@@ -8,92 +8,66 @@
 
     <!-- page content -->
     <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ 'common.list.add' | translate}}
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <!--<form #productForm="ngForm" role="form">-->
-                            <div class="form-group">
-                                <label>{{ 'product.list.id' | translate}}</label>
-                                <input class="form-control" required [(ngModel)]="model.id" name="id">
-                            </div>
-                            <div class="form-group">
-                                <label>{{ 'product.list.name' | translate}}</label>
-                                <input id="name" class="form-control" required maxlength="100" [(ngModel)]="model.name" name="name" #name="ngModel">
+        <alert-cmp [info]="alertInfo"></alert-cmp>
+        <form-cmp [info]="formInfo">
+            <form-content-cmp>
+                <form-field-cmp [info]="formInfo.getField('id')">
+                    <input class="form-control" [(ngModel)]="formInfo.model.id" name="id">
+                </form-field-cmp>
 
-                                <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
-                                    <div [hidden]="!name.errors.required">
-                                        {{ 'common.alertDanger.name' | translate}}
-                                    </div>
-                                    <div [hidden]="!name.errors.maxlength">
-                                        {{ 'common.alertDanger.maxLength100' | translate}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>{{ 'common.list.unit' | translate}}</label>
-                                <input class="form-control" required [(ngModel)]="model.unit" name="unit">
-                            </div>
-                            <div class="form-group">
-                                <label>{{ 'product.list.productGroup' | translate}}</label>
-                                <input class="form-control" required [(ngModel)]="model.productGroup" name="productGroup">
-                                <button (click)="onNavigate('\product-group-detail')" type="button" class="btn btn-default">+</button>
-                            </div>
-                            <div class="form-group">
-                                <label>{{ 'product.list.inputPrice' | translate}}</label>
-                                <input id="inputPrice" class="form-control" required [(ngModel)]="model.inputPrice" name="inputPrice" #inputPrice="ngModel">
+                <form-field-cmp [info]="formInfo.getField('code')">
+                    <input class="form-control" [(ngModel)]="formInfo.model.code" name="code">
+                </form-field-cmp>
 
-                                <div *ngIf="inputPrice.errors && (inputPrice.dirty || inputPrice.touched)" class="alert alert-danger">
-                                    <div [hidden]="!inputPrice.errors.required">
-                                        {{ 'common.alertDanger.inputPrice' | translate}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>{{ 'product.list.wholesalePrice' | translate}}</label>
-                                <input class="form-control" required [(ngModel)]="model.wholesalePrice" name="wholesalePrice">
-                            </div>
-                            <div class="form-group">
-                                <label>{{ 'product.list.retailPrice' | translate}}</label>
-                                <input id="retailPrice" class="form-control" required [(ngModel)]="model.retailPrice" name="retailPrice" #retailPrice="ngModel">
+                <form-field-cmp [info]="formInfo.getField('image')">
+                    <input class="form-control" [(ngModel)]="formInfo.model.image" name="image">
+                </form-field-cmp>
 
-                                <div *ngIf="retailPrice.errors && (retailPrice.dirty || retailPrice.touched)" class="alert alert-danger">
-                                    <div [hidden]="!retailPrice.errors.required">
-                                        {{ 'common.alertDanger.retailPrice' | translate}}
-                                    </div>
-                                </div>
-                            </div>
+                <form-field-cmp [info]="formInfo.getField('unit')">
+                    <input class="form-control" [(ngModel)]="formInfo.model.unit" name="unit">
+                </form-field-cmp>
 
-                            <div class="form-group">
-                                <label>{{ 'product.list.alarmInventory' | translate}}</label>
-                                <input class="form-control" required [(ngModel)]="model.alarmInventory" name="alarmInventory">
-                            </div>
-                            <div class="form-group">
-                                <label>{{ 'common.list.status' | translate}}</label>
-                                <input class="form-control" required [(ngModel)]="model.status" name="statussex">
-                            </div>
+                <form-field-cmp [info]="formInfo.getField('group')">
+                    <input class="form-control" [(ngModel)]="formInfo.model.group" name="group">
+                </form-field-cmp>
 
-                            <div class="form-group">
-                                <label>{{ 'common.list.note' | translate}}</label>
-                                <input class="form-control" required [(ngModel)]="model.note" name="note">
-                            </div>
+                <form-field-cmp [info]="formInfo.getField('description')">
+                    <input class="form-control" [(ngModel)]="formInfo.model.description" name="description">
+                </form-field-cmp>
 
-                            <alert-cmp [info]="alertInfo"></alert-cmp>
-                            <button (click)="onSave()" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i></button>
-                            <!--</form>-->
-                        </div>
-                    </div>
-                </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
-        </div>
-        <!-- /.col-lg-12 -->
+                <form-field-cmp [info]="formInfo.getField('status')">
+                    <input class="form-control" [(ngModel)]="formInfo.model.status" name="status">
+                </form-field-cmp>
+
+                <form-field-cmp [info]="formInfo.getField('discount')">
+                    <input class="form-control" [(ngModel)]="formInfo.model.discount" name="discount">
+                </form-field-cmp>
+
+                <form-field-cmp [info]="formInfo.getField('remaining')">
+                    <input class="form-control" [(ngModel)]="formInfo.model.remaining" name="remaining">
+                </form-field-cmp>
+
+                <form-field-cmp [info]="formInfo.getField('warningRemaining')">
+                    <input class="form-control" [(ngModel)]="formInfo.model.warningRemaining" name="warningRemaining">
+                </form-field-cmp>
+
+                <form-field-cmp [info]="formInfo.getField('inputPrice')">
+                    <input class="form-control" [(ngModel)]="formInfo.model.inputPrice" name="inputPrice">
+                </form-field-cmp>
+
+                <form-field-cmp [info]="formInfo.getField('wholesalePrice')">
+                    <input class="form-control" [(ngModel)]="formInfo.model.wholesalePrice" name="wholesalePrice">
+                </form-field-cmp>
+
+                <form-field-cmp [info]="formInfo.getField('retailPrice')">
+                    <input class="form-control" [(ngModel)]="formInfo.model.retailPrice" name="retailPrice">
+                </form-field-cmp>
+            </form-content-cmp>
+
+            <form-action-cmp>
+                <button (click)="onSave()" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i></button>
+            </form-action-cmp>
+        </form-cmp>
     </div>
     <div class="row">
         <button class="btn btn-default" (click)="onBack()"><i class="glyphicon glyphicon-arrow-left"></i></button>

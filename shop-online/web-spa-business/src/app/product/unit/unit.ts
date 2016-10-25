@@ -50,7 +50,4 @@ export class UnitCmp extends ListController<Unit> implements OnInit {
     return '/product-unit-detail';
   }
 
-  delete(item: Unit): boolean {
-    return this.unitService.deleteUnit(item.id);
-  }
 }

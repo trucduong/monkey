@@ -4,3 +4,7 @@ export * from './list.controller';
 export * from './navigator.info';
 export * from './service/base.http.service';
 export * from './utils/service.url';
+export * from './utils/common.utils';
+export * from './validator/error';
+export * from './validator/validator';
+export * from './validator/field.validator';

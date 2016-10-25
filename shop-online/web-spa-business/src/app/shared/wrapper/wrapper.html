@@ -4,4 +4,5 @@
     <div id="page-wrapper" style="min-height: 768px;">
         <ng-content></ng-content>
     </div>
+    <alert-dialog-cmp *ngIf="info.dialog" [info]="info.dialog"></alert-dialog-cmp>
 </div>

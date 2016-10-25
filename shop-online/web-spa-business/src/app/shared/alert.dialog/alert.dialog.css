@@ -1,0 +1,29 @@
+.modal-body {
+    max-height: 150px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+@media (min-height: 400px) {
+    .modal-body {
+        max-height: 250px;
+    }
+}
+
+@media (min-height: 500px) {
+    .modal-body {
+        max-height: 350px;
+    }
+}
+
+@media (min-height: 600px) {
+    .modal-body {
+        max-height: 450px;
+    }
+}
+
+@media (min-height: 700px) {
+    .modal-body {
+        max-height: 550px;
+    }
+}

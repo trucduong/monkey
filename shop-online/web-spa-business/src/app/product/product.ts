@@ -47,11 +47,10 @@ export class ProductCmp extends ListController<Product> implements OnInit {
   load(): Promise<any> {
     return this.productService.getProducts()
       .then(products => {
-        console.log(products);
         return products;
       })
       .catch(error => {
-        console.log(error);
+        this.log(error);
         return [];
       });
   }
@@ -76,4 +75,5 @@ export class ProductCmp extends ListController<Product> implements OnInit {
       })
     });
   }
+
 }

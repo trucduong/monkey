@@ -71,10 +71,6 @@ export class WarehouseImportCmp extends ListController<Warehouse> implements OnI
     this.dialogService.show(this.dialogInfo);
   }
 
-  delete(item: Warehouse): boolean {
-    return this.warehouseService.deleteWarehouse(item.id);
-  }
-
   onSave() {
     // TODO: Add new item
 

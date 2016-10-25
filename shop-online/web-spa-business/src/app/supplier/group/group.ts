@@ -51,7 +51,4 @@ export class SupplierGroupCmp extends ListController<SupplierGroup> implements O
     return '/supplier-group-detail';
   }
 
-  delete(item: SupplierGroup): boolean {
-    return this.supplierService.deleteSupplierGroup(item.id);
-  }
 }

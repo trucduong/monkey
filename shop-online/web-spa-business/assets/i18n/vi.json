@@ -9,6 +9,20 @@
 "common.alertDanger.retailPrice":"Chưa có giá bán lẻ",
 
 
+"common.dialog.btn.yes":"Có",
+"common.dialog.btn.no":"Không",
+"common.dialog.btn.ok":"Đồng ý",
+"common.dialog.btn.cancel":"Hủy",
+"common.dialog.btn.close":"Đóng",
+"common.dialog.btn.confirm":"Xác nhận",
+
+"common.alert.title.question":"Xác nhận",
+"common.alert.title.confirm":"Xác nhận",
+"common.alert.title.info":"Thông tin",
+"common.alert.title.error":"Lỗi",
+"common.alert.content.delete":"Bạn có chắc muốn xóa dòng đang chọn?",
+
+"common.validator.error.required":"Xin vui lòng nhập",
 
 
 "common.list.action":"Tác vụ",
@@ -31,6 +45,43 @@
 
 
 "ref.unit.kg": "Kg",
+
+"product.title.product":"Danh sách sản phẩm",
+"product.list.id":"Mã sản phẩm",
+"product.list.name":"Tên sản phẩm",
+"product.list.description":"Mô tả",
+"product.list.image":"Hình ảnh",
+"product.list.inputPrice":"Giá nhập",
+"product.list.wholesalePrice":"Giá sỉ",
+"product.list.retailPrice":"Giá lẻ",
+"product.list.group":"Nhóm sản phẩm",
+"product.list.alarmInventory":"Cảnh báo tồn kho",
+"product.list.unit":"Đơn vị tính",
+"product.list.inputFrom":"Nhập kho từ",
+"product.detail.title":"Chi tiết sản phẩm",
+
+"product.detail.id":"ID",
+"product.detail.code":"Mã số",
+"product.detail.name":"Tên",
+"product.detail.image":"Hình ảnh",
+"product.detail.unit":"Đơn vị tính",
+"product.detail.group":"Nhóm",
+"product.detail.description":"Mô tả",
+"product.detail.status":"Trạng thái",
+"product.detail.discount":"Giảm giá / Chiết khấu (%)",
+"product.detail.remaining":"Số lượng",
+"product.detail.warningRemaining":"Cảnh báo tồn kho",
+"product.detail.inputPrice":"Giá nhập",
+"product.detail.wholesalePrice":"Giá bán sỉ",
+"product.detail.retailPrice":"Giá bán lẻ",
+
+"product.group.title":"Danh sách nhóm sản phẩm",
+"product.group.list.id":"Mã số",
+"product.group.list.name":"Tên sản phẩm",
+
+
+
+
 
 
 "customer.group.title":"Danh sách nhóm khách hàng",
@@ -65,23 +116,6 @@
 "supplier.list.revenune":"Doanh số",
 "supplier.list.contact":"Người liên hệ",
 
-"product.group.title":"Danh sách nhóm sản phẩm",
-"product.group.list.id":"Mã số",
-"product.group.list.name":"Tên sản phẩm",
-
-"product.title.product":"Danh sách sản phẩm",
-"product.list.id":"Mã sản phẩm",
-"product.list.name":"Tên sản phẩm",
-"product.list.description":"Mô tả",
-"product.list.image":"Hình ảnh",
-"product.list.inputPrice":"Giá nhập",
-"product.list.wholesalePrice":"Giá sỉ",
-"product.list.retailPrice":"Giá lẻ",
-"product.list.group":"Nhóm sản phẩm",
-"product.list.alarmInventory":"Cảnh báo tồn kho",
-"product.list.unit":"Đơn vị tính",
-"product.list.inputFrom":"Nhập kho từ",
-"product.detail.title":"Chi tiết sản phẩm",
 
 "unit.list.tittle":"Đơn vị tính",
 "unit.list.id":"Mã DVT",

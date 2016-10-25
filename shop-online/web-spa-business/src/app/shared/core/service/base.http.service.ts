@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+
+import { CommonUtils } from '../utils/common.utils';
  
 @Injectable()
 export class BaseHttpService {
@@ -10,7 +12,7 @@ export class BaseHttpService {
     public get(service: string, action: string, params: string[]) {
         let url = service + action;
         return this.http
-        .get(this.formatUrl(url, params))
+        .get(CommonUtils.formatStr(url, params))
         .toPromise()
         .then(response => {
             let json = response.json();
@@ -25,7 +27,7 @@ export class BaseHttpService {
     public post(service: string, action: string, data: any, params: string[]) {
         let url = service + action;
         return this.http
-            .post(this.formatUrl(url, params), JSON.stringify(data), {headers: this.headers})
+            .post(CommonUtils.formatStr(url, params), JSON.stringify(data), {headers: this.headers})
             .toPromise()
             .then(response => {
                 let json = response.json();
@@ -42,16 +44,7 @@ export class BaseHttpService {
         return Promise.reject(error.message || error);
     }
 
-    private formatUrl(url: string, params: string[]): string {
-        let result = url;
-        if (params && params.length > 0) {
-            params.forEach((element, index) => {
-                result = result.replace('{' + index + '}', element);
-            });
-        }
-
-        return result;
-    }
+    
 
     private isSuccess(json: any): boolean {
         return json && json.type && json.type == 'success';

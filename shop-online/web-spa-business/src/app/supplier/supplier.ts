@@ -59,8 +59,4 @@ export class SupplierCmp extends ListController<Supplier> implements OnInit  {
     return '/supplier-detail';
   }
 
-  delete(item: Supplier): boolean {
-    return this.supplierService.deleteSupplier(item.id);
-  }
-
 }

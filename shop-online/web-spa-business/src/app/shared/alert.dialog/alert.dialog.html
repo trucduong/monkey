@@ -1,0 +1,19 @@
+<div class="modal fade in" [style.display]="info.getDisplayStyle()" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="onAction('closed')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">
+                    {{info.title | translate }}
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p>{{info.content}}</p>
+            </div>
+            <div class="modal-footer">
+                <button *ngFor="let action of info.actions" (click)="onAction(action.name)" [class]="'btn ' + action.type">{{action.title | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="info.isShow" class="modal-backdrop fade in"></div>

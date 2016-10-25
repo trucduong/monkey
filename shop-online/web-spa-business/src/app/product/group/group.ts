@@ -51,7 +51,4 @@ export class ProductGroupCmp extends ListController<ProductGroup> implements OnI
     return '/product-group-detail';
   }
 
-  delete(item: ProductGroup): boolean {
-    return this.productService.deleteProductGroup(item.id);
-  }
 }

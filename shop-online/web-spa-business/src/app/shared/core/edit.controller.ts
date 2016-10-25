@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 import { BaseController } from './base.controller';
 import { AlertType } from '../alert/alert.type';
+import { FormInfo } from '../form/form.info';
 
 /**
  * EditController
@@ -13,27 +14,26 @@ export abstract class EditController<T> extends BaseController {
     }
 
     idColumnName='id';
-    private model: T;
+    formInfo: FormInfo;
     isEditing: boolean;
     private errors: { [key:string]:string; } = {};
 
-    abstract createModel(): T;
+    // TODO: change to abstract method
+    createForm(): FormInfo {return new FormInfo(null, null)}
     abstract load(id: any): T;
-    abstract validate(model: T): boolean;
     abstract save(model: T): boolean;
 
     ngOnInit() {
         this.showLoading();
 
-        this.errors = {};
+        this.formInfo = this.createForm();
 
         this.route.params.forEach((params: any) => {
             let id = params[this.idColumnName] + '';
             if (id == null || id == '' || id == '-1') {
-                this.model = this.createModel();
                 this.isEditing = false;
             } else {
-                this.model = this.load(id);
+                this.formInfo.model = this.load(id);
                 this.isEditing = true;
             }
         });
@@ -45,17 +45,14 @@ export abstract class EditController<T> extends BaseController {
         this.showLoading();
 
         // validate
-        this.errors = {};
-        if (!this.validate(this.model)) {
-            this.alert(AlertType.danger, "Please input correct information!");
+        if (!this.formInfo.validate()) {
+            this.showErrorMessage("Please input correct information!");
         }
 
         // save
-        let result = this.save(this.model);
-
+        let result = this.save(this.formInfo.model);
         if (!result) {
-            this.alert(AlertType.danger, "Can not save");
-            this.hideLoading();
+            this.showErrorMessage("Can not save");
             return;
         }
 

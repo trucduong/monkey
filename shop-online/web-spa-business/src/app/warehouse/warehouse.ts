@@ -58,8 +58,5 @@ export class WarehouseCmp extends ListController<Warehouse> implements OnInit  {
     return '/warehouse-detail';
   }
 
-  delete(item: Warehouse): boolean {
-    return this.warehouseService.deleteWarehouse(item.id);
-  }
 
 }
