@@ -18,10 +18,13 @@ export abstract class EditController<T> extends BaseController {
     isEditing: boolean;
     private errors: { [key:string]:string; } = {};
 
-    // TODO: change to abstract method
-    createForm(): FormInfo {return new FormInfo(null, null)}
     abstract load(id: any): T;
-    abstract save(model: T): boolean;
+    //abstract createForm(): FormInfo;
+    //abstract save(model: T): Promise<T>;
+
+    // TODO: remove this
+    createForm(): FormInfo {return new FormInfo(null, null)}
+    save(model: T): Promise<boolean> {return Promise.resolve(true)}
 
     ngOnInit() {
         this.showLoading();
@@ -50,14 +53,18 @@ export abstract class EditController<T> extends BaseController {
         }
 
         // save
-        let result = this.save(this.formInfo.model);
-        if (!result) {
+        let result: boolean = false;
+        this.save(this.formInfo.model)
+        .then(item => {
+            result = true;
+        })
+        .catch(error => {
             this.showErrorMessage("Can not save");
-            return;
-        }
+            this.log(error);
+        });
 
         this.hideLoading();
-        this.onBack();
+        this.checkOnBack(result);
     }
 
     addError(field: string, message: string) {

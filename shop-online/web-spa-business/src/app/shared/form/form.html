@@ -4,15 +4,12 @@
         <!-- /.panel-heading -->
         <div class="panel-body">
             <div class="col-xs-12">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <ng-content select="form-content-cmp"></ng-content>
-                        <div *ngIf="info.errors" class="alert alert-danger">
-                            <div *ngFor="let e of info.errors">{{ e | translate}}</div>
-                        </div>
-                        <ng-content select="form-action-cmp"></ng-content>
-                    </div>
+                <ng-content select="form-content-cmp"></ng-content>
+                <div *ngIf="info.hasError()" class="alert alert-danger">
+                    <div *ngFor="let e of info.errors">{{ e | translate}}</div>
+                    <div *ngIf="info.errors.length==0">{{ 'common.validator.error' | translate}}</div>
                 </div>
+                <ng-content select="form-action-cmp"></ng-content>
             </div>
         </div>
         <!-- /.panel-body -->

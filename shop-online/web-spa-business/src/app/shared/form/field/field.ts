@@ -8,11 +8,16 @@ import { FormFieldInfo } from '../form.info';
 })
 export class FormFieldCmp implements OnChanges {
     @Input('info') info: FormFieldInfo;
+    @Input('fieldModel') fieldModel: any;
 
     constructor() { }
 
     ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
         if (changes['info']) {
+            if (this.info) {
+                this.info.clearErrors();
+            }
+        } else if (changes['fieldModel']) {
             if (this.info) {
                 this.info.validate();
             }

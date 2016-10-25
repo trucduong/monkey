@@ -10,7 +10,7 @@ export class FormCmp implements OnChanges {
     constructor() { }
     ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
         if (changes['info']) {
-            this.info.validate();
+            this.info.clearErrors();
         }
     }
 }

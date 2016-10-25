@@ -2,7 +2,7 @@
     <label class="control-label">{{ info.label | translate}}</label>
     <ng-content></ng-content>
 
-    <div *ngIf="info.errors && info.errors.length>0" class="alert alert-danger">
+    <div *ngIf="info.hasError()" class="alert alert-danger">
         <div *ngFor="let e of info.errors">{{ e | translate}}</div>
     </div>
 </div>

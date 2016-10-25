@@ -52,7 +52,7 @@ export class ProductDetailCmp extends EditController<Product> implements OnInit 
         return this.productService.getProduct(id);
     }
 
-    save(model: Product): boolean {
-        return this.productService.saveProduct(model, this.isEditing);
+    save(model: Product): Promise<boolean> {
+        return Promise.resolve(this.productService.saveProduct(model, this.isEditing));
     }
 }

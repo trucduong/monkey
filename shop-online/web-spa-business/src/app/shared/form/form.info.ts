@@ -59,6 +59,10 @@ export class FormFieldInfo {
     public hasError() {
         return this.errors.length > 0;
     }
+
+    public getErrors(): string[] {
+        return this.errors;
+    }
 }
 
 export class FormInfo {
@@ -132,6 +136,7 @@ export class FormInfo {
         let hasError = false;
         this.fields.forEach(field => {
             if (field.hasError()) {
+                console.log(field.getErrors());
                 hasError = true;
             }
         });

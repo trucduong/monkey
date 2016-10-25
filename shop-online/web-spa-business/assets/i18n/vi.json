@@ -22,7 +22,8 @@
 "common.alert.title.error":"Lỗi",
 "common.alert.content.delete":"Bạn có chắc muốn xóa dòng đang chọn?",
 
-"common.validator.error.required":"Xin vui lòng nhập",
+"common.validator.error.required":"Xin vui lòng nhập!",
+"common.validator.error":"Thông tin bạn nhập chưa đúng, Xin vui lòng thử lại!",
 
 
 "common.list.action":"Tác vụ",

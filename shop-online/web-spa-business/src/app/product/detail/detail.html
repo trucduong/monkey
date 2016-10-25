@@ -11,55 +11,55 @@
         <alert-cmp [info]="alertInfo"></alert-cmp>
         <form-cmp [info]="formInfo">
             <form-content-cmp>
-                <form-field-cmp [info]="formInfo.getField('id')">
+                <form-field-cmp [info]="formInfo.getField('id')" [fieldModel]="formInfo.model.id">
                     <input class="form-control" [(ngModel)]="formInfo.model.id" name="id">
                 </form-field-cmp>
 
-                <form-field-cmp [info]="formInfo.getField('code')">
+                <form-field-cmp [info]="formInfo.getField('code')" [fieldModel]="formInfo.model.code">
                     <input class="form-control" [(ngModel)]="formInfo.model.code" name="code">
                 </form-field-cmp>
 
-                <form-field-cmp [info]="formInfo.getField('image')">
+                <form-field-cmp [info]="formInfo.getField('image')" [fieldModel]="formInfo.model.image">
                     <input class="form-control" [(ngModel)]="formInfo.model.image" name="image">
                 </form-field-cmp>
 
-                <form-field-cmp [info]="formInfo.getField('unit')">
+                <form-field-cmp [info]="formInfo.getField('unit')" [fieldModel]="formInfo.model.unit">
                     <input class="form-control" [(ngModel)]="formInfo.model.unit" name="unit">
                 </form-field-cmp>
 
-                <form-field-cmp [info]="formInfo.getField('group')">
+                <form-field-cmp [info]="formInfo.getField('group')" [fieldModel]="formInfo.model.group">
                     <input class="form-control" [(ngModel)]="formInfo.model.group" name="group">
                 </form-field-cmp>
 
-                <form-field-cmp [info]="formInfo.getField('description')">
+                <form-field-cmp [info]="formInfo.getField('description')" [fieldModel]="formInfo.model.description">
                     <input class="form-control" [(ngModel)]="formInfo.model.description" name="description">
                 </form-field-cmp>
 
-                <form-field-cmp [info]="formInfo.getField('status')">
+                <form-field-cmp [info]="formInfo.getField('status')" [fieldModel]="formInfo.model.status">
                     <input class="form-control" [(ngModel)]="formInfo.model.status" name="status">
                 </form-field-cmp>
 
-                <form-field-cmp [info]="formInfo.getField('discount')">
+                <form-field-cmp [info]="formInfo.getField('discount')" [fieldModel]="formInfo.model.discount">
                     <input class="form-control" [(ngModel)]="formInfo.model.discount" name="discount">
                 </form-field-cmp>
 
-                <form-field-cmp [info]="formInfo.getField('remaining')">
+                <form-field-cmp [info]="formInfo.getField('remaining')" [fieldModel]="formInfo.model.remaining">
                     <input class="form-control" [(ngModel)]="formInfo.model.remaining" name="remaining">
                 </form-field-cmp>
 
-                <form-field-cmp [info]="formInfo.getField('warningRemaining')">
+                <form-field-cmp [info]="formInfo.getField('warningRemaining')" [fieldModel]="formInfo.model.warningRemaining">
                     <input class="form-control" [(ngModel)]="formInfo.model.warningRemaining" name="warningRemaining">
                 </form-field-cmp>
 
-                <form-field-cmp [info]="formInfo.getField('inputPrice')">
+                <form-field-cmp [info]="formInfo.getField('inputPrice')" [fieldModel]="formInfo.model.inputPrice">
                     <input class="form-control" [(ngModel)]="formInfo.model.inputPrice" name="inputPrice">
                 </form-field-cmp>
 
-                <form-field-cmp [info]="formInfo.getField('wholesalePrice')">
+                <form-field-cmp [info]="formInfo.getField('wholesalePrice')" [fieldModel]="formInfo.model.wholesalePrice">
                     <input class="form-control" [(ngModel)]="formInfo.model.wholesalePrice" name="wholesalePrice">
                 </form-field-cmp>
 
-                <form-field-cmp [info]="formInfo.getField('retailPrice')">
+                <form-field-cmp [info]="formInfo.getField('retailPrice')" [fieldModel]="formInfo.model.retailPrice">
                     <input class="form-control" [(ngModel)]="formInfo.model.retailPrice" name="retailPrice">
                 </form-field-cmp>
             </form-content-cmp>

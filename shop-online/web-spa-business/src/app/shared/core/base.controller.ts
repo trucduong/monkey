@@ -48,6 +48,12 @@ export abstract class BaseController {
         this.navigateBack();
     }
 
+    checkOnBack(canBack: boolean) {
+        if (canBack) {
+            this.onBack();
+        }
+    }
+
     onNavigate(url: string) {
         this.navigateTo([url]);
     }
