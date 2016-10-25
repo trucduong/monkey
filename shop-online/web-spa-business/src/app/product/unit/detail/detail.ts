@@ -28,9 +28,9 @@ export class UnitDetailCmp extends EditController<Unit> implements OnInit {
         return new Unit();
     }
 
-    load(id: any): Unit {
-        return this.unitService.getUnit(id);
-    }
+    // load(id: any): Unit {
+    //     return this.unitService.getUnit(id);
+    // }
 
     validate(model: Unit): boolean {
         // TODO: validate unit group here
@@ -40,7 +40,7 @@ export class UnitDetailCmp extends EditController<Unit> implements OnInit {
         return true;
     }
 
-    save(model: Unit): boolean {
-        return this.unitService.saveUnit(model, this.isEditing);
-    }
+    // save(model: Unit): boolean {
+    //     return this.unitService.saveUnit(model, this.isEditing);
+    // }
 }

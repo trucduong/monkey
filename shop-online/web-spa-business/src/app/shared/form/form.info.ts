@@ -10,6 +10,10 @@ export class FormFieldInfo {
     //readonly: boolean; // not support
     visible: boolean;
 
+    type: string;
+    autofocus: boolean;
+    placeholder: string;
+
     validators: Validator[];
     private errors: string[];
 
@@ -143,4 +147,78 @@ export class FormInfo {
 
         return hasError;
     }
+}
+
+export class TextFieldInfo extends FormFieldInfo {
+    maxlength: number;
+    minlength: number;
+
+    constructor(model: any, name: string, label: string, required: boolean, maxlength: number, minlength: number) {
+        super(model, name, label, required);
+        this.maxlength = maxlength;
+        this.minlength = minlength;
+        this.type = 'text';
+    }
+}
+
+export class EmailFieldInfo extends TextFieldInfo {
+    constructor(model: any, name: string, label: string, required: boolean, maxlength: number, minlength: number) {
+        super(model, name, label, required, maxlength, minlength);
+        this.maxlength = maxlength;
+        this.minlength = minlength;
+        this.type = 'email';
+    }
+}
+
+export class PasswordFieldInfo extends TextFieldInfo {
+    constructor(model: any, name: string, label: string, required: boolean, maxlength: number, minlength: number) {
+        super(model, name, label, required, maxlength, minlength);
+        this.maxlength = maxlength;
+        this.minlength = minlength;
+        this.type = 'password';
+    }
+}
+
+export class TextAreaFieldInfo extends TextFieldInfo {
+    maxlength: number;
+    rows: number;
+    constructor(model: any, name: string, label: string, required: boolean, maxlength: number, rows: number) {
+        super(model, name, label, required, maxlength, 0);
+        this.rows = rows
+        this.type = 'textarea';
+    }
+}
+
+export class NumberFieldInfo extends FormFieldInfo {
+    max: number;
+    min: number;
+    constructor(model: any, name: string, label: string, required: boolean, max: number, min: number) {
+        super(model, name, label, required);
+        this.max = max;
+        this.min = min;
+        this.type = 'number';
+    }
+}
+
+export class DateFieldInfo extends FormFieldInfo {
+    max: number;
+    min: number;
+
+    supType: string;
+}
+
+export class CheckboxFieldInfo extends FormFieldInfo {
+    items: {name: string, value: string};
+}
+
+export class RadioFieldInfo extends FormFieldInfo {
+    items: {name: string, value: string};
+}
+
+export class UploadFieldInfo extends FormFieldInfo {
+
+}
+
+export class ImageFieldInfo extends FormFieldInfo {
+
 }

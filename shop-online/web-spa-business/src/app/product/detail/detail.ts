@@ -48,11 +48,12 @@ export class ProductDetailCmp extends EditController<Product> implements OnInit 
         return new Product();
     }
 
-    load(id: any): Product {
+    load(id: any): Promise<Product> {
         return this.productService.getProduct(id);
     }
 
-    save(model: Product): Promise<boolean> {
-        return Promise.resolve(this.productService.saveProduct(model, this.isEditing));
+    save(model: Product): Promise<Product> {
+        this.productService.saveProduct(model, this.isEditing)
+        return Promise.resolve(model);
     }
 }

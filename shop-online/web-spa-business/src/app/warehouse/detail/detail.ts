@@ -28,9 +28,9 @@ export class WarehouseDetailCmp extends EditController<Warehouse> implements OnI
         return new Warehouse();
     }
 
-    load(id: any): Warehouse {
-        return this.warehouseService.getWarehouse(id);
-    }
+    // load(id: any): Warehouse {
+    //     return this.warehouseService.getWarehouse(id);
+    // }
 
     validate(model: Warehouse): boolean {
         // TODO: validate warehouse here
@@ -40,7 +40,7 @@ export class WarehouseDetailCmp extends EditController<Warehouse> implements OnI
         return true;
     }
 
-    save(model: Warehouse): boolean {
-        return this.warehouseService.saveWarehouse(model, this.isEditing);
-    }
+    // save(model: Warehouse): boolean {
+    //     return this.warehouseService.saveWarehouse(model, this.isEditing);
+    // }
 }

@@ -1,6 +1,6 @@
 export const SERVICES: any = {
     URLS: {
-        product: 'http://localhost:8080/service-catalogue/product'
+        product: 'http://localhost:7070/service-catalogue/product'
     },
     ACTIONS: {
         READ: '/read/{0}',

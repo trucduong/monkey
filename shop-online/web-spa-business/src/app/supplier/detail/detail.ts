@@ -28,9 +28,9 @@ export class SupplierDetailCmp extends EditController<Supplier> implements OnIni
         return new Supplier();
     }
 
-    load(id: any): Supplier {
-        return this.supplierService.getSupplier(id);
-    }
+    // load(id: any): Supplier {
+    //     return this.supplierService.getSupplier(id);
+    // }
 
     validate(model: Supplier): boolean {
         // TODO: validate supplier here
@@ -40,7 +40,7 @@ export class SupplierDetailCmp extends EditController<Supplier> implements OnIni
         return true;
     }
 
-    save(model: Supplier): boolean {
-        return this.supplierService.saveSupplier(model, this.isEditing);
-    }
+    // save(model: Supplier): boolean {
+    //     return this.supplierService.saveSupplier(model, this.isEditing);
+    // }
 }

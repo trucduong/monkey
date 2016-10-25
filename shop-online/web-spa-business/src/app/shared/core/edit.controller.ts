@@ -18,26 +18,33 @@ export abstract class EditController<T> extends BaseController {
     isEditing: boolean;
     private errors: { [key:string]:string; } = {};
 
-    abstract load(id: any): T;
+    //abstract load(id: any): T;
     //abstract createForm(): FormInfo;
     //abstract save(model: T): Promise<T>;
 
     // TODO: remove this
     createForm(): FormInfo {return new FormInfo(null, null)}
-    save(model: T): Promise<boolean> {return Promise.resolve(true)}
+    save(model: T): Promise<T> {return Promise.resolve({})}
+    load(id: any): Promise<T> {
+        return Promise.resolve(null);
+    }
 
     ngOnInit() {
         this.showLoading();
 
         this.formInfo = this.createForm();
 
+        this.isEditing = false;
         this.route.params.forEach((params: any) => {
             let id = params[this.idColumnName] + '';
-            if (id == null || id == '' || id == '-1') {
-                this.isEditing = false;
-            } else {
-                this.formInfo.model = this.load(id);
-                this.isEditing = true;
+            if (id && id != '-1') {
+                this.load(id).then(data => {
+                    this.formInfo.model = data;
+                    this.isEditing = true;
+                }).catch(err => {
+                    this.formInfo.model = {};
+                    this.log(err);
+                });
             }
         });
 

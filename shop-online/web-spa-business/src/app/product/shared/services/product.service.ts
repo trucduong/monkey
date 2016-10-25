@@ -97,39 +97,16 @@ export class ProductService extends BaseHttpService {
         return list;
     }
 
-    getProduct(id: string): any {
-        let product: Product;
-        PRODUCTS.forEach(element => {
-            if (element.id == id) {
-                product = element;
-                return;
-            }
-        });
-        return product;
+    getProduct(id: string) {
+        return this.get(SERVICES.URLS.product, SERVICES.ACTIONS.READ_BY, ['id', id]);
     }
 
-    saveProduct(item: Product, isEditing: boolean): boolean {
+    saveProduct(item: Product, isEditing: boolean) {
         if (isEditing) {
-            PRODUCTS.forEach(element => {
-                if (element.id == item.id) {
-                    element.name == item.name;
-                    element.image = item.image;
-                    element.unit = item.unit;
-                    element.inputPrice = item.inputPrice;
-                    element.wholesalePrice = item.wholesalePrice;
-                    //element.productGroup = item.productGroup;
-                    //element.alarmInventory = item.alarmInventory;
-                    element.status = item.status;
-                    //element.note = item.note;
-                    
-                    return;
-                }
-            });
+            return this.post(SERVICES.URLS.product, SERVICES.ACTIONS.UPDATE, item, [item.id]);
         } else {
-            PRODUCTS.push(item);
+            return this.post(SERVICES.URLS.product, SERVICES.ACTIONS.CREATE, item, [item.id])
         }
-
-        return true;
     }
 
     deleteProduct(id: string) {

@@ -28,9 +28,9 @@ export class CustomerGroupDetailCmp extends EditController<CustomerGroup> implem
         return new CustomerGroup();
     }
 
-    load(id: any): CustomerGroup {
-        return this.customerService.getCustomerGroup(id);
-    }
+    // load(id: any): CustomerGroup {
+    //     return this.customerService.getCustomerGroup(id);
+    // }
 
     validate(model: CustomerGroup): boolean {
         // TODO: validate customer group here
@@ -40,7 +40,7 @@ export class CustomerGroupDetailCmp extends EditController<CustomerGroup> implem
         return true;
     }
 
-    save(model: CustomerGroup): boolean {
-        return this.customerService.saveCustomerGroup(model, this.isEditing);
+    save(model: CustomerGroup): Promise<CustomerGroup> {
+        return Promise.resolve(null);
     }
 }

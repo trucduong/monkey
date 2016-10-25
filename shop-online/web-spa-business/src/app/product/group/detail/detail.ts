@@ -28,9 +28,9 @@ export class ProductGroupDetailCmp extends EditController<ProductGroup> implemen
         return new ProductGroup();
     }
 
-    load(id: any): ProductGroup {
-        return this.productService.getProductGroup(id);
-    }
+    // load(id: any): ProductGroup {
+    //     return this.productService.getProductGroup(id);
+    // }
 
     validate(model: ProductGroup): boolean {
         // TODO: validate product group here
@@ -40,7 +40,7 @@ export class ProductGroupDetailCmp extends EditController<ProductGroup> implemen
         return true;
     }
 
-    save(model: ProductGroup): boolean {
-        return this.productService.saveProductGroup(model, this.isEditing);
-    }
+    // save(model: ProductGroup): boolean {
+    //     return this.productService.saveProductGroup(model, this.isEditing);
+    // }
 }

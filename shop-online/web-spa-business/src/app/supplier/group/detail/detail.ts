@@ -28,9 +28,9 @@ export class SupplierGroupDetailCmp extends EditController<SupplierGroup> implem
         return new SupplierGroup();
     }
 
-    load(id: any): SupplierGroup {
-        return this.supplierService.getSupplierGroup(id);
-    }
+    // load(id: any): SupplierGroup {
+    //     return this.supplierService.getSupplierGroup(id);
+    // }
 
     validate(model: SupplierGroup): boolean {
         // TODO: validate supplier group here
@@ -40,7 +40,7 @@ export class SupplierGroupDetailCmp extends EditController<SupplierGroup> implem
         return true;
     }
 
-    save(model: SupplierGroup): boolean {
-        return this.supplierService.saveSupplierGroup(model, this.isEditing);
-    }
+    // save(model: SupplierGroup): boolean {
+    //     return this.supplierService.saveSupplierGroup(model, this.isEditing);
+    // }
 }

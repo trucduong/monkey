@@ -32,9 +32,9 @@ export class CustomerDetailCmp extends EditController<Customer> implements OnIni
         return new Customer();
     }
 
-    load(id: any): Customer {
-        return this.customerService.getCustomer(id);
-    }
+    // load(id: any): Customer {
+    //     return this.customerService.getCustomer(id);
+    // }
 
     validate(model: Customer): boolean {
         // TODO: validate customer here
@@ -44,7 +44,7 @@ export class CustomerDetailCmp extends EditController<Customer> implements OnIni
         return true;
     }
 
-    save(model: Customer): boolean {
-        return this.customerService.saveCustomer(model, this.isEditing);
-    }
+    // save(model: Customer): Promise<boolean> {
+    //     return Promise.resolve(this.customerService.saveCustomer(model, this.isEditing));
+    // }
 }

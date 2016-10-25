@@ -19,6 +19,10 @@
                     <input class="form-control" [(ngModel)]="formInfo.model.code" name="code">
                 </form-field-cmp>
 
+                <form-field-cmp [info]="formInfo.getField('name')" [fieldModel]="formInfo.model.name">
+                    <input class="form-control" [(ngModel)]="formInfo.model.name" name="name">
+                </form-field-cmp>
+
                 <form-field-cmp [info]="formInfo.getField('image')" [fieldModel]="formInfo.model.image">
                     <input class="form-control" [(ngModel)]="formInfo.model.image" name="image">
                 </form-field-cmp>
