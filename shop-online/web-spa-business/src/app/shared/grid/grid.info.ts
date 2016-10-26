@@ -58,6 +58,7 @@ export class GridHeader {
     sortable: boolean;
     width: number;
     translation: boolean;
+    inputable: boolean;
 
     constructor(name: string, labelKey: string, sortable?: boolean, width?: number, translation?: boolean) {
         this.name = name;
