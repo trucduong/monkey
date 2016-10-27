@@ -24,6 +24,8 @@
 
 "common.validator.error.required":"Xin vui lòng nhập!",
 "common.validator.error":"Thông tin bạn nhập chưa đúng, Xin vui lòng thử lại!",
+"common.validator.error.minlength": "Không được thấp hơn {0} ký tự!",
+"common.validator.error.maxlength": "Không đươc vượt quá {0} ký tự!",
 
 
 "common.list.action":"Tác vụ",

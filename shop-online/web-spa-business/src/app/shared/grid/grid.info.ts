@@ -32,7 +32,7 @@ export class FilterInfo {
     isEmpty() {
         if (!this.columns || this.columns.length == 0
             || !this.value || this.value.length == 0) {
-            
+
             return true;
         }
 
@@ -58,14 +58,22 @@ export class GridHeader {
     sortable: boolean;
     width: number;
     translation: boolean;
-    inputable: boolean;
 
     constructor(name: string, labelKey: string, sortable?: boolean, width?: number, translation?: boolean) {
         this.name = name;
         this.labelKey = labelKey;
         this.sortable = sortable;
         this.width = width;
-        this.translation = translation ? true: false;
+        this.translation = translation ? true : false;
+    }
+}
+
+export class GridInputHeader extends GridHeader {
+    inputable: boolean;
+
+    constructor(name: string, labelKey: string, sortable?: boolean, width?: number, translation?: boolean, inputable?: boolean) {
+        super(name, labelKey, sortable, width, translation);
+        this.inputable = inputable ? true : false;
     }
 }
 
@@ -99,7 +107,7 @@ export class GridInfo {
         actions: GridAction[],
         sortInfo?: SortInfo,
         filterInfo?: FilterInfo) {
-        
+
         this.headers = headers;
         this.actions = actions;
         this.filterInfo = filterInfo;

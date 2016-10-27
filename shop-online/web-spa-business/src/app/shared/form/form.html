@@ -6,7 +6,7 @@
             <div class="col-xs-12">
                 <ng-content select="form-content-cmp"></ng-content>
                 <div *ngIf="info.hasError()" class="alert alert-danger">
-                    <div *ngFor="let e of info.errors">{{ e | translate}}</div>
+                    <div *ngFor="let e of info.errors">{{ getErorrMessage(e) }}</div>
                     <div *ngIf="info.errors.length==0">{{ 'common.validator.error' | translate}}</div>
                 </div>
                 <ng-content select="form-action-cmp"></ng-content>

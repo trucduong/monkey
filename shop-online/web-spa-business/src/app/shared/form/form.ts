@@ -1,5 +1,7 @@
 import { Component, OnChanges, Input, SimpleChange } from '@angular/core';
+import {TranslateService} from 'ng2-translate/ng2-translate';
 import { FormInfo } from './form.info';
+import { Error } from '../core/index';
 
 @Component({
     selector: 'form-cmp',
@@ -7,10 +9,14 @@ import { FormInfo } from './form.info';
 })
 export class FormCmp implements OnChanges {
     @Input('info') info: FormInfo;
-    constructor() { }
+    constructor(private translate: TranslateService) { }
     ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
         if (changes['info']) {
             this.info.clearErrors();
         }
+    }
+
+    getErorrMessage(err: Error): Promise<string> {
+        return this.translate.get(err.name, err.params).toPromise();
     }
 }

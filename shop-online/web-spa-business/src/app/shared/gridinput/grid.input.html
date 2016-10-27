@@ -4,6 +4,7 @@
             <div class="row">
                 <div class="form-group">
                     <input class="form-control" placeholder="Enter text">
+                    <button (click)="execute('add', {})" type="button" class="btn btn-primary">Add</button>
                 </div>
             </div>
         </div>
@@ -15,15 +16,17 @@
                         <table width="100%" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th *ngFor="let header of info.headers" [style.width]="header.width+'%'" (click)="sort(header)" [class.sort-able]="header.sortable">{{ header.labelKey | translate}}<span *ngIf="header.name==sortInfo.column" [class]="'fa fa-sort-'+sortInfo.order"></span></th>
+                                    <th>No.</th>
+                                    <th *ngFor="let header of info.headers" [style.width]="header.width+'%'" >{{ header.labelKey | translate}}</th>
                                     <th style="min-width:82px;">{{'common.list.action' | translate}}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let item of activeItems" class="gradeX" [class.odd]="odd" [class.even]="even">
+                                <tr *ngFor="let item of items; let i = index;" class="gradeX" [class.odd]="odd" [class.even]="even">
+                                    <td>{{i + 1}}</td>
                                     <td *ngFor="let header of info.headers">
-                                        <span *ngIf="header.translation">{{item[header.name] | translate}}</span>
-                                        <span *ngIf="!header.translation">{{item[header.name]}}</span>
+                                        <span *ngIf="!header.inputable && header.translation">{{item[header.name] | translate}}</span>
+                                        <span *ngIf="!header.inputable && !header.translation">{{item[header.name]}}</span>
                                         <input *ngIf="header.inputable" class="form-control" [(ngModel)]="item[header.name]">
                                     </td>
                                     <td>
@@ -33,9 +36,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <div class="row">
-                    <pagination-cmp [info]="paginationInfo" (onPaging)="paging($event)"></pagination-cmp>
                 </div>
             </div>
         </div>

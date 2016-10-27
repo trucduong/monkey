@@ -1,4 +1,4 @@
-import { Validator, RequiredValidator } from '../core/index';
+import { Validator, Error, RequiredValidator } from '../core/index';
 
 export class FormFieldInfo {
     label: string;
@@ -15,7 +15,7 @@ export class FormFieldInfo {
     placeholder: string;
 
     validators: Validator[];
-    private errors: string[];
+    private errors: Error[];
 
     constructor(model: any, name: string, label: string, required: boolean) {
         this.validators = [];
@@ -52,7 +52,7 @@ export class FormFieldInfo {
         return this.hasError();
     }
 
-    public addError(err: string) {
+    public addError(err: Error) {
         this.errors.push(err);
     }
 
@@ -64,7 +64,7 @@ export class FormFieldInfo {
         return this.errors.length > 0;
     }
 
-    public getErrors(): string[] {
+    public getErrors(): Error[] {
         return this.errors;
     }
 }
@@ -74,7 +74,7 @@ export class FormInfo {
     title: string;
     fields: Map<string, FormFieldInfo>;
     validators: Validator[];
-    private errors: string[];
+    private errors: Error[];
 
     constructor(model: any, title: string, fields?: Map<string, FormFieldInfo>) {
         this.validators = []
@@ -124,7 +124,7 @@ export class FormInfo {
         return this.hasError();
     }
 
-    public addError(err: string) {
+    public addError(err: Error) {
         this.errors.push(err);
     }
 
