@@ -14,15 +14,20 @@ public class RefEntity extends BaseEntity {
 	
 	private static final long serialVersionUID = 1L;
 	
+	// common.ref.unit
 	@Column(name = "ref_type", columnDefinition = SHORT_1)
 	private String refType;
 	
-	@Column(name = "description", columnDefinition = MEDIUM_5)
-	private String description;
+	// kg, cai, xxx
+	@Column(name="ref_value", columnDefinition=SHORT_1)
+	private String refValue;
 	
-	@Column(name = "ref_key", columnDefinition = SHORT_5)
-	private String refKey;
-
+	@Column(name="ref_label_vi", columnDefinition=SHORT_5)
+	private String refLabelVi;
+	
+	@Column(name="ref_label_en", columnDefinition=SHORT_5)
+	private String refLabelEn;
+	
 	@Column(name = "order_weight", columnDefinition = INT)
 	private int orderWeight;
 
@@ -34,20 +39,28 @@ public class RefEntity extends BaseEntity {
 		this.refType = refType;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getRefValue() {
+		return refValue;
 	}
-	
-	public void setDescription(String description) {
-		this.description = description;
+
+	public void setRefValue(String refValue) {
+		this.refValue = refValue;
 	}
-	
-	public String getRefKey() {
-		return refKey;
+
+	public String getRefLabelVi() {
+		return refLabelVi;
 	}
-	
-	public void setRefKey(String refKey) {
-		this.refKey = refKey;
+
+	public void setRefLabelVi(String refLabelVi) {
+		this.refLabelVi = refLabelVi;
+	}
+
+	public String getRefLabelEn() {
+		return refLabelEn;
+	}
+
+	public void setRefLabelEn(String refLabelEn) {
+		this.refLabelEn = refLabelEn;
 	}
 
 	public int getOrderWeight() {
@@ -57,4 +70,6 @@ public class RefEntity extends BaseEntity {
 	public void setOrderWeight(int orderWeight) {
 		this.orderWeight = orderWeight;
 	}
+
+	
 }

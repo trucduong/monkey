@@ -1,0 +1,3 @@
+<form-field-cmp [info]="info" [fieldModel]="fieldModel">
+    <input class="form-control" [ngModel]="fieldModel" (ngModelChange)="updateData($event)" name="info.name" [type]="info.type" [min]="info.min" [max]="info.max">
+</form-field-cmp>

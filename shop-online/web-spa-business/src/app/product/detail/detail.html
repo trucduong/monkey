@@ -15,21 +15,25 @@
                     <input class="form-control" [(ngModel)]="formInfo.model.id" name="id">
                 </form-field-cmp>
 
-                <form-field-cmp [info]="formInfo.getField('code')" [fieldModel]="formInfo.model.code">
+                <text-field-cmp [info]="formInfo.getField('code')" [(fieldModel)]="formInfo.model.code"></text-field-cmp>
+                <!--<form-field-cmp [info]="formInfo.getField('code')" [fieldModel]="formInfo.model.code">
                     <input class="form-control" [(ngModel)]="formInfo.model.code" name="code">
-                </form-field-cmp>
+                </form-field-cmp>-->
 
-                <form-field-cmp [info]="formInfo.getField('name')" [fieldModel]="formInfo.model.name">
+                <text-field-cmp [info]="formInfo.getField('name')" [(fieldModel)]="formInfo.model.name"></text-field-cmp>
+                <!--<form-field-cmp [info]="formInfo.getField('name')" [fieldModel]="formInfo.model.name">
                     <input class="form-control" [(ngModel)]="formInfo.model.name" name="name">
-                </form-field-cmp>
+                </form-field-cmp>-->
 
-                <form-field-cmp [info]="formInfo.getField('image')" [fieldModel]="formInfo.model.image">
+                <checkbox-field-cmp [info]="formInfo.getField('image')" [(fieldModel)]="formInfo.model.image"></checkbox-field-cmp>
+                <!--<form-field-cmp [info]="formInfo.getField('image')" [fieldModel]="formInfo.model.image">
                     <input class="form-control" [(ngModel)]="formInfo.model.image" name="image">
-                </form-field-cmp>
-
+                </form-field-cmp>-->
+                <radio-field-cmp [info]="formInfo.getField('unit')" [(fieldModel)]="formInfo.model.unit"></radio-field-cmp>
+<!--
                 <form-field-cmp [info]="formInfo.getField('unit')" [fieldModel]="formInfo.model.unit">
                     <input class="form-control" [(ngModel)]="formInfo.model.unit" name="unit">
-                </form-field-cmp>
+                </form-field-cmp>-->
 
                 <form-field-cmp [info]="formInfo.getField('group')" [fieldModel]="formInfo.model.group">
                     <input class="form-control" [(ngModel)]="formInfo.model.group" name="group">

@@ -3,7 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import { Product, ProductService } from '../shared/index';
-import { EditController, AlertType, FormInfo, FormFieldInfo } from './../../shared/index';
+import { EditController, AlertType, FormInfo, FormFieldInfo,
+    TextFieldInfo, CheckboxFieldInfo, RadioFieldInfo } from './../../shared/index';
 
 @Component({
     selector: 'product-detail',
@@ -24,12 +25,22 @@ export class ProductDetailCmp extends EditController<Product> implements OnInit 
     }
 
     createForm(): FormInfo {
-        let form = new FormInfo(this.createModel, 'product.detail.title');
+        let form = new FormInfo(this.getTranslator(), this.createModel(), 'product.detail.title');
         form.createField('id', 'product.detail.id');
         form.createField('code', 'product.detail.code');
-        form.createField('name', 'product.detail.name', true);
-        form.createField('image', 'product.detail.image');
-        form.createField('unit', 'product.detail.unit', true);
+        // form.createField('name', 'product.detail.name', true, 0, 10);
+        form.addField(new TextFieldInfo(this.getTranslator(), form.model, 'name', 'product.detail.name', true, 0, 10));
+        (<CheckboxFieldInfo> form.addField(new CheckboxFieldInfo(this.getTranslator(), form.model, 'image', 'product.detail.image', true)))
+            .addItem('product.list.image.a', 'imga')
+            .addItem('product.list.image.b', 'imgb')
+            .addItem('product.list.image.c', 'imgc');
+
+        //form.createField('unit', 'product.detail.unit', true);
+        (<RadioFieldInfo> form.addField(new RadioFieldInfo(this.getTranslator(), form.model, 'unit', 'product.detail.unit', true)))
+            .addItem('product.list.image.a', 'imga')
+            .addItem('product.list.image.b', 'imgb')
+            .addItem('product.list.image.c', 'imgc');
+        
         form.createField('group', 'product.detail.group', true);
         form.createField('description', 'product.detail.description');
         form.createField('status', 'product.detail.status', true);
@@ -45,7 +56,10 @@ export class ProductDetailCmp extends EditController<Product> implements OnInit 
     }
 
     createModel(): Product {
-        return new Product();
+        let model = new Product()
+        model.image = '[imgb]';
+        model.unit = 'imgc';
+        return model;
     }
 
     load(id: any): Promise<Product> {

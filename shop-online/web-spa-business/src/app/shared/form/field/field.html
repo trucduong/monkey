@@ -3,6 +3,6 @@
     <ng-content></ng-content>
 
     <div *ngIf="info.hasError()" class="alert alert-danger">
-        <div *ngFor="let e of info.errors">{{ getErorrMessage(e) }}</div>
+        <div *ngFor="let e of info.errors">{{ e.message }}</div>
     </div>
 </div>

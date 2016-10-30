@@ -1,0 +1,7 @@
+<form-field-cmp [info]="info" [fieldModel]="fieldModel">
+    <div *ngFor="let item of info.items" class="radio">
+        <label>
+            <input [type]="info.type" name="info.name" value="item.value" [checked]="item.checked" (change)="updateSelection(item.value, $event)">{{item.label | translate}}
+        </label>
+    </div>
+</form-field-cmp>

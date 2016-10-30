@@ -24,8 +24,12 @@
 
 "common.validator.error.required":"Xin vui lòng nhập!",
 "common.validator.error":"Thông tin bạn nhập chưa đúng, Xin vui lòng thử lại!",
-"common.validator.error.minlength": "Không được thấp hơn {0} ký tự!",
+"common.validator.error.minlength": "Không được ít hơn {0} ký tự!",
 "common.validator.error.maxlength": "Không đươc vượt quá {0} ký tự!",
+"common.validator.error.minvalue": "Giá trị tối thiểu là {0}",
+"common.validator.error.maxvalue": "Giá trị tối đa là {0}",
+"common.validator.error.mindate": "Vui lòng nhập sau ngày {0}",
+"common.validator.error.maxdate": "Vui lòng nhập trước ngày {0}",
 
 
 "common.list.action":"Tác vụ",
@@ -54,6 +58,9 @@
 "product.list.name":"Tên sản phẩm",
 "product.list.description":"Mô tả",
 "product.list.image":"Hình ảnh",
+"product.list.image.a":"Hình ảnh a",
+"product.list.image.b":"Hình ảnh b",
+"product.list.image.c":"Hình ảnh c",
 "product.list.inputPrice":"Giá nhập",
 "product.list.wholesalePrice":"Giá sỉ",
 "product.list.retailPrice":"Giá lẻ",

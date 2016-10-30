@@ -4,6 +4,7 @@ export * from './list.controller';
 export * from './list.input.controller';
 export * from './navigator.info';
 export * from './service/base.http.service';
+export * from './service/combobox.service';
 export * from './utils/service.url';
 export * from './utils/common.utils';
 export * from './validator/validator';

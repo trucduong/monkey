@@ -1,55 +1,40 @@
-import { Validator, Error, RequiredValidator } from '../core/index';
+import { CommonUtils, Validator, Error, RequiredValidator, LengthValidator, ComboboxService } from '../core/index';
+import {TranslateService} from 'ng2-translate/ng2-translate';
 
-export class FormFieldInfo {
-    label: string;
-    name: string;
-    model: any;
-
-    required: boolean;
-    enabled: boolean;
-    //readonly: boolean; // not support
-    visible: boolean;
-
-    type: string;
-    autofocus: boolean;
-    placeholder: string;
-
-    validators: Validator[];
+export abstract class ValidatorHandler {
+    private validators: Validator[];
     private errors: Error[];
+    translate: TranslateService
 
-    constructor(model: any, name: string, label: string, required: boolean) {
+    constructor(translate: TranslateService) {
         this.validators = [];
         this.errors = [];
-
-        this.model = model;
-        this.name = name;
-        this.label = label;
-
-        this.required = required;
-        if (this.required) {
-            this.validators.push(new RequiredValidator());
-        }
-        this.enabled = true;
-        this.visible = true;
+        this.translate = translate;
     }
 
-    public validate(): boolean {
-        let mthis = this;
-        this.clearErrors();
-
-        if (!this.validators || this.validators.length == 0) {
-            return false;
-        }
-
-        this.validators.every(validator => {
-            let err = validator.validate(mthis.model[this.name]);
-            if (err) {
-                mthis.addError(err);
-                return true;
-            }
+    translateErrors(errs: Error[]) {
+        errs.forEach(err => {
+            this.translate.get(err.name).toPromise()
+                .then(msg => {
+                    err.message = CommonUtils.formatStr(msg, err.params);
+                }).catch(e => {
+                    err.message = '';
+                });
         });
+    }
 
-        return this.hasError();
+    public abstract validate(): boolean;
+
+    public addValidator(validator: Validator) {
+        this.validators.push(validator);
+    }
+
+    public getValidators(): Validator[] {
+        return this.validators;
+    }
+
+    public removeValidators() {
+        this.validators = [];
     }
 
     public addError(err: Error) {
@@ -69,16 +54,67 @@ export class FormFieldInfo {
     }
 }
 
-export class FormInfo {
+export class FormFieldInfo extends ValidatorHandler {
+    label: string;
+    name: string;
+    model: any;
+
+    required: boolean;
+    enabled: boolean;
+    //readonly: boolean; // not support
+    visible: boolean;
+
+    type: string;
+    autofocus: boolean;
+    placeholder: string;
+
+    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean) {
+        super(translate);
+
+        this.model = model;
+        this.name = name;
+        this.label = label;
+
+        this.required = required;
+        if (this.required) {
+            this.addValidator(new RequiredValidator());
+        }
+        this.enabled = true;
+        this.visible = true;
+        // this.type = '';
+        this.autofocus = false;
+        this.placeholder = '';
+    }
+
+    public validate(): boolean {
+        let mthis = this;
+        this.clearErrors();
+
+        if (this.getValidators().length == 0) {
+            return false;
+        }
+
+        this.getValidators().every(validator => {
+            let err = validator.validate(mthis.model[this.name]);
+            if (err) {
+                mthis.addError(err);
+                return false;
+            }
+            return true;
+        });
+
+        this.translateErrors(this.getErrors());
+        return this.hasError();
+    }
+}
+
+export class FormInfo extends ValidatorHandler {
     model: any; // form bean
     title: string;
     fields: Map<string, FormFieldInfo>;
-    validators: Validator[];
-    private errors: Error[];
 
-    constructor(model: any, title: string, fields?: Map<string, FormFieldInfo>) {
-        this.validators = []
-        this.errors = []
+    constructor(mtranslate: TranslateService, model: any, title: string, fields?: Map<string, FormFieldInfo>) {
+        super(mtranslate);
 
         this.model = model;
         this.title = title;
@@ -95,7 +131,7 @@ export class FormInfo {
     }
 
     public createField(name: string, title: string, required?: boolean): FormFieldInfo {
-        return this.addField(new FormFieldInfo(this.model, name, title, required));
+        return this.addField(new FormFieldInfo(this.translate, this.model, name, title, required));
     }
 
     public getField(name: string): FormFieldInfo {
@@ -112,8 +148,8 @@ export class FormInfo {
         });
 
         // validate form
-        if (this.validators || this.validators.length > 0) {
-            this.validators.forEach(validator => {
+        if (this.getValidators().length > 0) {
+            this.getValidators().forEach(validator => {
                 let err = validator.validate(mthis.model);
                 if (err) {
                     mthis.addError(err);
@@ -121,26 +157,18 @@ export class FormInfo {
             });
         }
 
+        this.translateErrors(this.getErrors());
         return this.hasError();
     }
 
-    public addError(err: Error) {
-        this.errors.push(err);
-    }
-
-    public clearErrors() {
-        this.errors = [];
-    }
-
     public hasError() {
-        if (this.errors.length > 0) {
+        if (this.getErrors().length > 0) {
             return true;
         }
 
         let hasError = false;
         this.fields.forEach(field => {
             if (field.hasError()) {
-                console.log(field.getErrors());
                 hasError = true;
             }
         });
@@ -153,17 +181,18 @@ export class TextFieldInfo extends FormFieldInfo {
     maxlength: number;
     minlength: number;
 
-    constructor(model: any, name: string, label: string, required: boolean, maxlength: number, minlength: number) {
-        super(model, name, label, required);
+    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, minlength: number, maxlength: number) {
+        super(translate, model, name, label, required);
         this.maxlength = maxlength;
         this.minlength = minlength;
         this.type = 'text';
+        //this.addValidator(new LengthValidator(minlength, maxlength));
     }
 }
 
 export class EmailFieldInfo extends TextFieldInfo {
-    constructor(model: any, name: string, label: string, required: boolean, maxlength: number, minlength: number) {
-        super(model, name, label, required, maxlength, minlength);
+    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, maxlength: number, minlength: number) {
+        super(translate, model, name, label, required, maxlength, minlength);
         this.maxlength = maxlength;
         this.minlength = minlength;
         this.type = 'email';
@@ -171,8 +200,8 @@ export class EmailFieldInfo extends TextFieldInfo {
 }
 
 export class PasswordFieldInfo extends TextFieldInfo {
-    constructor(model: any, name: string, label: string, required: boolean, maxlength: number, minlength: number) {
-        super(model, name, label, required, maxlength, minlength);
+    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, maxlength: number, minlength: number) {
+        super(translate, model, name, label, required, maxlength, minlength);
         this.maxlength = maxlength;
         this.minlength = minlength;
         this.type = 'password';
@@ -182,8 +211,8 @@ export class PasswordFieldInfo extends TextFieldInfo {
 export class TextAreaFieldInfo extends TextFieldInfo {
     maxlength: number;
     rows: number;
-    constructor(model: any, name: string, label: string, required: boolean, maxlength: number, rows: number) {
-        super(model, name, label, required, maxlength, 0);
+    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, maxlength: number, rows: number) {
+        super(translate, model, name, label, required, maxlength, 0);
         this.rows = rows
         this.type = 'textarea';
     }
@@ -192,8 +221,8 @@ export class TextAreaFieldInfo extends TextFieldInfo {
 export class NumberFieldInfo extends FormFieldInfo {
     max: number;
     min: number;
-    constructor(model: any, name: string, label: string, required: boolean, max: number, min: number) {
-        super(model, name, label, required);
+    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, max: number, min: number) {
+        super(translate, model, name, label, required);
         this.max = max;
         this.min = min;
         this.type = 'number';
@@ -201,18 +230,201 @@ export class NumberFieldInfo extends FormFieldInfo {
 }
 
 export class DateFieldInfo extends FormFieldInfo {
-    max: number;
-    min: number;
+    max: Date;
+    min: Date;
+    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, max: Date, min: Date) {
+        super(translate, model, name, label, required);
+        this.max = max;
+        this.min = min;
+        this.type = 'date';
+    }
+}
 
-    supType: string;
+export class DateTimeFieldInfo extends FormFieldInfo {
+    max: Date;
+    min: Date;
+    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, max: Date, min: Date) {
+        super(translate, model, name, label, required);
+        this.max = max;
+        this.min = min;
+        this.type = 'datetime';
+    }
+}
+
+
+export class TimeFieldInfo extends FormFieldInfo {
+    max: Date;
+    min: Date;
+    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, max: Date, min: Date) {
+        super(translate, model, name, label, required);
+        this.max = max;
+        this.min = min;
+        this.type = 'time';
+    }
 }
 
 export class CheckboxFieldInfo extends FormFieldInfo {
-    items: {name: string, value: string};
+    items: { value: string, label: string, checked: boolean }[];
+    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean) {
+        super(translate, model, name, label, required);
+        this.items = [];
+        this.type = 'checkbox';
+    }
+
+    update(values: string[]) {
+        this.items.forEach(item => {
+            if (values && values.includes(item.value)) {
+                item.checked = true;
+            } else {
+                item.checked = false;
+            }
+        });
+    }
+
+    addItem(label: string, value: string): CheckboxFieldInfo {
+        this.items.push({ value: value, label: label, checked: false })
+        return this;
+    }
+
+    select(value: string) {
+        this.items.forEach(item => {
+            if (item.value == value) {
+                item.checked = true;
+            }
+        });
+    }
+
+    selectChange(value: string, checked: boolean) {
+        this.items.forEach(item => {
+            if (item.value == value) {
+                item.checked = checked;
+            }
+        });
+    }
+
+    deSelect(value: string) {
+        this.items.forEach(item => {
+            if (item.value == value) {
+                item.checked = false;
+            }
+        });
+    }
+
+    getSelectedValues(): string[] {
+        let values: string[] = [];
+        this.items.forEach(item => {
+            if (item.checked) {
+                values.push(item.value);
+            }
+        });
+        return values;
+    }
 }
 
 export class RadioFieldInfo extends FormFieldInfo {
-    items: {name: string, value: string};
+    items: { value: string, label: string, checked: boolean }[];
+    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean) {
+        super(translate, model, name, label, required);
+        this.items = [];
+        this.type = 'radio';
+    }
+
+    update(value: string) {
+        this.items.forEach(item => {
+            if (value && value == item.value) {
+                item.checked = true;
+            } else {
+                item.checked = false;
+            }
+        });
+    }
+
+    addItem(label: string, value: string): RadioFieldInfo {
+        this.items.push({ value: value, label: label, checked: false })
+        return this;
+    }
+
+    select(value: string) {
+        this.items.forEach(item => {
+            if (item.value == value) {
+                item.checked = true;
+            } else {
+                item.checked = false;
+            }
+        });
+    }
+
+    selectChange(value: string, checked: boolean) {
+        this.items.forEach(item => {
+            if (item.value == value) {
+                item.checked = checked;
+            } else {
+                item.checked = false;
+            }
+        });
+    }
+
+    deSelect(value: string) {
+        this.items.forEach(item => {
+            if (item.value == value) {
+                item.checked = false;
+            } else {
+                item.checked = false;
+            }
+        });
+    }
+
+    getSelectedValues(): string {
+        let value: string = null;
+        this.items.forEach(item => {
+            if (item.checked) {
+                value = item.value;
+            }
+        });
+        return value;
+    }
+}
+
+export class CmbFieldInfo extends FormFieldInfo {
+    service: ComboboxService;
+    filter: any;
+    hasBlankItem: boolean;
+    items: {value: string, label: string}[];
+    
+    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, hasBlankItem?: boolean, service?: ComboboxService) {
+        super(translate, model, name, label, required);
+        if (hasBlankItem == false) {
+            this.hasBlankItem = false;
+        } else {
+            this.hasBlankItem = true;
+        }
+
+        if(service) {
+            this.service = service
+            this.service.getItems(this.filter)
+            .then(data => {
+                this.items = data;
+            })
+            .catch(err => {
+                this.items = [];
+            });
+        }
+        
+    }
+
+    getLable(item): string {
+        if (this.service) {
+            return this.service.getLabel(item);
+        }
+        return '';
+    }
+
+    getValue(item): string {
+        if (this.service) {
+            return this.service.getValue(item);
+        }
+        return '';
+    }
 }
 
 export class UploadFieldInfo extends FormFieldInfo {

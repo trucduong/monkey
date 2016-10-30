@@ -23,7 +23,7 @@ export abstract class EditController<T> extends BaseController {
     //abstract save(model: T): Promise<T>;
 
     // TODO: remove this
-    createForm(): FormInfo {return new FormInfo(null, null)}
+    createForm(): FormInfo {return new FormInfo(null, null, null)}
     save(model: T): Promise<T> {return Promise.resolve({})}
     load(id: any): Promise<T> {
         return Promise.resolve(null);

@@ -23,10 +23,10 @@ export class CustomerDetailCmp extends EditController<Customer> implements OnIni
         return '/customer-detail';
     }
 
-    createForm(): FormInfo {
-        let form = new FormInfo(this.createModel, 'customer.detail.title');
-        return form;
-    }
+    // createForm(): FormInfo {
+    //     let form = new FormInfo(this.createModel, 'customer.detail.title');
+    //     return form;
+    // }
 
     createModel(): Customer {
         return new Customer();
