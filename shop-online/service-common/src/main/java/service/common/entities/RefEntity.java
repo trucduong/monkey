@@ -4,30 +4,31 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import core.common.locate.Language;
 import core.dao.entities.BaseEntity;
 
 @Entity
-@Table(name="ref_data")
+@Table(name = "ref_data")
 public class RefEntity extends BaseEntity {
 	public static final String TYPE = "refType";
 	public static final String ORDER_WEIGHT = "orderWeight";
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	// common.ref.unit
 	@Column(name = "ref_type", columnDefinition = SHORT_1)
 	private String refType;
-	
+
 	// kg, cai, xxx
-	@Column(name="ref_value", columnDefinition=SHORT_1)
+	@Column(name = "ref_value", columnDefinition = SHORT_1)
 	private String refValue;
-	
-	@Column(name="ref_label_vi", columnDefinition=SHORT_5)
+
+	@Column(name = "ref_label_vi", columnDefinition = SHORT_5)
 	private String refLabelVi;
-	
-	@Column(name="ref_label_en", columnDefinition=SHORT_5)
+
+	@Column(name = "ref_label_en", columnDefinition = SHORT_5)
 	private String refLabelEn;
-	
+
 	@Column(name = "order_weight", columnDefinition = INT)
 	private int orderWeight;
 
@@ -71,5 +72,14 @@ public class RefEntity extends BaseEntity {
 		this.orderWeight = orderWeight;
 	}
 
-	
+	public String getLabel(Language language) {
+		switch (language) {
+		case ENGLISH:
+			return this.refLabelEn;
+		case VIET_NAM:
+			return this.refLabelVi;
+		default:
+			return "";
+		}
+	}
 }

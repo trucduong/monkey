@@ -2,7 +2,7 @@ import { Validator, Error } from './validator';
 
 export class RequiredValidator implements Validator {
     validate(obj: any): Error {
-        if (obj == null || obj == 'undefined' || obj.length == 0) {
+        if (obj == null || obj == 'undefined' || obj == '' || obj.length == 0) {
             return new Error('common.validator.error.required', []);
         }
 

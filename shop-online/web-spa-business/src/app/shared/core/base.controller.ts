@@ -2,7 +2,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import { AlertInfo, AlertType, WrapperInfo, NAVIGATOR_INFO, AlertDialogInfo, 
-    DialogButton, DIALOG_ACTIONS, DialogListener, CommonUtils } from '../../shared/index';
+    DialogButton, DIALOG_ACTIONS, DialogListener, CommonUtils, LocalStorageUtils } from '../../shared/index';
 
 /**
  * BaseController
@@ -12,8 +12,12 @@ export abstract class BaseController {
     private alertInfo: AlertInfo[];
 
     constructor(private router: Router, private translate: TranslateService) {
-        translate.setDefaultLang('vi');
-        translate.use('vi');
+        let defLocale = LocalStorageUtils.get('locale');
+        if (!defLocale) {
+            defLocale = 'vi';
+        }
+        translate.setDefaultLang(defLocale);
+        translate.use(defLocale);
         this.pageInfo = new WrapperInfo(false, null);
         this.alertInfo = [];
     }

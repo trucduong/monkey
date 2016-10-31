@@ -112,5 +112,24 @@ export class RadioFieldCmp extends CheckboxFieldCmp {
     templateUrl: 'src/app/shared/form/field/combobox.html',
     styleUrls: ['src/app/shared/form/field/field.css']
 })
-export class CmbFieldCmp extends CustomField {
+export class CmbFieldCmp extends CustomField implements OnChanges {
+    ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+        if (changes['info']) {
+            if (this.info) {
+                this.info.clearErrors();
+
+                let mInfo = (<CmbFieldInfo> this.info);
+                mInfo.service.getItems(mInfo.filter)
+                    .then(data => {
+                        mInfo.items = data;
+                    });
+            }
+        } else if (changes['fieldModel']) {
+            if (this.info) {
+                this.info.validate();
+            }
+        }
+
+        //(<CheckboxFieldInfo>this.info).update(this.fieldModel);
+    }
 }

@@ -1,9 +1,7 @@
 package service.common.web.services;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import core.common.exception.CommonException;
+import core.common.locate.Language;
 import core.dao.utils.BaseDao;
 import core.service.services.CRUDService;
 import core.service.utils.ContextHolder;
@@ -65,14 +64,18 @@ public class RefService extends CRUDService<RefEntity> {
 				return error(ServiceErrorCode.NOT_FOUND);
 			}
 			
+			Language language = Language.fromString(locale);
+			
 			// convert
 			for (RefEntity refEntity : entities) {
 				CmbItem item = new CmbItem();
 				item.setType(type);
 				item.setValue(refEntity.getRefValue());
-				// todo: get label
+				item.setLabel(refEntity.getLabel(language));
 				item.setOrderWeight(refEntity.getOrderWeight());
+				items.add(item);
 			}
+			CMB_HOLDER.setHolderList(type, items);
 		} else {
 			items.addAll(CMB_HOLDER.getHolderList(type));
 		}

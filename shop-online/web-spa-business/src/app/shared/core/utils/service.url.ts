@@ -11,6 +11,6 @@ export const SERVICES: any = {
         CREATE: '/create',
         UPDATE: '/update/{0}',
         DELETE: '/delete/{0}',
-        READ_CMB: 'read-cmb/{0}/{1}'
+        READ_CMB: '/read-cmb/{0}/{1}'
     }
 };

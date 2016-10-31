@@ -18,7 +18,8 @@ import { GridContentCmp } from './grid/content/content';
 import { FormCmp } from './form/form';
 import { FormActionCmp } from './form/action/action';
 import { FormContentCmp } from './form/content/content';
-import { FormFieldCmp, TextFieldCmp, NumberFieldCmp, DateFieldCmp, CheckboxFieldCmp, RadioFieldCmp } from './form/field/field';
+import { FormFieldCmp, TextFieldCmp, NumberFieldCmp, DateFieldCmp, 
+  CheckboxFieldCmp, RadioFieldCmp, CmbFieldCmp } from './form/field/field';
 
 import { DialogCmp } from './dialog/dialog';
 import { DialogHeaderCmp } from './dialog/header/header';
@@ -48,7 +49,7 @@ import { AlertDialogCmp } from './alert.dialog/alert.dialog';
     LoadingCmp,
     GridCmp, GridInputCmp, GridActionCmp, GridContentCmp,
     FormCmp, FormActionCmp, FormContentCmp, FormFieldCmp,
-    TextFieldCmp, NumberFieldCmp, DateFieldCmp, CheckboxFieldCmp, RadioFieldCmp,
+    TextFieldCmp, NumberFieldCmp, DateFieldCmp, CheckboxFieldCmp, RadioFieldCmp, CmbFieldCmp,
     DialogCmp, DialogHeaderCmp, DialogBodyCmp, DialogFooterCmp,
     AlertDialogCmp
   ],
@@ -65,7 +66,7 @@ import { AlertDialogCmp } from './alert.dialog/alert.dialog';
     LoadingCmp,
     GridCmp, GridInputCmp, GridActionCmp, GridContentCmp,
     FormCmp, FormActionCmp, FormContentCmp, FormFieldCmp,
-    TextFieldCmp, NumberFieldCmp, DateFieldCmp, CheckboxFieldCmp, RadioFieldCmp,
+    TextFieldCmp, NumberFieldCmp, DateFieldCmp, CheckboxFieldCmp, RadioFieldCmp, CmbFieldCmp,
     DialogCmp, DialogHeaderCmp, DialogBodyCmp, DialogFooterCmp,
     AlertDialogCmp
   ],

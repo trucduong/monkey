@@ -391,39 +391,22 @@ export class CmbFieldInfo extends FormFieldInfo {
     hasBlankItem: boolean;
     items: {value: string, label: string}[];
     
-    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, hasBlankItem?: boolean, service?: ComboboxService) {
+    constructor(translate: TranslateService, service: ComboboxService, model: any, name: string, label: string, required: boolean, hasBlankItem?: boolean) {
         super(translate, model, name, label, required);
+        this.service = service;
         if (hasBlankItem == false) {
             this.hasBlankItem = false;
         } else {
             this.hasBlankItem = true;
         }
-
-        if(service) {
-            this.service = service
-            this.service.getItems(this.filter)
-            .then(data => {
-                this.items = data;
-            })
-            .catch(err => {
-                this.items = [];
-            });
-        }
-        
     }
 
     getLable(item): string {
-        if (this.service) {
-            return this.service.getLabel(item);
-        }
-        return '';
+        return this.service.getLabel(item);
     }
 
     getValue(item): string {
-        if (this.service) {
-            return this.service.getValue(item);
-        }
-        return '';
+        return this.service.getValue(item);
     }
 }
 

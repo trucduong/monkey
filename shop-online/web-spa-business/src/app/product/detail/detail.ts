@@ -4,7 +4,8 @@ import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import { Product, ProductService } from '../shared/index';
 import { EditController, AlertType, FormInfo, FormFieldInfo,
-    TextFieldInfo, CheckboxFieldInfo, RadioFieldInfo } from './../../shared/index';
+    RefComboboxService, CMB_FILTERS,
+    TextFieldInfo, CheckboxFieldInfo, CmbFieldInfo } from './../../shared/index';
 
 @Component({
     selector: 'product-detail',
@@ -36,10 +37,10 @@ export class ProductDetailCmp extends EditController<Product> implements OnInit 
             .addItem('product.list.image.c', 'imgc');
 
         //form.createField('unit', 'product.detail.unit', true);
-        (<RadioFieldInfo> form.addField(new RadioFieldInfo(this.getTranslator(), form.model, 'unit', 'product.detail.unit', true)))
-            .addItem('product.list.image.a', 'imga')
-            .addItem('product.list.image.b', 'imgb')
-            .addItem('product.list.image.c', 'imgc');
+        let service = new RefComboboxService(this.productService);
+        let unitField = new CmbFieldInfo(this.getTranslator(), service, form.model, 'unit', 'product.detail.unit', true);
+        unitField.filter = CMB_FILTERS.UNIT;
+        form.addField(unitField);
         
         form.createField('group', 'product.detail.group', true);
         form.createField('description', 'product.detail.description');
@@ -58,7 +59,7 @@ export class ProductDetailCmp extends EditController<Product> implements OnInit 
     createModel(): Product {
         let model = new Product()
         model.image = '[imgb]';
-        model.unit = 'imgc';
+        model.unit = 'kg';
         return model;
     }
 

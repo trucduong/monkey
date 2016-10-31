@@ -7,5 +7,6 @@ export * from './service/base.http.service';
 export * from './service/combobox.service';
 export * from './utils/service.url';
 export * from './utils/common.utils';
+export * from './utils/localstorage.utils';
 export * from './validator/validator';
 export * from './validator/field.validator';
