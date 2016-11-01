@@ -1,4 +1,4 @@
-import { CommonUtils, Validator, Error, RequiredValidator, LengthValidator, ComboboxService } from '../core/index';
+import { CommonUtils, Validator, Error, RequiredValidator, LengthValidator, NumberValidator, ComboboxService } from '../core/index';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
 export abstract class ValidatorHandler {
@@ -221,11 +221,19 @@ export class TextAreaFieldInfo extends TextFieldInfo {
 export class NumberFieldInfo extends FormFieldInfo {
     max: number;
     min: number;
-    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, max: number, min: number) {
+    step: number
+    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, max: number, min: number, step?: number) {
         super(translate, model, name, label, required);
         this.max = max;
         this.min = min;
         this.type = 'number';
+        if (step) {
+            this.step = step;
+        } else {
+            this.step = 1;
+        }
+
+        this.addValidator(new NumberValidator(min, max));
     }
 }
 
@@ -411,6 +419,10 @@ export class CmbFieldInfo extends FormFieldInfo {
 }
 
 export class UploadFieldInfo extends FormFieldInfo {
+    // https://github.com/valor-software/ng2-file-upload
+}
+
+export class DownloadFieldInfo extends FormFieldInfo {
 
 }
 

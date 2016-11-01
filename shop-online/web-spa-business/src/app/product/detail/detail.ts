@@ -5,7 +5,7 @@ import {TranslateService} from 'ng2-translate/ng2-translate';
 import { Product, ProductService } from '../shared/index';
 import { EditController, AlertType, FormInfo, FormFieldInfo,
     RefComboboxService, CMB_FILTERS,
-    TextFieldInfo, CheckboxFieldInfo, CmbFieldInfo } from './../../shared/index';
+    TextFieldInfo, CheckboxFieldInfo, CmbFieldInfo, NumberFieldInfo } from './../../shared/index';
 
 @Component({
     selector: 'product-detail',
@@ -42,7 +42,8 @@ export class ProductDetailCmp extends EditController<Product> implements OnInit 
         unitField.filter = CMB_FILTERS.UNIT;
         form.addField(unitField);
         
-        form.createField('group', 'product.detail.group', true);
+        //form.createField('group', 'product.detail.group', true);
+        form.addField(new NumberFieldInfo(this.getTranslator(), form.model,'group', 'product.detail.group', true, 1000, 0));
         form.createField('description', 'product.detail.description');
         form.createField('status', 'product.detail.status', true);
         form.createField('discount', 'product.detail.discount', true);

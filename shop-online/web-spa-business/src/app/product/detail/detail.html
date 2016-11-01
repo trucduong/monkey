@@ -35,9 +35,11 @@
                     <input class="form-control" [(ngModel)]="formInfo.model.unit" name="unit">
                 </form-field-cmp>-->
 
-                <form-field-cmp [info]="formInfo.getField('group')" [fieldModel]="formInfo.model.group">
+                <number-field-cmp [info]="formInfo.getField('group')" [(fieldModel)]="formInfo.model.group">
+                </number-field-cmp>
+                <!--<form-field-cmp [info]="formInfo.getField('group')" [fieldModel]="formInfo.model.group">
                     <input class="form-control" [(ngModel)]="formInfo.model.group" name="group">
-                </form-field-cmp>
+                </form-field-cmp>-->
 
                 <form-field-cmp [info]="formInfo.getField('description')" [fieldModel]="formInfo.model.description">
                     <input class="form-control" [(ngModel)]="formInfo.model.description" name="description">

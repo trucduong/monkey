@@ -40,11 +40,11 @@ export class NumberValidator implements Validator {
             return null;
         }
 
-        if (this.min && obj < this.min) {
+        if (this.min != null && obj < this.min) {
             return new Error('common.validator.error.minvalue', [this.min]);
         }
 
-        if (this.max && obj > this.max) {
+        if (this.max != null && obj > this.max) {
             return new Error('common.validator.error.maxvalue', [this.max]);
         }
 
