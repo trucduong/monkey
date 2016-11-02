@@ -9,6 +9,8 @@ package core.dao.entities;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
@@ -47,7 +49,7 @@ public abstract class BaseEntity implements Serializable {
 	public static final String DATE = "DATE";
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", columnDefinition = LONG)
 	protected long id;
 	

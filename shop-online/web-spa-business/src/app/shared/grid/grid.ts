@@ -58,9 +58,8 @@ export class GridCmp<T> implements OnChanges {
             this.items = this.dataSources.filter(e => {
                 return this.filterInfo.columns.every(c => {
                     if (e[c].indexOf(value) != -1) {
-                        return false;
+                        return true;
                     }
-                    return true;
                 });
             });
             // this.dataSources.forEach(item => {

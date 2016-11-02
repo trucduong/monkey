@@ -1,8 +1,8 @@
 package service.catalogue.shared.utils;
 
 public enum ProductStatus {
-	ACTIVE("ACTIVE"),
-	EXPIRED("EXPIRED");
+	ACTIVE("active"),
+	EXPIRED("expired");
 	
 
 	private String value;

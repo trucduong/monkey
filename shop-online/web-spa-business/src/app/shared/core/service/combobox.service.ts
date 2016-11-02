@@ -4,6 +4,7 @@ import { LocalStorageUtils } from '../utils/localstorage.utils';
 
 export const CMB_FILTERS = {
     UNIT: {type: 'ref.unit'},
+    PRODUCT_STATUS: {type: 'ref.product.status'}
 };
 
 export abstract class ComboboxService {

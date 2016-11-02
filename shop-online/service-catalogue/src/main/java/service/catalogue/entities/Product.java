@@ -18,7 +18,7 @@ public class Product extends BaseEntity {
 	@Column(name = "code", columnDefinition = SHORT_2)
 	private String code;
 
-	@Column(name = "name", columnDefinition = SHORT_5)
+	@Column(name = "name", columnDefinition = MEDIUM_1)
 	private String name;
 
 	@Column(name = "image", columnDefinition = MEDIUM_1)
@@ -36,6 +36,9 @@ public class Product extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "product_status", columnDefinition = SHORT_5)
 	private ProductStatus status;
+	
+	@Column(name = "warning_remaining", columnDefinition = LONG)
+	private long warningRemaining;
 	
 	public String getCode() {
 		return code;
@@ -91,5 +94,13 @@ public class Product extends BaseEntity {
 	
 	public void setStatus(ProductStatus status) {
 		this.status = status;
+	}
+	
+	public long getWarningRemaining() {
+		return warningRemaining;
+	}
+	
+	public void setWarningRemaining(long warningRemaining) {
+		this.warningRemaining = warningRemaining;
 	}
 }

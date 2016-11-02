@@ -52,24 +52,25 @@
 
 
 "ref.unit.kg": "Kg",
+"ref.product.status.active": "Sử dụng",
+"ref.product.status.expired": "Không Sử dụng",
+
+
 
 "product.title.product":"Danh sách sản phẩm",
 "product.list.id":"Mã sản phẩm",
 "product.list.name":"Tên sản phẩm",
 "product.list.description":"Mô tả",
 "product.list.image":"Hình ảnh",
-"product.list.image.a":"Hình ảnh a",
-"product.list.image.b":"Hình ảnh b",
-"product.list.image.c":"Hình ảnh c",
 "product.list.inputPrice":"Giá nhập",
 "product.list.wholesalePrice":"Giá sỉ",
 "product.list.retailPrice":"Giá lẻ",
 "product.list.group":"Nhóm sản phẩm",
-"product.list.alarmInventory":"Cảnh báo tồn kho",
+"product.list.warningRemaining":"Cảnh báo tồn kho",
 "product.list.unit":"Đơn vị tính",
 "product.list.inputFrom":"Nhập kho từ",
-"product.detail.title":"Chi tiết sản phẩm",
 
+"product.detail.title":"Chi tiết sản phẩm",
 "product.detail.id":"ID",
 "product.detail.code":"Mã số",
 "product.detail.name":"Tên",
@@ -88,7 +89,6 @@
 "product.group.title":"Danh sách nhóm sản phẩm",
 "product.group.list.id":"Mã số",
 "product.group.list.name":"Tên sản phẩm",
-
 
 
 

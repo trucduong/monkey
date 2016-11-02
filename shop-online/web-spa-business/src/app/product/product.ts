@@ -9,12 +9,13 @@ import { ProductService} from './shared/index';
 
 const headers: GridHeader[] = [
   //{ name: 'id', labelKey: 'common.list.id', sortable: true, width: 5, translation: false },
-  { name: 'code', labelKey: 'common.list.code', sortable: true, width: 10, translation: false },
-  { name: 'name', labelKey: 'product.list.name', sortable: true, width: 20, translation: false },
+  //{ name: 'code', labelKey: 'common.list.code', sortable: true, width: 10, translation: false },
+  { name: 'name', labelKey: 'product.list.name', sortable: true, width: 30, translation: false },
   { name: 'unit', labelKey: 'common.list.unit', sortable: true, width: 10, translation: true },
   { name: 'group', labelKey: 'product.list.group', sortable: true, width: 20, translation: false },
   { name: 'status', labelKey: 'common.list.status', sortable: true, width: 10, translation: false },
-  { name: 'description', labelKey: 'product.list.description', sortable: true, width: 25, translation: false },
+  { name: 'warningRemaining', labelKey: 'product.list.warningRemaining', sortable: true, width: 10, translation: false },
+  { name: 'description', labelKey: 'product.list.description', sortable: true, width: 20, translation: false },
 ];
 
 @Component({
@@ -41,7 +42,8 @@ export class ProductCmp extends ListController<Product> implements OnInit {
   }
 
   getDefaultFilter(): FilterInfo {
-    return new FilterInfo(['code', 'name']);
+    //return new FilterInfo(['code', 'name']);
+    return new FilterInfo(['name']);
   }
 
   load(): Promise<any> {
@@ -64,7 +66,7 @@ export class ProductCmp extends ListController<Product> implements OnInit {
   }
   
   delete(item: Product): Promise<boolean> {
-    return this.productService.deleteProduct(item['id'])
+    return this.productService.deleteProduct(item[this.idColumnName])
     .then(id => {
       return Promise.resolve(true);
     })

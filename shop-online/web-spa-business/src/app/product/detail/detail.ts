@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
-import { Product, ProductService } from '../shared/index';
+import { Product, ProductService, RefProductGroupService } from '../shared/index';
 import { EditController, AlertType, FormInfo, FormFieldInfo,
     RefComboboxService, CMB_FILTERS,
     TextFieldInfo, CheckboxFieldInfo, CmbFieldInfo, NumberFieldInfo } from './../../shared/index';
@@ -27,40 +27,36 @@ export class ProductDetailCmp extends EditController<Product> implements OnInit 
 
     createForm(): FormInfo {
         let form = new FormInfo(this.getTranslator(), this.createModel(), 'product.detail.title');
-        form.createField('id', 'product.detail.id');
-        form.createField('code', 'product.detail.code');
-        // form.createField('name', 'product.detail.name', true, 0, 10);
-        form.addField(new TextFieldInfo(this.getTranslator(), form.model, 'name', 'product.detail.name', true, 0, 10));
-        (<CheckboxFieldInfo> form.addField(new CheckboxFieldInfo(this.getTranslator(), form.model, 'image', 'product.detail.image', true)))
-            .addItem('product.list.image.a', 'imga')
-            .addItem('product.list.image.b', 'imgb')
-            .addItem('product.list.image.c', 'imgc');
+        //form.createField('id', 'product.detail.id');
+        //form.createField('code', 'product.detail.code');
+        form.addField(new TextFieldInfo(this.getTranslator(), form.model, 'name', 'product.detail.name', true, 0, 100));
+        //(<CheckboxFieldInfo> form.addField(new CheckboxFieldInfo(this.getTranslator(), form.model, 'image', 'product.detail.image', true)));
 
-        //form.createField('unit', 'product.detail.unit', true);
-        let service = new RefComboboxService(this.productService);
-        let unitField = new CmbFieldInfo(this.getTranslator(), service, form.model, 'unit', 'product.detail.unit', true);
+        let refService = new RefComboboxService(this.productService);
+        let unitField = new CmbFieldInfo(this.getTranslator(), refService, form.model, 'unit', 'product.detail.unit', true);
         unitField.filter = CMB_FILTERS.UNIT;
         form.addField(unitField);
         
-        //form.createField('group', 'product.detail.group', true);
-        form.addField(new NumberFieldInfo(this.getTranslator(), form.model,'group', 'product.detail.group', true, 1000, 0));
-        form.createField('description', 'product.detail.description');
-        form.createField('status', 'product.detail.status', true);
-        form.createField('discount', 'product.detail.discount', true);
-        form.createField('remaining', 'product.detail.remaining');
-        form.createField('warningRemaining', 'product.detail.warningRemaining');
-        form.createField('inputPrice', 'product.detail.inputPrice');
-        form.createField('wholesalePrice', 'product.detail.wholesalePrice');
-        form.createField('retailPrice', 'product.detail.retailPrice');
+        let refProductGroupService = new RefProductGroupService(this.productService);
+        form.addField(new CmbFieldInfo(this.getTranslator(), refProductGroupService, form.model, 'group', 'product.detail.group', true));
 
+        form.createField('description', 'product.detail.description');
+
+        let statusField = new CmbFieldInfo(this.getTranslator(), refService, form.model, 'status', 'product.detail.status', true);
+        statusField.filter = CMB_FILTERS.PRODUCT_STATUS;
+        form.addField(statusField);
+
+        form.addField(new NumberFieldInfo(this.getTranslator(), form.model, 'warningRemaining', 'product.detail.warningRemaining', true, 0, 10000));
 
         return form;
     }
 
     createModel(): Product {
         let model = new Product()
-        model.image = '[imgb]';
-        model.unit = 'kg';
+        model.id = '-1';
+        model.warningRemaining = 0;
+        model.status = 'active'
+        
         return model;
     }
 

@@ -16,17 +16,17 @@ public class RefEntity extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	// common.ref.unit
-	@Column(name = "ref_type", columnDefinition = SHORT_1)
+	@Column(name = "ref_type", columnDefinition = MEDIUM_1)
 	private String refType;
 
 	// kg, cai, xxx
-	@Column(name = "ref_value", columnDefinition = SHORT_1)
+	@Column(name = "ref_value", columnDefinition = MEDIUM_1)
 	private String refValue;
 
-	@Column(name = "ref_label_vi", columnDefinition = SHORT_5)
+	@Column(name = "ref_label_vi", columnDefinition = MEDIUM_1)
 	private String refLabelVi;
 
-	@Column(name = "ref_label_en", columnDefinition = SHORT_5)
+	@Column(name = "ref_label_en", columnDefinition = MEDIUM_1)
 	private String refLabelEn;
 
 	@Column(name = "order_weight", columnDefinition = INT)

@@ -94,8 +94,9 @@ export class FormFieldInfo extends ValidatorHandler {
             return false;
         }
 
+        let val = mthis.model[mthis.name];
         this.getValidators().every(validator => {
-            let err = validator.validate(mthis.model[this.name]);
+            let err = validator.validate(val);
             if (err) {
                 mthis.addError(err);
                 return false;
@@ -222,7 +223,7 @@ export class NumberFieldInfo extends FormFieldInfo {
     max: number;
     min: number;
     step: number
-    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, max: number, min: number, step?: number) {
+    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, min: number, max: number, step?: number) {
         super(translate, model, name, label, required);
         this.max = max;
         this.min = min;

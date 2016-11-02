@@ -22,9 +22,6 @@ public class ProductDetail extends BaseEntity {
 	@Column(name = "remaining", columnDefinition = LONG)
 	private long remaining;
 	
-	@Column(name = "warning_remaining", columnDefinition = LONG)
-	private long warningRemaining;
-	
 	@Column(name="input_price", columnDefinition=CURRENCY)
 	private BigDecimal inputPrice;
 	
@@ -56,13 +53,5 @@ public class ProductDetail extends BaseEntity {
 
 	public void setRemaining(long remaining) {
 		this.remaining = remaining;
-	}
-
-	public long getWarningRemaining() {
-		return warningRemaining;
-	}
-
-	public void setWarningRemaining(long warningRemaining) {
-		this.warningRemaining = warningRemaining;
 	}
 }
