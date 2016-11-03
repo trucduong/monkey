@@ -14,8 +14,8 @@ import service.auth.shared.PermissionStatus;
  *
  */
 @Entity
-@Table(name = "user_permissions")
-public class UserPermission extends BaseEntity {
+@Table(name = "auth_permissions")
+public class AuthPermission extends BaseEntity {
 
 	private static final long serialVersionUID = 2243399028554666270L;
 	/**
@@ -24,7 +24,7 @@ public class UserPermission extends BaseEntity {
 	@Column(name = "permission_name", columnDefinition = MEDIUM_1)
 	private String name;
 
-	@Column(name = "group_name", columnDefinition = SHORT_5)
+	@Column(name = "group_name", columnDefinition = MEDIUM_1)
 	private String groupName;
 
 	@Column(name = "display_name", columnDefinition = MEDIUM_1)

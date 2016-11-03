@@ -1,8 +1,11 @@
 package service.auth.web.config;
 
+import javax.servlet.Filter;
+
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import service.auth.config.AppConfig;
+import service.auth.web.config.filter.CORSFilter;
 
 public class SpringWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	@Override
@@ -19,4 +22,10 @@ public class SpringWebAppInitializer extends AbstractAnnotationConfigDispatcherS
 	protected String[] getServletMappings() {
 		return new String[] { "/" };
 	}
+	
+	@Override
+    protected Filter[] getServletFilters() {
+    	Filter [] singleton = { new CORSFilter()};
+    	return singleton;
+    }
 }

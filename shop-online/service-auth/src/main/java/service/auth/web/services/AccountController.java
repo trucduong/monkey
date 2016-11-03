@@ -27,7 +27,7 @@ public class AccountController extends BaseService {
 	public ServiceResult getAccountByName(
 			@PathVariable(value = ServiceAuthAction.GET_ACCOUNT_BY_NAME__NAME) String name) {
 		LOGGER.debug("getAccountByName: " + name);
-		UserAccount entity = accountDao.find(UserAccount.COL_NAME, name);
+		UserAccount entity = accountDao.find(UserAccount.LOGIN_NAME, name);
 
 		if (entity == null) {
 			LOGGER.debug("ERROR: NOT FOUND");
@@ -39,7 +39,7 @@ public class AccountController extends BaseService {
 		dto.setAccountType(entity.getAccountType());
 		dto.setPassword(entity.getPassword());
 		dto.setPermissions(entity.getPermissions());
-		dto.setShopId(entity.getShopId());
+//		dto.setShopId(entity.getShopId());
 		dto.setStatus(entity.getStatus());
 
 		LOGGER.debug("SUCCESS");

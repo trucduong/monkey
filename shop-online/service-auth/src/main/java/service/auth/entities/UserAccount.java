@@ -15,7 +15,7 @@ import service.auth.shared.AccountType;
 public class UserAccount extends BaseEntity {
 
 	private static final long serialVersionUID = -61352121879032316L;
-	public static final String COL_NAME = "loginName";
+	public static final String LOGIN_NAME = "loginName";
 
 	@Column(name = "login_name", unique = true, columnDefinition = SHORT_5)
 	private String loginName;
@@ -24,17 +24,14 @@ public class UserAccount extends BaseEntity {
 	private String password;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "status", columnDefinition = SHORT_1)
-	private AccountStatus status;
-
-	@Enumerated(EnumType.STRING)
 	@Column(name = "account_type", columnDefinition = SHORT_1)
 	private AccountType accountType;
 
-	@Column(name = "shop_id", columnDefinition = SHORT_2)
-	private String shopId;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", columnDefinition = SHORT_1)
+	private AccountStatus status;
 
-	// permission id array (Json format)
+	// permission id array (Json format). Ex: ["somestring1", "somestring2"]
 	@Column(name = "permissions", columnDefinition = LONG_1)
 	private String permissions;
 
@@ -80,27 +77,4 @@ public class UserAccount extends BaseEntity {
 	public void setPermissions(String permissions) {
 		this.permissions = permissions;
 	}
-
-	public String getShopId() {
-		return shopId;
-	}
-
-	public void setShopId(String shopId) {
-		this.shopId = shopId;
-	}
-//
-//	@Override
-//	public String getColIdName() {
-//		return "loginName";
-//	}
-//
-//	@Override
-//	public Object getColIdValue() {
-//		return getLoginName();
-//	}
-//
-//	@Override
-//	public Object convertToId(String value) {
-//		return value;
-//	}
 }

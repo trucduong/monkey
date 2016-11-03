@@ -7,7 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import core.dao.entities.BaseEntity;
-import service.auth.shared.AccountType;
+import service.auth.shared.UserType;
 
 @Entity
 @Table(name = "user_profiles")
@@ -19,10 +19,10 @@ public class UserProfile extends BaseEntity {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "user_type", columnDefinition = SHORT_1)
-	private AccountType userType;
+	private UserType userType;
 
-	@Column(name = "shop_id", columnDefinition = SHORT_2)
-	private String shopId;
+	@Column(name = "shop_id", columnDefinition = LONG)
+	private Long shopId;
 
 	@Column(name = "profile_details", columnDefinition = LONG_1)
 	private String details;
@@ -43,34 +43,19 @@ public class UserProfile extends BaseEntity {
 		this.details = details;
 	}
 
-	public AccountType getUserType() {
+	public UserType getUserType() {
 		return userType;
 	}
 
-	public void setUserType(AccountType userType) {
+	public void setUserType(UserType userType) {
 		this.userType = userType;
 	}
 
-	public String getShopId() {
+	public Long getShopId() {
 		return shopId;
 	}
 
-	public void setShopId(String shopId) {
+	public void setShopId(Long shopId) {
 		this.shopId = shopId;
 	}
-//
-//	@Override
-//	public String getColIdName() {
-//		return "loginName";
-//	}
-//
-//	@Override
-//	public Object getColIdValue() {
-//		return getLoginName();
-//	}
-//	
-//	@Override
-//	public Object convertToId(String value) {
-//		return value;
-//	}
 }
