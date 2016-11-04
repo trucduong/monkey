@@ -36,6 +36,6 @@
         </form-cmp>
     </div>
     <div class="row">
-        <button class="btn btn-default" (click)="onBack()"><i class="glyphicon glyphicon-arrow-left"></i></button>
+        <button class="btn btn-default" *ngIf="canNavigateBack()" (click)="onBack()"><i class="glyphicon glyphicon-arrow-left"></i></button>
     </div>
 </wrapper>

@@ -51,9 +51,11 @@
 "common.list.unit":"Đơn vị tính",
 
 
-"ref.unit.kg": "Kg",
-"ref.product.status.active": "Sử dụng",
-"ref.product.status.expired": "Không Sử dụng",
+"ref.unit.KG": "Kg",
+"ref.unit.COUNT": "Cai",
+"ref.unit.LIT": "Lit",
+"ref.product.status.ACTIVE": "Sử dụng",
+"ref.product.status.EXPIRED": "Không Sử dụng",
 
 
 

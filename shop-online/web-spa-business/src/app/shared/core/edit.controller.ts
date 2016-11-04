@@ -16,9 +16,8 @@ export abstract class EditController<T> extends BaseController {
     idColumnName='id';
     formInfo: FormInfo;
     isEditing: boolean;
-    private errors: { [key:string]:string; } = {};
 
-    //abstract load(id: any): T;
+    //abstract load(id: any): Promise<T>;
     //abstract createForm(): FormInfo;
     //abstract save(model: T): Promise<T>;
 
@@ -55,26 +54,21 @@ export abstract class EditController<T> extends BaseController {
         this.showLoading();
 
         // validate
-        if (!this.formInfo.validate()) {
-            this.showErrorMessage("Please input correct information!");
+        if (!this.formInfo.validate({})) {
+            this.showErrorMessage({key:"Please input correct information!", params: []});
         }
 
         // save
-        let result: boolean = false;
         this.save(this.formInfo.model)
         .then(item => {
-            result = true;
+            this.formInfo.model = item;
+            this.onBack();
+            this.hideLoading();
         })
         .catch(error => {
-            this.showErrorMessage("Can not save");
+            this.showErrorMessage({key: "Can not save", params: []});
             this.log(error);
+            this.hideLoading();
         });
-
-        this.hideLoading();
-        this.checkOnBack(result);
-    }
-
-    addError(field: string, message: string) {
-        this.errors[field] = message;
     }
 }

@@ -8,7 +8,7 @@ public class ServiceCommonAction extends CRUDServiceAction {
 
 	public static final String REF_SERVICE = "/ref-service";
 	
-	public static final String READ_CMB = "/read-cmb/{type}/{locale}";
+	public static final String READ_CMB = "/read-cmb/{type}";
 	
 	@Override
 	public String getServerName() {

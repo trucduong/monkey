@@ -1,6 +1,5 @@
 import { BaseHttpService } from './base.http.service';
 import { SERVICES } from '../utils/service.url';
-import { LocalStorageUtils } from '../utils/localstorage.utils';
 
 export const CMB_FILTERS = {
     UNIT: {type: 'ref.unit'},
@@ -33,7 +32,7 @@ export class RefComboboxService extends ComboboxService {
     }
     
     getItems(filter: any): Promise<any[]> {
-        return this.httpService.get(SERVICES.URLS.ref, SERVICES.ACTIONS.READ_CMB, [filter.type, LocalStorageUtils.get('locale')])
+        return this.httpService.get(SERVICES.URLS.ref, SERVICES.ACTIONS.READ_CMB, [filter.type + '.x'])
         .then(res => {
             // let items = [];
             // res.forEach(e => {

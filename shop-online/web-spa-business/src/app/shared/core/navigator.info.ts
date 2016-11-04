@@ -15,6 +15,10 @@ class NavigatorStack {
     pop(): string {
         return this.stack.pop();
     }
+
+    isEmpty(): boolean {
+        return this.stack.length == 0;
+    }
     
 }
 

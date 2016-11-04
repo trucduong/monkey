@@ -98,14 +98,14 @@ export class ProductService extends BaseHttpService {
     }
 
     getProduct(id: string) {
-        return this.get(SERVICES.URLS.product, SERVICES.ACTIONS.READ_BY, ['id', id]);
+        return this.get(SERVICES.URLS.product, SERVICES.ACTIONS.READ, [id]);
     }
 
     saveProduct(item: Product, isEditing: boolean) {
         if (isEditing) {
             return this.post(SERVICES.URLS.product, SERVICES.ACTIONS.UPDATE, item, [item.id]);
         } else {
-            return this.post(SERVICES.URLS.product, SERVICES.ACTIONS.CREATE, item, [item.id])
+            return this.post(SERVICES.URLS.product, SERVICES.ACTIONS.CREATE, item, [])
         }
     }
 

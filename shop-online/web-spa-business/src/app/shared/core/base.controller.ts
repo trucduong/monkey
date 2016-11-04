@@ -44,6 +44,10 @@ export abstract class BaseController {
     }
 
     navigateBack(extras?: NavigationExtras) {
+        if (!this.canNavigateBack()) {
+            return;
+        }
+
         let url = NAVIGATOR_INFO.pop();
         this.router.navigate([url], extras);
     }
@@ -52,11 +56,15 @@ export abstract class BaseController {
         this.navigateBack();
     }
 
-    checkOnBack(canBack: boolean) {
-        if (canBack) {
-            this.onBack();
-        }
+    canNavigateBack(): boolean {
+        return !NAVIGATOR_INFO.isEmpty();
     }
+
+    // checkOnBack(canBack: boolean) {
+    //     if (canBack) {
+    //         this.onBack();
+    //     }
+    // }
 
     onNavigate(url: string) {
         this.navigateTo([url]);
@@ -89,7 +97,7 @@ export abstract class BaseController {
     /**
      * Message box
      */
-    showMessage(title: string, message: any, actions: DialogButton[], listener: DialogListener) {
+    showMessage(title: string, message: {key: string, params: any[]}, actions: DialogButton[], listener: DialogListener) {
         this.hideLoading();
         
         this.translateText(message.key).then(msg => {
@@ -101,19 +109,19 @@ export abstract class BaseController {
         });
     }
 
-    showQuestionMessage(message: any, listener?: DialogListener) {
+    showQuestionMessage(message: {key: string, params: any[]}, listener?: DialogListener) {
         this.showMessage('common.alert.title.question', message, [DIALOG_ACTIONS.YES, DIALOG_ACTIONS.NO], listener);
     }
 
-    showConfirmMessage(message: any, listener?: DialogListener) {
+    showConfirmMessage(message: {key: string, params: any[]}, listener?: DialogListener) {
         this.showMessage('common.alert.title.confirm', message, [DIALOG_ACTIONS.OK, DIALOG_ACTIONS.CANCEL], listener);
     }
 
-    showInfoMessage(message: any, listener?: DialogListener) {
+    showInfoMessage(message: {key: string, params: any[]}, listener?: DialogListener) {
         this.showMessage('common.alert.title.info', message, [DIALOG_ACTIONS.CLOSE], listener);
     }
 
-    showErrorMessage(message: any, listener?: DialogListener) {
+    showErrorMessage(message: {key: string, params: any[]}, listener?: DialogListener) {
         this.showMessage('common.alert.title.error', message, [DIALOG_ACTIONS.CLOSE], listener);
     }
 

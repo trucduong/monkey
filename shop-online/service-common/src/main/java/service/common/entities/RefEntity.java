@@ -23,11 +23,11 @@ public class RefEntity extends BaseEntity {
 	@Column(name = "ref_value", columnDefinition = MEDIUM_1)
 	private String refValue;
 
-	@Column(name = "ref_label_vi", columnDefinition = MEDIUM_1)
-	private String refLabelVi;
-
-	@Column(name = "ref_label_en", columnDefinition = MEDIUM_1)
-	private String refLabelEn;
+//	@Column(name = "ref_label_vi", columnDefinition = MEDIUM_1)
+//	private String refLabelVi;
+//
+//	@Column(name = "ref_label_en", columnDefinition = MEDIUM_1)
+//	private String refLabelEn;
 
 	@Column(name = "order_weight", columnDefinition = INT)
 	private int orderWeight;
@@ -47,22 +47,22 @@ public class RefEntity extends BaseEntity {
 	public void setRefValue(String refValue) {
 		this.refValue = refValue;
 	}
-
-	public String getRefLabelVi() {
-		return refLabelVi;
-	}
-
-	public void setRefLabelVi(String refLabelVi) {
-		this.refLabelVi = refLabelVi;
-	}
-
-	public String getRefLabelEn() {
-		return refLabelEn;
-	}
-
-	public void setRefLabelEn(String refLabelEn) {
-		this.refLabelEn = refLabelEn;
-	}
+//
+//	public String getRefLabelVi() {
+//		return refLabelVi;
+//	}
+//
+//	public void setRefLabelVi(String refLabelVi) {
+//		this.refLabelVi = refLabelVi;
+//	}
+//
+//	public String getRefLabelEn() {
+//		return refLabelEn;
+//	}
+//
+//	public void setRefLabelEn(String refLabelEn) {
+//		this.refLabelEn = refLabelEn;
+//	}
 
 	public int getOrderWeight() {
 		return orderWeight;
@@ -71,15 +71,15 @@ public class RefEntity extends BaseEntity {
 	public void setOrderWeight(int orderWeight) {
 		this.orderWeight = orderWeight;
 	}
-
-	public String getLabel(Language language) {
-		switch (language) {
-		case ENGLISH:
-			return this.refLabelEn;
-		case VIET_NAM:
-			return this.refLabelVi;
-		default:
-			return "";
-		}
-	}
+//
+//	public String getLabel(Language language) {
+//		switch (language) {
+//		case ENGLISH:
+//			return this.refLabelEn;
+//		case VIET_NAM:
+//			return this.refLabelVi;
+//		default:
+//			return "";
+//		}
+//	}
 }

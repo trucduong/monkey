@@ -33,7 +33,7 @@ export class FormFieldCmp implements OnChanges {
             }
         } else if (changes['fieldModel']) {
             if (this.info) {
-                this.info.validate();
+                this.info.validate(this.fieldModel);
             }
         }
     }
@@ -79,7 +79,7 @@ export class CheckboxFieldCmp extends CustomField implements OnChanges {
             }
         } else if (changes['fieldModel']) {
             if (this.info) {
-                this.info.validate();
+                this.info.validate(this.fieldModel);
             }
         }
 
@@ -126,7 +126,7 @@ export class CmbFieldCmp extends CustomField implements OnChanges {
             }
         } else if (changes['fieldModel']) {
             if (this.info) {
-                this.info.validate();
+                this.info.validate(this.fieldModel);
             }
         }
 

@@ -25,7 +25,7 @@ public abstract class BaseService {
 	}
 	
 	protected void init() throws CommonException {
-		this.init(ServiceErrorCode.NOT_FOUND);
+		this.init(ServiceErrorCode.UNKNOW_ERROR);
 	}
 
 	protected ServiceResult success(String value) {

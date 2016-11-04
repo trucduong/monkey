@@ -23,7 +23,7 @@ export abstract class ValidatorHandler {
         });
     }
 
-    public abstract validate(): boolean;
+    public abstract validate(obj: any): boolean;
 
     public addValidator(validator: Validator) {
         this.validators.push(validator);
@@ -57,7 +57,7 @@ export abstract class ValidatorHandler {
 export class FormFieldInfo extends ValidatorHandler {
     label: string;
     name: string;
-    model: any;
+    //model: any;
 
     required: boolean;
     enabled: boolean;
@@ -68,10 +68,10 @@ export class FormFieldInfo extends ValidatorHandler {
     autofocus: boolean;
     placeholder: string;
 
-    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean) {
+    constructor(translate: TranslateService, name: string, label: string, required: boolean) {
         super(translate);
 
-        this.model = model;
+        //this.model = model;
         this.name = name;
         this.label = label;
 
@@ -86,7 +86,7 @@ export class FormFieldInfo extends ValidatorHandler {
         this.placeholder = '';
     }
 
-    public validate(): boolean {
+    public validate(obj: any): boolean {
         let mthis = this;
         this.clearErrors();
 
@@ -94,9 +94,8 @@ export class FormFieldInfo extends ValidatorHandler {
             return false;
         }
 
-        let val = mthis.model[mthis.name];
         this.getValidators().every(validator => {
-            let err = validator.validate(val);
+            let err = validator.validate(obj);
             if (err) {
                 mthis.addError(err);
                 return false;
@@ -105,7 +104,7 @@ export class FormFieldInfo extends ValidatorHandler {
         });
 
         this.translateErrors(this.getErrors());
-        return this.hasError();
+        return !this.hasError();
     }
 }
 
@@ -132,20 +131,20 @@ export class FormInfo extends ValidatorHandler {
     }
 
     public createField(name: string, title: string, required?: boolean): FormFieldInfo {
-        return this.addField(new FormFieldInfo(this.translate, this.model, name, title, required));
+        return this.addField(new FormFieldInfo(this.translate, name, title, required));
     }
 
     public getField(name: string): FormFieldInfo {
         return this.fields.get(name);
     }
 
-    public validate(): boolean {
+    public validate(obj: any): boolean {
         let mthis = this;
         this.clearErrors();
 
         // validate fields
         this.fields.forEach(field => {
-            field.validate();
+            field.validate(this.model[field.name]);
         });
 
         // validate form
@@ -159,7 +158,7 @@ export class FormInfo extends ValidatorHandler {
         }
 
         this.translateErrors(this.getErrors());
-        return this.hasError();
+        return !this.hasError();
     }
 
     public hasError() {
@@ -182,8 +181,8 @@ export class TextFieldInfo extends FormFieldInfo {
     maxlength: number;
     minlength: number;
 
-    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, minlength: number, maxlength: number) {
-        super(translate, model, name, label, required);
+    constructor(translate: TranslateService, name: string, label: string, required: boolean, minlength: number, maxlength: number) {
+        super(translate, name, label, required);
         this.maxlength = maxlength;
         this.minlength = minlength;
         this.type = 'text';
@@ -192,8 +191,8 @@ export class TextFieldInfo extends FormFieldInfo {
 }
 
 export class EmailFieldInfo extends TextFieldInfo {
-    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, maxlength: number, minlength: number) {
-        super(translate, model, name, label, required, maxlength, minlength);
+    constructor(translate: TranslateService, name: string, label: string, required: boolean, maxlength: number, minlength: number) {
+        super(translate, name, label, required, maxlength, minlength);
         this.maxlength = maxlength;
         this.minlength = minlength;
         this.type = 'email';
@@ -201,8 +200,8 @@ export class EmailFieldInfo extends TextFieldInfo {
 }
 
 export class PasswordFieldInfo extends TextFieldInfo {
-    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, maxlength: number, minlength: number) {
-        super(translate, model, name, label, required, maxlength, minlength);
+    constructor(translate: TranslateService, name: string, label: string, required: boolean, maxlength: number, minlength: number) {
+        super(translate, name, label, required, maxlength, minlength);
         this.maxlength = maxlength;
         this.minlength = minlength;
         this.type = 'password';
@@ -212,8 +211,8 @@ export class PasswordFieldInfo extends TextFieldInfo {
 export class TextAreaFieldInfo extends TextFieldInfo {
     maxlength: number;
     rows: number;
-    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, maxlength: number, rows: number) {
-        super(translate, model, name, label, required, maxlength, 0);
+    constructor(translate: TranslateService, name: string, label: string, required: boolean, maxlength: number, rows: number) {
+        super(translate, name, label, required, maxlength, 0);
         this.rows = rows
         this.type = 'textarea';
     }
@@ -223,8 +222,8 @@ export class NumberFieldInfo extends FormFieldInfo {
     max: number;
     min: number;
     step: number
-    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, min: number, max: number, step?: number) {
-        super(translate, model, name, label, required);
+    constructor(translate: TranslateService, name: string, label: string, required: boolean, min: number, max: number, step?: number) {
+        super(translate, name, label, required);
         this.max = max;
         this.min = min;
         this.type = 'number';
@@ -241,8 +240,8 @@ export class NumberFieldInfo extends FormFieldInfo {
 export class DateFieldInfo extends FormFieldInfo {
     max: Date;
     min: Date;
-    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, max: Date, min: Date) {
-        super(translate, model, name, label, required);
+    constructor(translate: TranslateService, name: string, label: string, required: boolean, max: Date, min: Date) {
+        super(translate, name, label, required);
         this.max = max;
         this.min = min;
         this.type = 'date';
@@ -252,8 +251,8 @@ export class DateFieldInfo extends FormFieldInfo {
 export class DateTimeFieldInfo extends FormFieldInfo {
     max: Date;
     min: Date;
-    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, max: Date, min: Date) {
-        super(translate, model, name, label, required);
+    constructor(translate: TranslateService, name: string, label: string, required: boolean, max: Date, min: Date) {
+        super(translate, name, label, required);
         this.max = max;
         this.min = min;
         this.type = 'datetime';
@@ -264,8 +263,8 @@ export class DateTimeFieldInfo extends FormFieldInfo {
 export class TimeFieldInfo extends FormFieldInfo {
     max: Date;
     min: Date;
-    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean, max: Date, min: Date) {
-        super(translate, model, name, label, required);
+    constructor(translate: TranslateService, name: string, label: string, required: boolean, max: Date, min: Date) {
+        super(translate, name, label, required);
         this.max = max;
         this.min = min;
         this.type = 'time';
@@ -274,8 +273,8 @@ export class TimeFieldInfo extends FormFieldInfo {
 
 export class CheckboxFieldInfo extends FormFieldInfo {
     items: { value: string, label: string, checked: boolean }[];
-    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean) {
-        super(translate, model, name, label, required);
+    constructor(translate: TranslateService, name: string, label: string, required: boolean) {
+        super(translate, name, label, required);
         this.items = [];
         this.type = 'checkbox';
     }
@@ -332,8 +331,8 @@ export class CheckboxFieldInfo extends FormFieldInfo {
 
 export class RadioFieldInfo extends FormFieldInfo {
     items: { value: string, label: string, checked: boolean }[];
-    constructor(translate: TranslateService, model: any, name: string, label: string, required: boolean) {
-        super(translate, model, name, label, required);
+    constructor(translate: TranslateService, name: string, label: string, required: boolean) {
+        super(translate, name, label, required);
         this.items = [];
         this.type = 'radio';
     }
@@ -400,8 +399,8 @@ export class CmbFieldInfo extends FormFieldInfo {
     hasBlankItem: boolean;
     items: {value: string, label: string}[];
     
-    constructor(translate: TranslateService, service: ComboboxService, model: any, name: string, label: string, required: boolean, hasBlankItem?: boolean) {
-        super(translate, model, name, label, required);
+    constructor(translate: TranslateService, service: ComboboxService, name: string, label: string, required: boolean, hasBlankItem?: boolean) {
+        super(translate, name, label, required);
         this.service = service;
         if (hasBlankItem == false) {
             this.hasBlankItem = false;
