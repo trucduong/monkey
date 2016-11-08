@@ -8,14 +8,14 @@ import { Warehouse } from './shared/index';
 import { WarehouseService} from './shared/index';
 
 const headers: GridHeader[] = [
-  { name: 'id', labelKey: 'warehouse.list.id', sortable: true, width: 10, translation: false },
-  { name: 'name', labelKey: 'warehouse.list.name', sortable: true, width: 10, translation: false },
-  { name: 'address', labelKey: 'common.list.address', sortable: true, width: 10, translation: false },
-  { name: 'phone', labelKey: 'common.list.phone', sortable: true, width: 10, translation: false },
-  { name: 'status', labelKey: 'common.list.status', sortable: true, width: 10, translation: false },
-  { name: 'use', labelKey: 'warehouse.list.use', sortable: true, width: 10, translation: false },
-  { name: 'branch', labelKey: 'warehouse.list.branch', sortable: true, width: 10, translation: false },
-  { name: 'note', labelKey: 'common.list.note', sortable: true, width: 10, translation: false },
+  { name: 'id', labelKey: 'warehouse.list.id', sortable: true, width: 10},
+  { name: 'name', labelKey: 'warehouse.list.name', sortable: true, width: 10},
+  { name: 'address', labelKey: 'common.list.address', sortable: true, width: 10},
+  { name: 'phone', labelKey: 'common.list.phone', sortable: true, width: 10},
+  { name: 'status', labelKey: 'common.list.status', sortable: true, width: 10},
+  { name: 'use', labelKey: 'warehouse.list.use', sortable: true, width: 10},
+  { name: 'branch', labelKey: 'warehouse.list.branch', sortable: true, width: 10},
+  { name: 'note', labelKey: 'common.list.note', sortable: true, width: 10},
 
 ];
 

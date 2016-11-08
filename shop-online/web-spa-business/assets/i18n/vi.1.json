@@ -1,4 +1,14 @@
 {
+// "common.alertDanger.name":"Yêu cầu phải có tên",
+// "common.alertDanger.maxLength100":"Tên không được dài quá 100 kí tự",
+// "common.alertDanger.maxLength500":"Tên không được dài quá 500 kí tự",
+// "common.alertDanger.phone":"Yêu cầu phải có số điện thoại",
+// "common.alertDanger.customerGroup":"Yêu cầu phải lựa chọn nhóm khách hàng",
+// "common.to":"đến",
+// "common.alertDanger.inputPrice":"Chưa có giá nhập hàng",
+// "common.alertDanger.retailPrice":"Chưa có giá bán lẻ",
+
+
 "common.dialog.btn.yes":"Có",
 "common.dialog.btn.no":"Không",
 "common.dialog.btn.ok":"Đồng ý",
@@ -21,7 +31,23 @@
 "common.validator.error.mindate": "Vui lòng nhập sau ngày {0}",
 "common.validator.error.maxdate": "Vui lòng nhập trước ngày {0}",
 
+
 "common.list.action":"Tác vụ",
+// "common.list.note":"Ghi chú",
+// "common.list.address":"Địa chỉ",
+// "common.list.email":"Email",
+// "common.list.fax":"Fax",
+// "common.list.phone":"SDT",
+// "common.list.add":"Thêm ",
+// "common.list.sex":"Giới tính",
+// "common.list.birthDay":"Ngày sinh",
+// "common.list.purchaseDate":"Ngày mua hàng",
+// "common.list.search":"Tìm kiếm",
+// "common.list.importFromExcel":"Nhập từ excel",
+// "common.list.exportToExcel":"Xuất ra excel",
+// "common.list.id":"ID",
+// "common.list.code":"Mã số",
+
 
 "ref.unit":"Đơn vị tính",
 "ref.unit.KG": "Kg",
@@ -33,30 +59,41 @@
 
 
 
-"product.list.title":"Danh sách sản phẩm",
+"product.title.product":"Danh sách sản phẩm",
+// "product.list.id":"Mã sản phẩm",
+"product.list.name":"Tên sản phẩm",
+"product.list.description":"Mô tả",
+"product.list.image":"Hình ảnh",
+"product.list.inputPrice":"Giá nhập",
+"product.list.wholesalePrice":"Giá sỉ",
+"product.list.retailPrice":"Giá lẻ",
+"product.group":"Nhóm sản phẩm",
+"product.list.warningRemaining":"Cảnh báo tồn kho",
+"product.list.unit":"Đơn vị tính",
+// "product.list.inputFrom":"Nhập kho từ",
+
 "product.detail.title":"Chi tiết sản phẩm",
-"product.name":"Tên sản phẩm",
-"product.description":"Mô tả",
-"product.image":"Hình ảnh",
-"product.warningRemaining":"Cảnh báo tồn kho",
-"product.unit":"Đơn vị tính",
-"product.group":"Nhóm",
-"product.status":"Trạng thái",
-"product.discount":"Giảm giá / Chiết khấu (%)",
-"product.remaining":"Số lượng",
-"product.inputPrice":"Giá nhập",
-"product.wholesalePrice":"Giá bán sỉ",
-"product.retailPrice":"Giá bán lẻ",
+// "product.detail.id":"ID",
+// "product.detail.code":"Mã số",
+"product.detail.name":"Tên",
+"product.detail.image":"Hình ảnh",
+"product.detail.unit":"Đơn vị tính",
+"product.detail.group":"Nhóm",
+"product.detail.description":"Mô tả",
+"product.detail.status":"Trạng thái",
+"product.detail.discount":"Giảm giá / Chiết khấu (%)",
+"product.detail.remaining":"Số lượng",
+"product.detail.warningRemaining":"Cảnh báo tồn kho",
+"product.detail.inputPrice":"Giá nhập",
+"product.detail.wholesalePrice":"Giá bán sỉ",
+"product.detail.retailPrice":"Giá bán lẻ",
 
-"product.group.list.title":"Danh sách nhóm sản phẩm",
-"product.group.detail.title":"Chi tiết nhóm sản phẩm",
-"product.group.description":"Mô tả",
-"product.group.name":"Tên nhóm sản phẩm",
+"product.group.title":"Danh sách nhóm sản phẩm",
+"product.group.list.id":"Mã số",
+"product.group.list.name":"Tên sản phẩm",
 
-"product.prices":"Bảng giá",
-"product.prices.title":"Bảng giá sản phẩm",
-"product.prices.export":"Xuất ra excel",
-"product.prices.import":"Nhập từ excel",
+
+
 
 
 "customer.group.title":"Danh sách nhóm khách hàng",

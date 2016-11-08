@@ -5,7 +5,7 @@ export class RefProductGroupService extends ComboboxService {
         super('value','label');
     }
     
-    getItems(filter: any): Promise<any[]> {
+    onload(filter: any): Promise<any[]> {
         return this.httpService.get(SERVICES.URLS.product_group, SERVICES.ACTIONS.READ_ALL, [])
         .then(res => {
             let items = [];

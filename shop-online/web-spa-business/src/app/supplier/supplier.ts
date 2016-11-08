@@ -8,16 +8,16 @@ import { Supplier } from './shared/index';
 import { SupplierService} from './shared/index';
 
 const headers: GridHeader[] = [
-  { name: 'id', labelKey: 'supplier.list.id', sortable: true, width: 10, translation: false },
-  { name: 'name', labelKey: 'supplier.list.name', sortable: true, width: 10, translation: false },
-  { name: 'address', labelKey: 'common.list.address', sortable: true, width: 10, translation: false },
-  { name: 'contact', labelKey: 'supplier.list.contact', sortable: true, width: 10, translation: false },
-  { name: 'phone', labelKey: 'common.list.phone', sortable: true, width: 10, translation: false },
-  { name: 'email', labelKey: 'common.list.email', sortable: true, width: 10, translation: false },
-  { name: 'fax', labelKey: 'common.list.fax', sortable: true, width: 10, translation: false },
-  { name: 'birthDay', labelKey: 'common.list.birthDay', sortable: true, width: 10, translation: false },
-  { name: 'supplierGroup', labelKey: 'supplier.list.supplierGroup', sortable: true, width: 10, translation: false },
-  { name: 'fax', labelKey: 'common.list.fax', sortable: true, width: 10, translation: false }
+  { name: 'id', labelKey: 'supplier.list.id', sortable: true, width: 10},
+  { name: 'name', labelKey: 'supplier.list.name', sortable: true, width: 10},
+  { name: 'address', labelKey: 'common.list.address', sortable: true, width: 10},
+  { name: 'contact', labelKey: 'supplier.list.contact', sortable: true, width: 10},
+  { name: 'phone', labelKey: 'common.list.phone', sortable: true, width: 10},
+  { name: 'email', labelKey: 'common.list.email', sortable: true, width: 10},
+  { name: 'fax', labelKey: 'common.list.fax', sortable: true, width: 10},
+  { name: 'birthDay', labelKey: 'common.list.birthDay', sortable: true, width: 10},
+  { name: 'supplierGroup', labelKey: 'supplier.list.supplierGroup', sortable: true, width: 10},
+  { name: 'fax', labelKey: 'common.list.fax', sortable: true, width: 10}
 ];
 
 @Component({

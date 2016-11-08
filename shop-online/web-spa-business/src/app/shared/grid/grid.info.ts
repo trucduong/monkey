@@ -1,4 +1,5 @@
 import { PaginationInfo } from '../pagination/pagination.info';
+import { ComboboxService } from '../core/index';
 
 export class SortInfo {
     column: string;
@@ -57,22 +58,21 @@ export class GridHeader {
     labelKey: string;
     sortable: boolean;
     width: number;
-    translation: boolean;
+    //translation: boolean;
 
-    constructor(name: string, labelKey: string, sortable?: boolean, width?: number, translation?: boolean) {
+    constructor(name: string, labelKey: string, sortable?: boolean, width?: number) {
         this.name = name;
         this.labelKey = labelKey;
         this.sortable = sortable;
         this.width = width;
-        this.translation = translation ? true : false;
     }
 }
 
 export class GridInputHeader extends GridHeader {
     inputable: boolean;
 
-    constructor(name: string, labelKey: string, sortable?: boolean, width?: number, translation?: boolean, inputable?: boolean) {
-        super(name, labelKey, sortable, width, translation);
+    constructor(name: string, labelKey: string, sortable?: boolean, width?: number, inputable?: boolean) {
+        super(name, labelKey, sortable, width);
         this.inputable = inputable ? true : false;
     }
 }
@@ -102,6 +102,7 @@ export class GridInfo {
     actions: GridAction[];
     filterInfo: FilterInfo;
     sortInfo: SortInfo;
+    translateServices: Map<string, ComboboxService>;
 
     constructor(headers: GridHeader[],
         actions: GridAction[],

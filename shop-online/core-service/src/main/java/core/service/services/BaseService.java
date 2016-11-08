@@ -1,5 +1,7 @@
 package core.service.services;
 
+import javax.persistence.PersistenceException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -52,7 +54,7 @@ public abstract class BaseService {
 		return error(ex.getErrCode(), ex.getMessage());
 	}
 
-	@ExceptionHandler({ Exception.class })
+	@ExceptionHandler({ Exception.class, PersistenceException.class })
 	public ServiceResult exception(Exception ex) {
 		LOGGER.error(ex.getMessage(), ex);
 

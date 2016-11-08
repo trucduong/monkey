@@ -10,10 +10,8 @@ import { ProductGroupDetailCmp } from './group/detail/detail';
 
 import { ProductCmp } from './product';
 import { ProductDetailCmp } from './detail/detail';
-
-import { UnitCmp } from './unit/unit';
-import { UnitDetailCmp } from './unit/detail/detail';
-
+import { ProductPricesCmp } from './prices/prices';
+import { ProductPricesDetailCmp } from './prices/detail/detail';
 
 
 import {ProductService} from './shared/index';
@@ -28,8 +26,8 @@ import {ProductService} from './shared/index';
     ProductGroupDetailCmp,
     ProductCmp,
     ProductDetailCmp,
-    UnitCmp ,
-    UnitDetailCmp
+    ProductPricesCmp,
+    ProductPricesDetailCmp
   ],
   providers: [
       ProductService

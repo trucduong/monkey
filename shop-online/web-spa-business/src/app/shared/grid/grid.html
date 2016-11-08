@@ -26,11 +26,12 @@
                                 <tr *ngFor="let item of activeItems" class="gradeX" [class.odd]="odd" [class.even]="even" [class.selected]="item==selectedItem"
                                     (click)="execute('select', item)">
                                     <td *ngFor="let header of info.headers">
-                                        <span *ngIf="header.translation">{{item[header.name] | translate}}</span>
-                                        <span *ngIf="!header.translation">{{item[header.name]}}</span>
+                                        <span *ngIf="isRefText(header.labelKey)">{{header.labelKey+'.'+item[header.name] | translate}}</span>
+                                        <span *ngIf="isCustomRefText(header.labelKey)">{{item[header.name]|cusTranslate:info.translateServices.get(header.labelKey)}}</span>
+                                        <span *ngIf="isNormalText(header.labelKey)">{{item[header.name]}}</span>
                                     </td>
                                     <td>
-                                        <button *ngFor="let b of info.actions" (click)="execute(b.name, item)" type="button" class="{{'btn ' + b.type + ' btn-circle'}}"><i class="{{b.icon}}"></i></button>
+                                        <button *ngFor="let b of info.actions" (click)="execute(b.name, item)" type="button" class="{{'btn ' + b.type + ' btn-circle btn-margin'}}"><i class="{{b.icon}}"></i></button>
                                     </td>
                                 </tr>
                             </tbody>

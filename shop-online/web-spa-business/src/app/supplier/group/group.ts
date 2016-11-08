@@ -6,10 +6,10 @@ import { ListController, GridHeader, SortInfo, FilterInfo } from '../../shared/i
 import { SupplierService, SupplierGroup } from '../shared/index';
 
 const headers: GridHeader[] = [
-  { name: 'id', labelKey: 'supplier.group.list.id', sortable: true, width: 10, translation: false },
-  { name: 'name', labelKey: 'supplier.group.list.name', sortable: true, width: 30, translation: false },
-  { name: 'note', labelKey: 'common.list.note', sortable: true, width: 40, translation: false },
-    { name: 'quatity', labelKey: 'supplier.group.list.quantity', sortable: true, width: 20, translation: false }
+  { name: 'id', labelKey: 'supplier.group.list.id', sortable: true, width: 10},
+  { name: 'name', labelKey: 'supplier.group.list.name', sortable: true, width: 30},
+  { name: 'note', labelKey: 'common.list.note', sortable: true, width: 40},
+    { name: 'quatity', labelKey: 'supplier.group.list.quantity', sortable: true, width: 20}
 
 ];
 

@@ -2,7 +2,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { OnInit } from '@angular/core';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
-import { GridHeader, GridAction, GridInfo, SortInfo, FilterInfo } from '../../shared/index';
+import { GridHeader, GridAction, GridInfo, SortInfo, FilterInfo, ComboboxService } from '../../shared/index';
 import { BaseController } from './base.controller';
 import { AlertType } from '../alert/alert.type';
 
@@ -43,6 +43,9 @@ export abstract class ListController<T> extends BaseController {
         return new FilterInfo([]);
     }
 
+    getTranslateServices(): Map<string, ComboboxService> {
+        return null;
+    }
 
     ngOnInit() {
         this.showLoading();
@@ -50,6 +53,7 @@ export abstract class ListController<T> extends BaseController {
         this.errors = {};
 
         this.gridInfo = new GridInfo(this.getHeaders(), this.getActions(), this.getDefaultSort(), this.getDefaultFilter())
+        this.gridInfo.translateServices = this.getTranslateServices();
         this.onLoad();
 
         this.hideLoading();

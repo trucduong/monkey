@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import core.common.cache.CacheLoader;
-import core.common.cache.CacheProvider;
 import core.common.exception.CommonException;
 import core.dao.utils.BaseDao;
+import core.service.cache.CacheLoader;
+import core.service.cache.CacheProvider;
 import core.service.services.CRUDService;
 import core.service.utils.ServiceErrorCode;
 import core.service.utils.ServiceResult;
@@ -28,6 +29,9 @@ public class RefService extends CRUDService<RefEntity> {
 
 	@Autowired
 	private RefDao dao;
+	
+	@Autowired
+	private CacheManager cacheManager;
 	
 	@Override
 	protected BaseDao<RefEntity> getDao() {
@@ -52,7 +56,7 @@ public class RefService extends CRUDService<RefEntity> {
 			return error(ServiceErrorCode.PARAMETER_ERROR);
 		}
 		
-		List<CmbItem> items = CacheProvider.getInstance().load(type, new CacheLoader<List<CmbItem> >() {
+		List<CmbItem> items = CacheProvider.getInstance(cacheManager).load(type, new CacheLoader<List<CmbItem> >() {
 			@Override
 			public List<CmbItem> load() {
 				List<CmbItem> items = new ArrayList<CmbItem>();

@@ -2,17 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
-import { Product, ProductService, RefProductGroupService } from '../shared/index';
+import { Product, ProductService, RefProductGroupService } from '../../shared/index';
 import { EditController, AlertType, FormInfo, FormFieldInfo,
     RefComboboxService, CMB_FILTERS,
-    TextFieldInfo, CheckboxFieldInfo, CmbFieldInfo, NumberFieldInfo } from './../../shared/index';
+    TextFieldInfo, CheckboxFieldInfo, CmbFieldInfo, NumberFieldInfo } from '../../../shared/index';
 
 @Component({
     selector: 'product-detail',
     templateUrl: 'src/app/product/detail/detail.html'
 })
 
-export class ProductDetailCmp extends EditController<Product> implements OnInit {
+export class ProductPricesDetailCmp extends EditController<Product> implements OnInit {
     constructor(
         route: ActivatedRoute,
         router: Router,

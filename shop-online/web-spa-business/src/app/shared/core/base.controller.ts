@@ -38,6 +38,10 @@ export abstract class BaseController {
     /**
      * Navivation
      */
+    resetNavigation() {
+        NAVIGATOR_INFO.reset();
+    }
+
     navigateTo(url: any[], extras?: NavigationExtras) {
         NAVIGATOR_INFO.push(this.getCurrentUrl());
         this.router.navigate(url, extras);

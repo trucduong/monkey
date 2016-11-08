@@ -32,6 +32,7 @@ export abstract class EditController<T> extends BaseController {
         this.showLoading();
 
         this.formInfo = this.createForm();
+        this.formInfo.model[this.idColumnName] = '-1';
 
         this.isEditing = false;
         this.route.params.forEach((params: any) => {
@@ -41,7 +42,7 @@ export abstract class EditController<T> extends BaseController {
                     this.formInfo.model = data;
                     this.isEditing = true;
                 }).catch(err => {
-                    this.formInfo.model = {};
+                    //this.formInfo.model = {};
                     this.log(err);
                 });
             }
@@ -56,6 +57,7 @@ export abstract class EditController<T> extends BaseController {
         // validate
         if (!this.formInfo.validate({})) {
             this.showErrorMessage({key:"Please input correct information!", params: []});
+            return;
         }
 
         // save

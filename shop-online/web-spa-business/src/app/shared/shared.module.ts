@@ -10,7 +10,7 @@ import { PaginationCmp }  from './pagination/pagination';
 import { WrapperCmp }  from './wrapper/wrapper';
 import { AlertCmp } from './alert/alert';
 import { LoadingCmp } from './loading/loading';
-import { GridCmp } from './grid/grid';
+import { GridCmp, CustomTranslatePipe } from './grid/grid';
 import { GridInputCmp } from './gridinput/grid.input';
 import { GridActionCmp } from './grid/action/action';
 import { GridContentCmp } from './grid/content/content';
@@ -42,6 +42,7 @@ import { AlertDialogCmp } from './alert.dialog/alert.dialog';
     HeaderModule
   ],
   declarations: [
+    CustomTranslatePipe,
     FilterCmp,
     PaginationCmp,
     WrapperCmp,

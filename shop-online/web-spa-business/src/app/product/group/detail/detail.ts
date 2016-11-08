@@ -3,8 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import { ProductService, ProductGroup } from '../../shared/index';
-import { AlertType } from '../../../shared/index';
-import { EditController } from '../../../shared/index';
+import { EditController, AlertType, FormInfo, TextFieldInfo } from '../../../shared/index';
 
 @Component({
     selector: 'product-group-detail',
@@ -24,23 +23,23 @@ export class ProductGroupDetailCmp extends EditController<ProductGroup> implemen
         return '/product-group-detail';
     }
 
+    createForm(): FormInfo {
+        let form = new FormInfo(this.getTranslator(), this.createModel(), 'product.group.detail.title');
+        form.addField(new TextFieldInfo(this.getTranslator(), 'name', 'product.group.name', true, 0, 100));
+        form.createField('description', 'product.group.description');
+        return form;
+    }
+
     createModel(): ProductGroup {
-        return new ProductGroup();
+        let model = new ProductGroup()
+        return model;
     }
 
-    // load(id: any): ProductGroup {
-    //     return this.productService.getProductGroup(id);
-    // }
-
-    validate(model: ProductGroup): boolean {
-        // TODO: validate product group here
-
-        // call this.addError(field, message) if has any error
-
-        return true;
+    load(id: any): Promise<ProductGroup> {
+        return this.productService.getProductGroup(id);
     }
 
-    // save(model: ProductGroup): boolean {
-    //     return this.productService.saveProductGroup(model, this.isEditing);
-    // }
+    save(model: ProductGroup): Promise<ProductGroup> {
+        return this.productService.saveProductGroup(model, this.isEditing);
+    }
 }

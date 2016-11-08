@@ -7,13 +7,13 @@ import { ListInputController, GridInputHeader, SortInfo, FilterInfo, DialogInfo,
 import { Warehouse, WarehouseService } from '../shared/index';
 
 const headers: GridInputHeader[] = [
-  { name: 'name', labelKey: 'warehouse.list.name', sortable: true, width: 30, translation: false, inputable: true },
-  { name: 'address', labelKey: 'common.list.address', sortable: true, width: 20, translation: false, inputable: true },
-  { name: 'phone', labelKey: 'common.list.phone', sortable: true, width: 10, translation: false, inputable: false },
-  { name: 'status', labelKey: 'common.list.status', sortable: true, width: 10, translation: false, inputable: false },
-  { name: 'use', labelKey: 'warehouse.list.use', sortable: true, width: 10, translation: false, inputable: false },
-  { name: 'branch', labelKey: 'warehouse.list.branch', sortable: true, width: 10, translation: false, inputable: false },
-  { name: 'note', labelKey: 'common.list.note', sortable: true, width: 10, translation: false, inputable: false },
+  { name: 'name', labelKey: 'warehouse.list.name', sortable: true, width: 30, inputable: true },
+  { name: 'address', labelKey: 'common.list.address', sortable: true, width: 20, inputable: true },
+  { name: 'phone', labelKey: 'common.list.phone', sortable: true, width: 10, inputable: false },
+  { name: 'status', labelKey: 'common.list.status', sortable: true, width: 10, inputable: false },
+  { name: 'use', labelKey: 'warehouse.list.use', sortable: true, width: 10, inputable: false },
+  { name: 'branch', labelKey: 'warehouse.list.branch', sortable: true, width: 10, inputable: false },
+  { name: 'note', labelKey: 'common.list.note', sortable: true, width: 10, inputable: false },
 
 ];
 

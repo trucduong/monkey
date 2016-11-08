@@ -2,15 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
-import { ListController, GridHeader, SortInfo, FilterInfo } from '../../shared/index';
+import { ListController, GridHeader, SortInfo, FilterInfo, AlertType } from '../../shared/index';
 import { ProductService, ProductGroup } from '../shared/index';
 
 const headers: GridHeader[] = [
-  { name: 'id', labelKey: 'product.group.list.id', sortable: true, width: 20, translation: false },
-  { name: 'name', labelKey: 'product.group.list.name', sortable: true, width: 30, translation: false },
-  { name: 'status', labelKey: 'common.list.status', sortable: true, width: 20, translation: false },
-  { name: 'note', labelKey: 'common.list.note', sortable: true, width: 30, translation: false },
-
+  //{ name: 'id', labelKey: 'product.group.id', sortable: true, width: 20},
+  { name: 'name', labelKey: 'product.group.name', sortable: true, width: 50},
+  { name: 'description', labelKey: 'product.group.description', sortable: true, width: 50},
 ];
 
 @Component({
@@ -36,7 +34,7 @@ export class ProductGroupCmp extends ListController<ProductGroup> implements OnI
   }
 
   getDefaultFilter(): FilterInfo {
-    return new FilterInfo(['name', 'note']);
+    return new FilterInfo(['name', 'description']);
   }
 
   load(): Promise<ProductGroup[]> {
@@ -49,6 +47,19 @@ export class ProductGroupCmp extends ListController<ProductGroup> implements OnI
 
   getDetailUrl(): string {
     return '/product-group-detail';
+  }
+
+  delete(item: ProductGroup): Promise<boolean> {
+    return this.productService.deleteProductGroup(item[this.idColumnName])
+      .then(id => {
+        return Promise.resolve(true);
+      })
+      .catch(error => {
+        this.translateText(error).then(message => {
+          this.alert(AlertType.danger, message);
+          return Promise.resolve(false);
+        })
+      });
   }
 
 }

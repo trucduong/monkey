@@ -8,55 +8,18 @@
 
     <!-- page content -->
     <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                     {{ 'common.list.add' | translate}}
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <!--<form #productGroupForm="ngForm" role="form">-->
-                                <div class="form-group">
-                                    <label>{{ 'product.group.list.id' | translate}}</label>
-                                    <input class="form-control" required [(ngModel)]="model.id" name="id" >
-                                </div>
-                                <div class="form-group">
-                                    <label>{{ 'product.group.list.name' | translate}}</label>
-                                    <input id="name" class="form-control" required maxlength="100" [(ngModel)]="model.name" name="name" #name="ngModel">
-
-                                    <div *ngIf="name.errors && (name.dirty || name.touched)"
-                                        class="alert alert-danger">
-                                        <div [hidden]="!name.errors.required">
-                                            {{ 'common.alertDanger.name' | translate}}
-                                        </div>
-                                        <div [hidden]="!name.errors.maxlength">
-                                            {{ 'common.alertDanger.maxLength100' | translate}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>{{ 'common.list.status' | translate}}</label>
-                                    <input class="form-control" required [(ngModel)]="model.status" name="status">
-                                </div>
-                                <div class="form-group">
-                                    <label>{{ 'common.list.note' | translate}}</label>
-                                    <textarea class="form-control" rows="3" [(ngModel)]="model.note" name="note"></textarea>
-                                </div>
-                                <alert-cmp [info]="alertInfo"></alert-cmp>
-                                <button (click)="onSave()" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i></button>
-                            <!--</form>-->
-                        </div>
-                    </div>
-                </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
-        </div>
-        <!-- /.col-lg-12 -->
+        <alert-cmp [info]="alertInfo"></alert-cmp>
+        <form-cmp [info]="formInfo">
+            <form-content-cmp>
+                <text-field-cmp [info]="formInfo.getField('name')" [(fieldModel)]="formInfo.model.name"></text-field-cmp>
+                <text-field-cmp [info]="formInfo.getField('description')" [(fieldModel)]="formInfo.model.description"></text-field-cmp>
+            </form-content-cmp>
+            <form-action-cmp>
+                <button (click)="onSave()" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i></button>
+            </form-action-cmp>
+        </form-cmp>
     </div>
     <div class="row">
-        <button class="btn btn-default" (click)="onBack()" ><i class="glyphicon glyphicon-arrow-left"></i></button>
+        <button class="btn btn-default btn-back" *ngIf="canNavigateBack()" (click)="onBack()"><i class="glyphicon glyphicon-arrow-left"></i></button>
     </div>
 </wrapper>

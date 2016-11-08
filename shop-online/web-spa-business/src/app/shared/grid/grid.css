@@ -22,3 +22,7 @@
 .selected {
     background-color: #4d90fe !important;
 }
+
+.btn-margin {
+    margin-left: 2px;
+}

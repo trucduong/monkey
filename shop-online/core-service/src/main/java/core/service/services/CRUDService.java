@@ -11,7 +11,6 @@ import core.common.exception.CommonException;
 import core.common.utils.CommonConstants;
 import core.dao.entities.BaseEntity;
 import core.dao.utils.BaseDao;
-import core.dao.utils.DaoUtils;
 import core.service.utils.CRUDServiceAction;
 import core.service.utils.ServiceErrorCode;
 import core.service.utils.ServiceResult;
@@ -73,7 +72,7 @@ public abstract class CRUDService<E extends BaseEntity> extends BaseService {
 	@RequestMapping(value = CRUDServiceAction.CREATE, method = RequestMethod.POST)
 	public ServiceResult create(@RequestBody E entity) throws CommonException {
 		init(ServiceErrorCode.CREATE_ERROR);
-		entity.setId(DaoUtils.createId());
+		entity.setId(0);
 		getDao().create(entity);
 		return success(entity);
 	}
