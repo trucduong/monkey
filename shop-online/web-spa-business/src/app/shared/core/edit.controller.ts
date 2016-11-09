@@ -56,7 +56,7 @@ export abstract class EditController<T> extends BaseController {
 
         // validate
         if (!this.formInfo.validate({})) {
-            this.showErrorMessage({key:"Please input correct information!", params: []});
+            this.showErrorMessage({key:"common.validator.error", params: []});
             return;
         }
 
@@ -68,7 +68,7 @@ export abstract class EditController<T> extends BaseController {
             this.hideLoading();
         })
         .catch(error => {
-            this.showErrorMessage({key: "Can not save", params: []});
+            this.showErrorMessage({key: "common.error.save", params: []});
             this.log(error);
             this.hideLoading();
         });

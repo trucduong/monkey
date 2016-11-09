@@ -11,23 +11,12 @@
         <alert-cmp [info]="alertInfo"></alert-cmp>
         <form-cmp [info]="formInfo">
             <form-content-cmp>
-                <!--<form-field-cmp [info]="formInfo.getField('id')" [fieldModel]="formInfo.model.id">
-                    <input class="form-control" [(ngModel)]="formInfo.model.id" name="id">
-                </form-field-cmp>-->
-
-                <!--<text-field-cmp [info]="formInfo.getField('code')" [(fieldModel)]="formInfo.model.code"></text-field-cmp>-->
-
                 <text-field-cmp [info]="formInfo.getField('name')" [(fieldModel)]="formInfo.model.name"></text-field-cmp>
-
-                <cmb-field-cmp [info]="formInfo.getField('unit')" [(fieldModel)]="formInfo.model.unit"></cmb-field-cmp>
-
-                <cmb-field-cmp [info]="formInfo.getField('group')" [(fieldModel)]="formInfo.model.group"></cmb-field-cmp>
-
-                <cmb-field-cmp [info]="formInfo.getField('status')" [(fieldModel)]="formInfo.model.status"></cmb-field-cmp>
-
-                <text-field-cmp [info]="formInfo.getField('description')" [(fieldModel)]="formInfo.model.description"></text-field-cmp>
-
-                <number-field-cmp [info]="formInfo.getField('warningRemaining')" [(fieldModel)]="formInfo.model.warningRemaining"></number-field-cmp>
+                <number-field-cmp [info]="formInfo.getField('remaining')" [(fieldModel)]="formInfo.model.remaining"></number-field-cmp>
+                <number-field-cmp [info]="formInfo.getField('discount')" [(fieldModel)]="formInfo.model.discount"></number-field-cmp>
+                <number-field-cmp [info]="formInfo.getField('inputPrice')" [(fieldModel)]="formInfo.model.inputPrice"></number-field-cmp>
+                <number-field-cmp [info]="formInfo.getField('wholesalePrice')" [(fieldModel)]="formInfo.model.wholesalePrice"></number-field-cmp>
+                <number-field-cmp [info]="formInfo.getField('retailPrice')" [(fieldModel)]="formInfo.model.retailPrice"></number-field-cmp>
             </form-content-cmp>
 
             <form-action-cmp>

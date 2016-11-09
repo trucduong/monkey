@@ -6,11 +6,14 @@ export const SERVICES: any = {
     },
     ACTIONS: {
         READ: '/read/{0}',
+        READ_D: '/read-d/{0}',
         READ_BY: 'read-by/{0}/{1}',
         READ_ALL: '/read-all',
+        READ_ALL_D: '/read-all-d',
         READ_ALL_BY: '/read-all-by/{0}/{1}',
         CREATE: '/create',
         UPDATE: '/update/{0}',
+        UPDATE_D: '/update-d/{0}',
         DELETE: '/delete/{0}',
         READ_CMB: '/read-cmb/{0}'
     }

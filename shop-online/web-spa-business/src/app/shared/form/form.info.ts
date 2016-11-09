@@ -233,7 +233,9 @@ export class NumberFieldInfo extends FormFieldInfo {
             this.step = 1;
         }
 
-        this.addValidator(new NumberValidator(min, max));
+        if (min != max) {
+            this.addValidator(new NumberValidator(min, max));
+        }
     }
 }
 

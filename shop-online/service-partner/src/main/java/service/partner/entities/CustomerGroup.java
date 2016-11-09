@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
 
 @Entity
@@ -52,6 +53,18 @@ public class CustomerGroup extends BaseEntity {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	@Override
+	public void bind(BaseDto dto) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void unBind(BaseDto dto) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 //	@Override

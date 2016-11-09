@@ -61,4 +61,19 @@ export class ProductService extends BaseHttpService {
     deleteProduct(id: string) {
         return this.post(SERVICES.URLS.product, SERVICES.ACTIONS.DELETE, {}, [id]);
     }
+
+    /**
+     * Product detail
+     */
+    getProductsWithDetails() {
+        return this.get(SERVICES.URLS.product, SERVICES.ACTIONS.READ_ALL_D, []);
+    }
+
+    getProductWithDetail(id: string) {
+        return this.get(SERVICES.URLS.product, SERVICES.ACTIONS.READ_D, [id]);
+    }
+
+    saveProductDetail(item: Product) {
+        return this.post(SERVICES.URLS.product, SERVICES.ACTIONS.UPDATE_D, item, [item.id]);
+    }
 }

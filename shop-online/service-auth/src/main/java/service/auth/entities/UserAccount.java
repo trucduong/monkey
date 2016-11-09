@@ -6,6 +6,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
+import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
 import service.auth.shared.AccountStatus;
 import service.auth.shared.AccountType;
@@ -76,5 +77,17 @@ public class UserAccount extends BaseEntity {
 
 	public void setPermissions(String permissions) {
 		this.permissions = permissions;
+	}
+
+	@Override
+	public void bind(BaseDto dto) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void unBind(BaseDto dto) {
+		// TODO Auto-generated method stub
+		
 	}
 }

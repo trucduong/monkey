@@ -21,6 +21,8 @@
 "common.validator.error.mindate": "Vui lòng nhập sau ngày {0}",
 "common.validator.error.maxdate": "Vui lòng nhập trước ngày {0}",
 
+"common.error.save": "Đã có lỗi xảy ra, xin vui lòng thực hiện lại!",
+
 "common.list.action":"Tác vụ",
 
 "ref.unit":"Đơn vị tính",

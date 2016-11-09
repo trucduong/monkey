@@ -20,7 +20,7 @@ import javax.persistence.Version;
  *
  */
 @MappedSuperclass
-public abstract class BaseEntity implements Serializable {
+public abstract class BaseEntity implements Serializable, IEntity {
 	private static final long serialVersionUID = -4238716080849547677L;
 	public static final String SHORT_1 = "nvarchar(10)";
 	public static final String SHORT_2 = "nvarchar(20)";
@@ -43,15 +43,15 @@ public abstract class BaseEntity implements Serializable {
 	public static final String BLOB = "BLOB";
 	public static final String INT = "INT";
 	public static final String LONG = "INT";
-	public static final String DECIMAL = "DECIMAL(10,2)";
-	public static final String CURRENCY = "DECIMAL(9)";
-	public static final String BIG_CURRENCY = "DECIMAL(20)";
+//	public static final String DECIMAL = "DECIMAL(10,2)";
+	public static final String CURRENCY = "DECIMAL(13,2)";
+//	public static final String BIG_CURRENCY = "DECIMAL(20,2)";
 	public static final String DATE = "DATE";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", columnDefinition = LONG)
-	protected long id;
+	protected long id = 0;
 	
 	@Column(name = "tenant", columnDefinition = SHORT_1)
 	private String tenant;

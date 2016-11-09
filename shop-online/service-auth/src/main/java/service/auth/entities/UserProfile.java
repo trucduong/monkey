@@ -6,6 +6,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
+import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
 import service.auth.shared.UserType;
 
@@ -57,5 +58,17 @@ public class UserProfile extends BaseEntity {
 
 	public void setShopId(Long shopId) {
 		this.shopId = shopId;
+	}
+
+	@Override
+	public void bind(BaseDto dto) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void unBind(BaseDto dto) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -1,12 +1,16 @@
 package service.catalogue.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
+import service.catalogue.shared.dto.ProductDto;
 import service.catalogue.shared.utils.ProductStatus;
 
 @Entity
@@ -39,6 +43,10 @@ public class Product extends BaseEntity {
 	
 	@Column(name = "warning_remaining", columnDefinition = LONG)
 	private long warningRemaining;
+	
+	@OneToOne(targetEntity=ProductDetail.class, mappedBy="product",
+			optional=true, cascade=CascadeType.ALL)
+	private ProductDetail detail;
 	
 	public String getCode() {
 		return code;
@@ -103,4 +111,38 @@ public class Product extends BaseEntity {
 	public void setWarningRemaining(long warningRemaining) {
 		this.warningRemaining = warningRemaining;
 	}
+	
+	public ProductDetail getDetail() {
+		return detail;
+	}
+	
+	public void setDetail(ProductDetail detail) {
+		this.detail = detail;
+	}
+
+	@Override
+	public void bind(BaseDto basedto) {
+		ProductDto dto = (ProductDto)basedto;
+		dto.setId(id);
+		dto.setDescription(description);
+		dto.setCode(code);
+		dto.setGroup(group);
+		dto.setImage(image);
+		dto.setName(name);
+		dto.setStatus(status);
+		dto.setWarningRemaining(warningRemaining);	
+	}
+
+	@Override
+	public void unBind(BaseDto basedto) {
+		ProductDto dto = (ProductDto)basedto;
+		this.id = dto.getId();
+		this.name = dto.getName();
+		this.code = dto.getCode();
+		this.description = dto.getDescription();
+		this.unit = dto.getUnit();
+		this.group = dto.getGroup();
+		this.setWarningRemaining(dto.getWarningRemaining());
+	}
+
 }

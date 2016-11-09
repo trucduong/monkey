@@ -52,7 +52,7 @@ export class ProductPricesCmp extends ListController<Product> implements OnInit 
   }
 
   load(): Promise<any> {
-    return this.productService.getProducts()
+    return this.productService.getProductsWithDetails()
       .then(products => {
         return products;
       })

@@ -1,34 +1,37 @@
 package service.catalogue.shared.dto;
 
+import java.math.BigDecimal;
+
+import core.dao.dto.BaseDto;
 import service.catalogue.shared.utils.ProductStatus;
 
-public class ProductDto {
+public class ProductDto extends BaseDto {
 
-	private long id;
-	
-	private String tenant;
-	
 	private String code;
 
 	private String name;
 
 	private Object image;
 
-	private Long unit;
+	private String unit;
 
 	private Long group;
 
 	private String description;
-	
-	private String productId;
-	
+
 	private ProductStatus status;
-	
+
 	private int discount;
-	
+
 	private long remaining;
-	
+
 	private long warningRemaining;
+
+	private BigDecimal inputPrice;
+
+	private BigDecimal wholesalePrice;
+
+	private BigDecimal retailPrice;
 
 	public long getId() {
 		return id;
@@ -36,14 +39,6 @@ public class ProductDto {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getTenant() {
-		return tenant;
-	}
-
-	public void setTenant(String tenant) {
-		this.tenant = tenant;
 	}
 
 	public String getCode() {
@@ -70,11 +65,11 @@ public class ProductDto {
 		this.image = image;
 	}
 
-	public Long getUnit() {
+	public String getUnit() {
 		return unit;
 	}
 
-	public void setUnit(Long unit) {
+	public void setUnit(String unit) {
 		this.unit = unit;
 	}
 
@@ -92,14 +87,6 @@ public class ProductDto {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getProductId() {
-		return productId;
-	}
-
-	public void setProductId(String productId) {
-		this.productId = productId;
 	}
 
 	public ProductStatus getStatus() {
@@ -132,5 +119,29 @@ public class ProductDto {
 
 	public void setWarningRemaining(long warningRemaining) {
 		this.warningRemaining = warningRemaining;
+	}
+
+	public BigDecimal getInputPrice() {
+		return inputPrice;
+	}
+
+	public void setInputPrice(BigDecimal inputPrice) {
+		this.inputPrice = inputPrice;
+	}
+
+	public BigDecimal getWholesalePrice() {
+		return wholesalePrice;
+	}
+
+	public void setWholesalePrice(BigDecimal wholesalePrice) {
+		this.wholesalePrice = wholesalePrice;
+	}
+
+	public BigDecimal getRetailPrice() {
+		return retailPrice;
+	}
+
+	public void setRetailPrice(BigDecimal retailPrice) {
+		this.retailPrice = retailPrice;
 	}
 }

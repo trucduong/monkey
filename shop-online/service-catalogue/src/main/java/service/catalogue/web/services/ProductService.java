@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import core.common.exception.CommonException;
-import core.common.reflect.ObjectModifier;
 import core.dao.utils.BaseDao;
 import core.service.services.CRUDService;
 import core.service.utils.ServiceErrorCode;
@@ -19,6 +19,7 @@ import service.catalogue.dao.ProductDetailDao;
 import service.catalogue.entities.Product;
 import service.catalogue.entities.ProductDetail;
 import service.catalogue.shared.dto.ProductDto;
+import service.catalogue.shared.utils.ProductStatus;
 import service.catalogue.shared.utils.ServiceCatalogueAction;
 
 @RestController
@@ -53,45 +54,46 @@ public class ProductService extends CRUDService<Product> {
 		if (entity == null) {
 			return error(ServiceErrorCode.NOT_FOUND);
 		}
-		
-		ProductDetail detail = detailDao.find(id);
-		if (detail == null) {
-			return error(ServiceErrorCode.NOT_FOUND);
-		}
-
 		ProductDto dto = new ProductDto();
-		ObjectModifier.bind(entity, dto);
-		ObjectModifier.bind(detail, dto);
+		entity.bind(dto);
+		
+		//ProductDetail detail = detailDao.find(ProductDetail.PRODUCT_ID, id);
+		ProductDetail detail = entity.getDetail();
+		if (detail != null) {
+			detail.bind(dto);
+		}
 		
 		return success(dto);
 	}
 	
-	@RequestMapping(value = ServiceCatalogueAction.READ_BY_D, method = RequestMethod.GET)
-	public ServiceResult readByWithDetail(@PathVariable(value = ServiceCatalogueAction.PARAM_NAME) String name,
-			@PathVariable(value = ServiceCatalogueAction.PARAM_VALUE) String value) throws CommonException {
+	@RequestMapping(value = ServiceCatalogueAction.UPDATE_D, method = RequestMethod.POST)
+	public ServiceResult update(@RequestBody ProductDto dto, @PathVariable("id") long id) throws CommonException {
 		init();
-		
-		Product entity;
-		ProductDetail detail;
-		
-		List<Product> entities = dao.getAllDataByColumn(name, value);
-		if (entities.isEmpty()) {
-			List<ProductDetail> details = detailDao.getAllDataByColumn(name, value);
-			if (details.isEmpty()) {
-				return error(ServiceErrorCode.NOT_FOUND);
-			}
-			
-			detail = details.get(0);
-			entity = dao.find(detail.getId());
-		} else {
-			entity = entities.get(0);
-			detail = detailDao.find(entity.getId());
+		Product product = dao.find(id);
+		if (product == null) {
+			return error(ServiceErrorCode.NOT_FOUND);
 		}
 		
-		ProductDto dto = new ProductDto();
-		ObjectModifier.bind(entity, dto);
-		ObjectModifier.bind(detail, dto);
+		//ProductDetail detail = detailDao.find(ProductDetail.PRODUCT_ID, id);
+		ProductDetail detail = product.getDetail();
+		if (detail == null) {
+			detail = new ProductDetail();
+		}
+		detail.unBind(dto);
+		detail.setProduct(product);
+		detailDao.update(detail);
+
+		return success(dto);
+	}
+	
+	@RequestMapping(value = ServiceCatalogueAction.READ_ALL_D, method = RequestMethod.GET)
+	public ServiceResult readAllWithDetail() throws CommonException {
+		init();
+		List<ProductDto> products = dao.getAllWithDetail(ProductStatus.ACTIVE);
+		if (products .size() == 0) {
+			return error(ServiceErrorCode.NOT_FOUND);
+		}
 		
-		return error(ServiceErrorCode.NOT_FOUND);
+		return success(products);
 	}
 }

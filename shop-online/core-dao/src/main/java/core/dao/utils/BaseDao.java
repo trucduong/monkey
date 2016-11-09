@@ -14,9 +14,9 @@ import javax.persistence.TypedQuery;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import core.dao.entities.BaseEntity;
+import core.dao.entities.IEntity;
 
-public class BaseDao<E extends BaseEntity> implements Serializable {
+public class BaseDao<E extends IEntity> implements Serializable {
 	private static final long serialVersionUID = 899460822359446551L;
 
 	@PersistenceContext(unitName = "persistenceUnit")
