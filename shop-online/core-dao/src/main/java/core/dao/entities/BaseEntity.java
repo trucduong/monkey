@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
+import core.dao.dto.BaseDto;
+
 /**
  * Base entity
  *
@@ -41,6 +43,7 @@ public abstract class BaseEntity implements Serializable, IEntity {
 	public static final String LONG_5 = "nvarchar(5000)";
 
 	public static final String BLOB = "BLOB";
+//	public static final String BINARY = "binary";
 	public static final String INT = "INT";
 	public static final String LONG = "INT";
 //	public static final String DECIMAL = "DECIMAL(10,2)";
@@ -81,5 +84,19 @@ public abstract class BaseEntity implements Serializable, IEntity {
 	
 	public void setTenant(String tenant) {
 		this.tenant = tenant;
+	}
+	
+	@Override
+	public void bind(BaseDto dto) {
+		this.id = dto.getId();
+		this.version =dto.getVersion();
+		this.tenant = dto.getTenant();
+	}
+
+	@Override
+	public void unBind(BaseDto dto) {
+		dto.setId(id);
+		dto.setTenant(tenant);
+		dto.setVersion(version);
 	}
 }

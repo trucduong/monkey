@@ -21,7 +21,7 @@ export class ProductPricesDetailCmp extends EditController<Product> implements O
     }
 
     getCurrentUrl(): string {
-        return '/product-detail';
+        return '/product-prices-detail';
     }
 
     createForm(): FormInfo {

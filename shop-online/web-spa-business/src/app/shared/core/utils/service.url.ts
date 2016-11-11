@@ -1,6 +1,7 @@
 export const SERVICES: any = {
     URLS: {
         ref: 'http://localhost:7070/service-common/ref-service',
+        resource: 'http://localhost:7070/service-common/resource-service',
         product: 'http://localhost:7070/service-catalogue/product',
         product_group: 'http://localhost:7070/service-catalogue/product-group'
     },
@@ -15,6 +16,10 @@ export const SERVICES: any = {
         UPDATE: '/update/{0}',
         UPDATE_D: '/update-d/{0}',
         DELETE: '/delete/{0}',
-        READ_CMB: '/read-cmb/{0}'
+        READ_CMB: '/read-cmb/{0}',
+        
+        UPLOAD_TEMP: '/upload-temp',
+        DOWNLOAD_TEMP: '/download-temp/{0}',
+        DELETE_TEMP: '/delete-temp/{0}',
     }
 };

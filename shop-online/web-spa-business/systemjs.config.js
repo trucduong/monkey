@@ -23,6 +23,7 @@
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       // other libraries
       'ng2-translate': 'npm:ng2-translate',
+      'ng2-file-upload': 'npm:ng2-file-upload',
       'rxjs':                       'npm:rxjs',
       'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
     },
@@ -39,7 +40,8 @@
         main: './index.js',
         defaultExtension: 'js'
       },
-      'ng2-translate': {main: 'ng2-translate.js', 'defaultExtension': 'js'}
+      'ng2-translate': {main: 'ng2-translate.js', 'defaultExtension': 'js'},
+      'ng2-file-upload': {main: 'ng2-file-upload.js', 'defaultExtension': 'js'}
     }
   });
 })(this);

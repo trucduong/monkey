@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http, JsonpModule }  from '@angular/http';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
+import { FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 
 import { HeaderModule } from './header/index';
 import { FilterCmp }  from './filter/filter';
@@ -42,6 +43,7 @@ import { AlertDialogCmp } from './alert.dialog/alert.dialog';
     HeaderModule
   ],
   declarations: [
+    FileSelectDirective,
     CustomTranslatePipe,
     FilterCmp,
     PaginationCmp,
@@ -59,6 +61,7 @@ import { AlertDialogCmp } from './alert.dialog/alert.dialog';
     FormsModule,
     HttpModule, JsonpModule,
     TranslateModule,
+    FileSelectDirective,
     HeaderModule,
     FilterCmp,
     PaginationCmp,

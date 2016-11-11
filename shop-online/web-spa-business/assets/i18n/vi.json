@@ -25,6 +25,16 @@
 
 "common.list.action":"Tác vụ",
 
+"common.upload.queue":"Danh sách file",
+"common.upload.queue.length":"Số lượng",
+"common.upload.file.name":"Tên",
+"common.upload.file.size":"Dung lượng",
+"common.upload.file.progress":"Tiến trình",
+"common.upload.file.status":"Trạng thái",
+"common.upload.action.upload":"Upload",
+"common.upload.action.cancel":"Hủy",
+"common.upload.action.remove":"Xóa",
+
 "ref.unit":"Đơn vị tính",
 "ref.unit.KG": "Kg",
 "ref.unit.COUNT": "Cai",
@@ -59,6 +69,8 @@
 "product.prices.title":"Bảng giá sản phẩm",
 "product.prices.export":"Xuất ra excel",
 "product.prices.import":"Nhập từ excel",
+
+"product.prices.upload.title":"Upload bảng giá",
 
 
 "customer.group.title":"Danh sách nhóm khách hàng",

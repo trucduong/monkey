@@ -8,6 +8,7 @@ import { ProductCmp } from './product';
 import { ProductDetailCmp} from './detail/detail';
 import { ProductPricesCmp } from './prices/prices';
 import { ProductPricesDetailCmp } from './prices/detail/detail';
+import { ProductPricesUploadCmp } from './prices/upload/upload';
 
 
 export const routing: ModuleWithProviders = RouterModule.forChild([
@@ -17,4 +18,5 @@ export const routing: ModuleWithProviders = RouterModule.forChild([
   { path: 'product-detail/:id', component: ProductDetailCmp },
   { path: 'product-prices', component: ProductPricesCmp },
   { path: 'product-prices-detail/:id', component: ProductPricesDetailCmp },
+  { path: 'product-prices-upload', component: ProductPricesUploadCmp },
 ]);

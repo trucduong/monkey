@@ -31,6 +31,8 @@
 		<module>service-shop-shared</module>
 
 
+		<module>service-fileupload</module>
+		<module>service-fileupload-shared</module>
 	</modules>
 	<properties>
 		<java.version>1.7</java.version>

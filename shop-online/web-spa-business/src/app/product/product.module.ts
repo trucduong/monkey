@@ -12,6 +12,7 @@ import { ProductCmp } from './product';
 import { ProductDetailCmp } from './detail/detail';
 import { ProductPricesCmp } from './prices/prices';
 import { ProductPricesDetailCmp } from './prices/detail/detail';
+import { ProductPricesUploadCmp } from './prices/upload/upload';
 
 
 import {ProductService} from './shared/index';
@@ -27,7 +28,8 @@ import {ProductService} from './shared/index';
     ProductCmp,
     ProductDetailCmp,
     ProductPricesCmp,
-    ProductPricesDetailCmp
+    ProductPricesDetailCmp,
+    ProductPricesUploadCmp
   ],
   providers: [
       ProductService
