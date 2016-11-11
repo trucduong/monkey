@@ -2,6 +2,8 @@ package service.catalogue.shared.dto;
 
 import java.math.BigDecimal;
 
+import core.common.convert.StringConverter;
+import core.common.xsl.anotation.XSLColumn;
 import core.dao.dto.BaseDto;
 import service.catalogue.shared.utils.ProductStatus;
 
@@ -9,6 +11,7 @@ public class ProductDto extends BaseDto {
 
 	private String code;
 
+	@XSLColumn(index=0, converter=StringConverter.class)
 	private String name;
 
 	private Object image;

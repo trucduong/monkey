@@ -24,6 +24,16 @@ public class ObjectModifier {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static <V> V get(Object object, Field field) {
+		try {
+			field.setAccessible(true);
+			return (V) field.get(object);
+		} catch (Exception e) {
+		}
+		return null;
+	}
+
 	public static Map<String, Object> get(Object object, boolean skipMissing) {
 		Map<String, Object> maps = new HashMap<String, Object>();
 		try {
@@ -60,15 +70,23 @@ public class ObjectModifier {
 		while (clazz != null) {
 			try {
 				Field field = clazz.getDeclaredField(fieldName);
-				field.setAccessible(true);
-				field.set(object, fieldValue);
-				return true;
+				return set(object, field, fieldValue);
 			} catch (NoSuchFieldException e) {
 				clazz = clazz.getSuperclass();
 			} catch (Exception e) {
 				// throw new IllegalStateException(e);
 				clazz = null;
 			}
+		}
+		return false;
+	}
+
+	public static boolean set(Object object, Field field, Object fieldValue) {
+		try {
+			field.setAccessible(true);
+			field.set(object, fieldValue);
+			return true;
+		} catch (Exception e) {
 		}
 		return false;
 	}
@@ -81,24 +99,25 @@ public class ObjectModifier {
 		}
 		return true;
 	}
-	
+
 	public static int bind(Object a, Object b) {
 		int count = 0;
-		
+
 		if (a == null || b == null) {
 			return count;
 		}
-		
+
 		try {
 			Field fields[] = a.getClass().getFields();
 			for (Field field : fields) {
 				field.setAccessible(true);
 				if (set(b, field.getName(), field.get(a))) {
-					count ++;
+					count++;
 				}
 			}
-		} catch (Exception e) { }
-		
+		} catch (Exception e) {
+		}
+
 		return count;
 	}
 }

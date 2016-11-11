@@ -3,8 +3,10 @@ package core.common.xsl.anotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
+import core.common.convert.Converter;
+
 @Target(ElementType.FIELD)
-public @interface Cell {
-	int row();
-	int col();
+public @interface XSLColumn {
+	int index() default 0;
+	Class<? extends Converter<?>> converter();
 }

@@ -7,7 +7,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import core.common.utils.ConverterUtils;
+import core.common.convert.ConverterUtils;
 import core.dao.utils.BaseDao;
 import core.dao.utils.QueryBuilder;
 import service.catalogue.entities.Product;

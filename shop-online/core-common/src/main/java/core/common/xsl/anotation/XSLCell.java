@@ -4,6 +4,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
-public @interface Column {
-	int col() default 0;
+public @interface XSLCell {
+	int row();
+	int col();
 }
