@@ -1,4 +1,4 @@
-import { CommonUtils, Validator, Error, RequiredValidator, LengthValidator, NumberValidator, ComboboxService } from '../core/index';
+import { CommonUtils, Validator, Error, RequiredValidator, LengthValidator, NumberValidator, ComboboxService } from '../../index';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
 export abstract class ValidatorHandler {
@@ -58,6 +58,7 @@ export class FormFieldInfo extends ValidatorHandler {
     label: string;
     name: string;
     //model: any;
+    isSingle: boolean; // this fiel is in grid
 
     required: boolean;
     enabled: boolean;
@@ -68,7 +69,7 @@ export class FormFieldInfo extends ValidatorHandler {
     autofocus: boolean;
     placeholder: string;
 
-    constructor(translate: TranslateService, name: string, label: string, required: boolean) {
+    constructor(translate: TranslateService, name: string, label: string, required: boolean, isSingle?: boolean) {
         super(translate);
 
         //this.model = model;
@@ -84,6 +85,7 @@ export class FormFieldInfo extends ValidatorHandler {
         // this.type = '';
         this.autofocus = false;
         this.placeholder = '';
+        this.isSingle = isSingle;
     }
 
     public validate(obj: any): boolean {
@@ -91,7 +93,7 @@ export class FormFieldInfo extends ValidatorHandler {
         this.clearErrors();
 
         if (this.getValidators().length == 0) {
-            return false;
+            return true;
         }
 
         this.getValidators().every(validator => {
@@ -409,6 +411,7 @@ export class CmbFieldInfo extends FormFieldInfo {
         } else {
             this.hasBlankItem = true;
         }
+        this.type = 'combobox';
     }
 
     getLable(item): string {

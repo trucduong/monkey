@@ -2,9 +2,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { OnInit } from '@angular/core';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
-import { GridInputHeader, GridAction, GridInfo, SortInfo, FilterInfo } from '../../shared/index';
+import { GridInputHeader, GridAction, GridInfo, SortInfo, FilterInfo } from '../../../shared/index';
 import { BaseController } from './base.controller';
-import { AlertType } from '../alert/alert.type';
+import { AlertType } from '../../alert/alert.type';
 
 /**
  * ListInputController

@@ -32,7 +32,7 @@ export class ProductDetailCmp extends EditController<Product> implements OnInit 
         form.addField(new TextFieldInfo(this.getTranslator(), 'name', 'product.name', true, 0, 100));
         //(<CheckboxFieldInfo> form.addField(new CheckboxFieldInfo(this.getTranslator(), 'image', 'product.detail.image', true)));
 
-        let refService = new RefComboboxService(this.productService);
+        let refService = new RefComboboxService('ref.unit', this.productService);
         let unitField = new CmbFieldInfo(this.getTranslator(), refService, 'unit', 'product.unit', true);
         unitField.filter = CMB_FILTERS.UNIT;
         form.addField(unitField);

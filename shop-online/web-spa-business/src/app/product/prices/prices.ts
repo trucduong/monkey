@@ -46,7 +46,6 @@ export class ProductPricesCmp extends ListController<Product> implements OnInit 
 
   getTranslateServices(): Map<string, ComboboxService> {
     let map = new Map<string, ComboboxService>();
-    let cmbService = new RefComboboxService(this.productService);
     map.set('product.group', new RefProductGroupService(this.productService));
     return map;
   }

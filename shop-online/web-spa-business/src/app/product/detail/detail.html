@@ -10,12 +10,12 @@
     <div class="row">
         <alert-cmp [info]="alertInfo"></alert-cmp>
         <form-cmp [info]="formInfo">
-            <form-content-cmp>
+            <!--<form-content-cmp>
                 <!--<form-field-cmp [info]="formInfo.getField('id')" [fieldModel]="formInfo.model.id">
                     <input class="form-control" [(ngModel)]="formInfo.model.id" name="id">
-                </form-field-cmp>-->
+                </form-field-cmp>
 
-                <!--<text-field-cmp [info]="formInfo.getField('code')" [(fieldModel)]="formInfo.model.code"></text-field-cmp>-->
+                <!--<text-field-cmp [info]="formInfo.getField('code')" [(fieldModel)]="formInfo.model.code"></text-field-cmp>
 
                 <text-field-cmp [info]="formInfo.getField('name')" [(fieldModel)]="formInfo.model.name"></text-field-cmp>
 
@@ -28,7 +28,7 @@
                 <text-field-cmp [info]="formInfo.getField('description')" [(fieldModel)]="formInfo.model.description"></text-field-cmp>
 
                 <number-field-cmp [info]="formInfo.getField('warningRemaining')" [(fieldModel)]="formInfo.model.warningRemaining"></number-field-cmp>
-            </form-content-cmp>
+            </form-content-cmp>-->
 
             <form-action-cmp>
                 <button (click)="onSave()" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i></button>

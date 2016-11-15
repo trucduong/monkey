@@ -1,5 +1,6 @@
 import { BaseHttpService } from './base.http.service';
 import { SERVICES } from '../utils/service.url';
+import { CacheUtils } from '../utils/cache.utils';
 
 export const CMB_FILTERS = {
     UNIT: { type: 'ref.unit' },
@@ -9,24 +10,28 @@ export const CMB_FILTERS = {
 export abstract class ComboboxService {
     value: string;
     label: string;
-    private items: any[];
     isLoading: boolean;
+    type: string;
 
-    constructor(valueMember: string, lableMember: string) {
+    constructor(type: string, valueMember: string, lableMember: string) {
+        this.type = type;
         this.value = valueMember;
         this.label = lableMember;
     }
 
     getItems(filter: any): Promise<any[]> {
-        if ((filter && filter.reload) || !this.items || this.items.length == 0) {
-            this.isLoading = true;
-            return this.onload(filter).then(res => {
-                this.isLoading = false;
-                this.items = res;
-                return Promise.resolve(this.items);
+        let mthis = this;
+        let items = CacheUtils.get(mthis.type);
+
+        if ((filter && filter.reload) || !items || items.length == 0) {
+            mthis.isLoading = true;
+            return mthis.onload(filter).then(res => {
+                mthis.isLoading = false;
+                CacheUtils.set(mthis.type, res);
+                return Promise.resolve(res);
             });
         } else {
-            return Promise.resolve(this.items);
+            return Promise.resolve(items);
         }
     }
 
@@ -42,12 +47,12 @@ export abstract class ComboboxService {
 }
 
 export class RefComboboxService extends ComboboxService {
-    constructor(private httpService: BaseHttpService) {
-        super('value', 'label');
+    constructor(type: string, private httpService: BaseHttpService) {
+        super(type, 'value', 'label');
     }
 
     onload(filter: any): Promise<any[]> {
-        return this.httpService.get(SERVICES.URLS.ref, SERVICES.ACTIONS.READ_CMB, [filter.type])
+        return this.httpService.get(SERVICES.URLS.ref, SERVICES.ACTIONS.READ_CMB, [this.type])
             .then(res => {
                 // let items = [];
                 // res.forEach(e => {

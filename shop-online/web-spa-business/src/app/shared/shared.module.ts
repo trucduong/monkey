@@ -11,7 +11,9 @@ import { PaginationCmp }  from './pagination/pagination';
 import { WrapperCmp }  from './wrapper/wrapper';
 import { AlertCmp } from './alert/alert';
 import { LoadingCmp } from './loading/loading';
-import { GridCmp, CustomTranslatePipe } from './grid/grid';
+import { CustomTranslatePipe } from './core/index';
+import { GridCmp } from './grid/grid';
+import { SmartGridCmp } from './smartgrid/smartgrid';
 import { GridInputCmp } from './gridinput/grid.input';
 import { GridActionCmp } from './grid/action/action';
 import { GridContentCmp } from './grid/content/content';
@@ -19,7 +21,7 @@ import { GridContentCmp } from './grid/content/content';
 import { FormCmp } from './form/form';
 import { FormActionCmp } from './form/action/action';
 import { FormContentCmp } from './form/content/content';
-import { FormFieldCmp, TextFieldCmp, NumberFieldCmp, DateFieldCmp, 
+import { FormFieldCmp, TextFieldCmp, TextAreaFieldCmp, NumberFieldCmp, DateFieldCmp, 
   CheckboxFieldCmp, RadioFieldCmp, CmbFieldCmp } from './form/field/field';
 
 import { DialogCmp } from './dialog/dialog';
@@ -50,9 +52,9 @@ import { AlertDialogCmp } from './alert.dialog/alert.dialog';
     WrapperCmp,
     AlertCmp,
     LoadingCmp,
-    GridCmp, GridInputCmp, GridActionCmp, GridContentCmp,
+    GridCmp, SmartGridCmp, GridInputCmp, GridActionCmp, GridContentCmp,
     FormCmp, FormActionCmp, FormContentCmp, FormFieldCmp,
-    TextFieldCmp, NumberFieldCmp, DateFieldCmp, CheckboxFieldCmp, RadioFieldCmp, CmbFieldCmp,
+    TextFieldCmp, TextAreaFieldCmp, NumberFieldCmp, DateFieldCmp, CheckboxFieldCmp, RadioFieldCmp, CmbFieldCmp,
     DialogCmp, DialogHeaderCmp, DialogBodyCmp, DialogFooterCmp,
     AlertDialogCmp
   ],
@@ -68,9 +70,9 @@ import { AlertDialogCmp } from './alert.dialog/alert.dialog';
     WrapperCmp,
     AlertCmp,
     LoadingCmp,
-    GridCmp, GridInputCmp, GridActionCmp, GridContentCmp,
+    GridCmp, SmartGridCmp, GridInputCmp, GridActionCmp, GridContentCmp,
     FormCmp, FormActionCmp, FormContentCmp, FormFieldCmp,
-    TextFieldCmp, NumberFieldCmp, DateFieldCmp, CheckboxFieldCmp, RadioFieldCmp, CmbFieldCmp,
+    TextFieldCmp, TextAreaFieldCmp, NumberFieldCmp, DateFieldCmp, CheckboxFieldCmp, RadioFieldCmp, CmbFieldCmp,
     DialogCmp, DialogHeaderCmp, DialogBodyCmp, DialogFooterCmp,
     AlertDialogCmp
   ],

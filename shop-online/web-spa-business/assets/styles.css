@@ -173,3 +173,8 @@ body {
 .btn-back {
   width: 100px;
 }
+
+
+.form-control{
+    min-width: 100px;
+}

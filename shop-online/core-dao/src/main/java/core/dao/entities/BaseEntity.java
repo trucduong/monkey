@@ -23,7 +23,7 @@ import core.dao.dto.BaseDto;
  */
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable, IEntity {
-	private static final long serialVersionUID = -4238716080849547677L;
+	private static final long serialVersionUID = 1L;
 	public static final String SHORT_1 = "nvarchar(10)";
 	public static final String SHORT_2 = "nvarchar(20)";
 	public static final String SHORT_3 = "nvarchar(30)";

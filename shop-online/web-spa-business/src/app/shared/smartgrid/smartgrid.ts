@@ -1,24 +1,20 @@
 import { Component, OnChanges, SimpleChange,
-    Input, Output, EventEmitter, ViewChild, Pipe, PipeTransform } from '@angular/core';
+    Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
-import { PaginationInfo, ComboboxService, GridInfo, SortInfo, FilterInfo, GridHeader } from '../core/index';
+import { BaseModel, PaginationInfo, ComboboxService, SmartGridInfo, SortInfo, FilterInfo, GridColumn } from '../index';
 import { FilterCmp } from '../filter/filter';
 
 @Component({
-    selector: 'grid-cmp',
-    templateUrl: 'src/app/shared/grid/grid.html',
-    styleUrls: ['src/app/shared/grid/grid.css'],
+    selector: 'smartgrid-cmp',
+    templateUrl: 'src/app/shared/smartgrid/smartgrid.html',
+    styleUrls: ['src/app/shared/smartgrid/smartgrid.css'],
 
 })
-export class GridCmp<T> implements OnChanges {
-    @Input('info') info: GridInfo;
+export class SmartGridCmp<T extends BaseModel> implements OnChanges {
+    @Input('info') info: SmartGridInfo;
     @Input('data-source') dataSources: T[];
 
     @Output('onExecute') onExecute = new EventEmitter<any>();
-
-    //@Output('onLoad') onLoad = new EventEmitter();
-    //@Output('onEdit') onEdit = new EventEmitter<T>();
-    //@Output('onDelete') onDelete = new EventEmitter<T>();
 
     selectedItem: T;
     items: T[];
@@ -66,14 +62,6 @@ export class GridCmp<T> implements OnChanges {
                 });
                 return res;
             });
-            // this.dataSources.forEach(item => {
-            //     this.filterInfo.columns.every(c => {
-            //         if (item[c].indexOf(value) != -1) {
-            //             this.items.push(item);
-            //             return false;
-            //         }
-            //     });
-            // });
         }
 
         this.paginationInfo = new PaginationInfo(this.items.length);
@@ -82,7 +70,7 @@ export class GridCmp<T> implements OnChanges {
         this.sort();
     }
 
-    sort(header?: GridHeader) {
+    sort(header?: GridColumn) {
         let column = null;
         let order = null;
         // sorrt default
@@ -90,7 +78,7 @@ export class GridCmp<T> implements OnChanges {
             if (!header.sortable) {
                 return;
             } else {
-                column = header.name;
+                column = header.fieldInfo.name;
                 order = column == this.sortInfo.column ? (this.sortInfo.order == 'asc' ? 'desc' : 'asc') : 'asc';
             }
         } else { // sort default
@@ -146,16 +134,48 @@ export class GridCmp<T> implements OnChanges {
 
     execute(action: string, item: T) {
         if (action == 'select') {
+            if (!this.info.option.selectable) {
+                return;
+            }
             this.selectedItem = item;
+
+        } else if (action == 'add') {
+            if (!this.validate(item)) {
+                return;
+            }
+
+        } else if (action == 'edit') {
+            item.isDirty = true;
+            return;
+
+        } else if (action == 'save') {
+            if (!this.validate(item)) {
+                return;
+            }
+            action = 'edit';
         }
 
-        this.onExecute.emit({ action: action, data: item });
+        this.onExecute.emit({
+            action: action, data: item, callback: res => {
+                if (action == 'add') {
+                    this.dataSources.push(res.data);
+                    this.info.model = res.newModel;
+                    this.paginationInfo = new PaginationInfo(this.dataSources.length);
+                    this.paging(this.paginationInfo.total);
+                } else if (action == 'edit') {
+                    // update all new attribute
+                    item.isDirty = false;
+                    item['version'] = res.data['version'];
+                }
+            }
+        });
+
     }
 
-    getHeaderClass(header: GridHeader): string {
+    getHeaderClass(header: GridColumn): string {
         let css = header.sortable ? 'sort-able ' : '';
 
-        if (header.name == this.sortInfo.column) {
+        if (header.fieldInfo.name == this.sortInfo.column) {
             css += 'sorting_' + this.sortInfo;
         }
 
@@ -184,5 +204,15 @@ export class GridCmp<T> implements OnChanges {
 
     isNormalText(labelKey: string) {
         return !this.isRefText(labelKey) && !this.isCustomRefText(labelKey);
+    }
+
+    validate(model: T) {
+        let mthis = this;
+        let isSuccess = true;
+        mthis.info.columns.forEach(col => {
+            isSuccess = col.fieldInfo.validate(model[col.fieldInfo.name]) ? isSuccess : false;
+        });
+
+        return isSuccess;
     }
 }

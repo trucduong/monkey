@@ -1,5 +1,6 @@
-import { PaginationInfo } from '../pagination/pagination.info';
-import { ComboboxService } from '../core/index';
+import { PaginationInfo } from './pagination.info';
+import { ComboboxService } from '../service/combobox.service';
+import { FormFieldInfo, FormInfo } from './form.info';
 
 export class SortInfo {
     column: string;
@@ -56,9 +57,8 @@ export class FilterInfo {
 export class GridHeader {
     name: string;
     labelKey: string;
-    sortable: boolean;
     width: number;
-    //translation: boolean;
+    sortable: boolean;
 
     constructor(name: string, labelKey: string, sortable?: boolean, width?: number) {
         this.name = name;
@@ -77,25 +77,6 @@ export class GridInputHeader extends GridHeader {
     }
 }
 
-export class GridAction {
-    name: string;
-    icon: string;
-    type: string;
-    constructor(name: string, icon: string, type: string) {
-        this.name = name;
-        this.icon = icon;
-        this.type = type;
-    }
-}
-
-// export class GridBean<T> {
-//     id: string;
-//     bean: T;
-//     constructor(id?: string, bean?: T) {
-//         this.id = id;
-//         this.bean = bean;
-//     }
-// }
 
 export class GridInfo {
     headers: GridHeader[];
@@ -110,6 +91,72 @@ export class GridInfo {
         filterInfo?: FilterInfo) {
 
         this.headers = headers;
+        this.actions = actions;
+        this.filterInfo = filterInfo;
+        this.sortInfo = sortInfo;
+    }
+
+    hasFilterInfo() {
+        return this.filterInfo && !this.filterInfo.isEmpty();
+    }
+}
+
+export class GridAction {
+    name: string;
+    icon: string;
+    type: string;
+    constructor(name: string, icon: string, type: string) {
+        this.name = name;
+        this.icon = icon;
+        this.type = type;
+    }
+}
+
+export class GridColumn {
+    editable: boolean; // Can edit in gid (inline)
+    width: number;
+    sortable: boolean;
+    fieldInfo: FormFieldInfo;
+
+    constructor(fieldInfo: FormFieldInfo, width: number, sortable: boolean, editable: boolean) {
+        this.fieldInfo = fieldInfo;
+        this.sortable = sortable;
+        this.width = width;
+        this.editable = editable;
+    }
+}
+
+export class GridOption {
+    addable: boolean;
+    editable: boolean;
+    deleteable: boolean;
+    selectable: boolean
+
+    constructor(selectable: boolean, addable: boolean, editable: boolean, deleteable: boolean) {
+        this.selectable = selectable;
+        this.addable = addable;
+        this.editable = editable;
+        this.deleteable = deleteable;
+    }
+}
+
+export class SmartGridInfo {
+    option: GridOption;
+    columns: GridColumn[];
+    actions: GridAction[];
+    filterInfo: FilterInfo;
+    sortInfo: SortInfo;
+    model: any;
+    translateServices: Map<string, ComboboxService>;
+
+    constructor(option: GridOption,
+        columns: GridColumn[],
+        actions: GridAction[],
+        sortInfo?: SortInfo,
+        filterInfo?: FilterInfo) {
+
+        this.option = option;
+        this.columns = columns;
         this.actions = actions;
         this.filterInfo = filterInfo;
         this.sortInfo = sortInfo;

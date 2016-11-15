@@ -1,7 +1,6 @@
 import { Component, OnChanges, Input, SimpleChange } from '@angular/core';
 import {TranslateService} from 'ng2-translate/ng2-translate';
-import { FormInfo } from './form.info';
-import { Error, CommonUtils } from '../core/index';
+import { FormInfo, Error, CommonUtils } from '../core/index';
 
 @Component({
     selector: 'form-cmp',

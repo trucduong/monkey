@@ -1,4 +1,6 @@
-export class WarehouseInput {
+import { BaseModel } from '../../../shared/index';
+
+export class WarehouseInput extends BaseModel {
   id: string;
   name: string;
   unit: string;
@@ -11,6 +13,8 @@ export class WarehouseInput {
   
 
   constructor(id?: string, name?: string,unit?: string,quantity?:string, inputPrice?: string, wholesalePrice?: string, retailPrice?:string, total?:string, note?: string) {
+    super();
+
     if (id) {
       this.id = id;
     } else {
@@ -24,5 +28,9 @@ export class WarehouseInput {
     this.retailPrice = retailPrice;
     this.total = total;
     this.note = note;
+  }
+
+  getId() {
+    return this.id;
   }
 }

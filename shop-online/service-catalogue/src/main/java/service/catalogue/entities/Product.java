@@ -8,6 +8,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
 import service.catalogue.shared.dto.ProductDto;
@@ -46,7 +48,7 @@ public class Product extends BaseEntity {
 	
 	@OneToOne(targetEntity=ProductDetail.class, mappedBy="product",
 			optional=true, cascade=CascadeType.ALL)
-	private ProductDetail detail;
+	private transient ProductDetail detail;
 	
 	public String getCode() {
 		return code;

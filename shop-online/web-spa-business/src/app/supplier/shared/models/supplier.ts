@@ -1,4 +1,6 @@
-export class Supplier {
+import { BaseModel } from '../../../shared/index';
+
+export class Supplier extends BaseModel {
   id: string;
   name: string;
   address: string;
@@ -12,6 +14,8 @@ export class Supplier {
   fax: string;
 
   constructor(id?: string, name?: string,address?: string,contact?:string, phone?: string,fax?:string, supplierGroup?: string,email?: string,birthDay?: string,note?: string) {
+    super();
+
     if (id) {
       this.id = id;
     } else {
@@ -27,5 +31,9 @@ export class Supplier {
     this.birthDay = birthDay;
     this.note = note;
     
+  }
+
+  getId() {
+    return this.id;
   }
 }

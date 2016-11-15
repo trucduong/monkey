@@ -2,13 +2,14 @@ import { OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 import { BaseController } from './base.controller';
-import { AlertType } from '../alert/alert.type';
-import { FormInfo } from '../form/form.info';
+import { AlertType } from '../../alert/alert.type';
+import { FormInfo } from '../info/form.info';
+import { BaseModel } from '../model/base.model';
 
 /**
  * EditController
  */
-export abstract class EditController<T> extends BaseController {
+export abstract class EditController<T extends BaseModel> extends BaseController {
     constructor(private route: ActivatedRoute, router: Router, translate: TranslateService) {
         super(router, translate);
     }

@@ -2,7 +2,7 @@ import { ComboboxService, BaseHttpService, SERVICES } from '../../../shared/inde
 
 export class RefProductGroupService extends ComboboxService {
     constructor(private httpService: BaseHttpService) {
-        super('value','label');
+        super('product.group', 'value','label');
     }
     
     onload(filter: any): Promise<any[]> {

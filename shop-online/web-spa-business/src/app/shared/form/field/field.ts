@@ -1,7 +1,6 @@
 import { Component, OnChanges, Input, Output, EventEmitter, SimpleChange } from '@angular/core';
 import {TranslateService} from 'ng2-translate/ng2-translate';
-import { FormFieldInfo, TextFieldInfo, CheckboxFieldInfo, CmbFieldInfo } from '../form.info';
-import { Error, CommonUtils } from '../../core/index';
+import { Error, CommonUtils, FormFieldInfo, TextFieldInfo, CheckboxFieldInfo, CmbFieldInfo } from '../../core/index';
 
 export class CustomField {
     @Input('info') info: FormFieldInfo;
@@ -10,10 +9,12 @@ export class CustomField {
 
     updateData(event) {
         this.fieldModel = event;
+        if (this.info) {
+            this.info.validate(this.fieldModel);
+        }
         this.fieldModelChange.emit(event);
     }
 }
-
 
 @Component({
     selector: 'form-field-cmp',
@@ -31,10 +32,6 @@ export class FormFieldCmp implements OnChanges {
             if (this.info) {
                 this.info.clearErrors();
             }
-        } else if (changes['fieldModel']) {
-            if (this.info) {
-                this.info.validate(this.fieldModel);
-            }
         }
     }
 }
@@ -45,6 +42,14 @@ export class FormFieldCmp implements OnChanges {
     styleUrls: ['src/app/shared/form/field/field.css']
 })
 export class TextFieldCmp extends CustomField {
+}
+
+@Component({
+    selector: 'textarea-field-cmp',
+    templateUrl: 'src/app/shared/form/field/textarea.html',
+    styleUrls: ['src/app/shared/form/field/field.css']
+})
+export class TextAreaFieldCmp extends CustomField {
 }
 
 @Component({
@@ -77,10 +82,6 @@ export class CheckboxFieldCmp extends CustomField implements OnChanges {
             if (this.info) {
                 this.info.clearErrors();
             }
-        } else if (changes['fieldModel']) {
-            if (this.info) {
-                this.info.validate(this.fieldModel);
-            }
         }
 
         (<CheckboxFieldInfo>this.info).update(this.fieldModel);
@@ -94,6 +95,9 @@ export class CheckboxFieldCmp extends CustomField implements OnChanges {
         mInfo.selectChange(item, event.target.checked);
 
         this.fieldModel = mInfo.getSelectedValues();
+        if (this.info) {
+            this.info.validate(this.fieldModel);
+        }
         this.fieldModelChange.emit(this.fieldModel);
     }
 }
@@ -118,15 +122,11 @@ export class CmbFieldCmp extends CustomField implements OnChanges {
             if (this.info) {
                 this.info.clearErrors();
 
-                let mInfo = (<CmbFieldInfo> this.info);
+                let mInfo = (<CmbFieldInfo>this.info);
                 mInfo.service.getItems(mInfo.filter)
                     .then(data => {
                         mInfo.items = data;
                     });
-            }
-        } else if (changes['fieldModel']) {
-            if (this.info) {
-                this.info.validate(this.fieldModel);
             }
         }
 

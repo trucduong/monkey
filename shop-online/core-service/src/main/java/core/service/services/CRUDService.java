@@ -82,7 +82,7 @@ public abstract class CRUDService<E extends BaseEntity> extends BaseService {
 		init(ServiceErrorCode.UPDATE_ERROR);
 		getDao().update(entity);
 
-		return success(entity);
+		return read(id);
 	}
 
 	@RequestMapping(value = CRUDServiceAction.DELETE, method = RequestMethod.POST)

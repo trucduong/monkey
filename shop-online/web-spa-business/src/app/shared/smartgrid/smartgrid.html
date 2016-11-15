@@ -1,0 +1,71 @@
+<div class="col-xs-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                    <ng-content select="grid-action-cmp"></ng-content>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <filter-cmp *ngIf="filterInfo.hasInfo()" (onFilter)="filter($event)"></filter-cmp>
+                </div>
+            </div>
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="table-responsive">
+                        <table width="100%" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th *ngFor="let header of info.columns" [style.width]="header.width+'%'" (click)="sort(header)" [class.sort-able]="header.sortable">{{ header.fieldInfo.label | translate}}<span *ngIf="header.fieldInfo.name==sortInfo.column"
+                                            [class]="'fa fa-sort-'+sortInfo.order"></span></th>
+                                    <th style="min-width:85px;">{{'common.list.action' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngIf="info.option.addable">
+                                    <td *ngFor="let header of info.columns">
+                                        <cmb-field-cmp *ngIf="header.fieldInfo.type=='combobox'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]"></cmb-field-cmp>
+                                        <text-field-cmp *ngIf="header.fieldInfo.type=='text'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]"></text-field-cmp>
+                                        <number-field-cmp *ngIf="header.fieldInfo.type=='number'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]"></number-field-cmp>
+                                    </td>
+                                    <td>
+                                        <button (click)="execute('add', info.model)" type="button" class="btn btn-primary btn-circle btn-margin"><i class="fa fa-plus"></i></button>
+                                        <button (click)="execute('clear', info.model)" type="button" class="btn btn-danger btn-circle btn-margin"><i class="fa fa-times"></i></button>
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let item of activeItems" class="gradeX" [class.odd]="odd" [class.even]="even" [class.selected]="item==selectedItem"
+                                    (click)="execute('select', item)">
+                                    <td *ngFor="let header of info.columns">
+                                        <div *ngIf="!(info.option.editable && header.editable && item.isDirty)">
+                                            <span *ngIf="isRefText(header.fieldInfo.label)">{{header.fieldInfo.label+'.'+item[header.fieldInfo.name] | translate}}</span>
+                                            <span *ngIf="isCustomRefText(header.fieldInfo.label)">{{item[header.fieldInfo.name]|cusTranslate:info.translateServices.get(header.fieldInfo.label)}}</span>
+                                            <span *ngIf="isNormalText(header.fieldInfo.label)">{{item[header.fieldInfo.name]}}</span>
+                                        </div>
+                                        <div *ngIf="info.option.editable && header.editable && item.isDirty">
+                                            <cmb-field-cmp *ngIf="header.fieldInfo.type=='combobox'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></cmb-field-cmp>
+                                            <text-field-cmp *ngIf="header.fieldInfo.type=='text'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></text-field-cmp>
+                                            <number-field-cmp *ngIf="header.fieldInfo.type=='number'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></number-field-cmp>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button *ngIf="info.option.editable && item.isDirty" (click)="execute('save', item)" type="button" class="btn btn-primary btn-circle btn-margin"><i class="fa fa-floppy-o"></i></button>
+                                        <button *ngIf="info.option.editable && !item.isDirty" (click)="execute('edit', item)" type="button" class="btn btn-warning btn-circle btn-margin"><i class="fa fa-pencil"></i></button>
+                                        <button *ngIf="info.option.deleteable && !item.isDirty" (click)="execute('delete', item)" type="button" class="btn btn-danger btn-circle btn-margin"><i class="fa fa-times"></i></button>
+                                        <button *ngFor="let b of info.actions" (click)="execute(b.name, item)" type="button" class="{{'btn ' + b.type + ' btn-circle btn-margin'}}"><i class="{{b.icon}}"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <pagination-cmp [info]="paginationInfo" (onPaging)="paging($event)"></pagination-cmp>
+                </div>
+            </div>
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>

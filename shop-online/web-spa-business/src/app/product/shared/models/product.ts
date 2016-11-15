@@ -1,4 +1,6 @@
-export class Product {
+import { BaseModel } from '../../../shared/index';
+
+export class Product extends BaseModel {
   id: string;
   code: string;
   name: string;
@@ -15,6 +17,11 @@ export class Product {
   retailPrice: number;
 
   constructor() {
+    super();
     this.id = '-1';
+  }
+
+  getId(): any {
+    return this.id;
   }
 }

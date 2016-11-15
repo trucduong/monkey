@@ -1,10 +1,14 @@
-export class CustomerGroup {
+import { BaseModel } from '../../../shared/index';
+
+export class CustomerGroup extends BaseModel {
   id: string;
   name: string;
   note: string;
   quantity: string;
 
   constructor(id?: string, name?: string, note?: string, quantity?: string) {
+    super();
+
     if (id) {
       this.id = id;
     } else {
@@ -14,5 +18,9 @@ export class CustomerGroup {
     this.note = note;
     this.quantity = quantity;
 
+  }
+
+  getId() {
+    return this.id;
   }
 }

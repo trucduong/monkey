@@ -1,5 +1,5 @@
 import { Component, OnChanges, SimpleChange, Input, Output, EventEmitter } from '@angular/core';
-import { PaginationInfo } from './pagination.info';
+import { PaginationInfo } from '../core/index';
 
 /**
  * PaginationCmp

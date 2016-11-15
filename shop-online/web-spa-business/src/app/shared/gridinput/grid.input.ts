@@ -1,8 +1,8 @@
 import { Component, OnChanges, SimpleChange, 
     Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
-import { GridInfo, SortInfo, FilterInfo, GridHeader } from '../grid/grid.info';
-import { PaginationInfo } from '../index';
+import { PaginationInfo, GridInfo, SortInfo, FilterInfo, GridHeader } from '../core/index';
+import {  } from '../index';
 import { FilterCmp } from '../filter/filter';
 
 @Component({
