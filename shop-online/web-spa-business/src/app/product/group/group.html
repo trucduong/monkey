@@ -6,14 +6,10 @@
         </div>
     </div>
 
-
     <!-- page content -->
     <div class="row">
-        <grid-cmp [info]="gridInfo" [data-source]="dataSource" (onExecute)="onExecute($event)">
-            <grid-action-cmp>
-                <button (click)="onAdd()" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></button>
-            </grid-action-cmp>
-        </grid-cmp>
+        <alert-cmp [info]="alertInfo"></alert-cmp>
+        <smartgrid-cmp [info]="gridInfo" [data-source]="dataSource" (onExecute)="onExecute($event)"></smartgrid-cmp>
     </div>
     <div class="row">
         <a class="btn btn-default btn-back" (click)="onBack()"><i class="glyphicon glyphicon-arrow-left"></i></a>

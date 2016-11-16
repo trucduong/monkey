@@ -22,6 +22,7 @@ export class SmartGridCmp<T extends BaseModel> implements OnChanges {
     sortInfo: SortInfo;
     filterInfo: FilterInfo;
     paginationInfo: PaginationInfo;
+    isEditingMode: boolean;
 
     @ViewChild(FilterCmp)
     private filterCmp: FilterCmp;
@@ -116,6 +117,7 @@ export class SmartGridCmp<T extends BaseModel> implements OnChanges {
         if (index == 0) {
             this.filterCmp.clear();
             this.onExecute.emit({ action: 'load' });
+            this.isEditingMode = false;
         }
 
         this.paginationInfo.setCurrent(index);
@@ -141,11 +143,14 @@ export class SmartGridCmp<T extends BaseModel> implements OnChanges {
 
         } else if (action == 'add') {
             if (!this.validate(item)) {
+                this.goToFristError();
                 return;
             }
 
         } else if (action == 'edit') {
+            this.isEditingMode = true;
             item.isDirty = true;
+            this.goToFristColumn();
             return;
 
         } else if (action == 'save') {
@@ -153,6 +158,8 @@ export class SmartGridCmp<T extends BaseModel> implements OnChanges {
                 return;
             }
             action = 'edit';
+        } else if (action == 'clear') {
+            this.clearError();
         }
 
         this.onExecute.emit({
@@ -166,7 +173,10 @@ export class SmartGridCmp<T extends BaseModel> implements OnChanges {
                     // update all new attribute
                     item.isDirty = false;
                     item['version'] = res.data['version'];
+                    this.isEditingMode = false;
                 }
+
+                this.goToFristColumn();
             }
         });
 
@@ -214,5 +224,30 @@ export class SmartGridCmp<T extends BaseModel> implements OnChanges {
         });
 
         return isSuccess;
+    }
+
+    clearError() {
+        this.info.columns.forEach(col => {
+            col.fieldInfo.clearErrors();
+        });
+    }
+
+    goToFristColumn() {
+        this.setFocus(this.info.columns[0]);
+    }
+
+    goToFristError() {
+        for (let index = 0; index < this.info.columns.length; index++) {
+            if (this.info.columns[index].fieldInfo.hasError()) {
+                this.setFocus(this.info.columns[0]);
+                return;
+            }
+        }
+        
+        this.goToFristColumn();
+    }
+
+    setFocus(column: GridColumn) {
+        column.fieldInfo.autofocus=true;
     }
 }

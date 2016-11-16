@@ -24,7 +24,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngIf="info.option.addable">
+                                <tr *ngIf="info.option.addable && !isEditingMode">
                                     <td *ngFor="let header of info.columns">
                                         <cmb-field-cmp *ngIf="header.fieldInfo.type=='combobox'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]"></cmb-field-cmp>
                                         <text-field-cmp *ngIf="header.fieldInfo.type=='text'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]"></text-field-cmp>
@@ -51,7 +51,7 @@
                                     </td>
                                     <td>
                                         <button *ngIf="info.option.editable && item.isDirty" (click)="execute('save', item)" type="button" class="btn btn-primary btn-circle btn-margin"><i class="fa fa-floppy-o"></i></button>
-                                        <button *ngIf="info.option.editable && !item.isDirty" (click)="execute('edit', item)" type="button" class="btn btn-warning btn-circle btn-margin"><i class="fa fa-pencil"></i></button>
+                                        <button *ngIf="info.option.editable && !item.isDirty && !isEditingMode" (click)="execute('edit', item)" type="button" class="btn btn-warning btn-circle btn-margin"><i class="fa fa-pencil"></i></button>
                                         <button *ngIf="info.option.deleteable && !item.isDirty" (click)="execute('delete', item)" type="button" class="btn btn-danger btn-circle btn-margin"><i class="fa fa-times"></i></button>
                                         <button *ngFor="let b of info.actions" (click)="execute(b.name, item)" type="button" class="{{'btn ' + b.type + ' btn-circle btn-margin'}}"><i class="{{b.icon}}"></i></button>
                                     </td>

@@ -21,7 +21,6 @@ export abstract class ListInputController<T> extends BaseController {
     idColumnName = 'id';
     private gridInfo: GridInfo;
     dataSource: T[];
-    private errors: { [key: string]: string; } = {};
 
     abstract getHeaders(): GridInputHeader[];
     abstract load(): Promise<T[]>;
@@ -44,8 +43,6 @@ export abstract class ListInputController<T> extends BaseController {
 
     ngOnInit() {
         this.showLoading();
-
-        this.errors = {};
 
         this.gridInfo = new GridInfo(this.getHeaders(), this.getActions(), this.getDefaultSort(), this.getDefaultFilter())
         this.onLoad();

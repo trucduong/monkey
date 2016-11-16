@@ -123,20 +123,18 @@ export abstract class SmartListController<T extends BaseModel> extends BaseContr
                     mthis.delete(item)
                         .then(result => {
                             if (result) {
-                                // TODO: call back function
-
                                 mthis.dataSource = mthis.dataSource.filter(e => {
                                     //return item.getId() != e.getId();
                                     return item['id'] != e['id']; // TODO: temp fix
                                 });
 
-                                mthis.alert(AlertType.success, 'Delete success!');
+                                mthis.alert(AlertType.success, 'common.alert.content.delete.success');
                             } else {
-                                mthis.alert(AlertType.danger, 'Delete failure!');
+                                mthis.alert(AlertType.danger, 'common.alert.content.delete.failure');
                             }
                         })
                         .catch(error => {
-                            mthis.alert(AlertType.danger, 'Delete failure!');
+                            mthis.alert(AlertType.danger, 'common.alert.content.delete.failure');
                         });
                 }
             }

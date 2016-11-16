@@ -1,4 +1,4 @@
 <form-field-cmp [info]="info" [fieldModel]="fieldModel">
-    <input *ngIf="info.min != info.max" class="form-control" onClick="this.select();" [ngModel]="fieldModel" (ngModelChange)="updateData($event)" name="info.name" [type]="info.type" [min]="info.min" [max]="info.max" [step]="info.step">
-    <input *ngIf="info.min == info.max" class="form-control" onClick="this.select();" [ngModel]="fieldModel" (ngModelChange)="updateData($event)" name="info.name" [type]="info.type" [step]="info.step">
+    <input *ngIf="info.min != info.max" class="form-control" onClick="this.select();" [ngModel]="fieldModel" (ngModelChange)="updateData($event)" name="info.name" [type]="info.type" [min]="info.min" [max]="info.max" [step]="info.step" [autofocus]="info.autofocus">
+    <input *ngIf="info.min == info.max" class="form-control" onClick="this.select();" [ngModel]="fieldModel" (ngModelChange)="updateData($event)" name="info.name" [type]="info.type" [step]="info.step" [autofocus]="info.autofocus">
 </form-field-cmp>
