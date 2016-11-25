@@ -10,6 +10,13 @@ public class ServicePartnerAction extends CRUDServiceAction {
 	public static final String CUSTOMER_SERVICE = "/customer";
 	public static final String SUPPLIER_SERVICE = "/supplier";
 	public static final String SUPPLIER_GROUP_SERVICE = "/supplier-group";
+	public static final String EMPLOYEE_SERVICE = "/employee";
+	
+	public static final String READ_D = "/read-d/{id}";
+	public static final String READ_ALL_D = "/read-all-d";
+	public static final String READ_BY_D = "/read-by-d/{name}/{value}";
+	public static final String READ_ALL_BY_D = "/read-all-by-d/{name}/{values}";
+	public static final String UPDATE_D = "/update-d/{id}";
 	
 	@Override
 	public String getServerName() {

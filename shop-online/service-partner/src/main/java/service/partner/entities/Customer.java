@@ -1,33 +1,29 @@
 package service.partner.entities;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
-import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
 
 @Entity
 @Table(name="customers")
 public class Customer extends BaseEntity {
-	private static final long serialVersionUID = 6487120504006748908L;
+	private static final long serialVersionUID = 1L;
 
-	@Column(name = "name", columnDefinition = SHORT_5)
+	@Column(name = "name", columnDefinition = MEDIUM_1)
 	private String name;
 	
 	@Column(name = "phone", columnDefinition = SHORT_2)
 	private String phone;
 	
-	@Column(name = "birth_day", columnDefinition = DATE)
-	private Date birthDay;
-	
-	@Column(name = "sex", columnDefinition = SHORT_2)
+	@Column(name = "sex", columnDefinition = SHORT_5)
 	private String sex;
 	
-	@Column(name = "address_detail", columnDefinition = SHORT_5)
+	@Column(name = "email", columnDefinition = MEDIUM_1)
+	private String email;
+	
+	@Column(name = "address_detail", columnDefinition = MEDIUM_2)
 	private String addressDetail;
 	
 	@Column(name = "address_1", columnDefinition = SHORT_5)
@@ -39,19 +35,15 @@ public class Customer extends BaseEntity {
 	@Column(name = "address_3", columnDefinition = SHORT_5)
 	private String address3;
 	
-	@Column(name = "properties", columnDefinition = LONG_1)
-	private String properties;
-//
-//	@Override
-//	public Object getColIdValue() {
-//		return phone;
-//	}
-//
-//	@Override
-//	public String getColIdName() {
-//		return "phone";
-//	}
+	@Column(name = "description", columnDefinition = MEDIUM_5)
+	private String description;
+	
+	@Column(name = "details", columnDefinition = LONG_1)
+	private String details;
 
+	@Column(name="customer_group", columnDefinition=LONG)
+	private Long group;
+	
 	public String getName() {
 		return name;
 	}
@@ -66,14 +58,6 @@ public class Customer extends BaseEntity {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public Date getBirthDay() {
-		return birthDay;
-	}
-
-	public void setBirthDay(Date birthDay) {
-		this.birthDay = birthDay;
 	}
 
 	public String getSex() {
@@ -116,28 +100,35 @@ public class Customer extends BaseEntity {
 		this.address3 = address3;
 	}
 
-	public String getProperties() {
-		return properties;
+	public String getDetails() {
+		return details;
 	}
 
-	public void setProperties(String properties) {
-		this.properties = properties;
-	}
-
-	@Override
-	public void bind(BaseDto dto) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void unBind(BaseDto dto) {
-		// TODO Auto-generated method stub
-		
+	public void setDetails(String details) {
+		this.details = details;
 	}
 	
-//	@Override
-//	public Object convertToId(String value) {
-//		return value;
-//	}
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public Long getGroup() {
+		return group;
+	}
+	
+	public void setGroup(Long group) {
+		this.group = group;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

@@ -22,28 +22,6 @@ export abstract class SmartListController<T extends BaseModel> extends BaseContr
 
     abstract load(): Promise<T[]>;
     abstract build(): SmartGridInfo;
-    abstract save(model: T, isEditing: boolean): Promise<T>;
-
-
-    getDefaultActions(): GridAction[] {
-        return [];
-    }
-
-    getDefaultSort(): SortInfo {
-        return null;
-    }
-
-    getDefaultFilter(): FilterInfo {
-        return new FilterInfo([]);
-    }
-
-    getTranslateServices(): Map<string, ComboboxService> {
-        return null;
-    }
-
-    createModel(): T {
-        return null;
-    }
 
     ngOnInit() {
         this.showLoading();
@@ -103,7 +81,7 @@ export abstract class SmartListController<T extends BaseModel> extends BaseContr
         // save
         this.save(param.data, isEditing)
             .then(item => {
-                param.callback({data: item, newModel: this.createModel()});
+                param.callback({ data: item, newModel: this.createModel() });
                 this.hideLoading();
             })
             .catch(error => {
@@ -112,6 +90,8 @@ export abstract class SmartListController<T extends BaseModel> extends BaseContr
                 this.hideLoading();
             });
     }
+
+
     onDelete(param: any) {
         let item = param.data;
         let mthis = this;
@@ -141,11 +121,39 @@ export abstract class SmartListController<T extends BaseModel> extends BaseContr
         });
     }
 
+    /**
+     * overwrite this
+     */
+    getDefaultActions(): GridAction[] {
+        return [];
+    }
+
+    getDefaultSort(): SortInfo {
+        return null;
+    }
+
+    getDefaultFilter(): FilterInfo {
+        return new FilterInfo([]);
+    }
+
+    getTranslateServices(): Map<string, ComboboxService> {
+        return null;
+    }
+
+    createModel(): T {
+        return null;
+    }
+
     onSelect(item: T) {
         //alert('select: ' + item[this.idColumnName]);
     }
 
+    save(model: T, isEditing: boolean): Promise<T> {
+        return Promise.resolve(model);
+    }
+
     execute(param: any) { }
+
 
     delete(item: T): Promise<boolean> {
         return Promise.resolve(true);

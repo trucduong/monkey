@@ -8,17 +8,17 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div *ngFor="let field of info.fields">
-                            <cmb-field-cmp *ngIf="field.type=='combobox'" [info]="info.getField(field.name)" [(fieldModel)]="info.model[field.name]"></cmb-field-cmp>
-                            <text-field-cmp *ngIf="field.type=='text'" [info]="info.getField(field.name)" [(fieldModel)]="info.model[field.name]"></text-field-cmp>
-                            <!--<email-field-cmp *ngIf="field.type=='email'" [info]="info.getField(field.name)" [(fieldModel)]="info.model[field.name]"></email-field-cmp>-->
-                            <!--<password-field-cmp *ngIf="field.type=='password'" [info]="info.getField(field.name)" [(fieldModel)]="info.model[field.name]"></password-field-cmp>-->
-                            <textarea-field-cmp *ngIf="field.type=='textarea'" [info]="info.getField(field.name)" [(fieldModel)]="info.model[field.name]"></textarea-field-cmp>
-                            <number-field-cmp *ngIf="field.type=='number'" [info]="info.getField(field.name)" [(fieldModel)]="info.model[field.name]"></number-field-cmp>
-                            <date-field-cmp *ngIf="field.type=='date'" [info]="info.getField(field.name)" [(fieldModel)]="info.model[field.name]"></date-field-cmp>
-                            <!--<datetime-field-cmp *ngIf="field.type=='datetime'" [info]="info.getField(field.name)" [(fieldModel)]="info.model[field.name]"></datetime-field-cmp>-->
-                            <!--<time-field-cmp *ngIf="field.type=='time'" [info]="info.getField(field.name)" [(fieldModel)]="info.model[field.name]"></time-field-cmp>-->
-                            <checkbox-field-cmp *ngIf="field.type=='checkbox'" [info]="info.getField(field.name)" [(fieldModel)]="info.model[field.name]"></checkbox-field-cmp>
-                            <radio-field-cmp *ngIf="field.type=='radio'" [info]="info.getField(field.name)" [(fieldModel)]="info.model[field.name]"></radio-field-cmp>
+                            <cmb-field-cmp *ngIf="field.type=='combobox'" [info]="field" [(fieldModel)]="info.model[field.name]"></cmb-field-cmp>
+                            <text-field-cmp *ngIf="field.type=='text'" [info]="field" [(fieldModel)]="info.model[field.name]"></text-field-cmp>
+                            <!--<email-field-cmp *ngIf="field.type=='email'" [info]="field" [(fieldModel)]="info.model[field.name]"></email-field-cmp>-->
+                            <!--<password-field-cmp *ngIf="field.type=='password'" [info]="field" [(fieldModel)]="info.model[field.name]"></password-field-cmp>-->
+                            <textarea-field-cmp *ngIf="field.type=='textarea'" [info]="field" [(fieldModel)]="info.model[field.name]"></textarea-field-cmp>
+                            <number-field-cmp *ngIf="field.type=='number'" [info]="field" [(fieldModel)]="info.model[field.name]"></number-field-cmp>
+                            <date-field-cmp *ngIf="field.type=='date'" [info]="field" [(fieldModel)]="info.model[field.name]"></date-field-cmp>
+                            <!--<datetime-field-cmp *ngIf="field.type=='datetime'" [info]="field" [(fieldModel)]="info.model[field.name]"></datetime-field-cmp>-->
+                            <!--<time-field-cmp *ngIf="field.type=='time'" [info]="field" [(fieldModel)]="info.model[field.name]"></time-field-cmp>-->
+                            <checkbox-field-cmp *ngIf="field.type=='checkbox'" [info]="field" [(fieldModel)]="info.model[field.name]"></checkbox-field-cmp>
+                            <radio-field-cmp *ngIf="field.type=='radio'" [info]="field" [(fieldModel)]="info.model[field.name]"></radio-field-cmp>
                         </div>
                     </div>
                 </div>

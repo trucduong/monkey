@@ -8,7 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.google.gson.annotations.Expose;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
@@ -16,7 +16,7 @@ import service.catalogue.shared.dto.ProductDto;
 import service.catalogue.shared.utils.ProductStatus;
 
 @Entity
-@Table(name="products")
+@Table(name = "products")
 public class Product extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -42,14 +42,14 @@ public class Product extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "product_status", columnDefinition = SHORT_5)
 	private ProductStatus status;
-	
+
 	@Column(name = "warning_remaining", columnDefinition = LONG)
 	private long warningRemaining;
-	
-	@OneToOne(targetEntity=ProductDetail.class, mappedBy="product",
-			optional=true, cascade=CascadeType.ALL)
-	private transient ProductDetail detail;
-	
+
+	@OneToOne(targetEntity = ProductDetail.class, mappedBy = "product", optional = true, cascade = CascadeType.ALL)
+	@JsonIgnore
+	private ProductDetail detail;
+
 	public String getCode() {
 		return code;
 	}
@@ -77,9 +77,41 @@ public class Product extends BaseEntity {
 	public String getUnit() {
 		return unit;
 	}
-	
+
 	public void setUnit(String unit) {
 		this.unit = unit;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public ProductStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ProductStatus status) {
+		this.status = status;
+	}
+
+	public long getWarningRemaining() {
+		return warningRemaining;
+	}
+
+	public void setWarningRemaining(long warningRemaining) {
+		this.warningRemaining = warningRemaining;
+	}
+
+	public ProductDetail getDetail() {
+		return detail;
+	}
+
+	public void setDetail(ProductDetail detail) {
+		this.detail = detail;
 	}
 
 	public Long getGroup() {
@@ -90,41 +122,9 @@ public class Product extends BaseEntity {
 		this.group = group;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	public ProductStatus getStatus() {
-		return status;
-	}
-	
-	public void setStatus(ProductStatus status) {
-		this.status = status;
-	}
-	
-	public long getWarningRemaining() {
-		return warningRemaining;
-	}
-	
-	public void setWarningRemaining(long warningRemaining) {
-		this.warningRemaining = warningRemaining;
-	}
-	
-	public ProductDetail getDetail() {
-		return detail;
-	}
-	
-	public void setDetail(ProductDetail detail) {
-		this.detail = detail;
-	}
-
 	@Override
 	public void bind(BaseDto basedto) {
-		ProductDto dto = (ProductDto)basedto;
+		ProductDto dto = (ProductDto) basedto;
 		dto.setId(id);
 		dto.setDescription(description);
 		dto.setCode(code);
@@ -132,12 +132,12 @@ public class Product extends BaseEntity {
 		dto.setImage(image);
 		dto.setName(name);
 		dto.setStatus(status);
-		dto.setWarningRemaining(warningRemaining);	
+		dto.setWarningRemaining(warningRemaining);
 	}
 
 	@Override
 	public void unBind(BaseDto basedto) {
-		ProductDto dto = (ProductDto)basedto;
+		ProductDto dto = (ProductDto) basedto;
 		this.id = dto.getId();
 		this.name = dto.getName();
 		this.code = dto.getCode();

@@ -2,21 +2,16 @@
     <!-- page header -->
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">{{ 'customer.group.title' | translate}}</h1>
+            <h1 class="page-header">{{ 'customer.group.list.title' | translate}}</h1>
         </div>
     </div>
 
-
     <!-- page content -->
     <div class="row">
-        <grid-cmp [info]="gridInfo" [data-source]="dataSource" (onExecute)="onExecute($event)" >
-            <grid-action-cmp>
-                <button (click)="onAdd()" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></button>
-                <button (click)="onNavigate('\customer')" type="button" class="btn btn-default">{{'customer.title.customer' | translate}}</button>
-            </grid-action-cmp>
-        </grid-cmp>
+        <alert-cmp [info]="alertInfo"></alert-cmp>
+        <smartgrid-cmp [info]="gridInfo" [data-source]="dataSource" (onExecute)="onExecute($event)"></smartgrid-cmp>
     </div>
     <div class="row">
-        <a class="btn btn-default" (click)="onBack()"><i class="glyphicon glyphicon-arrow-left"></i></a>
+        <a class="btn btn-default btn-back" (click)="onBack()"><i class="glyphicon glyphicon-arrow-left"></i></a>
     </div>
 </wrapper>

@@ -10,9 +10,11 @@ import { appRouting } from './app.routing';
 import { AuthModule } from './auth/index';
 import { BlankModule } from './blank/index';
 import { CustomerModule } from './customer/index';
+import { EmployeeModule } from './employee/index';
 import { SupplierModule } from './supplier/index';
 import { ProductModule } from './product/index';
 import { WarehouseModule } from './warehouse/index';
+import { ShopModule } from './shop/index';
 
 
 
@@ -27,9 +29,11 @@ import { WarehouseModule } from './warehouse/index';
     AuthModule,
     BlankModule,
     CustomerModule,
+    EmployeeModule,
     SupplierModule,
     ProductModule,
-    WarehouseModule
+    WarehouseModule,
+    ShopModule
   ],
   declarations: [ AppComponent ],
   bootstrap: [ AppComponent ]

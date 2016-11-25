@@ -8,6 +8,6 @@ import service.partner.entities.CustomerGroup;
 @Service
 public class CustomerGroupDao extends BaseDao<CustomerGroup>{
 
-	private static final long serialVersionUID = 3721101665296944568L;
+	private static final long serialVersionUID = 1L;
 
 }

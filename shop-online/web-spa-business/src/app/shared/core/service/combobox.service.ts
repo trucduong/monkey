@@ -3,8 +3,10 @@ import { SERVICES } from '../utils/service.url';
 import { CacheUtils } from '../utils/cache.utils';
 
 export const CMB_FILTERS = {
+    SEX: { type: 'ref.sex' },
     UNIT: { type: 'ref.unit' },
-    PRODUCT_STATUS: { type: 'ref.product.status' }
+    PRODUCT_STATUS: { type: 'ref.product.status' },
+    EMPLOYEE_STATUS: { type: 'ref.employee.status' }
 };
 
 export abstract class ComboboxService {

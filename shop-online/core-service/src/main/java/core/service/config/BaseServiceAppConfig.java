@@ -77,7 +77,8 @@ public abstract class BaseServiceAppConfig {
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-		dataSource.setUrl(env.getProperty("jdbc.url"));
+		String url = env.getProperty("jdbc.url") + "?useUnicode=yes&characterEncoding=UTF-8";
+		dataSource.setUrl(url);
 		dataSource.setUsername(env.getProperty("jdbc.username"));
 		dataSource.setPassword(env.getProperty("jdbc.password"));
 		return dataSource;

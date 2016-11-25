@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import core.common.exception.CommonException;
-import core.common.format.JsonFormatter;
+import core.common.format.json.JsonFormatter;
 import core.service.utils.ServiceErrorCode;
 import core.service.utils.ServiceProvider;
 import core.service.utils.ServiceResult;

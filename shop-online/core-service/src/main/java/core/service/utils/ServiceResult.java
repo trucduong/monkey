@@ -32,4 +32,7 @@ public class ServiceResult {
 		this.description = description;
 	}
 
+	public boolean isSuccess() {
+		return SUCCESS.equals(this.type);
+	}
 }

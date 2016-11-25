@@ -6,9 +6,7 @@ import { SharedModule } from '../shared/index';
 import { routing } from './warehouse.routing';
 
 import { WarehouseCmp } from './warehouse';
-import { WarehouseDetailCmp } from './detail/detail';
 import { WarehouseImportCmp } from './import/import';
-import { WarehouseExportCmp } from './export/export';
 
 
 import {WarehouseService} from './shared/index';
@@ -20,9 +18,7 @@ import {WarehouseService} from './shared/index';
   ],
   declarations: [
     WarehouseCmp,
-    WarehouseDetailCmp,
     WarehouseImportCmp,
-    WarehouseExportCmp
   ],
   providers: [
       WarehouseService

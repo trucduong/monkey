@@ -8,12 +8,11 @@
 
     <div class="row">
         <alert-cmp [info]="alertInfo"></alert-cmp>
-        <grid-cmp [info]="gridInfo" [data-source]="dataSource" (onExecute)="onExecute($event)">
+        <smartgrid-cmp [info]="gridInfo" [data-source]="dataSource" (onExecute)="onExecute($event)">
             <grid-action-cmp>
-                <button (click)="onNavigate('\product-group')" type="button" class="btn btn-primary">{{'product.prices.export' | translate}}</button>
-                <button (click)="onNavigate('\product-group')" type="button" class="btn btn-default">{{'product.prices.import' | translate}}</button>
+                <button (click)="downloadPrices()" type="button" class="btn btn-primary">{{'product.prices.export' | translate}}</button>
             </grid-action-cmp>
-        </grid-cmp>
+        </smartgrid-cmp>
     </div>
     <div class="row">
         <a class="btn btn-default btn-back" *ngIf="canNavigateBack()" (click)="onBack()"><i class="glyphicon glyphicon-arrow-left"></i></a>

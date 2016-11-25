@@ -113,9 +113,9 @@ export class FormFieldInfo extends ValidatorHandler {
 export class FormInfo extends ValidatorHandler {
     model: any; // form bean
     title: string;
-    fields: Map<string, FormFieldInfo>;
+    fields: FormFieldInfo[];
 
-    constructor(mtranslate: TranslateService, model: any, title: string, fields?: Map<string, FormFieldInfo>) {
+    constructor(mtranslate: TranslateService, model: any, title: string, fields?: FormFieldInfo[]) {
         super(mtranslate);
 
         this.model = model;
@@ -123,12 +123,12 @@ export class FormInfo extends ValidatorHandler {
         if (fields) {
             this.fields = fields;
         } else {
-            this.fields = new Map<string, FormFieldInfo>();
+            this.fields = [];
         }
     }
 
     public addField(field: FormFieldInfo): FormFieldInfo {
-        this.fields.set(field.name, field);
+        this.fields.push(field);
         return field;
     }
 
@@ -137,7 +137,13 @@ export class FormInfo extends ValidatorHandler {
     }
 
     public getField(name: string): FormFieldInfo {
-        return this.fields.get(name);
+        let field = null;
+        this.fields.forEach(f => {
+            if (f.name == name) {
+                field = f;
+            }
+        })
+        return field;
     }
 
     public validate(obj: any): boolean {
@@ -242,9 +248,10 @@ export class NumberFieldInfo extends FormFieldInfo {
 }
 
 export class DateFieldInfo extends FormFieldInfo {
+    format: 'dd/MM/yyyy';
     max: Date;
     min: Date;
-    constructor(translate: TranslateService, name: string, label: string, required: boolean, max: Date, min: Date) {
+    constructor(translate: TranslateService, name: string, label: string, required: boolean, min: Date, max: Date) {
         super(translate, name, label, required);
         this.max = max;
         this.min = min;
@@ -253,9 +260,10 @@ export class DateFieldInfo extends FormFieldInfo {
 }
 
 export class DateTimeFieldInfo extends FormFieldInfo {
+    format: 'dd/MM/yyyy HH:mm:ss';
     max: Date;
     min: Date;
-    constructor(translate: TranslateService, name: string, label: string, required: boolean, max: Date, min: Date) {
+    constructor(translate: TranslateService, name: string, label: string, required: boolean, min: Date, max: Date) {
         super(translate, name, label, required);
         this.max = max;
         this.min = min;
@@ -265,9 +273,10 @@ export class DateTimeFieldInfo extends FormFieldInfo {
 
 
 export class TimeFieldInfo extends FormFieldInfo {
+    format: 'HH:mm:ss';
     max: Date;
     min: Date;
-    constructor(translate: TranslateService, name: string, label: string, required: boolean, max: Date, min: Date) {
+    constructor(translate: TranslateService, name: string, label: string, required: boolean, min: Date, max: Date) {
         super(translate, name, label, required);
         this.max = max;
         this.min = min;

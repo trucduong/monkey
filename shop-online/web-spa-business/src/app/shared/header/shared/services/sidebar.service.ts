@@ -18,19 +18,17 @@ export const SIDEBARS: SidebarItem[] = [
   ]},
   {href: '/blank', name:'Doi tac', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: [
       {href: '/customer', name:'Khach hang', isActive: false, icon: null, childs: null},
-      {href: '/blank', name:'Nha cung cap', isActive: false, icon: null, childs: null}
+      {href: '/supplier', name:'Nha cung cap', isActive: false, icon: null, childs: null}
   ]},
   {href: '/blank', name:'Bao cao', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: null},
   {href: '/blank', name:'Thiet lap', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: [
-      {href: '/blank', name:'Cua hang', isActive: false, icon: null, childs: null},
-      {href: '/blank', name:'Kho hang', isActive: false, icon: null, childs: null},
-      {href: '/product', name:'San pham', isActive: false, icon: null, childs: null},
-      {href: '/blank', name:'Don vi tinh', isActive: false, icon: null, childs: null},
-      {href: '/blank', name:'Thong tin hoa don', isActive: false, icon: null, childs: null},
+      {href: '/shop', name:'Cua hang', isActive: false, icon: null, childs: null},
+      {href: '/warehouse', name:'Kho hang', isActive: false, icon: null, childs: null},
+      {href: '/product', name:'San pham', isActive: false, icon: null, childs: null}
   ]},
-  {href: '/blank', name:'Tai khoan', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: [
-      {href: '/blank', name:'Danh sach tai khoan', isActive: false, icon: null, childs: null},
-      {href: '/blank', name:'Phan quyen', isActive: false, icon: null, childs: null}
+  {href: '/employee', name:'Nhan Vien', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: [
+      {href: '/employee', name:'Danh sach nhan vien', isActive: false, icon: null, childs: null},
+      {href: '/blank', name:'Danh sach tai khoan', isActive: false, icon: null, childs: null}
   ]},
   {href: '/blank', name:'Blank', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: null}
 ];

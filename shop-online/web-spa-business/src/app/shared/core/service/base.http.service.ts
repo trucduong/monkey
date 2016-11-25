@@ -7,7 +7,7 @@ import { CommonUtils } from '../utils/common.utils';
 @Injectable()
 export class BaseHttpService {
     private headers = new Headers({'Content-Type': 'application/json'});
-    constructor(private http: Http) { }
+    constructor(public http: Http) { }
 
     public get(service: string, action: string, params: string[]) {
         let url = service + action;
@@ -38,6 +38,23 @@ export class BaseHttpService {
             })
             .catch(this.handleError);
     }
+
+    // downloadfile(service: string, action: string, params: string[]) {
+    //     // var downloadHeaders = new Headers();
+    //     // downloadHeaders.append('responseType', 'arraybuffer');
+
+    //     let url = service + action;
+    //     return this.http
+    //     .get(CommonUtils.formatStr(url, params))
+    //     .toPromise()
+    //     .then(response => {
+    //         let blob = response['_body'];
+    //         let type = response.headers.get('content-type');
+    //         return Promise.resolve(new Blob([blob], { type: type}));
+    //         // return Promise.resolve(response.body);
+    //     })
+    //     .catch(this.handleError);
+    // }
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only

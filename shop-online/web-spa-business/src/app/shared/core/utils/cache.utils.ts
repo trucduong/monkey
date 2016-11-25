@@ -1,4 +1,4 @@
-export const LOCAL_CACHE = {locale: 'vi'};
+const LOCAL_CACHE = {locale: 'vi'};
 
 export class CacheUtils {
     public static get(key: string): any {
@@ -7,5 +7,9 @@ export class CacheUtils {
 
     public static set(key: string, value: any) {
         LOCAL_CACHE[key] = value;
+    }
+
+    public static clear(key: string) {
+        LOCAL_CACHE[key] = null;
     }
 }

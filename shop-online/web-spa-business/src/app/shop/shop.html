@@ -1,0 +1,21 @@
+<wrapper [info]="pageInfo">
+    <!-- page header -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ 'shop.detail.title' | translate}}</h1>
+        </div>
+    </div>
+
+    <!-- page content -->
+    <div class="row">
+        <alert-cmp [info]="alertInfo"></alert-cmp>
+        <form-cmp [info]="formInfo">
+            <form-action-cmp>
+                <button (click)="onSave()" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i></button>
+            </form-action-cmp>
+        </form-cmp>
+    </div>
+    <div class="row">
+        <button class="btn btn-default btn-back" *ngIf="canNavigateBack()" (click)="onBack()"><i class="glyphicon glyphicon-arrow-left"></i></button>
+    </div>
+</wrapper>

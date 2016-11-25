@@ -16,3 +16,4 @@ export * from './info/grid.info';
 export * from './info/pagination.info';
 export * from './info/navigator.info';
 export * from './component/customtranslate.pipe';
+export * from './component/customnumber.pipe';

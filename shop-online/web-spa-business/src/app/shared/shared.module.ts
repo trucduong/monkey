@@ -11,7 +11,7 @@ import { PaginationCmp }  from './pagination/pagination';
 import { WrapperCmp }  from './wrapper/wrapper';
 import { AlertCmp } from './alert/alert';
 import { LoadingCmp } from './loading/loading';
-import { CustomTranslatePipe } from './core/index';
+import { CustomTranslatePipe, CustomNumberPipe } from './core/index';
 import { GridCmp } from './grid/grid';
 import { SmartGridCmp } from './smartgrid/smartgrid';
 import { GridInputCmp } from './gridinput/grid.input';
@@ -47,6 +47,7 @@ import { AlertDialogCmp } from './alert.dialog/alert.dialog';
   declarations: [
     FileSelectDirective,
     CustomTranslatePipe,
+    CustomNumberPipe,
     FilterCmp,
     PaginationCmp,
     WrapperCmp,

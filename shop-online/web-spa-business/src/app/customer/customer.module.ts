@@ -6,13 +6,7 @@ import { SharedModule } from '../shared/index';
 
 import { CustomerGroupCmp } from './group/group';
 import { routing } from './customer.routing';
-import { CustomerGroupDetailCmp } from './group/detail/detail';
-
 import { CustomerCmp } from './customer';
-import { CustomerDetailCmp } from './detail/detail';
-
-
-
 import {CustomerService} from './shared/index';
 
 @NgModule({
@@ -22,12 +16,10 @@ import {CustomerService} from './shared/index';
   ],
   declarations: [
     CustomerGroupCmp,
-    CustomerGroupDetailCmp,
     CustomerCmp,
-    CustomerDetailCmp
   ],
   providers: [
-      CustomerService
+    CustomerService
   ]
 })
-export class CustomerModule {}
+export class CustomerModule { }

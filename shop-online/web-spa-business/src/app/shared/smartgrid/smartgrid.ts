@@ -143,17 +143,22 @@ export class SmartGridCmp<T extends BaseModel> implements OnChanges {
 
         } else if (action == 'add') {
             if (!this.validate(item)) {
-                this.goToFristError();
+                // this.goToFristError();
                 return;
             }
 
         } else if (action == 'edit') {
             this.isEditingMode = true;
             item.isDirty = true;
-            this.goToFristColumn();
+            // this.goToFristColumn();
             return;
 
-        } else if (action == 'save') {
+        } else if (action == 'cancel') {
+            this.isEditingMode = false;
+            item.isDirty = false;
+            return;
+
+        }else if (action == 'save') {
             if (!this.validate(item)) {
                 return;
             }
@@ -176,7 +181,7 @@ export class SmartGridCmp<T extends BaseModel> implements OnChanges {
                     this.isEditingMode = false;
                 }
 
-                this.goToFristColumn();
+                // this.goToFristColumn();
             }
         });
 
@@ -216,6 +221,17 @@ export class SmartGridCmp<T extends BaseModel> implements OnChanges {
         return !this.isRefText(labelKey) && !this.isCustomRefText(labelKey);
     }
 
+    isCustomFormatText(fieldInfo: any) {
+        if (fieldInfo['type'] == 'date' 
+            || fieldInfo['type'] == 'datetime'
+            || fieldInfo['type'] == 'time'
+            || fieldInfo['type'] == 'number') {
+            return true;
+        }
+
+        return false;
+    }
+
     validate(model: T) {
         let mthis = this;
         let isSuccess = true;
@@ -232,22 +248,33 @@ export class SmartGridCmp<T extends BaseModel> implements OnChanges {
         });
     }
 
-    goToFristColumn() {
-        this.setFocus(this.info.columns[0]);
-    }
+    // goToFristColumn() {
+    //     this.setFocus(this.info.columns[0]);
+    // }
 
-    goToFristError() {
-        for (let index = 0; index < this.info.columns.length; index++) {
-            if (this.info.columns[index].fieldInfo.hasError()) {
-                this.setFocus(this.info.columns[0]);
-                return;
-            }
-        }
+    // goToFristError() {
+    //     for (let index = 0; index < this.info.columns.length; index++) {
+    //         if (this.info.columns[index].fieldInfo.hasError()) {
+    //             this.setFocus(this.info.columns[0]);
+    //             return;
+    //         }
+    //     }
         
-        this.goToFristColumn();
-    }
+    //     this.goToFristColumn();
+    // }
 
-    setFocus(column: GridColumn) {
-        column.fieldInfo.autofocus=true;
-    }
+    // setFocus(column: GridColumn) {
+    //     this.info.columns.forEach(col => {
+    //         if (col == column) {
+    //             col.fieldInfo.autofocus = true;
+    //         } else {
+    //             col.fieldInfo.autofocus = false;
+    //         }
+    //     });
+
+    //     let element = document.getElementsByClassName('xxx')[0];
+    //     if (element) {
+    //         (<HTMLElement> element).focus();
+    //     }
+    // }
 }

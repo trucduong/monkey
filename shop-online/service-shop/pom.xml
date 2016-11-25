@@ -38,13 +38,13 @@
 		</dependency>
 		<dependency>
 			<groupId>com.abc</groupId>
-			<artifactId>service-catalogue-shared</artifactId>
+			<artifactId>core-web</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.abc</groupId>
-			<artifactId>core-web</artifactId>
+			<artifactId>service-shop-shared</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>

@@ -1,23 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
-import { ListController, GridHeader, SortInfo, FilterInfo } from '../../shared/index';
-import { CustomerService, CustomerGroup } from '../shared/index';
-
-const headers: GridHeader[] = [
-  { name: 'id', labelKey: 'customer.group.list.id', sortable: true, width: 20},
-  { name: 'name', labelKey: 'customer.group.list.name', sortable: true, width: 30},
-  { name: 'note', labelKey: 'common.list.note', sortable: true, width: 30},
-  { name: 'quantity', labelKey: 'customer.group.list.quantity', sortable: true, width: 20}
-
-];
+import { CacheUtils, SmartListController, SmartGridInfo, GridColumn, GridOption, SortInfo, FilterInfo, AlertType,
+  TextFieldInfo, TextAreaFieldInfo} from '../../shared/index';
+import { CustomerGroup, CustomerService } from '../shared/index';
 
 @Component({
   selector: 'customer-group',
   templateUrl: 'src/app/customer/group/group.html'
 })
-export class CustomerGroupCmp extends ListController<CustomerGroup> implements OnInit {
+export class CustomerGroupCmp extends SmartListController<CustomerGroup> implements OnInit {
   constructor(
     route: ActivatedRoute,
     router: Router,
@@ -27,28 +21,58 @@ export class CustomerGroupCmp extends ListController<CustomerGroup> implements O
     super(route, translate, router);
   }
 
-  getHeaders(): GridHeader[] {
-    return headers;
-  }
-
-  getDefaultSort(): SortInfo {
-    return new SortInfo('name', 'asc');
-  }
-
-  getDefaultFilter(): FilterInfo {
-    return new FilterInfo(['name', 'note']);
-  }
-
-  load(): Promise<CustomerGroup[]> {
-    return Promise.resolve(this.customerService.getCustomerGroups());
-  }
-
   getCurrentUrl(): string {
     return '/customer-group';
   }
 
-  getDetailUrl(): string {
-    return '/customer-group-detail';
+  build(): SmartGridInfo {
+    let option = new GridOption(false, true, true, true);
+
+    let nameField = new TextFieldInfo(this.getTranslator(), 'name', 'customer.group.name', true, 0, 100);
+
+    let description = new TextFieldInfo(this.getTranslator(), 'description', 'customer.group.description', false, 0, 500)
+
+    let columns: GridColumn[] = [
+      { fieldInfo: nameField, editable: true, sortable: true, width: 40 },
+      { fieldInfo: description, editable: true, sortable: true, width: 60 }
+    ];
+
+    let grid = new SmartGridInfo(option, columns, [], new SortInfo('name', 'asc'), new FilterInfo(['name']));
+    return grid;
+  }
+
+  createModel(): CustomerGroup {
+    return new CustomerGroup();
+  }
+
+  load(): Promise<CustomerGroup[]> {
+    return this.customerService.getCustomerGroups()
+      .then(items => {
+        return items;
+      })
+      .catch(error => {
+        this.log(error);
+        return [];
+      });
+  }
+
+  save(model: CustomerGroup, isEditing: boolean): Promise<CustomerGroup> {
+    CacheUtils.clear('customer.group');
+    return this.customerService.saveCustomerGroup(model, isEditing);
+  }
+
+  delete(item: CustomerGroup): Promise<boolean> {
+    return this.customerService.deleteCustomerGroup(item.id)
+      .then(id => {
+        CacheUtils.clear('customer.group');
+        return Promise.resolve(true);
+      })
+      .catch(error => {
+        this.translateText(error).then(message => {
+          this.alert(AlertType.danger, message);
+          return Promise.resolve(false);
+        })
+      });
   }
 
 }

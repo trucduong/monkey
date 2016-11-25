@@ -3,7 +3,13 @@ export const SERVICES: any = {
         ref: 'http://localhost:7070/service-common/ref-service',
         resource: 'http://localhost:7070/service-common/resource-service',
         product: 'http://localhost:7070/service-catalogue/product',
-        product_group: 'http://localhost:7070/service-catalogue/product-group'
+        product_group: 'http://localhost:7070/service-catalogue/product-group',
+        customer: 'http://localhost:7070/service-partner/customer',
+        customer_group: 'http://localhost:7070/service-partner/customer-group',
+        supplier: 'http://localhost:7070/service-partner/supplier',
+        supplier_group: 'http://localhost:7070/service-partner/supplier-group',
+        employee: 'http://localhost:7070/service-partner/employee',
+        shop: 'http://localhost:7070/service-shop/shop'
     },
     ACTIONS: {
         READ: '/read/{0}',
@@ -17,6 +23,8 @@ export const SERVICES: any = {
         UPDATE_D: '/update-d/{0}',
         DELETE: '/delete/{0}',
         READ_CMB: '/read-cmb/{0}',
+
+        DOWNLOAD_PRICES: '/download-prices',
         
         UPLOAD_TEMP: '/upload-temp',
         DOWNLOAD_TEMP: '/download-temp/{0}',

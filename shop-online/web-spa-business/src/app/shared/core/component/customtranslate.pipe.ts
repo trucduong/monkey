@@ -1,5 +1,4 @@
-import { Component, OnChanges, SimpleChange,
-    Input, Output, EventEmitter, ViewChild, Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
 import { ComboboxService } from '../service/combobox.service';
 

@@ -16,6 +16,8 @@ public class ServiceCatalogueAction extends CRUDServiceAction {
 	public static final String READ_ALL_BY_D = "/read-all-by-d/{name}/{values}";
 	public static final String UPDATE_D = "/update-d/{id}";
 	
+	public static final String DOWNLOAD_PRICES = "/download-prices";
+	
 	
 	@Override
 	public String getServerName() {

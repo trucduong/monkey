@@ -2,7 +2,7 @@ package core.service.utils;
 
 import org.springframework.web.client.RestTemplate;
 
-import core.common.format.JsonFormatter;
+import core.common.format.json.JsonFormatter;
 
 public class ServiceProvider {
 	private static RestTemplate restTemplate = new RestTemplate();

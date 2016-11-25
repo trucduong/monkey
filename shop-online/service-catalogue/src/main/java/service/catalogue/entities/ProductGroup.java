@@ -8,28 +8,28 @@ import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
 
 @Entity
-@Table(name="product_groups")
+@Table(name = "product_groups")
 public class ProductGroup extends BaseEntity {
 	private static final long serialVersionUID = -3065264917043198173L;
 
 	@Column(name = "name", columnDefinition = MEDIUM_1)
 	private String name;
-	
+
 	@Column(name = "description", columnDefinition = MEDIUM_5)
 	private String description;
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -37,12 +37,12 @@ public class ProductGroup extends BaseEntity {
 	@Override
 	public void bind(BaseDto dto) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void unBind(BaseDto dto) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

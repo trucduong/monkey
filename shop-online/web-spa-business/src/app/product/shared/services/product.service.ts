@@ -2,17 +2,14 @@ import { Injectable } from '@angular/core';
 import {Http, Headers, Response} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-import { SERVICES, BaseHttpService } from '../../../shared/index';
+import { CacheUtils, SERVICES, BaseHttpService } from '../../../shared/index';
 
 import { ProductGroup } from '../models/product.group'
-
 import {Product} from '../models/product'
-
-import {Unit} from '../models/unit'
 
 @Injectable()
 export class ProductService extends BaseHttpService {
-    constructor(http: Http) { 
+    constructor(http: Http) {
         super(http);
     }
 
@@ -28,6 +25,8 @@ export class ProductService extends BaseHttpService {
     }
 
     saveProductGroup(item: ProductGroup, isEditing: boolean) {
+        CacheUtils.clear('product.group');
+
         if (isEditing) {
             return this.post(SERVICES.URLS.product_group, SERVICES.ACTIONS.UPDATE, item, [item.id]);
         } else {
@@ -36,9 +35,11 @@ export class ProductService extends BaseHttpService {
     }
 
     deleteProductGroup(id: string) {
+        CacheUtils.clear('product.group');
+
         return this.post(SERVICES.URLS.product_group, SERVICES.ACTIONS.DELETE, {}, [id]);
     }
-    
+
     /**
      * Product
      */
@@ -75,5 +76,10 @@ export class ProductService extends BaseHttpService {
 
     saveProductDetail(item: Product) {
         return this.post(SERVICES.URLS.product, SERVICES.ACTIONS.UPDATE_D, item, [item.id]);
+    }
+
+    downloadPrices() {
+        window.open(SERVICES.URLS.product + SERVICES.ACTIONS.DOWNLOAD_PRICES);
+        // return this.downloadfile(SERVICES.URLS.product, SERVICES.ACTIONS.DOWNLOAD_PRICES, []);
     }
 }

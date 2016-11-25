@@ -1,26 +1,26 @@
 package service.partner.entities;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
 
 @Entity
 @Table(name="suppliers")
 public class Supplier extends BaseEntity {
-	private static final long serialVersionUID = 7977594443915836167L;
+	private static final long serialVersionUID = 1L;
 
-//	@Column(name = "id", columnDefinition = INT)
-//	private Integer id;
-
-	@Column(name = "name", columnDefinition = SHORT_5)
+	@Column(name = "name", columnDefinition = MEDIUM_1)
 	private String name;
 
-	@Column(name = "address_detail", columnDefinition = SHORT_5)
+	@Column(name = "phone", columnDefinition = SHORT_2)
+	private String phone;
+	
+	@Column(name = "email", columnDefinition = MEDIUM_1)
+	private String email;
+	
+	@Column(name = "address_detail", columnDefinition = MEDIUM_2)
 	private String addressDetail;
 
 	@Column(name = "address_1", columnDefinition = SHORT_5)
@@ -31,49 +31,38 @@ public class Supplier extends BaseEntity {
 
 	@Column(name = "address_3", columnDefinition = SHORT_5)
 	private String address3;
+	
+	@Column(name = "description", columnDefinition = MEDIUM_5)
+	private String description;
 
-	@Column(name = "fax", columnDefinition = SHORT_2)
-	private String fax;
+	@Column(name = "details", columnDefinition = LONG_1)
+	private String details;
 
-	@Column(name = "contact_name", columnDefinition = SHORT_5)
-	private String contactName;
-
-	@Column(name = "contact_phone", columnDefinition = SHORT_2)
-	private String contactPhone;
-
-	@Column(name = "contact_email", columnDefinition = SHORT_5)
-	private String contactEmail;
-
-	@Column(name = "contact_birthday", columnDefinition = DATE)
-	private Date contactBirthday;
-
-	@Column(name = "note", columnDefinition = MEDIUM_5)
-	private String note;
-//
-//	@Override
-//	public Object getColIdValue() {
-//		return id;
-//	}
-//
-//	@Override
-//	public String getColIdName() {
-//		return "id";
-//	}
-
-//	public Integer getId() {
-//		return id;
-//	}
-//
-//	public void setId(Integer id) {
-//		this.id = id;
-//	}
-
+	@Column(name="supplier_group", columnDefinition=LONG)
+	private Long group;
+	
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getAddressDetail() {
@@ -108,68 +97,27 @@ public class Supplier extends BaseEntity {
 		this.address3 = address3;
 	}
 
-	public String getFax() {
-		return fax;
+	public String getDetails() {
+		return details;
 	}
 
-	public void setFax(String fax) {
-		this.fax = fax;
+	public void setDetails(String details) {
+		this.details = details;
 	}
-
-	public String getContactName() {
-		return contactName;
+	
+	public Long getGroup() {
+		return group;
 	}
-
-	public void setContactName(String contactName) {
-		this.contactName = contactName;
+	
+	public void setGroup(Long group) {
+		this.group = group;
 	}
-
-	public String getContactPhone() {
-		return contactPhone;
+	
+	public String getDescription() {
+		return description;
 	}
-
-	public void setContactPhone(String contactPhone) {
-		this.contactPhone = contactPhone;
-	}
-
-	public String getContactEmail() {
-		return contactEmail;
-	}
-
-	public void setContactEmail(String contactEmail) {
-		this.contactEmail = contactEmail;
-	}
-
-	public Date getContactBirthday() {
-		return contactBirthday;
-	}
-
-	public void setContactBirthday(Date contactBirthday) {
-		this.contactBirthday = contactBirthday;
-	}
-
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
-//	
-//	@Override
-//	public Object convertToId(String value) {
-//		return Integer.valueOf(value);
-//	}
-
-	@Override
-	public void bind(BaseDto dto) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void unBind(BaseDto dto) {
-		// TODO Auto-generated method stub
-		
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

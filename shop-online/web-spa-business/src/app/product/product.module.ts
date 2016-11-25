@@ -9,8 +9,6 @@ import { routing } from './product.routing';
 
 import { ProductCmp } from './product';
 import { ProductPricesCmp } from './prices/prices';
-import { ProductPricesDetailCmp } from './prices/detail/detail';
-import { ProductPricesUploadCmp } from './prices/upload/upload';
 
 
 import {ProductService} from './shared/index';
@@ -24,8 +22,6 @@ import {ProductService} from './shared/index';
     ProductGroupCmp,
     ProductCmp,
     ProductPricesCmp,
-    ProductPricesDetailCmp,
-    ProductPricesUploadCmp
   ],
   providers: [
       ProductService

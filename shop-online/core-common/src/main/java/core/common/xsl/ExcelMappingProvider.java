@@ -1,8 +1,11 @@
 package core.common.xsl;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +14,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import core.common.convert.ConverterUtils;
 import core.common.reflect.ObjectModifier;
 import core.common.xsl.anotation.XSLColumn;
 import core.common.xsl.anotation.XSLSheet;
@@ -53,11 +57,11 @@ public class ExcelMappingProvider {
 		return results;
 	}
 
-	public static <T> boolean write(Class<T> objClass, List<T> objects, FileInputStream file, FileOutputStream out) {
+	public static <T> boolean write(Class<T> objClass, List<T> objects, InputStream file, OutputStream out) {
 		try {
 			// Get the workbook instance for XLS file
 			XSSFWorkbook workbook = new XSSFWorkbook(file);
-
+			
 			// Get sheet from the workbook
 			XSLSheet sheetAnotation = AnotationProvider.getClassAnotation(objClass, XSLSheet.class);
 			XSSFSheet sheet = workbook.getSheet(sheetAnotation.name());
@@ -66,22 +70,26 @@ public class ExcelMappingProvider {
 			for (Object obj : objects) {
 				Row row = sheet.getRow(rowIndex);
 
-				Field fileds[] = objClass.getFields();
+				Field fileds[] = objClass.getDeclaredFields();
 				for (Field field : fileds) {
 					if (field.isAnnotationPresent(XSLColumn.class)) {
 						XSLColumn colAnnotation = field.getAnnotation(XSLColumn.class);
-						Cell cell = row.getCell(colAnnotation.index());
+						Cell cell = row.createCell(colAnnotation.index());
 						setCellValue(cell, ObjectModifier.get(obj, field));
 					}
 				}
 
 				rowIndex++;
 			}
-
+			
 			workbook.write(out);
-			out.close();
 		} catch (Exception e) {
 			return false;
+		} finally {
+			try {
+				out.close();
+			} catch (IOException e) {
+			}
 		}
 		return true;
 	}
@@ -102,13 +110,13 @@ public class ExcelMappingProvider {
 		if(obj == null) {
 			return;
 		}
-		cell.setCellValue(String.valueOf(obj));
 		
-//		if (obj instanceof Integer || obj instanceof Long || obj instanceof Double || obj instanceof BigDecimal) {
-//			double value = Double.parseDouble(String.valueOf(obj));
-//			cell.setCellValue(value);
-//		} else if (obj instanceof String) {
-//			cell.setCellValue(String.valueOf(obj));
-//		}
+		if (obj instanceof Integer || obj instanceof Long || obj instanceof Double || obj instanceof BigDecimal) {
+			cell.setCellValue(ConverterUtils.toDouble(obj));
+		} else if (obj instanceof String) {
+			cell.setCellValue(String.valueOf(obj));
+		} else {
+			cell.setCellValue(String.valueOf(obj));
+		}
 	}
 }

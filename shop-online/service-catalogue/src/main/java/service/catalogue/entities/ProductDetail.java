@@ -10,6 +10,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
 import core.dao.entities.IEntity;
@@ -18,8 +20,6 @@ import service.catalogue.shared.dto.ProductDto;
 @Entity
 @Table(name = "product_details")
 public class ProductDetail implements IEntity {
-
-	public static String PRODUCT_ID = "id";
 
 	@Version
 	@Column(name = "version")
@@ -31,6 +31,7 @@ public class ProductDetail implements IEntity {
 
 	@OneToOne(optional = false)
 	@MapsId
+	@JsonIgnore
 	private Product product;
 
 	@Column(name = "discount", columnDefinition = BaseEntity.INT)
@@ -123,23 +124,23 @@ public class ProductDetail implements IEntity {
 	@Override
 	public void bind(BaseDto basedto) {
 		ProductDto dto = (ProductDto) basedto;
+//		this.setId(dto.getId());
+		this.setDiscount(dto.getDiscount());
+		this.setRemaining(dto.getRemaining());
+		this.setInputPrice(dto.getInputPrice());
+		this.setRetailPrice(dto.getRetailPrice());
+		this.setWholesalePrice(dto.getWholesalePrice());
+	}
+
+	@Override
+	public void unBind(BaseDto basedto) {
+		ProductDto dto = (ProductDto) basedto;
 		dto.setId(id);
 		dto.setDiscount(discount);
 		dto.setInputPrice(inputPrice);
 		dto.setRemaining(remaining);
 		dto.setRetailPrice(retailPrice);
 		dto.setWholesalePrice(wholesalePrice);
-	}
-
-	@Override
-	public void unBind(BaseDto basedto) {
-		ProductDto dto = (ProductDto) basedto;
-		// this.setId(dto.getId());
-		this.setDiscount(dto.getDiscount());
-		this.setRemaining(dto.getRemaining());
-		this.setInputPrice(dto.getInputPrice());
-		this.setRetailPrice(dto.getRetailPrice());
-		this.setWholesalePrice(dto.getWholesalePrice());
 	}
 
 }

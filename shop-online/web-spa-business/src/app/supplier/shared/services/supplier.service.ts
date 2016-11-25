@@ -1,149 +1,60 @@
 import { Injectable } from '@angular/core';
+import {Http, Headers, Response} from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 
+import { SERVICES, BaseHttpService } from '../../../shared/index';
 import { SupplierGroup } from '../models/supplier.group'
-import {SUPPLIER_GROUPS} from './supplier.data';
-
 import {Supplier} from '../models/supplier'
-import {SUPPLIERS} from  './supplier.data';
-
 
 @Injectable()
-export class SupplierService {
-    constructor() { }
+export class SupplierService extends BaseHttpService {
+    constructor(http: Http) {
+        super(http);
+     }
 
-    // Group
-    getSupplierGroups(): any {
-        let list: SupplierGroup[] = [];
-        SUPPLIER_GROUPS.forEach(element => {
-            list.push(element);
-        });
-
-        return list;
+    /**
+     * Supplier
+     */
+    getSuppliers() {
+        return this.get(SERVICES.URLS.supplier, SERVICES.ACTIONS.READ_ALL, []);
     }
 
-    getSupplierGroupsByName(name: string): any {
-        let list: SupplierGroup[] = [];
-        SUPPLIER_GROUPS.forEach(element => {
-            if (element.name.indexOf(name) != -1) {
-                list.push(element);
-            }
-        });
-
-        return list;
+    getSupplier(id: string) {
+        return this.get(SERVICES.URLS.supplier, SERVICES.ACTIONS.READ, [id]);
     }
 
-    getSupplierGroup(id: string): any {
-        let supplier: SupplierGroup;
-        SUPPLIER_GROUPS.forEach(element => {
-            if (element.id == id) {
-                supplier = element;
-                return;
-            }
-        });
-        return supplier;
-    }
-
-    saveSupplierGroup(item: SupplierGroup, isEditing: boolean): boolean {
+    saveSupplier(item: Supplier, isEditing: boolean) {
         if (isEditing) {
-            SUPPLIER_GROUPS.forEach(element => {
-                if (element.id == item.id) {
-                    element.name = item.name;
-                    element.note = item.note;
-                    element.quantity = item.quantity;
-                    
-                    return;
-                }
-            });
+            return this.post(SERVICES.URLS.supplier, SERVICES.ACTIONS.UPDATE, item, [item.id]);
         } else {
-            SUPPLIER_GROUPS.push(item);
+            return this.post(SERVICES.URLS.supplier, SERVICES.ACTIONS.CREATE, item, [])
         }
-
-        return true;
     }
 
-    deleteSupplierGroup(id: string): boolean {
-        let supplierGroup: SupplierGroup;
-        SUPPLIER_GROUPS.forEach(function(element, index) {
-            if (element.id == id) {
-                SUPPLIER_GROUPS.splice(index, 1);
-                
-                return;
-            }
-        });
-
-        return true;
+    deleteSupplier(id: string) {
+        return this.post(SERVICES.URLS.supplier, SERVICES.ACTIONS.DELETE, {}, [id]);
     }
 
-
-    // supplier
-       
-    getSuppliers(): any {
-        let list: Supplier[] = [];
-        SUPPLIERS.forEach(element => {
-            list.push(element);
-        });
-
-        return list;
+    /**
+     * Supplier Group
+     */
+    getSupplierGroups() {
+        return this.get(SERVICES.URLS.supplier_group, SERVICES.ACTIONS.READ_ALL, []);
     }
 
-    getSuppliersByName(name: string): any {
-        let list: Supplier[] = [];
-        SUPPLIERS.forEach(element => {
-            if (element.name.indexOf(name) != -1) {
-                list.push(element);
-            }
-        });
-
-        return list;
+    getSupplierGroup(id: string) {
+        return this.get(SERVICES.URLS.supplier_group, SERVICES.ACTIONS.READ, [id]);
     }
 
-    getSupplier(id: string): any {
-        let supplier: Supplier;
-        SUPPLIERS.forEach(element => {
-            if (element.id == id) {
-                supplier = element;
-                return;
-            }
-        });
-        return supplier;
-    }
-
-    saveSupplier(item: Supplier, isEditing: boolean): boolean {
+    saveSupplierGroup(item: SupplierGroup, isEditing: boolean) {
         if (isEditing) {
-            SUPPLIERS.forEach(element => {
-                if (element.id == item.id) {
-                    element.name = item.name;
-                    element.address = item.address;
-                    element.contact = item.contact;
-                    element.phone == item.phone;
-                    element.email = item.email;
-                    element.fax = item.fax;
-                    element.birthDay = item.birthDay;
-                    element.supplierGroup = item.supplierGroup;
-                    element.note = item.note;
-           
-                    
-                    return;
-                }
-            });
+            return this.post(SERVICES.URLS.supplier_group, SERVICES.ACTIONS.UPDATE, item, [item.id]);
         } else {
-            SUPPLIERS.push(item);
+            return this.post(SERVICES.URLS.supplier_group, SERVICES.ACTIONS.CREATE, item, [])
         }
-
-        return true;
     }
 
-    deleteSupplier(id: string): boolean {
-        let supplier: Supplier;
-        SUPPLIERS.forEach(function(element, index) {
-            if (element.id == id) {
-                SUPPLIERS.splice(index, 1);
-                
-                return;
-            }
-        });
-
-        return true;
+    deleteSupplierGroup(id: string) {
+        return this.post(SERVICES.URLS.supplier_group, SERVICES.ACTIONS.DELETE, {}, [id]);
     }
-
 }

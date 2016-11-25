@@ -11,18 +11,18 @@ public class DateFormatter implements Formatter<Date> {
 	public static final char COLON = ':';
 	
 	
-	private static final String ddMMyyyy = "dd/MM/yyyy";
-	private static final String MMyyyy = "MM/yyyy";
-	private static final String Mdyyyy = "M/d/yyyy";
-	private static final String Mdyyyyhmm = "M/d/yyyy h:mm";
-	private static final String dMMMyyyy = "d-MMM-yyyy";
-	private static final String dMMMyy = "d-MMM-yy";
-	private static final String dMMM = "d-MMM";
-	private static final String MMMyy = "MMM-yy";
-	private static final String hmmAMPM = "h:mm a";
-	private static final String hmmssAMPM = "h:mm:ss a";
-	private static final String hmm = "h:mm";
-	private static final String hmmss = "h:mm:ss";
+	public static final String ddMMyyyy = "dd/MM/yyyy";
+	public static final String MMyyyy = "MM/yyyy";
+	public static final String Mdyyyy = "M/d/yyyy";
+	public static final String Mdyyyyhmm = "M/d/yyyy h:mm";
+	public static final String dMMMyyyy = "d-MMM-yyyy";
+	public static final String dMMMyy = "d-MMM-yy";
+	public static final String dMMM = "d-MMM";
+	public static final String MMMyy = "MMM-yy";
+	public static final String hmmAMPM = "h:mm a";
+	public static final String hmmssAMPM = "h:mm:ss a";
+	public static final String hmm = "h:mm";
+	public static final String hmmss = "h:mm:ss";
 	
 	private SimpleDateFormat formatter;
 	private DateFormatter(String pattern, Locale locale) {

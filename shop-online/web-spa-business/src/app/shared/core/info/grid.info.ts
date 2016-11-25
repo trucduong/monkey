@@ -1,6 +1,5 @@
 import { PaginationInfo } from './pagination.info';
 import { ComboboxService } from '../service/combobox.service';
-import { FormFieldInfo, FormInfo } from './form.info';
 
 export class SortInfo {
     column: string;
@@ -116,9 +115,9 @@ export class GridColumn {
     editable: boolean; // Can edit in gid (inline)
     width: number;
     sortable: boolean;
-    fieldInfo: FormFieldInfo;
+    fieldInfo: any;
 
-    constructor(fieldInfo: FormFieldInfo, width: number, sortable: boolean, editable: boolean) {
+    constructor(fieldInfo: any, width: number, sortable: boolean, editable: boolean) {
         this.fieldInfo = fieldInfo;
         this.sortable = sortable;
         this.width = width;
