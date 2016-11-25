@@ -1,82 +1,37 @@
 import { Injectable } from '@angular/core';
+import {Http, Headers, Response} from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 
+import { SERVICES, BaseHttpService } from '../../../shared/index';
 
 import {Warehouse} from '../models/warehouse'
-import {WAREHOUSES} from  './warehouse.data';
-
 
 @Injectable()
-export class WarehouseService {
-    constructor() { }
-
-
-    // warehouse
-       
-    getWarehouses(): any {
-        let list: Warehouse[] = [];
-        WAREHOUSES.forEach(element => {
-            list.push(element);
-        });
-
-        return list;
+export class WarehouseService extends BaseHttpService {
+    constructor(http: Http) {
+        super(http);
     }
 
-    getWarehousesByName(name: string): any {
-        let list: Warehouse[] = [];
-        WAREHOUSES.forEach(element => {
-            if (element.name.indexOf(name) != -1) {
-                list.push(element);
-            }
-        });
-
-        return list;
+    /**
+     * Warehouse
+     */
+    getWarehouses() {
+        return this.get(SERVICES.URLS.warehouse, SERVICES.ACTIONS.READ_ALL, []);
     }
 
-    getWarehouse(id: string): any {
-        let warehouse: Warehouse;
-        WAREHOUSES.forEach(element => {
-            if (element.id == id) {
-                warehouse = element;
-                return;
-            }
-        });
-        return warehouse;
+    getWarehouse(id: string) {
+        return this.get(SERVICES.URLS.warehouse, SERVICES.ACTIONS.READ, [id]);
     }
 
-    saveWarehouse(item: Warehouse, isEditing: boolean): boolean {
+    saveWarehouse(item: Warehouse, isEditing: boolean) {
         if (isEditing) {
-            WAREHOUSES.forEach(element => {
-                if (element.id == item.id) {
-                    element.name = item.name;
-                    element.address = item.address;
-                    element.phone = item.phone;
-                    element.status == item.status;
-                    element.use = item.use;
-                    element.branch = item.branch;
-                    element.note = item.note;
-           
-                    
-                    return;
-                }
-            });
+            return this.post(SERVICES.URLS.warehouse, SERVICES.ACTIONS.UPDATE, item, [item.id]);
         } else {
-            WAREHOUSES.push(item);
+            return this.post(SERVICES.URLS.warehouse, SERVICES.ACTIONS.CREATE, item, [])
         }
-
-        return true;
     }
 
-    deleteWarehouse(id: string): boolean {
-        let warehouse: Warehouse;
-        WAREHOUSES.forEach(function(element, index) {
-            if (element.id == id) {
-               WAREHOUSES.splice(index, 1);
-                
-                return;
-            }
-        });
-
-        return true;
+    deleteWarehouse(id: string) {
+        return this.post(SERVICES.URLS.warehouse, SERVICES.ACTIONS.DELETE, {}, [id]);
     }
-
 }

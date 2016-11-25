@@ -9,7 +9,8 @@ export const SERVICES: any = {
         supplier: 'http://localhost:7070/service-partner/supplier',
         supplier_group: 'http://localhost:7070/service-partner/supplier-group',
         employee: 'http://localhost:7070/service-partner/employee',
-        shop: 'http://localhost:7070/service-shop/shop'
+        shop: 'http://localhost:7070/service-shop/shop',
+        warehouse: 'http://localhost:7070/service-shop/warehouse',
     },
     ACTIONS: {
         READ: '/read/{0}',

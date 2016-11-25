@@ -50,6 +50,9 @@
 "ref.employee.status":"Trạng thái",
 "ref.employee.status.WORKING":"Đang làm việc",
 "ref.employee.status.LEAVED":"Đã nghỉ việc",
+"ref.warehouse.status":"Trạng thái",
+"ref.warehouse.status.ACTIVE":"Sử dụng",
+"ref.warehouse.status.INACTIVE":"Không sử dụng",
 
 "address.addressDetail":"Địa chỉ",
 "address.address1":"Phường/Xã",
@@ -128,15 +131,15 @@
 "shop.owner":"Chủ cửa hàng",
 "shop.taxCode":"Mã số thuế",
 
+"warehouse.list.title":"Kho hàng",
+"warehouse.name":"Tên",
+"warehouse.owner":"Quản lý",
+"warehouse.phone":"Điện thoại",
+"warehouse.addressDetail":"Địa chỉ",
+
+
 
 "unit.list.tittle":"Đơn vị tính",
 "unit.list.id":"Mã DVT",
-"unit.list.name":"Tên DVT",
-
-"warehouse.title.warehouse":"Kho hàng",
-"warehouse.list.id":"Mã kho",
-"warehouse.list.name":"Tên kho",
-"warehouse.list.use":"Đang sử dụng",
-"warehouse.list.branch":"Chi nhánh",
-"warehouse.detail.title":"Chi tiết kho hàng"
+"unit.list.name":"Tên DVT"
 }

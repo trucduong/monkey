@@ -3,60 +3,98 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
-import { ListController, GridHeader, SortInfo, FilterInfo } from './../shared/index';
-import { Warehouse } from './shared/index';
-import { WarehouseService} from './shared/index';
+import { SmartListController, SmartGridInfo, GridColumn, GridOption, SortInfo, FilterInfo, AlertType,
+  TextFieldInfo, CmbFieldInfo, NumberFieldInfo, EmailFieldInfo, DateFieldInfo,
+  CMB_FILTERS, ComboboxService, RefComboboxService } from './../shared/index';
+import { Warehouse, WarehouseService } from './shared/index';
 
-const headers: GridHeader[] = [
-  { name: 'id', labelKey: 'warehouse.list.id', sortable: true, width: 10},
-  { name: 'name', labelKey: 'warehouse.list.name', sortable: true, width: 10},
-  { name: 'address', labelKey: 'common.list.address', sortable: true, width: 10},
-  { name: 'phone', labelKey: 'common.list.phone', sortable: true, width: 10},
-  { name: 'status', labelKey: 'common.list.status', sortable: true, width: 10},
-  { name: 'use', labelKey: 'warehouse.list.use', sortable: true, width: 10},
-  { name: 'branch', labelKey: 'warehouse.list.branch', sortable: true, width: 10},
-  { name: 'note', labelKey: 'common.list.note', sortable: true, width: 10},
-
-];
+// import { RefEmployeeService } from '../employee/index';
 
 @Component({
   selector: 'warehouse',
   templateUrl: 'src/app/warehouse/warehouse.html'
 })
 
-export class WarehouseCmp extends ListController<Warehouse> implements OnInit  {
-    constructor(
+export class WarehouseCmp extends SmartListController<Warehouse> implements OnInit {
+  constructor(
     route: ActivatedRoute,
     router: Router,
     translate: TranslateService,
     private warehouseService: WarehouseService) {
 
-      super(route, translate, router);
-    }
+    super(route, translate, router);
 
-  getHeaders(): GridHeader[] {
-    return headers;
-  }
-
-  getDefaultSort(): SortInfo {
-    return new SortInfo('name', 'asc');
-  }
-
-  getDefaultFilter(): FilterInfo {
-    return new FilterInfo(['name', 'note']);
-  }
-
-  load(): Promise<Warehouse[]> {
-    return Promise.resolve(this.warehouseService.getWarehouses());
+    // TODO: move to sidebar menu
+    this.resetNavigation();
   }
 
   getCurrentUrl(): string {
     return '/warehouse';
   }
 
-  getDetailUrl(): string {
-    return '/warehouse-detail';
+  getTranslateServices(): Map<string, ComboboxService> {
+    let map = new Map<string, ComboboxService>();
+    return map;
   }
 
+  build(): SmartGridInfo {
+    let option = new GridOption(false, true, true, true);
+
+    let nameField = new TextFieldInfo(this.getTranslator(), 'name', 'warehouse.name', true, 0, 100);
+
+    // let refEmployeeService = new RefEmployeeService(this.warehouseService);
+    let ownerField = new TextFieldInfo(this.getTranslator(), 'ownerName', 'warehouse.owner', false, 0, 100);
+
+    let phoneField = new TextFieldInfo(this.getTranslator(), 'phone', 'warehouse.phone', true, 0, 20);
+
+    let refStatusService = new RefComboboxService(CMB_FILTERS.WAREHOUSE_STATUS.type, this.warehouseService);
+    let statusField = new CmbFieldInfo(this.getTranslator(), refStatusService, 'status', 'ref.warehouse.status', true);
+
+    // TODO: replace this by AddressField
+    let addressField = new TextFieldInfo(this.getTranslator(), 'addressDetail', 'address.addressDetail', false, 0, 200)
+
+    let columns: GridColumn[] = [
+      { fieldInfo: nameField, editable: true, sortable: true, width: 25 },
+      { fieldInfo: ownerField, editable: true, sortable: true, width: 20 },
+      { fieldInfo: phoneField, editable: true, sortable: true, width: 20 },
+      { fieldInfo: statusField, editable: true, sortable: true, width: 10 },
+      { fieldInfo: addressField, editable: true, sortable: true, width: 25 }
+    ];
+
+    let grid = new SmartGridInfo(option, columns, [], new SortInfo('name', 'asc'), new FilterInfo(['name', 'ownerName', 'addressDetail']));
+    return grid;
+  }
+
+  createModel(): Warehouse {
+    return new Warehouse();
+  }
+
+  load(): Promise<Warehouse[]> {
+    return this.warehouseService.getWarehouses()
+      .then(warehouses => {
+        return warehouses;
+      })
+      .catch(error => {
+        this.log(error);
+        return [];
+      });
+  }
+
+  save(model: Warehouse, isEditing: boolean): Promise<Warehouse> {
+    return this.warehouseService.saveWarehouse(model, isEditing);
+  }
+
+  delete(item: Warehouse): Promise<boolean> {
+    return this.warehouseService.deleteWarehouse(item.id)
+      .then(id => {
+        return Promise.resolve(true);
+      })
+      .catch(error => {
+        this.translateText(error).then(message => {
+          this.alert(AlertType.danger, message);
+          return Promise.resolve(false);
+        })
+      });
+  }
 
 }

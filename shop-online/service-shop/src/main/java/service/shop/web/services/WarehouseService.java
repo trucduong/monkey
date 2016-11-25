@@ -1,5 +1,6 @@
 package service.shop.web.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +14,7 @@ import service.shop.shared.utils.ServiceShopAction;
 @RequestMapping(ServiceShopAction.WAREHOUSE_SERVICE)
 public class WarehouseService extends CRUDService<Warehouse> {
 
+	@Autowired
 	private WarehouseDao dao; 
 	
 	@Override

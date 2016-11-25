@@ -432,6 +432,29 @@ export class CmbFieldInfo extends FormFieldInfo {
     }
 }
 
+export class SmartCmbFieldInfo extends FormFieldInfo {
+    service: ComboboxService;
+    useLabelAsValue: boolean;
+    
+    constructor(translate: TranslateService, service: ComboboxService, name: string, label: string, required: boolean, useLabelAsValue?:boolean) {
+        super(translate, name, label, required);
+        this.service = service;
+        this.useLabelAsValue = useLabelAsValue;
+        this.type = 'smartcombobox';
+    }
+
+    getLable(item): string {
+        return this.service.getLabel(item);
+    }
+
+    getValue(item): string {
+        if (this.useLabelAsValue) {
+            return this.getLable(item);
+        }
+        return this.service.getValue(item);
+    }
+}
+
 export class UploadFieldInfo extends FormFieldInfo {
     // https://github.com/valor-software/ng2-file-upload
 }
