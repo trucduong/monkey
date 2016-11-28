@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import core.common.exception.CommonException;
+import core.service.utils.ServiceErrorCode;
+
 public class AuthorInterceptor extends HandlerInterceptorAdapter {
 	public static String AUTH_KEY = "AUTH_KEY";
 	private List<String> bypass;
@@ -26,14 +29,18 @@ public class AuthorInterceptor extends HandlerInterceptorAdapter {
 		
 		String authKey = request.getHeader(AUTH_KEY);
 		if (authKey == null) {
-			return false;
+			throw new CommonException(ServiceErrorCode.ACCESS_DENIED, "Please login!");
 		}
 		
 		AuthorizationUser user = AuthorizationUser.fromString(authKey);
 		if (user == null) {
-			return false;
+			throw new CommonException(ServiceErrorCode.ACCESS_DENIED, "Authorization token error!");
 		}
 		
-		return user.hasPermission(servletPath);
+		if(!user.hasPermission(servletPath)) {
+			throw new CommonException(ServiceErrorCode.ACCESS_DENIED, "User do not have permission to access!");
+		}
+		
+		return true;
 	}
 }

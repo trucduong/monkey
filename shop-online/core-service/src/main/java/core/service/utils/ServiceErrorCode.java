@@ -1,6 +1,8 @@
 package core.service.utils;
 
 public class ServiceErrorCode {
+	public static final String ACCESS_DENIED = "service.error.access.denied";
+	
 	public static final String UNKNOW_ERROR = "service.error.unknow";
 	public static final String CONNECTION_ERROR = "service.error.connection";
 	public static final String PARAMETER_ERROR = "service.error.param";

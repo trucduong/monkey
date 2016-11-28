@@ -1,7 +1,7 @@
 package core.common.exception;
 
-public class CommonException extends Throwable {
-	private static final long serialVersionUID = 7629325848588989727L;
+public class CommonException extends Exception {
+	private static final long serialVersionUID = 1L;
 	private String errCode;
 
 	public String getErrCode() {
