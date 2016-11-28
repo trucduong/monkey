@@ -66,12 +66,6 @@ export class SupplierGroupCmp extends SmartListController<SupplierGroup> impleme
       .then(id => {
         CacheUtils.clear('supplier.group');
         return Promise.resolve(true);
-      })
-      .catch(error => {
-        this.translateText(error).then(message => {
-          this.alert(AlertType.danger, message);
-          return Promise.resolve(false);
-        })
       });
   }
 

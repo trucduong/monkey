@@ -23,6 +23,9 @@ import core.dao.dto.BaseDto;
  */
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable, IEntity {
+	public static final String ID = "id";
+	
+	
 	private static final long serialVersionUID = 1L;
 	public static final String SHORT_1 = "nvarchar(10)";
 	public static final String SHORT_2 = "nvarchar(20)";
@@ -87,16 +90,16 @@ public abstract class BaseEntity implements Serializable, IEntity {
 	}
 	
 	@Override
-	public void bind(BaseDto dto) {
-		this.id = dto.getId();
-		this.version =dto.getVersion();
-		this.tenant = dto.getTenant();
+	public void bind(BaseDto baseDto) {
+		this.id = baseDto.getId();
+//		this.version =dto.getVersion();
+		this.tenant = baseDto.getTenant();
 	}
 
 	@Override
-	public void unBind(BaseDto dto) {
-		dto.setId(id);
-		dto.setTenant(tenant);
-		dto.setVersion(version);
+	public void unBind(BaseDto baseDto) {
+		baseDto.setId(id);
+		baseDto.setTenant(tenant);
+//		dto.setVersion(version);
 	}
 }

@@ -7,7 +7,8 @@ export const CMB_FILTERS = {
     UNIT: { type: 'ref.unit' },
     PRODUCT_STATUS: { type: 'ref.product.status' },
     EMPLOYEE_STATUS: { type: 'ref.employee.status' },
-    WAREHOUSE_STATUS: {type: 'ref.warehouse.status'}
+    WAREHOUSE_STATUS: {type: 'ref.warehouse.status'},
+    ACCOUNT_STATUS: { type: 'ref.account.status' },
 };
 
 export abstract class ComboboxService {
@@ -20,6 +21,8 @@ export abstract class ComboboxService {
         this.type = type;
         this.value = valueMember;
         this.label = lableMember;
+
+        CacheUtils.clear(this.type);
     }
 
     getItems(filter: any): Promise<any[]> {

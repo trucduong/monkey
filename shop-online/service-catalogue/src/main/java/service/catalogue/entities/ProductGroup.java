@@ -6,6 +6,7 @@ import javax.persistence.Table;
 
 import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
+import service.catalogue.shared.dto.ProductGroupDto;
 
 @Entity
 @Table(name = "product_groups")
@@ -35,14 +36,18 @@ public class ProductGroup extends BaseEntity {
 	}
 
 	@Override
-	public void bind(BaseDto dto) {
-		// TODO Auto-generated method stub
-
+	public void bind(BaseDto baseDto) {
+		super.bind(baseDto);
+		ProductGroupDto dto = (ProductGroupDto) baseDto;
+		this.name = dto.getName();
+		this.description = dto.getDescription();
 	}
 
 	@Override
-	public void unBind(BaseDto dto) {
-		// TODO Auto-generated method stub
-
+	public void unBind(BaseDto baseDto) {
+		super.unBind(baseDto);
+		ProductGroupDto dto = (ProductGroupDto) baseDto;
+		dto.setName(name);
+		dto.setDescription(description);
 	}
 }

@@ -20,12 +20,13 @@ import core.service.utils.ServiceErrorCode;
 import core.service.utils.ServiceResult;
 import service.common.dao.RefDao;
 import service.common.entities.RefEntity;
-import service.common.shared.utils.CmbItem;
+import service.common.shared.dto.CmbItem;
+import service.common.shared.dto.RefDto;
 import service.common.shared.utils.ServiceCommonAction;
 
 @RestController
 @RequestMapping(ServiceCommonAction.REF_SERVICE)
-public class RefService extends CRUDService<RefEntity> {
+public class RefService extends CRUDService<RefEntity, RefDto> {
 
 	@Autowired
 	private RefDao dao;
@@ -41,6 +42,11 @@ public class RefService extends CRUDService<RefEntity> {
 	@Override
 	protected RefEntity createEntity() {
 		return new RefEntity();
+	}
+	
+	@Override
+	protected RefDto createDto() {
+		return new RefDto();
 	}
 
 	@Override

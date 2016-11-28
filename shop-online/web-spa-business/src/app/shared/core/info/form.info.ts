@@ -1,6 +1,10 @@
 import { CommonUtils, Validator, Error, RequiredValidator, LengthValidator, NumberValidator, ComboboxService } from '../../index';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
+export interface ValueChangeEvent {
+    onChanged(obj: any);
+}
+
 export abstract class ValidatorHandler {
     private validators: Validator[];
     private errors: Error[];
@@ -69,8 +73,11 @@ export class FormFieldInfo extends ValidatorHandler {
     autofocus: boolean;
     placeholder: string;
 
+    private valuechangelisteners: ValueChangeEvent[];
+
     constructor(translate: TranslateService, name: string, label: string, required: boolean, isSingle?: boolean) {
         super(translate);
+        this.valuechangelisteners = [];
 
         //this.model = model;
         this.name = name;
@@ -107,6 +114,16 @@ export class FormFieldInfo extends ValidatorHandler {
 
         this.translateErrors(this.getErrors());
         return !this.hasError();
+    }
+
+    addValueChangeListener(event: ValueChangeEvent) {
+        this.valuechangelisteners.push(event);
+    }
+
+    fireValueChangeListener(item: any) {
+        this.valuechangelisteners.forEach(event => {
+            event.onChanged(item);
+        });
     }
 }
 
@@ -443,13 +460,13 @@ export class SmartCmbFieldInfo extends FormFieldInfo {
         this.type = 'smartcombobox';
     }
 
-    getLable(item): string {
+    getLabel(item): string {
         return this.service.getLabel(item);
     }
 
     getValue(item): string {
         if (this.useLabelAsValue) {
-            return this.getLable(item);
+            return this.getLabel(item);
         }
         return this.service.getValue(item);
     }

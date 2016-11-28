@@ -24,7 +24,7 @@ import service.partner.shared.utils.ServicePartnerAction;
 
 @RestController
 @RequestMapping(ServicePartnerAction.EMPLOYEE_SERVICE)
-public class EmployeeService extends CRUDService<Employee> {
+public class EmployeeService extends CRUDService<Employee, EmployeeDto> {
 
 	@Autowired
 	private EmployeeDao dao;
@@ -41,25 +41,35 @@ public class EmployeeService extends CRUDService<Employee> {
 	protected Employee createEntity() {
 		return new Employee();
 	}
+	
+	@Override
+	protected EmployeeDto createDto() {
+		return new EmployeeDto();
+	}
 
 	@Override
 	protected Class<?> getThis() {
 		return this.getClass();
 	}
-	
+
 	@RequestMapping(value = ServicePartnerAction.UPDATE_D, method = RequestMethod.POST)
-	public ServiceResult update(@RequestBody EmployeeDto dto, @PathVariable("id") long id) throws CommonException {
+	public ServiceResult updateDetail(@RequestBody EmployeeDto dto, @PathVariable("id") long id) throws CommonException {
 		init();
-		Employee entity = dao.find(id);
-		if (entity == null) {
+		Employee employee = dao.find(id);
+		if (employee == null) {
 			return error(ServiceErrorCode.NOT_FOUND);
 		}
 
-		updateDetail(entity, dto);
+		// create or update detail
+		EmployeeDetail detail = detailDao.find(id);
+		if (detail == null) {
+			detail = new EmployeeDetail();
+		}
+		detail.bind(dto);
+		detailDao.update(detail);
 
 		return success(dto);
 	}
-
 	@RequestMapping(value = ServicePartnerAction.READ_ALL_D, method = RequestMethod.GET)
 	public ServiceResult readAllWithDetail() throws CommonException {
 		init();
@@ -71,14 +81,9 @@ public class EmployeeService extends CRUDService<Employee> {
 		return success(dtos);
 	}
 	
-	private EmployeeDetail updateDetail(Employee entity, EmployeeDto dto) {
-		EmployeeDetail detail = entity.getDetail();
-		if (detail == null) {
-			detail = new EmployeeDetail();
-		}
-		detail.bind(dto);
-		detail.setEmployee(entity);
-		detailDao.update(detail);
-		return detail;
+	@Override
+	protected void onDeleteSucceed(long id) {
+		// remove detail
+		detailDao.delete(id);
 	}
 }

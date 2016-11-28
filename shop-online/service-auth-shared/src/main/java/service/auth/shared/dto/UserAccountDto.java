@@ -1,20 +1,19 @@
 package service.auth.shared.dto;
 
-import service.auth.shared.AccountStatus;
-import service.auth.shared.AccountType;
+import core.dao.dto.BaseDto;
+public class UserAccountDto extends BaseDto {
 
-public class AccountDto {
 	private String loginName;
 
 	private String password;
 
-	private AccountStatus status;
-
 	private AccountType accountType;
 
-	private String shopId;
+	private AccountStatus status;
 
 	private String permissions;
+
+	private Long employeeId;
 
 	public String getLoginName() {
 		return loginName;
@@ -48,14 +47,6 @@ public class AccountDto {
 		this.accountType = accountType;
 	}
 
-	public String getShopId() {
-		return shopId;
-	}
-
-	public void setShopId(String shopId) {
-		this.shopId = shopId;
-	}
-
 	public String getPermissions() {
 		return permissions;
 	}
@@ -64,4 +55,11 @@ public class AccountDto {
 		this.permissions = permissions;
 	}
 
+	public Long getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(Long employeeId) {
+		this.employeeId = employeeId;
+	}
 }

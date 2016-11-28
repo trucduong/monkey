@@ -1,14 +1,10 @@
 package service.catalogue.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
@@ -18,6 +14,9 @@ import service.catalogue.shared.utils.ProductStatus;
 @Entity
 @Table(name = "products")
 public class Product extends BaseEntity {
+	
+	public static final String NAME = "name";
+	public static final String STATUS = "status";
 
 	private static final long serialVersionUID = 1L;
 
@@ -45,10 +44,6 @@ public class Product extends BaseEntity {
 
 	@Column(name = "warning_remaining", columnDefinition = LONG)
 	private long warningRemaining;
-
-	@OneToOne(targetEntity = ProductDetail.class, mappedBy = "product", optional = true, cascade = CascadeType.ALL)
-	@JsonIgnore
-	private ProductDetail detail;
 
 	public String getCode() {
 		return code;
@@ -106,14 +101,6 @@ public class Product extends BaseEntity {
 		this.warningRemaining = warningRemaining;
 	}
 
-	public ProductDetail getDetail() {
-		return detail;
-	}
-
-	public void setDetail(ProductDetail detail) {
-		this.detail = detail;
-	}
-
 	public Long getGroup() {
 		return group;
 	}
@@ -124,8 +111,22 @@ public class Product extends BaseEntity {
 
 	@Override
 	public void bind(BaseDto basedto) {
+		super.bind(basedto);
 		ProductDto dto = (ProductDto) basedto;
-		dto.setId(id);
+		this.name = dto.getName();
+		this.code = dto.getCode();
+		this.description = dto.getDescription();
+		this.unit = dto.getUnit();
+		this.group = dto.getGroup();
+		this.warningRemaining = dto.getWarningRemaining();
+		this.image = dto.getImage();
+		this.status = dto.getStatus();
+	}
+
+	@Override
+	public void unBind(BaseDto basedto) {
+		super.unBind(basedto);
+		ProductDto dto = (ProductDto) basedto;
 		dto.setDescription(description);
 		dto.setCode(code);
 		dto.setGroup(group);
@@ -133,18 +134,7 @@ public class Product extends BaseEntity {
 		dto.setName(name);
 		dto.setStatus(status);
 		dto.setWarningRemaining(warningRemaining);
-	}
-
-	@Override
-	public void unBind(BaseDto basedto) {
-		ProductDto dto = (ProductDto) basedto;
-		this.id = dto.getId();
-		this.name = dto.getName();
-		this.code = dto.getCode();
-		this.description = dto.getDescription();
-		this.unit = dto.getUnit();
-		this.group = dto.getGroup();
-		this.setWarningRemaining(dto.getWarningRemaining());
+		dto.setUnit(unit);
 	}
 
 }

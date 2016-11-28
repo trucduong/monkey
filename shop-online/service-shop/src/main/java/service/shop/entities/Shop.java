@@ -4,7 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
+import service.shop.shared.dto.ShopDto;
 
 @Entity
 @Table(name = "shops")
@@ -76,5 +78,28 @@ public class Shop extends BaseEntity {
 	public void setOwnerName(String ownerName) {
 		this.ownerName = ownerName;
 	}
-
+	
+	@Override
+	public void bind(BaseDto baseDto) {
+		super.bind(baseDto);
+		ShopDto dto = (ShopDto) baseDto;
+		this.email = dto.getEmail();
+		this.name = dto.getName();
+		this.ownerId = dto.getOwnerId();
+		this.ownerName = dto.getOwnerName();
+		this.phone = dto.getPhone();
+		this.taxCode = dto.getTaxCode();
+	}
+	
+	@Override
+	public void unBind(BaseDto baseDto) {
+		super.unBind(baseDto);
+		ShopDto dto = (ShopDto) baseDto;
+		dto.setEmail(email);
+		dto.setName(name);
+		dto.setOwnerId(ownerId);
+		dto.setOwnerName(ownerName);
+		dto.setPhone(phone);
+		dto.setTaxCode(taxCode);
+	}
 }

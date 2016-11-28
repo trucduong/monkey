@@ -1,4 +1,4 @@
-package service.auth.shared;
+package service.auth.shared.dto;
 
 public enum AccountStatus {
 	ACTIVE, LOCKED

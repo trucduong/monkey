@@ -8,11 +8,12 @@ import core.dao.utils.BaseDao;
 import core.service.services.CRUDService;
 import service.shop.dao.WarehouseDao;
 import service.shop.entities.Warehouse;
+import service.shop.shared.dto.WarehouseDto;
 import service.shop.shared.utils.ServiceShopAction;
 
 @RestController
 @RequestMapping(ServiceShopAction.WAREHOUSE_SERVICE)
-public class WarehouseService extends CRUDService<Warehouse> {
+public class WarehouseService extends CRUDService<Warehouse, WarehouseDto> {
 
 	@Autowired
 	private WarehouseDao dao; 
@@ -25,6 +26,11 @@ public class WarehouseService extends CRUDService<Warehouse> {
 	@Override
 	protected Warehouse createEntity() {
 		return new Warehouse();
+	}
+	
+	@Override
+	protected WarehouseDto createDto() {
+		return new WarehouseDto();
 	}
 
 	@Override

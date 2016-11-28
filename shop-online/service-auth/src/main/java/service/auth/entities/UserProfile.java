@@ -8,25 +8,32 @@ import javax.persistence.Table;
 
 import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
-import service.auth.shared.UserType;
+import service.auth.shared.dto.AccountStatus;
+import service.auth.shared.dto.AccountType;
+import service.auth.shared.dto.UserAccountDto;
 
 @Entity
 @Table(name = "user_profiles")
 public class UserProfile extends BaseEntity {
-	private static final long serialVersionUID = -3110764643153799067L;
+	private static final long serialVersionUID = 1L;
 
-	@Column(name = "login_name", unique = true, columnDefinition = SHORT_5)
+	@Column(name = "login_name", unique = true, columnDefinition = BaseEntity.SHORT_5)
 	private String loginName;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "user_type", columnDefinition = SHORT_1)
-	private UserType userType;
+	@Column(name = "account_type", columnDefinition = BaseEntity.SHORT_1)
+	private AccountType accountType;
 
-	@Column(name = "shop_id", columnDefinition = LONG)
-	private Long shopId;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", columnDefinition = BaseEntity.SHORT_1)
+	private AccountStatus status;
 
-	@Column(name = "profile_details", columnDefinition = LONG_1)
-	private String details;
+	// permission name array (Json format). Ex: ["somestring1", "somestring2"]
+	@Column(name = "permissions", columnDefinition = BaseEntity.LONG_1)
+	private String permissions;
+
+	@Column(name = "employee_id", columnDefinition = BaseEntity.LONG)
+	private Long employeeId;
 
 	public String getLoginName() {
 		return loginName;
@@ -36,39 +43,57 @@ public class UserProfile extends BaseEntity {
 		this.loginName = loginName;
 	}
 
-	public String getDetails() {
-		return details;
+	public AccountStatus getStatus() {
+		return status;
 	}
 
-	public void setDetails(String details) {
-		this.details = details;
+	public void setStatus(AccountStatus status) {
+		this.status = status;
 	}
 
-	public UserType getUserType() {
-		return userType;
+	public AccountType getAccountType() {
+		return accountType;
 	}
 
-	public void setUserType(UserType userType) {
-		this.userType = userType;
+	public void setAccountType(AccountType accountType) {
+		this.accountType = accountType;
 	}
 
-	public Long getShopId() {
-		return shopId;
+	public String getPermissions() {
+		return permissions;
 	}
 
-	public void setShopId(Long shopId) {
-		this.shopId = shopId;
+	public void setPermissions(String permissions) {
+		this.permissions = permissions;
+	}
+
+	public Long getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(Long employeeId) {
+		this.employeeId = employeeId;
+	}
+	
+	@Override
+	public void bind(BaseDto baseDto) {
+		super.bind(baseDto);
+		UserAccountDto dto = (UserAccountDto) baseDto;
+		this.accountType = dto.getAccountType();
+		this.employeeId = dto.getEmployeeId();
+		this.loginName = dto.getLoginName();
+//		this.permissions = dto.getPermissions();
+		this.status = dto.getStatus();
 	}
 
 	@Override
-	public void bind(BaseDto dto) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void unBind(BaseDto dto) {
-		// TODO Auto-generated method stub
-		
+	public void unBind(BaseDto baseDto) {
+		super.unBind(baseDto);
+		UserAccountDto dto = (UserAccountDto) baseDto;
+		dto.setAccountType(accountType);
+		dto.setEmployeeId(employeeId);
+		dto.setLoginName(loginName);
+		dto.setPermissions(permissions);
+		dto.setStatus(status);
 	}
 }

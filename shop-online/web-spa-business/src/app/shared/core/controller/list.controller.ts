@@ -108,18 +108,14 @@ export abstract class ListController<T> extends BaseController {
                     // delete
                     mthis.delete(item)
                         .then(result => {
-                            if (result) {
-                                mthis.dataSource = mthis.dataSource.filter(e => {
-                                    return item[mthis.idColumnName] != e[mthis.idColumnName];
-                                });
+                            mthis.dataSource = mthis.dataSource.filter(e => {
+                                return item[mthis.idColumnName] != e[mthis.idColumnName];
+                            });
 
-                                mthis.alert(AlertType.success, 'Delete success!');
-                            } else {
-                                mthis.alert(AlertType.danger, 'Delete failure!');
-                            }
+                            mthis.alert(AlertType.success, 'common.alert.content.delete.success');
                         })
                         .catch(error => {
-                            mthis.alert(AlertType.danger, 'Delete failure!');
+                            mthis.alert(AlertType.danger, 'common.alert.content.delete.failure');
                         });
                 }
             }

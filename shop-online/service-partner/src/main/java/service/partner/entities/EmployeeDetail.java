@@ -6,14 +6,10 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
@@ -31,11 +27,6 @@ public class EmployeeDetail implements IEntity {
 	@Column(name = "id", columnDefinition = BaseEntity.LONG)
 	private long id;
 
-	@OneToOne(optional = false)
-	@MapsId
-	@JsonIgnore
-	private Employee employee;
-	
 	@Column(name = "join_date", columnDefinition = BaseEntity.DATE)
 	@Temporal(TemporalType.DATE)
 	private Date joinDate;
@@ -46,8 +37,7 @@ public class EmployeeDetail implements IEntity {
 	@Override
 	public void bind(BaseDto baseDto) {
 		EmployeeDto dto = (EmployeeDto) baseDto;
-//		this.id = dto.getId();
-//		this.version = dto.getVersion();
+		this.id = dto.getId();
 		this.joinDate = dto.getJoinDate();
 		this.faceAmount = dto.getFaceAmount();
 	}
@@ -55,6 +45,7 @@ public class EmployeeDetail implements IEntity {
 	@Override
 	public void unBind(BaseDto baseDto) {
 		EmployeeDto dto = (EmployeeDto) baseDto;
+		dto.setId(id);
 		dto.setJoinDate(this.joinDate);
 		dto.setFaceAmount(this.faceAmount);
 	}
@@ -73,14 +64,6 @@ public class EmployeeDetail implements IEntity {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
 	}
 
 	public BigDecimal getFaceAmount() {

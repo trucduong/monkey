@@ -1,0 +1,12 @@
+a.list-group-item {
+    cursor: pointer;
+}
+
+.smart-combobox {
+    max-height: 150px;
+    overflow: auto;
+}
+
+.smart-combobox.list-group {
+    position: absolute;
+}

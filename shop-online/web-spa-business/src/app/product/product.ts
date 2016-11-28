@@ -87,16 +87,7 @@ export class ProductCmp extends SmartListController<Product> implements OnInit {
   }
 
   delete(item: Product): Promise<boolean> {
-    return this.productService.deleteProduct(item.id)
-      .then(id => {
-        return Promise.resolve(true);
-      })
-      .catch(error => {
-        this.translateText(error).then(message => {
-          this.alert(AlertType.danger, message);
-          return Promise.resolve(false);
-        })
-      });
+    return this.productService.deleteProduct(item.id);
   }
 
 }

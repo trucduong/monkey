@@ -2,17 +2,13 @@ package service.partner.entities;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
@@ -22,6 +18,7 @@ import service.partner.shared.dto.WorkingStatus;
 @Entity
 @Table(name = "employees")
 public class Employee extends BaseEntity {
+	public static final String WORKING_STATUS = "workingStatus";
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "name", columnDefinition = MEDIUM_1)
@@ -61,10 +58,6 @@ public class Employee extends BaseEntity {
 
 	@Column(name = "details", columnDefinition = LONG_1)
 	private String details;
-
-	@OneToOne(targetEntity = EmployeeDetail.class, mappedBy = "employee", optional = true, cascade = CascadeType.ALL)
-	@JsonIgnore
-	private EmployeeDetail detail;
 
 	public String getName() {
 		return name;
@@ -160,14 +153,6 @@ public class Employee extends BaseEntity {
 
 	public void setDetails(String details) {
 		this.details = details;
-	}
-
-	public EmployeeDetail getDetail() {
-		return detail;
-	}
-
-	public void setDetail(EmployeeDetail detail) {
-		this.detail = detail;
 	}
 	
 	@Override

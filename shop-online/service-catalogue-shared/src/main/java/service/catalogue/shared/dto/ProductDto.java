@@ -11,7 +11,7 @@ public class ProductDto extends BaseDto {
 
 	private String name;
 
-	private Object image;
+	private String image;
 
 	private String unit;
 
@@ -57,11 +57,11 @@ public class ProductDto extends BaseDto {
 		this.name = name;
 	}
 
-	public Object getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(Object image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 

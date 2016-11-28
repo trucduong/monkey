@@ -1,4 +1,4 @@
-package service.common.shared.utils;
+package service.common.shared.dto;
 
 public class CmbItem {
 	private String type;

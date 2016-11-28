@@ -5,14 +5,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import core.dao.utils.BaseDao;
+import core.service.services.CRUDService;
 import service.catalogue.dao.ProductGroupDao;
 import service.catalogue.entities.ProductGroup;
-import core.service.services.CRUDService;
+import service.catalogue.shared.dto.ProductGroupDto;
 import service.catalogue.shared.utils.ServiceCatalogueAction;
 
 @RestController
 @RequestMapping(ServiceCatalogueAction.PRODUCT_GROUP_SERVICE)
-public class ProductGroupService extends CRUDService<ProductGroup> {
+public class ProductGroupService extends CRUDService<ProductGroup, ProductGroupDto> {
 
 	@Autowired
 	private ProductGroupDao dao;
@@ -25,6 +26,11 @@ public class ProductGroupService extends CRUDService<ProductGroup> {
 	@Override
 	protected ProductGroup createEntity() {
 		return new ProductGroup();
+	}
+	
+	@Override
+	protected ProductGroupDto createDto() {
+		return new ProductGroupDto();
 	}
 
 	@Override

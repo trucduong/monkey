@@ -6,7 +6,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
+import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
+import service.shop.shared.dto.WarehouseDto;
 import service.shop.shared.dto.WarehouseStatus;
 
 @Entity
@@ -103,4 +105,31 @@ public class Warehouse extends BaseEntity {
 		this.address3 = address3;
 	}
 
+	@Override
+	public void bind(BaseDto baseDto) {
+		super.bind(baseDto);
+		WarehouseDto dto = (WarehouseDto) baseDto;
+		this.address1 = dto.getAddress1();
+		this.address2 = dto.getAddress2();
+		this.address3 = dto.getAddress3();
+		this.addressDetail = dto.getAddressDetail();
+		this.name = dto.getName();
+		this.ownerName = dto.getOwnerName();
+		this.phone = dto.getPhone();
+		this.status = dto.getStatus();
+	}
+	
+	@Override
+	public void unBind(BaseDto baseDto) {
+		super.unBind(baseDto);
+		WarehouseDto dto = (WarehouseDto) baseDto;
+		dto.setAddress1(address1);
+		dto.setAddress2(address2);
+		dto.setAddress3(address3);
+		dto.setAddressDetail(addressDetail);
+		dto.setName(name);
+		dto.setOwnerName(ownerName);
+		dto.setPhone(phone);
+		dto.setStatus(status);
+	}
 }

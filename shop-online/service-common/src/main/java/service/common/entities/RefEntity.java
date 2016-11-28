@@ -4,9 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import core.common.locate.Language;
 import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
+import service.common.shared.dto.RefDto;
 
 @Entity
 @Table(name = "ref_data")
@@ -23,12 +23,6 @@ public class RefEntity extends BaseEntity {
 	// kg, cai, xxx
 	@Column(name = "ref_value", columnDefinition = MEDIUM_1)
 	private String refValue;
-
-//	@Column(name = "ref_label_vi", columnDefinition = MEDIUM_1)
-//	private String refLabelVi;
-//
-//	@Column(name = "ref_label_en", columnDefinition = MEDIUM_1)
-//	private String refLabelEn;
 
 	@Column(name = "order_weight", columnDefinition = INT)
 	private int orderWeight;
@@ -48,22 +42,6 @@ public class RefEntity extends BaseEntity {
 	public void setRefValue(String refValue) {
 		this.refValue = refValue;
 	}
-//
-//	public String getRefLabelVi() {
-//		return refLabelVi;
-//	}
-//
-//	public void setRefLabelVi(String refLabelVi) {
-//		this.refLabelVi = refLabelVi;
-//	}
-//
-//	public String getRefLabelEn() {
-//		return refLabelEn;
-//	}
-//
-//	public void setRefLabelEn(String refLabelEn) {
-//		this.refLabelEn = refLabelEn;
-//	}
 
 	public int getOrderWeight() {
 		return orderWeight;
@@ -72,27 +50,22 @@ public class RefEntity extends BaseEntity {
 	public void setOrderWeight(int orderWeight) {
 		this.orderWeight = orderWeight;
 	}
-//
-//	public String getLabel(Language language) {
-//		switch (language) {
-//		case ENGLISH:
-//			return this.refLabelEn;
-//		case VIET_NAM:
-//			return this.refLabelVi;
-//		default:
-//			return "";
-//		}
-//	}
 
 	@Override
-	public void bind(BaseDto dto) {
-		// TODO Auto-generated method stub
-		
+	public void bind(BaseDto baseDto) {
+		super.bind(baseDto);
+		RefDto dto = (RefDto) baseDto;
+		this.refType = dto.getRefType();
+		this.refValue = dto.getRefValue();
+		this.orderWeight = dto.getOrderWeight();
 	}
 
 	@Override
-	public void unBind(BaseDto dto) {
-		// TODO Auto-generated method stub
-		
+	public void unBind(BaseDto baseDto) {
+		super.unBind(baseDto);
+		RefDto dto = (RefDto) baseDto;
+		dto.setRefType(refType);
+		dto.setRefValue(refValue);
+		dto.setOrderWeight(orderWeight);
 	}
 }

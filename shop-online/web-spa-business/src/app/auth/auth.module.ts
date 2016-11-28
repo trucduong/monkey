@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/index';
 import { LoginCmp } from './login/login';
 import { routing } from './auth.routing';
 import { AuthService } from './shared/index';
+import { UserAccountCmp } from './account/account';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { AuthService } from './shared/index';
     routing
   ],
   declarations: [
-    LoginCmp
+    LoginCmp,
+    UserAccountCmp
   ],
   providers: [
       AuthService

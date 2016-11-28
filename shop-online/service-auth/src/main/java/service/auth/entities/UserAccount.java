@@ -2,42 +2,30 @@ package service.auth.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
-import service.auth.shared.AccountStatus;
-import service.auth.shared.AccountType;
+import core.dao.entities.IEntity;
+import service.auth.shared.dto.UserAccountDto;
 
 @Entity
 @Table(name = "user_accounts")
-public class UserAccount extends BaseEntity {
-
-	private static final long serialVersionUID = -61352121879032316L;
+public class UserAccount implements IEntity {
 	public static final String LOGIN_NAME = "loginName";
 
-	@Column(name = "login_name", unique = true, columnDefinition = SHORT_5)
+	@Id
+	@Column(name = "login_name", unique = true, columnDefinition = BaseEntity.SHORT_5)
 	private String loginName;
 
-	@Column(name = "password", columnDefinition = MEDIUM_1)
+	@Column(name = "password", columnDefinition = BaseEntity.MEDIUM_1)
 	private String password;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "account_type", columnDefinition = SHORT_1)
-	private AccountType accountType;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "status", columnDefinition = SHORT_1)
-	private AccountStatus status;
-
-	// permission id array (Json format). Ex: ["somestring1", "somestring2"]
-	@Column(name = "permissions", columnDefinition = LONG_1)
-	private String permissions;
-
-	public UserAccount() {
-	}
+	
+	@Version
+	@Column(name = "version")
+	private int version;
 
 	public String getLoginName() {
 		return loginName;
@@ -54,40 +42,18 @@ public class UserAccount extends BaseEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public AccountStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(AccountStatus status) {
-		this.status = status;
-	}
-
-	public AccountType getAccountType() {
-		return accountType;
-	}
-
-	public void setAccountType(AccountType accountType) {
-		this.accountType = accountType;
-	}
-
-	public String getPermissions() {
-		return permissions;
-	}
-
-	public void setPermissions(String permissions) {
-		this.permissions = permissions;
+	
+	@Override
+	public void bind(BaseDto baseDto) {
+		UserAccountDto dto = (UserAccountDto) baseDto;
+		this.loginName = dto.getLoginName();
+		this.password = dto.getPassword();
 	}
 
 	@Override
-	public void bind(BaseDto dto) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void unBind(BaseDto dto) {
-		// TODO Auto-generated method stub
-		
+	public void unBind(BaseDto baseDto) {
+		UserAccountDto dto = (UserAccountDto) baseDto;
+		dto.setLoginName(loginName);
+		dto.setPassword(password);
 	}
 }

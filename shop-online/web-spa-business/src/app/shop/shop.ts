@@ -5,7 +5,7 @@ import {TranslateService} from 'ng2-translate/ng2-translate';
 import { Shop, ShopService } from './shared/index';
 import { EditController, AlertType, FormInfo, FormFieldInfo,
     RefComboboxService, CMB_FILTERS,
-    TextFieldInfo, CmbFieldInfo, EmailFieldInfo } from './../shared/index';
+    TextFieldInfo, SmartCmbFieldInfo, EmailFieldInfo } from './../shared/index';
 
 import { RefEmployeeService } from '../employee/index';
 
@@ -52,7 +52,8 @@ export class ShopCmp extends EditController<Shop> implements OnInit {
         form.addField(new TextFieldInfo(this.getTranslator(), 'taxCode', 'shop.taxCode', true, 0, 100));
 
         let refEmployeeService = new RefEmployeeService(this.shopService);
-        form.addField(new CmbFieldInfo(this.getTranslator(), refEmployeeService, 'ownerId', 'shop.owner', false));
+        // form.addField(new CmbFieldInfo(this.getTranslator(), refEmployeeService, 'ownerId', 'shop.owner', false));
+        form.addField(new SmartCmbFieldInfo(this.getTranslator(), refEmployeeService, 'ownerId', 'shop.owner', false, false));
 
         form.addField(new TextFieldInfo(this.getTranslator(), 'phone', 'shop.phone', false, 0, 20));
 

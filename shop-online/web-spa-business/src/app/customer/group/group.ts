@@ -66,12 +66,6 @@ export class CustomerGroupCmp extends SmartListController<CustomerGroup> impleme
       .then(id => {
         CacheUtils.clear('customer.group');
         return Promise.resolve(true);
-      })
-      .catch(error => {
-        this.translateText(error).then(message => {
-          this.alert(AlertType.danger, message);
-          return Promise.resolve(false);
-        })
       });
   }
 

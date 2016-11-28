@@ -1,4 +1,36 @@
 {
+"sidebar.tongquan":"Tổng quan",
+"sidebar.banhang":"Bán hàng",
+"sidebar.khohang":"Kho hàng",
+"sidebar.nhapmua":"Nhập mua",
+"sidebar.nhaptra":"Nhập trả hàng",
+"sidebar.xuattra":"Xuất trả hàng",
+"sidebar.dieuchuyen":"Điều chuyển",
+"sidebar.kiemke":"Kiểm kê",
+"sidebar.tien":"Tiền",
+"sidebar.thuchi":"Thu chi",
+"sidebar.ketca":"Kết ca",
+"sidebar.dieuchinhtientrongket":"Điều chỉnh tiền trong két",
+"sidebar.doitac":"Đối tác",
+"sidebar.khachhang":"Khách hàng",
+"sidebar.nhacungcap":"Nhà cung cấp",
+"sidebar.baocao":"Báo cáo",
+"sidebar.thietlap":"Thiết lập",
+"sidebar.cuahang":"Cửa hàng",
+"sidebar.sanpham":"Sản phẩm",
+"sidebar.nhanvien":"Nhân viên",
+"sidebar.dsnhanvien":"DS Nhân viên",
+"sidebar.dstaikhoan":"DS Tài khoản",
+
+"service.error.unknow":"Đã có lỗi xảy ra, xin vui lòng thực hiện lại!",
+"service.error.connection":"Không thể kết nối với máy chủ, xin vui lòng kiểm tra lại mạng internet!",
+"service.error.param":"Đã có lỗi xảy ra, xin vui lòng thực hiện lại!",
+"service.error.not.found":"Đã có lỗi xảy ra, xin vui lòng thực hiện lại!",
+"service.error.persis.create":"Không thể tạo mới, xin vui lòng thực hiện lại",
+"service.error.persis.update":"Không thể cập nhật thông tin, xin vui lòng thực hiện lại",
+"service.error.persis.delete":"Đã có lỗi xảy ra, xin vui lòng thực hiện lại!",
+"service.error.password.not.match":"Mật khẩu không đúng!, xin vui lòng nhập lại",
+
 "common.dialog.btn.yes":"Có",
 "common.dialog.btn.no":"Không",
 "common.dialog.btn.ok":"Đồng ý",
@@ -13,6 +45,7 @@
 "common.alert.content.delete":"Bạn có chắc muốn xóa dòng đang chọn?",
 "common.alert.content.delete.success": "Đã xóa thành công",
 "common.alert.content.delete.failure": "Xóa không thành công, xin vui lòng thực hiện lại.",
+"common.alert.content.update.success": "Đã cập nhật thành công",
 
 "common.validator.error.required":"Xin vui lòng nhập!",
 "common.validator.error":"Thông tin bạn nhập chưa đúng, Xin vui lòng thử lại!",
@@ -53,6 +86,10 @@
 "ref.warehouse.status":"Trạng thái",
 "ref.warehouse.status.ACTIVE":"Sử dụng",
 "ref.warehouse.status.INACTIVE":"Không sử dụng",
+"ref.account.status":"Trạng thái",
+"ref.account.status.ACTIVE":"Kích hoạt",
+"ref.account.status.INACTIVE":"Đã bị khóa",
+
 
 "address.addressDetail":"Địa chỉ",
 "address.address1":"Phường/Xã",
@@ -137,9 +174,17 @@
 "warehouse.phone":"Điện thoại",
 "warehouse.addressDetail":"Địa chỉ",
 
+"account.list.title":"Tài khoản",
+"account.name":"Tên đăng nhập",
+"account.employee":"Nhân viên",
+"account.permissions":"Quyền sử dụng",
+"account.password":"Mật khẩu",
+"account.password.new":"Mật khẩu mới",
+"account.password.new.re":"Nhập lại mật khẩu mới",
 
+"account.password.change.title":"Thay đổi mật khẩu",
+"account.validator.error.password.not.match": "Vui lòng nhập lại đúng mật khẩu bạn đã nhập!",
 
-"unit.list.tittle":"Đơn vị tính",
-"unit.list.id":"Mã DVT",
-"unit.list.name":"Tên DVT"
+"account.permission.change.title":"Phân quyền",
+"account.permission.change.info":"Hệ thống sử dụng tên đăng nhập làm mật khẩu mặc định."
 }

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import { DialogInfo } from './dialog.info';
+import { DialogInfo } from '../core/index';
 
 
 @Injectable()

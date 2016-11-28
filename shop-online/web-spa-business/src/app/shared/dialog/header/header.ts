@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { DialogInfo } from '../dialog.info';
+import { DialogInfo } from '../../core/index';
 
 @Component({
     selector: 'dialog-header-cmp',

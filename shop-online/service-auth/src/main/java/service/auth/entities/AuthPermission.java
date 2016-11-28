@@ -8,7 +8,8 @@ import javax.persistence.Table;
 
 import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
-import service.auth.shared.PermissionStatus;
+import service.auth.shared.dto.AuthPermissionDto;
+import service.auth.shared.dto.PermissionStatus;
 
 /**
  * System permissions
@@ -17,8 +18,9 @@ import service.auth.shared.PermissionStatus;
 @Entity
 @Table(name = "auth_permissions")
 public class AuthPermission extends BaseEntity {
+	
+	private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 2243399028554666270L;
 	/**
 	 * mapping to spring security role
 	 */
@@ -77,31 +79,26 @@ public class AuthPermission extends BaseEntity {
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
-//
-//	@Override
-//	public String getColIdName() {
-//		return "permission_name";
-//	}
-//
-//	@Override
-//	public Object getColIdValue() {
-//		return getName();
-//	}
-//	
-//	@Override
-//	public Object convertToId(String value) {
-//		return value;
-//	}
 
 	@Override
-	public void bind(BaseDto dto) {
-		// TODO Auto-generated method stub
-		
+	public void bind(BaseDto baseDto) {
+		super.bind(baseDto);
+		AuthPermissionDto dto = (AuthPermissionDto) baseDto;
+		this.description = dto.getDescription();
+		this.displayName = dto.getDisplayName();
+		this.groupName = dto.getGroupName();
+		this.name = dto.getName();
+		this.status = dto.getStatus();
 	}
-
+	
 	@Override
-	public void unBind(BaseDto dto) {
-		// TODO Auto-generated method stub
-		
+	public void unBind(BaseDto baseDto) {
+		super.unBind(baseDto);
+		AuthPermissionDto dto = (AuthPermissionDto) baseDto;
+		dto.setDescription(description);
+		dto.setDisplayName(displayName);
+		dto.setGroupName(groupName);
+		dto.setName(displayName);
+		dto.setStatus(status);
 	}
 }

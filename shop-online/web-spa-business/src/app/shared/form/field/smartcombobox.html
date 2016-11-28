@@ -1,7 +1,6 @@
 <form-field-cmp [info]="info" [fieldModel]="fieldModel">
-    <input class="form-control" onfocus="this.select();" [ngModel]="fieldModel" (ngModelChange)="updateData($event)" name="info.name" [type]="info.type" [minlength]="info.minlength" [maxlength]="info.maxlength" [autofocus]="info.autofocus">
-    <select class="form-control" [ngModel]="fieldModel" (ngModelChange)="updateData($event)">
-        <option *ngIf="info.hasBlankItem" value=""></option>
-        <option *ngFor="let item of info.items" [value]="info.getValue(item)">{{info.getLable(item) | translate}}</option>
-    </select>
+    <input type="search" [(ngModel)]="searchText" onfocus="this.select()" (keyup)="onFilter($event)" class="form-control" placeholder="{{info.label | translate}}">
+    <div class="smart-combobox list-group" *ngIf="filteredList.length > 0">
+        <a class="list-group-item" *ngFor="let item of filteredList" (click)="select(item)">{{info.getLabel(item)}}</a>
+    </div>
 </form-field-cmp>

@@ -18,6 +18,10 @@ public class CustomerDto extends BaseDto {
 	private String address2;
 	
 	private String address3;
+	
+	private String description;
+	
+	private Long group;
 
 	public String getName() {
 		return name;
@@ -81,5 +85,21 @@ public class CustomerDto extends BaseDto {
 
 	public void setAddress3(String address3) {
 		this.address3 = address3;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public Long getGroup() {
+		return group;
+	}
+	
+	public void setGroup(Long group) {
+		this.group = group;
 	}
 }

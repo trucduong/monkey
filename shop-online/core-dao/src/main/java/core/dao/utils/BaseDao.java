@@ -177,27 +177,13 @@ public class BaseDao<E extends IEntity> implements Serializable {
 		Class<E> entityClass = getPersistentClass();
 		String className = getClassName();
 
-		String strQuery = "SELECT e " + "FROM " + className + " e WHERE e.";
-		String orCondition = " OR e.";
-
-		for (Object value : values) {
-			if (value == null) {
-				strQuery += name + " is null" + orCondition;
-			} else {
-				strQuery += name + " = ?" + orCondition;
-			}
+		String strQuery = "SELECT e " + "FROM " + className + " e";
+		
+		if (values.length > 0) {
+			strQuery += " WHERE " + name + " IN (" + org.apache.commons.lang3.StringUtils.join(values, ",") + ")";
 		}
-		int endIndex = strQuery.lastIndexOf(orCondition);
-		strQuery = strQuery.substring(0, endIndex);
 
 		TypedQuery<E> query = getEm().createQuery(strQuery, entityClass);
-		int j = 1;
-		for (Object value : values) {
-			if (value != null) {
-				query.setParameter(j++, value);
-			}
-		}
-
 		return query.getResultList();
 	}
 

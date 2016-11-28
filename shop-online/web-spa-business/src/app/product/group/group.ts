@@ -61,16 +61,7 @@ export class ProductGroupCmp extends SmartListController<ProductGroup> implement
   }
 
   delete(item: ProductGroup): Promise<boolean> {
-    return this.productService.deleteProductGroup(item.id)
-      .then(id => {
-        return Promise.resolve(true);
-      })
-      .catch(error => {
-        this.translateText(error).then(message => {
-          this.alert(AlertType.danger, message);
-          return Promise.resolve(false);
-        })
-      });
+    return this.productService.deleteProductGroup(item.id);
   }
 
 }

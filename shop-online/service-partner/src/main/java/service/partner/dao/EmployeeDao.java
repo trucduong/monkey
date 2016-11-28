@@ -2,48 +2,45 @@ package service.partner.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import javax.persistence.Query;
-
+import org.apache.commons.collections4.map.HashedMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import core.common.convert.ConverterUtils;
+import core.dao.entities.BaseEntity;
 import core.dao.utils.BaseDao;
-import core.dao.utils.QueryBuilder;
 import service.partner.entities.Employee;
+import service.partner.entities.EmployeeDetail;
 import service.partner.shared.dto.EmployeeDto;
 import service.partner.shared.dto.WorkingStatus;
 
 @Service
 public class EmployeeDao extends BaseDao<Employee> {
 	private static final long serialVersionUID = 1L;
+	
+	@Autowired
+	private EmployeeDetailDao detailDao;
 
 	public List<EmployeeDto> getAllWithDetail(WorkingStatus status) {
-		List<EmployeeDto> products = new ArrayList<EmployeeDto>();
-		QueryBuilder builder = new QueryBuilder();
-		builder.append("SELECT e.id, e.name, e.title, e.phone, e.sex, d.faceAmount, d.joinDate")
-				.append(" FROM Employee as e LEFT JOIN e.detail as d")
-				.append(" WHERE 1=1");
-		if (status != null) {
-			builder.append(" AND e.workingStatus = :status", "status", status);
-		}
-
-		Query query = builder.build(getEm());
-		List<Object[]> resultList = query.getResultList();
-		for (Object[] objects : resultList) {
+		Map<Long, EmployeeDto> maps = new HashedMap<>();
+		List<EmployeeDto> dtos = new ArrayList<EmployeeDto>();
+		List<Employee> entities = this.getAllDataByColumn(Employee.WORKING_STATUS, status);
+		for (Employee entity : entities) {
 			EmployeeDto dto = new EmployeeDto();
-			int i = 0;
-			dto.setId(ConverterUtils.toLong(objects[i++]));
-			dto.setName(ConverterUtils.toString(objects[i++]));
-			dto.setTitle(ConverterUtils.toString(objects[i++]));
-			dto.setPhone(ConverterUtils.toString(objects[i++]));
-			dto.setSex(ConverterUtils.toString(objects[i++]));
-			dto.setFaceAmount(ConverterUtils.toBigDecimal(objects[i++]));
-			dto.setJoinDate(ConverterUtils.toDate(objects[i++]));
-
-			products.add(dto);
+			entity.unBind(dto);
+			
+			maps.put(dto.getId(), dto);
+			dtos.add(dto);
+		}
+		
+		if (!maps.isEmpty()) {
+			List<EmployeeDetail> details = detailDao.getAllDataByColumns(BaseEntity.ID, maps.keySet().toArray());
+			for (EmployeeDetail employeeDetail : details) {
+				employeeDetail.unBind(maps.get(employeeDetail.getId()));
+			}
 		}
 
-		return products;
+		return dtos;
 	}
 }

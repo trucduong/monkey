@@ -8,11 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import core.common.exception.CommonException;
-import core.service.utils.ServiceProvider;
-import core.service.utils.ServiceResult;
 import core.web.navigation.Navigator;
-import service.auth.shared.ServiceAuthAction;
-import service.auth.shared.dto.AccountDto;
 import web.business.config.View;
 
 @Controller
@@ -25,12 +21,12 @@ public class HomeController {
 	public ModelAndView gotoHome() throws CommonException {
 		ModelAndView mv = Navigator.create(View.HOME_PAGE);
 
-		ServiceResult result = ServiceProvider.get(ServiceAuthAction.getAccountByName(env, "admin"));
-		if (ServiceProvider.isSuccess(result)) {
-			mv.addObject("account", ServiceProvider.getValue(result, AccountDto.class));
-		} else {
-			throw new CommonException(result.getValue());
-		}
+//		ServiceResult result = ServiceProvider.get(ServiceAuthAction.getAccountByName(env, "admin"));
+//		if (ServiceProvider.isSuccess(result)) {
+//			mv.addObject("account", ServiceProvider.getValue(result, AccountDto.class));
+//		} else {
+//			throw new CommonException(result.getValue());
+//		}
 
 		return mv;
 	}

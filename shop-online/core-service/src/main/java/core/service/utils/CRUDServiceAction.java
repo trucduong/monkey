@@ -21,9 +21,9 @@ public class CRUDServiceAction implements IServiceAction {
 	public static final String DELETE = "/delete/{id}";
 	
 	
-	private String url;
-	private Map<String, Object> params;
-	private Object data;
+	protected String url;
+	protected Map<String, Object> params;
+	protected Object data;
 
 	@Override
 	public String getUrl() {

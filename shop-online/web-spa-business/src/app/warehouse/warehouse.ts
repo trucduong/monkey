@@ -4,11 +4,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import { SmartListController, SmartGridInfo, GridColumn, GridOption, SortInfo, FilterInfo, AlertType,
-  TextFieldInfo, CmbFieldInfo, NumberFieldInfo, EmailFieldInfo, DateFieldInfo,
+  TextFieldInfo, CmbFieldInfo, SmartCmbFieldInfo, NumberFieldInfo, EmailFieldInfo, DateFieldInfo,
   CMB_FILTERS, ComboboxService, RefComboboxService } from './../shared/index';
 import { Warehouse, WarehouseService } from './shared/index';
 
-// import { RefEmployeeService } from '../employee/index';
+import { RefEmployeeService } from '../employee/index';
 
 @Component({
   selector: 'warehouse',
@@ -42,8 +42,9 @@ export class WarehouseCmp extends SmartListController<Warehouse> implements OnIn
 
     let nameField = new TextFieldInfo(this.getTranslator(), 'name', 'warehouse.name', true, 0, 100);
 
-    // let refEmployeeService = new RefEmployeeService(this.warehouseService);
-    let ownerField = new TextFieldInfo(this.getTranslator(), 'ownerName', 'warehouse.owner', false, 0, 100);
+    let refEmployeeService = new RefEmployeeService(this.warehouseService);
+    // let ownerField = new TextFieldInfo(this.getTranslator(), 'ownerName', 'warehouse.owner', false, 0, 100);
+    let ownerField = new SmartCmbFieldInfo(this.getTranslator(), refEmployeeService, 'ownerName', 'warehouse.owner', false, true);
 
     let phoneField = new TextFieldInfo(this.getTranslator(), 'phone', 'warehouse.phone', true, 0, 20);
 
@@ -85,16 +86,7 @@ export class WarehouseCmp extends SmartListController<Warehouse> implements OnIn
   }
 
   delete(item: Warehouse): Promise<boolean> {
-    return this.warehouseService.deleteWarehouse(item.id)
-      .then(id => {
-        return Promise.resolve(true);
-      })
-      .catch(error => {
-        this.translateText(error).then(message => {
-          this.alert(AlertType.danger, message);
-          return Promise.resolve(false);
-        })
-      });
+    return this.warehouseService.deleteWarehouse(item.id);
   }
 
 }

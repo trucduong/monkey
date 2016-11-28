@@ -8,11 +8,12 @@ import core.dao.utils.BaseDao;
 import core.service.services.CRUDService;
 import service.partner.dao.SupplierGroupDao;
 import service.partner.entities.SupplierGroup;
+import service.partner.shared.dto.SupplierGroupDto;
 import service.partner.shared.utils.ServicePartnerAction;
 
 @RestController
 @RequestMapping(ServicePartnerAction.SUPPLIER_GROUP_SERVICE)
-public class SupplierGroupService extends CRUDService<SupplierGroup> {
+public class SupplierGroupService extends CRUDService<SupplierGroup, SupplierGroupDto> {
 
 	@Autowired
 	private SupplierGroupDao dao;
@@ -25,6 +26,11 @@ public class SupplierGroupService extends CRUDService<SupplierGroup> {
 	@Override
 	protected SupplierGroup createEntity() {
 		return new SupplierGroup();
+	}
+	
+	@Override
+	protected SupplierGroupDto createDto() {
+		return new SupplierGroupDto();
 	}
 
 	@Override

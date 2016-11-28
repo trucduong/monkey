@@ -42,7 +42,8 @@ export class EmployeeService extends BaseHttpService {
     }
 
     saveEmployeeDetail(item: Employee) {
-        return this.post(SERVICES.URLS.employee, SERVICES.ACTIONS.UPDATE_D, item, [item.id]);
+        let data = {id: item.id, faceAmount: item.faceAmount, joinDate: item.joinDate};
+        return this.post(SERVICES.URLS.employee, SERVICES.ACTIONS.UPDATE_D, data, [item.id]);
     }
 
 }

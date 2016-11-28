@@ -8,11 +8,12 @@ import core.dao.utils.BaseDao;
 import core.service.services.CRUDService;
 import service.partner.dao.CustomerDao;
 import service.partner.entities.Customer;
+import service.partner.shared.dto.CustomerDto;
 import service.partner.shared.utils.ServicePartnerAction;
 
 @RestController
 @RequestMapping(ServicePartnerAction.CUSTOMER_SERVICE)
-public class CustomerService extends CRUDService<Customer> {
+public class CustomerService extends CRUDService<Customer, CustomerDto> {
 
 	@Autowired
 	private CustomerDao dao;
@@ -25,6 +26,11 @@ public class CustomerService extends CRUDService<Customer> {
 	@Override
 	protected Customer createEntity() {
 		return new Customer();
+	}
+	
+	@Override
+	protected CustomerDto createDto() {
+		return new CustomerDto();
 	}
 
 	@Override

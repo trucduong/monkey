@@ -11,6 +11,8 @@ export const SERVICES: any = {
         employee: 'http://localhost:7070/service-partner/employee',
         shop: 'http://localhost:7070/service-shop/shop',
         warehouse: 'http://localhost:7070/service-shop/warehouse',
+        user_account: 'http://localhost:7070/service-auth/user-account',
+        auth: 'http://localhost:7070/service-auth/auth',
     },
     ACTIONS: {
         READ: '/read/{0}',
@@ -30,5 +32,10 @@ export const SERVICES: any = {
         UPLOAD_TEMP: '/upload-temp',
         DOWNLOAD_TEMP: '/download-temp/{0}',
         DELETE_TEMP: '/delete-temp/{0}',
+
+        UPDATE_PERMISSION: '/update-permissions/{0}',
+        UPDATE_PASSWORD: '/update-password/{0}',
+        READ_ALL_PERMISSION: '/permission/read-all'
+
     }
 };

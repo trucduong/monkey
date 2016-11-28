@@ -90,16 +90,7 @@ export class CustomerCmp extends SmartListController<Customer> implements OnInit
   }
 
   delete(item: Customer): Promise<boolean> {
-    return this.customerService.deleteCustomer(item.id)
-      .then(id => {
-        return Promise.resolve(true);
-      })
-      .catch(error => {
-        this.translateText(error).then(message => {
-          this.alert(AlertType.danger, message);
-          return Promise.resolve(false);
-        })
-      });
+    return this.customerService.deleteCustomer(item.id);
   }
 
 }

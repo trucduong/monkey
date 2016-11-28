@@ -29,6 +29,7 @@ export abstract class SmartListController<T extends BaseModel> extends BaseContr
         let grid = this.build();
         grid.model = this.createModel();
         grid.translateServices = this.getTranslateServices();
+        grid.actions = this.getActions();
         grid.columns.forEach(col => {
             col.fieldInfo.isSingle = true; // hide lable
         });
@@ -102,16 +103,12 @@ export abstract class SmartListController<T extends BaseModel> extends BaseContr
                     // delete
                     mthis.delete(item)
                         .then(result => {
-                            if (result) {
-                                mthis.dataSource = mthis.dataSource.filter(e => {
-                                    //return item.getId() != e.getId();
-                                    return item['id'] != e['id']; // TODO: temp fix
-                                });
+                            mthis.dataSource = mthis.dataSource.filter(e => {
+                                //return item.getId() != e.getId();
+                                return item['id'] != e['id']; // TODO: temp fix
+                            });
 
-                                mthis.alert(AlertType.success, 'common.alert.content.delete.success');
-                            } else {
-                                mthis.alert(AlertType.danger, 'common.alert.content.delete.failure');
-                            }
+                            mthis.alert(AlertType.success, 'common.alert.content.delete.success');
                         })
                         .catch(error => {
                             mthis.alert(AlertType.danger, 'common.alert.content.delete.failure');
@@ -124,7 +121,7 @@ export abstract class SmartListController<T extends BaseModel> extends BaseContr
     /**
      * overwrite this
      */
-    getDefaultActions(): GridAction[] {
+    getActions(): GridAction[] {
         return [];
     }
 
@@ -155,7 +152,7 @@ export abstract class SmartListController<T extends BaseModel> extends BaseContr
     execute(param: any) { }
 
 
-    delete(item: T): Promise<boolean> {
+    delete(item: T): Promise<any> {
         return Promise.resolve(true);
     }
 }

@@ -1,10 +1,10 @@
 <ul class="nav" id="side-menu">
   <header-search></header-search>
   <li *ngFor="let item of sidebars" [class.active]="item.isActive">
-    <a (click)="onSelect(item)"><i class="{{item.icon}}"></i> {{item.name}}<span *ngIf="item.childs" class="fa arrow"></span></a>
+    <a (click)="onSelect(item)"><i class="{{item.icon}}"></i> {{item.name | translate}}<span *ngIf="item.childs" class="fa arrow"></span></a>
     <ul class="nav nav-second-level collapse" *ngIf="item.childs" [class.in]="item.isActive">
       <li *ngFor="let childItem of item.childs" [class.active]="childItem.isActive">
-        <a (click)="onSelect(childItem)"> {{childItem.name}}</a>
+        <a (click)="onSelect(childItem)"> {{childItem.name | translate}}</a>
       </li>
     </ul>
   </li>

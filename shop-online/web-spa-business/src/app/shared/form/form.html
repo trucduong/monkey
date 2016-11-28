@@ -9,6 +9,7 @@
                     <div class="col-lg-6">
                         <div *ngFor="let field of info.fields">
                             <cmb-field-cmp *ngIf="field.type=='combobox'" [info]="field" [(fieldModel)]="info.model[field.name]"></cmb-field-cmp>
+                            <smartcmb-field-cmp *ngIf="field.type=='smartcombobox'" [info]="field" [(fieldModel)]="info.model[field.name]"></smartcmb-field-cmp>
                             <text-field-cmp *ngIf="field.type=='text'" [info]="field" [(fieldModel)]="info.model[field.name]"></text-field-cmp>
                             <!--<email-field-cmp *ngIf="field.type=='email'" [info]="field" [(fieldModel)]="info.model[field.name]"></email-field-cmp>-->
                             <!--<password-field-cmp *ngIf="field.type=='password'" [info]="field" [(fieldModel)]="info.model[field.name]"></password-field-cmp>-->

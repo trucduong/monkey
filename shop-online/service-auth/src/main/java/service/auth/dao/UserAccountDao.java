@@ -1,12 +1,12 @@
 package service.auth.dao;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import core.dao.utils.BaseDao;
 import service.auth.entities.UserAccount;
 
-@Component
+@Repository
 public class UserAccountDao extends BaseDao<UserAccount> {
-	private static final long serialVersionUID = -6149168515348107858L;
+	private static final long serialVersionUID = -1L;
 	
 }

@@ -1,11 +1,17 @@
 package core.service.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import core.service.security.AuthorInterceptor;
 
 public abstract class BaseServiceMvcConfig extends WebMvcConfigurerAdapter {
 	
@@ -38,4 +44,15 @@ public abstract class BaseServiceMvcConfig extends WebMvcConfigurerAdapter {
     public void configurePathMatch(PathMatchConfigurer matcher) {
         matcher.setUseRegisteredSuffixPatternMatch(true);
     }
+    
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+    	super.addInterceptors(registry);
+    	List<String> bypasses = new ArrayList<>();
+    	addByPassAuthorization(bypasses);
+    	registry.addInterceptor(new AuthorInterceptor(bypasses));
+    }
+    
+    protected void addByPassAuthorization(List<String> bypasses) {
+	}
 }

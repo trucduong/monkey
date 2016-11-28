@@ -32,11 +32,11 @@ import service.catalogue.shared.utils.ServiceCatalogueAction;
 
 @RestController
 @RequestMapping(ServiceCatalogueAction.PRODUCT_SERVICE)
-public class ProductService extends CRUDService<Product> {
+public class ProductService extends CRUDService<Product, ProductDto> {
 
 	@Autowired
 	private ProductDao dao;
-
+	
 	@Autowired
 	private ProductDetailDao detailDao;
 
@@ -54,40 +54,31 @@ public class ProductService extends CRUDService<Product> {
 	protected Product createEntity() {
 		return new Product();
 	}
-
-	@RequestMapping(value = ServiceCatalogueAction.READ_D, method = RequestMethod.GET)
-	public ServiceResult readWithDetail(@PathVariable(value = ServiceCatalogueAction.PARAM_ID) long id)
-			throws CommonException {
-		init();
-		Product entity = dao.find(id);
-		if (entity == null) {
-			return error(ServiceErrorCode.NOT_FOUND);
-		}
-		ProductDto dto = new ProductDto();
-		entity.unBind(dto);
-
-		// ProductDetail detail = detailDao.find(ProductDetail.PRODUCT_ID, id);
-		ProductDetail detail = entity.getDetail();
-		if (detail != null) {
-			detail.unBind(dto);
-		}
-
-		return success(dto);
+	
+	@Override
+	protected ProductDto createDto() {
+		return new ProductDto();
 	}
 
 	@RequestMapping(value = ServiceCatalogueAction.UPDATE_D, method = RequestMethod.POST)
-	public ServiceResult update(@RequestBody ProductDto dto, @PathVariable("id") long id) throws CommonException {
+	public ServiceResult updateDetail(@RequestBody ProductDto dto, @PathVariable("id") long id) throws CommonException {
 		init();
 		Product product = dao.find(id);
 		if (product == null) {
 			return error(ServiceErrorCode.NOT_FOUND);
 		}
 
-		updateDetail(product, dto);
+		// create or update detail
+		ProductDetail detail = detailDao.find(id);
+		if (detail == null) {
+			detail = new ProductDetail();
+		}
+		detail.bind(dto);
+		detailDao.update(detail);
 
 		return success(dto);
 	}
-
+	
 	@RequestMapping(value = ServiceCatalogueAction.READ_ALL_D, method = RequestMethod.GET)
 	public ServiceResult readAllWithDetail() throws CommonException {
 		init();
@@ -132,30 +123,10 @@ public class ProductService extends CRUDService<Product> {
             outputStream.close();
 		}
 	}
-
-	private int updateDetails(List<ProductDto> items) {
-		int count = 0;
-		List<Product> products = dao.getAllData();
-		for (ProductDto item : items) {
-			for (Product product : products) {
-				if (item.getId() == product.getId()) {
-					updateDetail(product, item);
-					count++;
-				}
-			}
-		}
-
-		return count;
-	}
-
-	private ProductDetail updateDetail(Product product, ProductDto productDto) {
-		ProductDetail detail = product.getDetail();
-		if (detail == null) {
-			detail = new ProductDetail();
-		}
-		detail.bind(productDto);
-		detail.setProduct(product);
-		detailDao.update(detail);
-		return detail;
+	
+	@Override
+	protected void onDeleteSucceed(long id) {
+		// remove detail
+		detailDao.delete(id);
 	}
 }

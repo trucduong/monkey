@@ -15,11 +15,12 @@ import core.service.utils.CRUDServiceAction;
 import core.service.utils.ServiceResult;
 import service.shop.dao.ShopDao;
 import service.shop.entities.Shop;
+import service.shop.shared.dto.ShopDto;
 import service.shop.shared.utils.ServiceShopAction;
 
 @RestController
 @RequestMapping(ServiceShopAction.SHOP_SERVICE)
-public class ShopService extends CRUDService<Shop> {
+public class ShopService extends CRUDService<Shop, ShopDto> {
 
 	@Autowired
 	private ShopDao dao;
@@ -35,6 +36,11 @@ public class ShopService extends CRUDService<Shop> {
 	}
 
 	@Override
+	protected ShopDto createDto() {
+		return new ShopDto();
+	}
+
+	@Override
 	protected Class<?> getThis() {
 		return this.getClass();
 	}
@@ -43,18 +49,19 @@ public class ShopService extends CRUDService<Shop> {
 	@RequestMapping(value = CRUDServiceAction.READ, method = RequestMethod.GET)
 	public ServiceResult read(@PathVariable(value = CRUDServiceAction.PARAM_ID) long id) throws CommonException {
 		init();
-//		Shop entity = getDao().find(id);
-//
-//		if (entity != null) {
-//			return success(entity);
-//		}
+		// Shop entity = getDao().find(id);
+		//
+		// if (entity != null) {
+		// return success(entity);
+		// }
 
 		List<Shop> shops = getDao().getAllData();
 		if (shops.size() > 0) {
-			return success(shops.get(0));
+			ShopDto dto = this.createDto();
+			shops.get(0).unBind(dto);
+			return success(dto);
 		}
 
-		Shop entity = this.createEntity();
-		return this.create(entity);
+		return this.create(this.createDto());
 	}
 }

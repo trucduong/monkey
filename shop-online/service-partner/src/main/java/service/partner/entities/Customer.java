@@ -4,7 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
+import service.partner.shared.dto.CustomerDto;
 
 @Entity
 @Table(name="customers")
@@ -130,5 +132,37 @@ public class Customer extends BaseEntity {
 	
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	@Override
+	public void bind(BaseDto baseDto) {
+		super.bind(baseDto);
+		CustomerDto dto = (CustomerDto) baseDto;
+		this.address1 = dto.getAddress1();
+		this.address2 = dto.getAddress2();
+		this.address3 = dto.getAddress3();
+		this.addressDetail = dto.getAddressDetail();
+		this.description = dto.getDescription();
+		this.email = dto.getEmail();
+		this.group = dto.getGroup();
+		this.name = dto.getName();
+		this.phone = dto.getPhone();
+		this.sex = dto.getSex();
+	}
+	
+	@Override
+	public void unBind(BaseDto baseDto) {
+		super.unBind(baseDto);
+		CustomerDto dto = (CustomerDto) baseDto;
+		dto.setAddress1(address1);
+		dto.setAddress2(address2);
+		dto.getAddress3();
+		dto.setAddressDetail(addressDetail);
+		dto.setDescription(description);
+		dto.setEmail(email);
+		dto.setGroup(group);
+		dto.setName(name);
+		dto.setPhone(phone);
+		dto.setSex(sex);
 	}
 }

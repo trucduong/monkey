@@ -86,16 +86,7 @@ export class SupplierCmp extends SmartListController<Supplier> implements OnInit
   }
 
   delete(item: Supplier): Promise<boolean> {
-    return this.supplierService.deleteSupplier(item.id)
-      .then(id => {
-        return Promise.resolve(true);
-      })
-      .catch(error => {
-        this.translateText(error).then(message => {
-          this.alert(AlertType.danger, message);
-          return Promise.resolve(false);
-        })
-      });
+    return this.supplierService.deleteSupplier(item.id);
   }
 
 }

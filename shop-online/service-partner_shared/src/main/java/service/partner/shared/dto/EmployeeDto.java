@@ -3,10 +3,7 @@ package service.partner.shared.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.Column;
-
 import core.dao.dto.BaseDto;
-import core.dao.entities.BaseEntity;
 
 public class EmployeeDto extends BaseDto {
 	private String name;
