@@ -3,10 +3,13 @@ a.list-group-item {
 }
 
 .smart-combobox {
-    max-height: 150px;
+    width: 95%;
+    max-height: 200px;
     overflow: auto;
+    border: solid 4px #eee;
 }
 
 .smart-combobox.list-group {
     position: absolute;
+    z-index: 2000;
 }

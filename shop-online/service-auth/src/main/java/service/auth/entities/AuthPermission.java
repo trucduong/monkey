@@ -24,6 +24,9 @@ public class AuthPermission extends BaseEntity {
 	/**
 	 * mapping to spring security role
 	 */
+	@Column(name = "action_name", columnDefinition = MEDIUM_1)
+	private String action;
+	
 	@Column(name = "permission_name", columnDefinition = MEDIUM_1)
 	private String name;
 
@@ -78,6 +81,14 @@ public class AuthPermission extends BaseEntity {
 
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
+	}
+	
+	public String getAction() {
+		return action;
+	}
+	
+	public void setAction(String action) {
+		this.action = action;
 	}
 
 	@Override

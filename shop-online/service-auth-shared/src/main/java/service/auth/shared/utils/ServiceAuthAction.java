@@ -22,6 +22,8 @@ public class ServiceAuthAction extends CRUDServiceAction {
 	
 	public static final String PERMISSION_READ_ALL = "/permission/read-all";
 	
+	public static final String LOGIN = "/login";
+	public static final String LOGOUT = "/logout";
 	
 	
 	public static IServiceAction getAccountByName(Environment env, String name) {

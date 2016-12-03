@@ -3,16 +3,24 @@ import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { CommonUtils } from '../utils/common.utils';
+import {LocalStorageService} from './localstorage.service';
 
 @Injectable()
 export class BaseHttpService {
-    private headers = new Headers({ 'Content-Type': 'application/json' });
-    constructor(public http: Http) { }
+    private storageService: LocalStorageService;
+    constructor(public http: Http) { 
+        this.storageService = new LocalStorageService();
+    }
+
+    private getHeader(): Headers {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'T_AUTH_TOKEN':this.storageService.get('AUTH_TOKEN') });
+        return headers;
+    }
 
     public get(service: string, action: string, params: string[]) {
         let url = service + action;
         return this.http
-            .get(CommonUtils.formatStr(url, params))
+            .get(CommonUtils.formatStr(url, params), { headers: this.getHeader() })
             .toPromise()
             .then(response => {
                 let json = response.json();
@@ -27,7 +35,7 @@ export class BaseHttpService {
     public post(service: string, action: string, data: any, params: string[]) {
         let url = service + action;
         return this.http
-            .post(CommonUtils.formatStr(url, params), JSON.stringify(data), { headers: this.headers })
+            .post(CommonUtils.formatStr(url, params), JSON.stringify(data), { headers: this.getHeader() })
             .toPromise()
             .then(response => {
                 let json = response.json();

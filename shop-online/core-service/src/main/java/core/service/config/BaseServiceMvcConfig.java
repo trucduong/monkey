@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import core.service.security.AuthProvider;
 import core.service.security.AuthorInterceptor;
 
 public abstract class BaseServiceMvcConfig extends WebMvcConfigurerAdapter {
@@ -50,7 +51,10 @@ public abstract class BaseServiceMvcConfig extends WebMvcConfigurerAdapter {
     	super.addInterceptors(registry);
     	List<String> bypasses = new ArrayList<>();
     	addByPassAuthorization(bypasses);
-    	registry.addInterceptor(new AuthorInterceptor(bypasses));
+    	
+    	// TODO: add default bypass here
+    	
+    	registry.addInterceptor(new AuthorInterceptor(new AuthProvider(bypasses)));
     }
     
     protected void addByPassAuthorization(List<String> bypasses) {

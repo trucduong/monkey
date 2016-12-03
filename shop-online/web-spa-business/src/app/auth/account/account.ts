@@ -83,12 +83,12 @@ export class UserAccountCmp extends SmartListController<UserAccount> implements 
     let statusField = new CmbFieldInfo(this.getTranslator(), this.getRefAccountStatusService(), 'status', CMB_FILTERS.ACCOUNT_STATUS.type, true);
 
     let columns: GridColumn[] = [
-      { fieldInfo: nameField, editable: true, sortable: true, width: 30 },
+      { fieldInfo: nameField, editable: false, sortable: true, width: 30 },
       { fieldInfo: employeeField, editable: true, sortable: true, width: 30 },
       { fieldInfo: statusField, editable: true, sortable: true, width: 20 }
     ];
 
-    let grid = new SmartGridInfo(option, columns, [], new SortInfo('name', 'asc'), new FilterInfo(['name']));
+    let grid = new SmartGridInfo(option, columns, [], new SortInfo('name', 'asc'), new FilterInfo(['loginName']));
     return grid;
   }
 

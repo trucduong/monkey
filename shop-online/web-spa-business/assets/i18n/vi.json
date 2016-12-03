@@ -90,6 +90,11 @@
 "ref.account.status.ACTIVE":"Kích hoạt",
 "ref.account.status.INACTIVE":"Đã bị khóa",
 
+"login.title":"Xin vui lòng đăng nhập",
+"login.login":"Đăng nhập",
+"login.remember":"Ghi nhớ",
+"service.error.login":"Tên đăng nhập hoặc mật khẩu không đúng!",
+
 
 "address.addressDetail":"Địa chỉ",
 "address.address1":"Phường/Xã",
@@ -173,6 +178,7 @@
 "warehouse.owner":"Quản lý",
 "warehouse.phone":"Điện thoại",
 "warehouse.addressDetail":"Địa chỉ",
+"warehouse.import.title":"Nhập kho",
 
 "account.list.title":"Tài khoản",
 "account.name":"Tên đăng nhập",

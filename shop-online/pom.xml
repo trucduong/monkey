@@ -8,10 +8,8 @@
 	<modules>
 
 
-		<module>web-shop</module>
+		<module>web-monkey</module>
 		<module>service-auth</module>
-		<module>web-shop-admin</module>
-		<module>web-business-admin</module>
 		<module>core-common</module>
 		<module>core-service</module>
 		<module>core-web</module>
@@ -24,15 +22,14 @@
 
 		<module>service-catalogue-shared</module>
 		<module>service-partner_shared</module>
-		<module>web-business</module>
 		<module>service-common</module>
 		<module>service-common-shared</module>
 		<module>service-shop</module>
 		<module>service-shop-shared</module>
 
 
-		<module>service-fileupload</module>
-		<module>service-fileupload-shared</module>
+		<module>service-resource</module>
+		<module>service-resource-shared</module>
 	</modules>
 	<properties>
 		<java.version>1.7</java.version>

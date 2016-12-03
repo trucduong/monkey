@@ -11,11 +11,11 @@ export class LocalStorageService {
 
     constructor() { }
 
-    public static get(key: string): any {
+    public get(key: string): any {
         return LOCAL_STORAGE[key];
     }
 
-    public static set(key: string, value: any) {
+    public set(key: string, value: any) {
         LOCAL_STORAGE[key] = value;
     }
 }

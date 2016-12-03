@@ -91,4 +91,26 @@ public class ProductDao extends BaseDao<Product> {
 
 		return products;
 	}
+	
+	public List<ProductDto> getProductRef(ProductStatus status) {
+		List<ProductDto> products = new ArrayList<ProductDto>();
+		QueryBuilder builder = new QueryBuilder();
+		builder.append("SELECT p.id, p.name FROM Product as p WHERE 1=1");
+		if (status != null) {
+			builder.append(" AND p.status = :status", "status", ProductStatus.ACTIVE);
+		}
+
+		Query query = builder.build(getEm());
+		List<Object[]> resultList = query.getResultList();
+		for (Object[] objects : resultList) {
+			ProductDto dto = new ProductDto();
+			int i = 0;
+			dto.setId(ConverterUtils.toLong(objects[i++]));
+			dto.setName(ConverterUtils.toString(objects[i++]));
+
+			products.add(dto);
+		}
+		
+		return products;
+	}
 }

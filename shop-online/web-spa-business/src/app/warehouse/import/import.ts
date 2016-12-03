@@ -1,86 +1,87 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
-import { ListController, GridHeader, SortInfo, FilterInfo, DialogInfo, DialogService } from '../../shared/index';
-import { Warehouse, WarehouseService } from '../shared/index';
-
-const headers: GridHeader[] = [
-  { name: 'id', labelKey: 'warehouse.list.id', sortable: true, width: 10},
-  { name: 'name', labelKey: 'warehouse.list.name', sortable: true, width: 10},
-  { name: 'address', labelKey: 'common.list.address', sortable: true, width: 10},
-  { name: 'phone', labelKey: 'common.list.phone', sortable: true, width: 10},
-  { name: 'status', labelKey: 'common.list.status', sortable: true, width: 10},
-  { name: 'use', labelKey: 'warehouse.list.use', sortable: true, width: 10},
-  { name: 'branch', labelKey: 'warehouse.list.branch', sortable: true, width: 10},
-  { name: 'note', labelKey: 'common.list.note', sortable: true, width: 10},
-
-];
+import { BaseController, GridColumn, SortInfo, SmartGridInfo,
+  GridOption, TextFieldInfo, CmbFieldInfo, NumberFieldInfo, ComboboxService } from '../../shared/index';
+import {WarehouseService, ImportModel } from '../shared/index';
+import {Product, RefProductService} from '../../product/shared/index';
 
 @Component({
   selector: 'warehouse-import',
   templateUrl: 'src/app/warehouse/import/import.html'
 })
 
-export class WarehouseImportCmp extends ListController<Warehouse> implements OnInit {
+export class WarehouseImportCmp extends BaseController implements OnInit {
 
-  private dialogInfo: DialogInfo;
-  // TODO: private item: ImportProduct
+  gridInfo: SmartGridInfo;
 
   constructor(
     route: ActivatedRoute,
     router: Router,
     translate: TranslateService,
-    private warehouseService: WarehouseService,
-    private dialogService: DialogService) {
-
-    super(route, translate, router);
-    this.dialogInfo = new DialogInfo();
-  }
-
-  getHeaders(): GridHeader[] {
-    return headers;
-  }
-
-  getDefaultSort(): SortInfo {
-    return new SortInfo('name', 'asc');
-  }
-
-  load(): Promise<Warehouse[]> {
-    return Promise.resolve(this.warehouseService.getWarehouses());
+    private warehouseService: WarehouseService) {
+    super(router, translate);
   }
 
   getCurrentUrl(): string {
-    return '/warehouse';
+    return '/warehouse-import';
   }
 
-  getDetailUrl(): string {
-    return '/warehouse-detail';
+  ngOnInit() {
+    this.showLoading();
+
+    this.gridInfo = this.build();
+    this.gridInfo.model = this.createModel();
+    this.gridInfo.translateServices = this.getTranslateServices();
+    this.gridInfo.columns.forEach(col => {
+      col.fieldInfo.isSingle = true; // hide lable
+    });
+    this.hideLoading();
   }
 
-  onEdit(item: Warehouse) {
-    // TODO: set data
 
-    this.dialogService.show(this.dialogInfo);
+  getTranslateServices(): Map<string, ComboboxService> {
+    let services = new Map<string, ComboboxService>();
+    let refProductService = new RefProductService(this.warehouseService);
+    services.set('filter.list', refProductService);
+    return services;
   }
 
-  onAdd() {
-    // TODO: init data
+  build(): SmartGridInfo {
+    let option = new GridOption(false, false, true, false);
 
-    this.dialogService.show(this.dialogInfo);
+    // let idField = new TextFieldInfo(this.getTranslator(), 'id', 'product.id', true, 0, 100);
+    // idField.visible = false;
+    let nameField = new TextFieldInfo(this.getTranslator(), 'name', 'product.name', true, 0, 100);
+    let remainingField = new NumberFieldInfo(this.getTranslator(), 'remaining', 'product.remaining', true, 0, 0);
+    let inputPriceField = new NumberFieldInfo(this.getTranslator(), 'inputPrice', 'product.inputPrice', true, 0, 0, 1000);
+    let wholesalePriceField = new NumberFieldInfo(this.getTranslator(), 'wholesalePrice', 'product.wholesalePrice', true, 0, 0, 1000);
+    let retailPriceField = new NumberFieldInfo(this.getTranslator(), 'retailPrice', 'product.retailPrice', true, 0, 0, 1000);
+
+    let columns: GridColumn[] = [
+      // { fieldInfo: idField, editable: false, sortable: true, width: 1 },
+      { fieldInfo: nameField, editable: false, sortable: true, width: 30 },
+      { fieldInfo: remainingField, editable: true, sortable: true, width: 10 },
+      { fieldInfo: inputPriceField, editable: true, sortable: true, width: 20 },
+      { fieldInfo: wholesalePriceField, editable: true, sortable: true, width: 20 },
+      { fieldInfo: retailPriceField, editable: true, sortable: true, width: 20 },
+    ];
+
+    let grid = new SmartGridInfo(option, columns, [], new SortInfo('name', 'asc'), null);
+    return grid;
   }
 
-  onSave() {
-    // TODO: Add new item
-
-    // TODO: Init data for new Product
+  createModel(): Product {
+    return new Product();
   }
 
-  onDialogClose() {
-    // TODO: check closeable conditions
-
-    this.dialogService.hide(this.dialogInfo);
-    this.onLoad();
+  onExecute(param: any) {
+    if (param.action == 'add') {
+      let product = <Product>param.data;
+      product.remaining = 1;
+      param.callBack({action: 'add', data: product});
+    }
   }
 }

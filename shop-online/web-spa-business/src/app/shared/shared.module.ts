@@ -11,10 +11,10 @@ import { PaginationCmp }  from './pagination/pagination';
 import { WrapperCmp }  from './wrapper/wrapper';
 import { AlertCmp } from './alert/alert';
 import { LoadingCmp } from './loading/loading';
-import { CustomTranslatePipe, CustomNumberPipe } from './core/index';
+import { CustomTranslatePipe, CustomNumberPipe, LocalStorageService } from './core/index';
 import { GridCmp } from './grid/grid';
 import { SmartGridCmp } from './smartgrid/smartgrid';
-import { GridInputCmp } from './gridinput/grid.input';
+import { GridInputCmp } from './gridinput/gridinput';
 import { GridActionCmp } from './grid/action/action';
 import { GridContentCmp } from './grid/content/content';
 
@@ -78,7 +78,8 @@ import { AlertDialogCmp } from './alert.dialog/alert.dialog';
     AlertDialogCmp
   ],
   providers: [
-      DialogService
+      DialogService,
+      LocalStorageService
   ]
 })
 export class SharedModule { }

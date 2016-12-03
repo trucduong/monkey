@@ -1,7 +1,7 @@
 import { Component, OnChanges, SimpleChange,
     Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
-import { BaseModel, PaginationInfo, ComboboxService, SmartGridInfo, SortInfo, FilterInfo, GridColumn } from '../index';
+import { BaseModel, PaginationInfo, SortInfo, FilterInfo, BaseGridCmp, SmartGridInfo } from '../index';
 import { FilterCmp } from '../filter/filter';
 
 @Component({
@@ -10,26 +10,38 @@ import { FilterCmp } from '../filter/filter';
     styleUrls: ['src/app/shared/smartgrid/smartgrid.css'],
 
 })
-export class SmartGridCmp<T extends BaseModel> implements OnChanges {
+export class SmartGridCmp<T extends BaseModel> extends BaseGridCmp<T> implements OnChanges {
     @Input('info') info: SmartGridInfo;
+    @Output('onExecute') onExecute = new EventEmitter<any>();
     @Input('data-source') dataSources: T[];
 
-    @Output('onExecute') onExecute = new EventEmitter<any>();
-
     selectedItem: T;
-    items: T[];
-    activeItems: T[];
-    sortInfo: SortInfo;
-    filterInfo: FilterInfo;
-    paginationInfo: PaginationInfo;
-    isEditingMode: boolean;
 
     @ViewChild(FilterCmp)
     private filterCmp: FilterCmp;
 
     constructor() {
+        super();
         if (!this.dataSources) {
             this.dataSources = [];
+        }
+    }
+
+    getInfo() {
+        return this.info;
+    }
+
+    getEventEmitter(): EventEmitter<any> {
+        return this.onExecute;
+    }
+    
+    getDataSource(): T[] {
+        return this.dataSources;
+    }
+
+    clearFilter() {
+        if (this.filterCmp) {
+            this.filterCmp.clear();
         }
     }
 
@@ -44,94 +56,6 @@ export class SmartGridCmp<T extends BaseModel> implements OnChanges {
         }
 
         this.filter();
-    }
-
-    filter(value?: string) {
-        this.filterInfo.value = value;
-        // filter data
-        if (this.filterInfo.isEmpty()) {
-            this.items = this.dataSources;
-        } else {
-            this.items = this.dataSources.filter(e => {
-                let res = false;
-                this.filterInfo.columns.every(c => {
-                    if ((e[c] + '').indexOf(value) != -1) {
-                        res = true;
-                        return false;
-                    }
-                    return true;
-                });
-                return res;
-            });
-        }
-
-        this.paginationInfo = new PaginationInfo(this.items.length);
-
-        // clear sort
-        this.sort();
-    }
-
-    sort(header?: GridColumn) {
-        let column = null;
-        let order = null;
-        // sorrt default
-        if (header) {
-            if (!header.sortable) {
-                return;
-            } else {
-                column = header.fieldInfo.name;
-                order = column == this.sortInfo.column ? (this.sortInfo.order == 'asc' ? 'desc' : 'asc') : 'asc';
-            }
-        } else { // sort default
-            if (this.sortInfo.isEmpty()) {
-                this.paging(1);
-                return;
-            } else {
-                column = this.sortInfo.column;
-                order = this.sortInfo.order;
-            }
-        }
-
-        // update sort info
-        if (column && order) {
-            this.sortInfo = new SortInfo(column, order);
-            let x = order == 'asc' ? 1 : -1;
-            this.items = this.items.sort((a: T, b: T) => {
-                if (a[column] > b[column]) {
-                    return x;
-                }
-
-                if (a[column] < b[column]) {
-                    return -x;
-                }
-
-                return 0;
-            });
-        }
-
-        // pagination to 1
-        this.paging(1);
-    }
-
-    paging(index: number) {
-        if (index == 0) {
-            this.filterCmp.clear();
-            this.onExecute.emit({ action: 'load' });
-            this.isEditingMode = false;
-        }
-
-        this.paginationInfo.setCurrent(index);
-        let start = (this.paginationInfo.current - 1) * this.paginationInfo.getMaxRow();
-        let end = start + this.paginationInfo.getMaxRow();
-        if (end > this.items.length) {
-            end = this.items.length;
-        }
-
-        if (start < end) {
-            this.activeItems = this.items.slice(start, end);
-        } else {
-            this.activeItems = [];
-        }
     }
 
     execute(action: string, item: T) {
@@ -158,7 +82,7 @@ export class SmartGridCmp<T extends BaseModel> implements OnChanges {
             item.isDirty = false;
             return;
 
-        }else if (action == 'save') {
+        } else if (action == 'save') {
             if (!this.validate(item)) {
                 return;
             }
@@ -168,7 +92,7 @@ export class SmartGridCmp<T extends BaseModel> implements OnChanges {
         }
 
         this.onExecute.emit({
-            action: action, data: item, callback: res => {
+            action: action, data: item, callBack: res => {
                 if (action == 'add') {
                     this.dataSources.push(res.data);
                     this.info.model = res.newModel;
@@ -186,95 +110,4 @@ export class SmartGridCmp<T extends BaseModel> implements OnChanges {
         });
 
     }
-
-    getHeaderClass(header: GridColumn): string {
-        let css = header.sortable ? 'sort-able ' : '';
-
-        if (header.fieldInfo.name == this.sortInfo.column) {
-            css += 'sorting_' + this.sortInfo;
-        }
-
-        return css;
-    }
-
-    isRefText(labelKey: string) {
-        if (labelKey.substr(0, 4) == 'ref.') {
-            return true;
-        }
-        return false;
-    }
-
-    isCustomRefText(labelKey: string) {
-        if (!this.info.translateServices) {
-            return false;
-        }
-
-        let ser = this.info.translateServices.get(labelKey);
-        if (ser) {
-            return true;
-        }
-
-        return false;
-    }
-
-    isNormalText(labelKey: string) {
-        return !this.isRefText(labelKey) && !this.isCustomRefText(labelKey);
-    }
-
-    isCustomFormatText(fieldInfo: any) {
-        if (fieldInfo['type'] == 'date' 
-            || fieldInfo['type'] == 'datetime'
-            || fieldInfo['type'] == 'time'
-            || fieldInfo['type'] == 'number') {
-            return true;
-        }
-
-        return false;
-    }
-
-    validate(model: T) {
-        let mthis = this;
-        let isSuccess = true;
-        mthis.info.columns.forEach(col => {
-            isSuccess = col.fieldInfo.validate(model[col.fieldInfo.name]) ? isSuccess : false;
-        });
-
-        return isSuccess;
-    }
-
-    clearError() {
-        this.info.columns.forEach(col => {
-            col.fieldInfo.clearErrors();
-        });
-    }
-
-    // goToFristColumn() {
-    //     this.setFocus(this.info.columns[0]);
-    // }
-
-    // goToFristError() {
-    //     for (let index = 0; index < this.info.columns.length; index++) {
-    //         if (this.info.columns[index].fieldInfo.hasError()) {
-    //             this.setFocus(this.info.columns[0]);
-    //             return;
-    //         }
-    //     }
-        
-    //     this.goToFristColumn();
-    // }
-
-    // setFocus(column: GridColumn) {
-    //     this.info.columns.forEach(col => {
-    //         if (col == column) {
-    //             col.fieldInfo.autofocus = true;
-    //         } else {
-    //             col.fieldInfo.autofocus = false;
-    //         }
-    //     });
-
-    //     let element = document.getElementsByClassName('xxx')[0];
-    //     if (element) {
-    //         (<HTMLElement> element).focus();
-    //     }
-    // }
 }

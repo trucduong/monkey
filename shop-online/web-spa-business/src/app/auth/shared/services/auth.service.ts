@@ -47,4 +47,12 @@ export class AuthService extends BaseHttpService {
     getPermissions() {
         return this.get(SERVICES.URLS.auth, SERVICES.ACTIONS.READ_ALL_PERMISSION, []);
     }
+
+    login(loginName: string, passWord: string) {
+        return this.post(SERVICES.URLS.auth, SERVICES.ACTIONS.LOGIN, {loginName: loginName, password: passWord}, []);
+    }
+
+    logout() {
+        return this.post(SERVICES.URLS.auth, SERVICES.ACTIONS.LOGOUT, '', []);
+    }
 }

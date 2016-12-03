@@ -1,7 +1,19 @@
 import { CommonUtils, Validator, Error, RequiredValidator, LengthValidator, NumberValidator, ComboboxService } from '../../index';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
-export interface ValueChangeEvent {
+export class ValueChangeEvent {
+    oldValue: any;
+    newValue: any;
+    detail: any;
+
+    constructor(oldValue: any, newValue: any, detail?: any) {
+        this.oldValue = oldValue;
+        this.newValue = newValue;
+        this.detail = detail;
+    }
+}
+
+export interface ValueChangeListener {
     onChanged(obj: any);
 }
 
@@ -73,7 +85,7 @@ export class FormFieldInfo extends ValidatorHandler {
     autofocus: boolean;
     placeholder: string;
 
-    private valuechangelisteners: ValueChangeEvent[];
+    private valuechangelisteners: ValueChangeListener[];
 
     constructor(translate: TranslateService, name: string, label: string, required: boolean, isSingle?: boolean) {
         super(translate);
@@ -116,13 +128,13 @@ export class FormFieldInfo extends ValidatorHandler {
         return !this.hasError();
     }
 
-    addValueChangeListener(event: ValueChangeEvent) {
-        this.valuechangelisteners.push(event);
+    addValueChangeListener(listener: ValueChangeListener) {
+        this.valuechangelisteners.push(listener);
     }
 
-    fireValueChangeListener(item: any) {
-        this.valuechangelisteners.forEach(event => {
-            event.onChanged(item);
+    fireValueChangeListener(event: ValueChangeEvent) {
+        this.valuechangelisteners.forEach(listener => {
+            listener.onChanged(event);
         });
     }
 }

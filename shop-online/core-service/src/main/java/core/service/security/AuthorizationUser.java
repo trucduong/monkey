@@ -7,7 +7,7 @@ import core.common.encode.Base64Encoder;
 import core.common.format.json.JsonFormatter;
 
 public class AuthorizationUser {
-	private static final String PRIVATE_AUTH_KEY = "MOK";
+	public static String T_AUTH_TOKEN = "T_AUTH_TOKEN";
 	
 	private String loginName;
 	private Date loggedTime;
@@ -16,23 +16,29 @@ public class AuthorizationUser {
 	@Override
 	public String toString() {
 		String json = JsonFormatter.toJson(this);
-		return Base64Encoder.encode(PRIVATE_AUTH_KEY + json);
+		return Base64Encoder.encode(json);
 	}
 	
-	public static AuthorizationUser fromString(String serializedStr) {
+	public static AuthorizationUser fromString(String authToken) {
 		AuthorizationUser user = null;
 		try {
-			String json = Base64Encoder.decode(serializedStr).substring(PRIVATE_AUTH_KEY.length());
+			String json = Base64Encoder.decode(authToken);
 			user = JsonFormatter.fromJson(json, AuthorizationUser.class);
-		} catch (Exception e) {}
+		} catch (Exception e) {
+			user = new AuthorizationUser();
+		}
 		return user;
 	}
 	
 	public boolean hasPermission(String permission) {
-		if (this.permissions != null) {
-			return this.permissions.contains(permission);
+		if (getPermissions() != null) {
+			return getPermissions().contains(permission);
 		}
 		return false;
+	}
+	
+	public boolean isAuthenticated() {
+		return this.getLoginName() != null;
 	}
 
 	public String getLoginName() {

@@ -1,0 +1,60 @@
+<div class="col-xs-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-12">
+                    <smartcmb-field-cmp [info]="searchField" [(fieldModel)]="searchText"></smartcmb-field-cmp>
+                </div>
+            </div>
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="table-responsive">
+                        <table width="100%" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>...</th>
+                                    <th *ngFor="let header of info.columns" [style.width]="header.width+'%'" (click)="sort(header)" [class.sort-able]="header.sortable">{{ header.fieldInfo.label | translate}}<span *ngIf="header.fieldInfo.name==sortInfo.column"
+                                            [class]="'fa fa-sort-'+sortInfo.order"></span></th>
+                                    <th style="min-width:85px;">{{'common.list.action' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of items; let idx = index;" class="gradeX" [class.odd]="odd" [class.even]="even">
+                                    <td>{{idx + 1}}</td>
+                                    <td *ngFor="let header of info.columns">
+                                        <div *ngIf="!(header.editable)">
+                                            <span *ngIf="isRefText(header.fieldInfo.label)">{{header.fieldInfo.label+'.'+item[header.fieldInfo.name] | translate}}</span>
+                                            <span *ngIf="isCustomRefText(header.fieldInfo.label)">{{item[header.fieldInfo.name]|cusTranslate:info.translateServices.get(header.fieldInfo.label)}}</span>
+                                            <span *ngIf="isNormalText(header.fieldInfo.label) && !isCustomFormatText(header.fieldInfo)">{{item[header.fieldInfo.name]}}</span>
+                                            <span *ngIf="header.fieldInfo.type=='date'">{{item[header.fieldInfo.name] | date:'MM/dd/yyyy'}}</span>
+                                            <span *ngIf="header.fieldInfo.type=='number'">{{item[header.fieldInfo.name] | cusNumber:{separated: true} }}</span>
+                                        </div>
+                                        <div *ngIf="header.editable">
+                                            <cmb-field-cmp *ngIf="header.fieldInfo.type=='combobox'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></cmb-field-cmp>
+                                            <smartcmb-field-cmp *ngIf="header.fieldInfo.type=='smartcombobox'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></smartcmb-field-cmp>
+                                            <text-field-cmp *ngIf="header.fieldInfo.type=='text'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></text-field-cmp>
+                                            <text-field-cmp *ngIf="header.fieldInfo.type=='email'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></text-field-cmp>
+                                            <number-field-cmp *ngIf="header.fieldInfo.type=='number'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></number-field-cmp>
+                                            <date-field-cmp *ngIf="header.fieldInfo.type=='date'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></date-field-cmp>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button (click)="execute('delete', item)" type="button" class="btn btn-danger btn-circle btn-margin"><i class="fa fa-times"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                     <button *ngIf="items?.length > 0" (click)="execute('saveAll', items)" type="button" class="btn btn-primary form-action"><i class="fa fa-floppy-o"></i></button>
+                </div>
+            </div>
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>

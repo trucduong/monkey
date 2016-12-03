@@ -4,13 +4,16 @@ export const SERVICES: any = {
         resource: 'http://localhost:7070/service-common/resource-service',
         product: 'http://localhost:7070/service-catalogue/product',
         product_group: 'http://localhost:7070/service-catalogue/product-group',
+        warehouse: 'http://localhost:7070/service-catalogue/warehouse',
+
         customer: 'http://localhost:7070/service-partner/customer',
         customer_group: 'http://localhost:7070/service-partner/customer-group',
         supplier: 'http://localhost:7070/service-partner/supplier',
         supplier_group: 'http://localhost:7070/service-partner/supplier-group',
         employee: 'http://localhost:7070/service-partner/employee',
+
         shop: 'http://localhost:7070/service-shop/shop',
-        warehouse: 'http://localhost:7070/service-shop/warehouse',
+        
         user_account: 'http://localhost:7070/service-auth/user-account',
         auth: 'http://localhost:7070/service-auth/auth',
     },
@@ -19,6 +22,7 @@ export const SERVICES: any = {
         READ_D: '/read-d/{0}',
         READ_BY: 'read-by/{0}/{1}',
         READ_ALL: '/read-all',
+        READ_ALL_REF: '/read-all-ref',
         READ_ALL_D: '/read-all-d',
         READ_ALL_BY: '/read-all-by/{0}/{1}',
         CREATE: '/create',
@@ -35,7 +39,8 @@ export const SERVICES: any = {
 
         UPDATE_PERMISSION: '/update-permissions/{0}',
         UPDATE_PASSWORD: '/update-password/{0}',
-        READ_ALL_PERMISSION: '/permission/read-all'
-
+        READ_ALL_PERMISSION: '/permission/read-all',
+        LOGIN:'/login',
+        LOGOUT:'/logout'
     }
 };

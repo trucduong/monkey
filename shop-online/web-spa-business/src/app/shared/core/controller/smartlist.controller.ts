@@ -82,7 +82,7 @@ export abstract class SmartListController<T extends BaseModel> extends BaseContr
         // save
         this.save(param.data, isEditing)
             .then(item => {
-                param.callback({ data: item, newModel: this.createModel() });
+                param.callBack({ data: item, newModel: this.createModel() });
                 this.hideLoading();
             })
             .catch(error => {

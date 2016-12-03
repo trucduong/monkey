@@ -1,18 +1,21 @@
 import { Component, OnChanges, Input, Output, EventEmitter, SimpleChange } from '@angular/core';
 import {TranslateService} from 'ng2-translate/ng2-translate';
-import { Error, CommonUtils, FormFieldInfo, TextFieldInfo, CheckboxFieldInfo, CmbFieldInfo, SmartCmbFieldInfo } from '../../core/index';
+import { Error, CommonUtils, FormFieldInfo, TextFieldInfo, CheckboxFieldInfo, CmbFieldInfo, SmartCmbFieldInfo, ValueChangeEvent } from '../../core/index';
 
 export class CustomField {
     @Input('info') info: FormFieldInfo;
     @Input('fieldModel') fieldModel: any;
     @Output() fieldModelChange: any = new EventEmitter();
 
-    updateData(event) {
+    updateData(event, data?: any) {
+        let oldValue = this.fieldModel;
         this.fieldModel = event;
         if (this.info) {
             this.info.validate(this.fieldModel);
         }
         this.fieldModelChange.emit(event);
+
+        this.info.fireValueChangeListener(new ValueChangeEvent(oldValue, event, data));
     }
 }
 
@@ -182,7 +185,6 @@ export class SmartCmbFieldCmp extends CustomField implements OnChanges {
     }
 
     onFilter(event: KeyboardEvent) {
-        console.log(event);
         if (event.key == 'Escape') {
             this.filteredList = [];
             this.updateSearchText();
@@ -199,6 +201,10 @@ export class SmartCmbFieldCmp extends CustomField implements OnChanges {
         mthis.filteredList = mthis.dataSources.filter(item => {
             return cmbInfo.getLabel(item).toLowerCase().indexOf(mthis.searchText) > -1;
         });
+    }
+
+    showAll() {
+        this.filteredList = this.dataSources;
     }
 
     updateSearchText() {
@@ -225,7 +231,8 @@ export class SmartCmbFieldCmp extends CustomField implements OnChanges {
         mthis.oldSearchText = mthis.searchText;
         mthis.searchText = cmbInfo.getLabel(item);
         mthis.selectionChanged = true;
-        mthis.updateData(cmbInfo.getValue(item));
+        let newValue = cmbInfo.getValue(item)
+        mthis.updateData(newValue, item);
         mthis.filteredList = [];
     }
 }

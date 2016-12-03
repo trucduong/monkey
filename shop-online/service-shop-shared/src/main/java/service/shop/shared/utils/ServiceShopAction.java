@@ -7,7 +7,6 @@ public class ServiceShopAction extends CRUDServiceAction {
 	private static final String SERVER_URL = "service.shop.server.url";
 
 	public static final String SHOP_SERVICE = "/shop";
-	public static final String WAREHOUSE_SERVICE = "/warehouse";
 	
 	@Override
 	public String getServerName() {

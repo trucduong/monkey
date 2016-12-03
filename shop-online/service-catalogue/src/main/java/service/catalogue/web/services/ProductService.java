@@ -60,6 +60,17 @@ public class ProductService extends CRUDService<Product, ProductDto> {
 		return new ProductDto();
 	}
 
+	@RequestMapping(value = ServiceCatalogueAction.READ_ALL_REF, method = RequestMethod.GET)
+	public ServiceResult readAllRef() throws CommonException {
+		init();
+		List<ProductDto> products = dao.getProductRef(ProductStatus.ACTIVE);
+		if (products.size() == 0) {
+			return error(ServiceErrorCode.NOT_FOUND);
+		}
+
+		return success(products);
+	}
+	
 	@RequestMapping(value = ServiceCatalogueAction.UPDATE_D, method = RequestMethod.POST)
 	public ServiceResult updateDetail(@RequestBody ProductDto dto, @PathVariable("id") long id) throws CommonException {
 		init();
