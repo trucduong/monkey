@@ -56,23 +56,33 @@ export class GridInputCmp<T extends BaseModel> extends BaseGridCmp<T> implements
         }
     }
 
-    execute(action: string, item: T) {
+    execute(action: string, data: any) {
         let mthis = this;
         if (action == 'save') {
-            if (!mthis.validate(item)) {
+            if (!mthis.validate(data)) {
                 return;
             }
         } else if (action == 'saveAll') {
             mthis.clearError();
+            let success = true;
+            mthis.items.forEach(e => {
+                success = success && mthis.validate(e);
+            });
+            if (!success) {
+                return;
+            }
+
         } else if (action == 'delete') {
             mthis.clearError();
-            mthis.delete(item);
+            mthis.delete(data);
         }
 
         mthis.onExecute.emit({
-            action: action, data: item, callBack: res => {
+            action: action, data: data, callBack: res => {
                 if (res.action == 'add') {
                     mthis.items.push(res.data);
+                } else if (res.action == 'clear') {
+                    mthis.items = [];
                 }
             }
         });

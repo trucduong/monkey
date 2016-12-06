@@ -45,7 +45,7 @@ export class EmployeeDetailCmp extends SmartListController<Employee> implements 
 
     let faceAmountField = new NumberFieldInfo(this.getTranslator(), 'faceAmount', 'employee.faceAmount', false, 0, 10000000000, 1000000);
 
-    let joinDateField = new DateFieldInfo(this.getTranslator(), 'joinDate', 'employee.joinDate', true, null, null);
+    let joinDateField = new DateFieldInfo(this.getTranslator(), 'joinDate', 'employee.joinDate', true);
 
     let columns: GridColumn[] = [
       { fieldInfo: nameField, editable: false, sortable: true, width: 20 },

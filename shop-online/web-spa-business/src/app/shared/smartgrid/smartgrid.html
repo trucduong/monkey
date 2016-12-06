@@ -20,7 +20,7 @@
                                 <tr>
                                     <th *ngFor="let header of info.columns" [style.width]="header.width+'%'" (click)="sort(header)" [class.sort-able]="header.sortable">{{ header.fieldInfo.label | translate}}<span *ngIf="header.fieldInfo.name==sortInfo.column"
                                             [class]="'fa fa-sort-'+sortInfo.order"></span></th>
-                                    <th style="min-width:85px;">{{'common.list.action' | translate}}</th>
+                                    <th *ngIf="hasAction()" style="min-width:85px;">{{'common.list.action' | translate}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -31,7 +31,7 @@
                                         <text-field-cmp *ngIf="header.fieldInfo.type=='text'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]"></text-field-cmp>
                                         <text-field-cmp *ngIf="header.fieldInfo.type=='email'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]"></text-field-cmp>
                                         <number-field-cmp *ngIf="header.fieldInfo.type=='number'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]"></number-field-cmp>
-                                        <date-field-cmp *ngIf="header.fieldInfo.type=='date'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]"></date-field-cmp>
+                                        <date-field-cmp *ngIf="header.fieldInfo.fieldType=='date'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]"></date-field-cmp>
                                     </td>
                                     <td>
                                         <button (click)="execute('add', info.model)" type="button" class="btn btn-primary btn-circle btn-margin"><i class="fa fa-plus"></i></button>
@@ -45,7 +45,7 @@
                                             <span *ngIf="isRefText(header.fieldInfo.label)">{{header.fieldInfo.label+'.'+item[header.fieldInfo.name] | translate}}</span>
                                             <span *ngIf="isCustomRefText(header.fieldInfo.label)">{{item[header.fieldInfo.name]|cusTranslate:info.translateServices.get(header.fieldInfo.label)}}</span>
                                             <span *ngIf="isNormalText(header.fieldInfo.label) && !isCustomFormatText(header.fieldInfo)">{{item[header.fieldInfo.name]}}</span>
-                                            <span *ngIf="header.fieldInfo.type=='date'">{{item[header.fieldInfo.name] | date:'MM/dd/yyyy'}}</span>
+                                            <span *ngIf="header.fieldInfo.fieldType=='date'">{{item[header.fieldInfo.name] | date:header.fieldInfo.format}}</span>
                                             <span *ngIf="header.fieldInfo.type=='number'">{{item[header.fieldInfo.name] | cusNumber:{separated: true} }}</span>
                                         </div>
                                         <div *ngIf="info.option.editable && header.editable && item.isDirty">
@@ -54,10 +54,10 @@
                                             <text-field-cmp *ngIf="header.fieldInfo.type=='text'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></text-field-cmp>
                                             <text-field-cmp *ngIf="header.fieldInfo.type=='email'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></text-field-cmp>
                                             <number-field-cmp *ngIf="header.fieldInfo.type=='number'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></number-field-cmp>
-                                            <date-field-cmp *ngIf="header.fieldInfo.type=='date'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></date-field-cmp>
+                                            <date-field-cmp *ngIf="header.fieldInfo.fieldType=='date'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></date-field-cmp>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td *ngIf="hasAction()">
                                         <span *ngIf="info.option.editable && !item.isDirty && !isEditingMode">
                                             <button *ngFor="let b of info.actions" (click)="execute(b.name, item)" type="button" class="{{'btn ' + b.type + ' btn-circle btn-margin'}}"><i class="{{b.icon}}" aria-hidden="true"></i></button>
                                         </span>

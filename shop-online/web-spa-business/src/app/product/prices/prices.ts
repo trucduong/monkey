@@ -48,7 +48,7 @@ export class ProductPricesCmp extends SmartListController<Product> implements On
     let columns: GridColumn[] = [
       { fieldInfo: nameField, editable: false, sortable: true, width: 30 },
       { fieldInfo: groupField, editable: false, sortable: true, width: 20 },
-      { fieldInfo: remainingField, editable: true, sortable: true, width: 20 },
+      { fieldInfo: remainingField, editable: false, sortable: true, width: 20 },
       { fieldInfo: discountField, editable: true, sortable: true, width: 20 },
       { fieldInfo: inputPriceField, editable: true, sortable: true, width: 20 },
       { fieldInfo: wholesalePriceField, editable: true, sortable: true, width: 20 },

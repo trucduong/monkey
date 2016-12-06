@@ -18,7 +18,7 @@ public abstract class TranslateService {
 	
 	public String translate(String key) {
 		// Get cache data
-		Map<String, String> maps = CacheProvider.getInstance(cacheManager).load(getServiceKey(), new CacheLoader<Map<String, String>>() {
+		Map<String, String> maps = CacheProvider.getInstance(cacheManager).load("translation." + getServiceKey(), new CacheLoader<Map<String, String>>() {
 			@Override
 			public Map<String, String> load() {
 				return TranslateService.this.load();

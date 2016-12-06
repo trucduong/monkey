@@ -49,7 +49,7 @@ export class EmployeeCmp extends SmartListController<Employee> implements OnInit
 
     let emailField = new EmailFieldInfo(this.getTranslator(), 'email', 'employee.email', false, 0, 100);
 
-    let birthField = new DateFieldInfo(this.getTranslator(), 'birthDate', 'employee.birthDate', false, null, new Date());
+    let birthField = new DateFieldInfo(this.getTranslator(), 'birthDate', 'employee.birthDate', false);
 
     let refWorkStatusService = new RefComboboxService(CMB_FILTERS.EMPLOYEE_STATUS.type, this.employeeService);
     let workingStatusField = new CmbFieldInfo(this.getTranslator(), refWorkStatusService, 'workingStatus', 'ref.employee.status', true);

@@ -53,6 +53,7 @@ public abstract class BaseEntity implements Serializable, IEntity {
 	public static final String CURRENCY = "DECIMAL(13,2)";
 //	public static final String BIG_CURRENCY = "DECIMAL(20,2)";
 	public static final String DATE = "DATE";
+	public static final String TIMESTAMP = "TIMESTAMP";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

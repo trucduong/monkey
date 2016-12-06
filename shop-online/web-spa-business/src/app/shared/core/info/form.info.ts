@@ -82,6 +82,7 @@ export class FormFieldInfo extends ValidatorHandler {
     visible: boolean;
 
     type: string;
+    fieldType: string;
     autofocus: boolean;
     placeholder: string;
 
@@ -277,39 +278,28 @@ export class NumberFieldInfo extends FormFieldInfo {
 }
 
 export class DateFieldInfo extends FormFieldInfo {
-    format: 'dd/MM/yyyy';
+    format: string;
     max: Date;
     min: Date;
-    constructor(translate: TranslateService, name: string, label: string, required: boolean, min: Date, max: Date) {
+    constructor(translate: TranslateService, name: string, label: string, required: boolean, type?: string) {
         super(translate, name, label, required);
-        this.max = max;
-        this.min = min;
-        this.type = 'date';
+        this.fieldType = 'date';
+        
+        if (!type) {
+            type = 'date';
+        }
+        this.setType(type);
     }
-}
 
-export class DateTimeFieldInfo extends FormFieldInfo {
-    format: 'dd/MM/yyyy HH:mm:ss';
-    max: Date;
-    min: Date;
-    constructor(translate: TranslateService, name: string, label: string, required: boolean, min: Date, max: Date) {
-        super(translate, name, label, required);
-        this.max = max;
-        this.min = min;
-        this.type = 'datetime';
-    }
-}
-
-
-export class TimeFieldInfo extends FormFieldInfo {
-    format: 'HH:mm:ss';
-    max: Date;
-    min: Date;
-    constructor(translate: TranslateService, name: string, label: string, required: boolean, min: Date, max: Date) {
-        super(translate, name, label, required);
-        this.max = max;
-        this.min = min;
-        this.type = 'time';
+    setType(type: string) {
+        this.type = type;
+        if (type == 'datetime') {
+            this.format = 'dd/MM/yyyy HH:mm:ss';
+        } else if (type == 'time') {
+            this.format = 'HH:mm:ss';
+        } else {
+            this.format = 'dd/MM/yyyy';
+        }
     }
 }
 

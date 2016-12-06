@@ -1,21 +1,21 @@
 export const SERVICES: any = {
     URLS: {
-        ref: 'http://localhost:7070/service-common/ref-service',
-        resource: 'http://localhost:7070/service-common/resource-service',
-        product: 'http://localhost:7070/service-catalogue/product',
-        product_group: 'http://localhost:7070/service-catalogue/product-group',
-        warehouse: 'http://localhost:7070/service-catalogue/warehouse',
+        ref: 'http://localhost:7070/service-monkey/ref-service',
+        resource: 'http://localhost:7070/service-monkey/resource-service',
+        product: 'http://localhost:7070/service-monkey/product',
+        product_group: 'http://localhost:7070/service-monkey/product-group',
+        warehouse: 'http://localhost:7070/service-monkey/warehouse',
 
-        customer: 'http://localhost:7070/service-partner/customer',
-        customer_group: 'http://localhost:7070/service-partner/customer-group',
-        supplier: 'http://localhost:7070/service-partner/supplier',
-        supplier_group: 'http://localhost:7070/service-partner/supplier-group',
-        employee: 'http://localhost:7070/service-partner/employee',
+        customer: 'http://localhost:7070/service-monkey/customer',
+        customer_group: 'http://localhost:7070/service-monkey/customer-group',
+        supplier: 'http://localhost:7070/service-monkey/supplier',
+        supplier_group: 'http://localhost:7070/service-monkey/supplier-group',
+        employee: 'http://localhost:7070/service-monkey/employee',
 
-        shop: 'http://localhost:7070/service-shop/shop',
+        shop: 'http://localhost:7070/service-monkey/shop',
         
-        user_account: 'http://localhost:7070/service-auth/user-account',
-        auth: 'http://localhost:7070/service-auth/auth',
+        user_account: 'http://localhost:7070/service-monkey/user-account',
+        auth: 'http://localhost:7070/service-monkey/auth'
     },
     ACTIONS: {
         READ: '/read/{0}',
@@ -40,6 +40,10 @@ export const SERVICES: any = {
         UPDATE_PERMISSION: '/update-permissions/{0}',
         UPDATE_PASSWORD: '/update-password/{0}',
         READ_ALL_PERMISSION: '/permission/read-all',
+
+        WAREHOUSE_IMPORT: '/warehouse-import',
+        WAREHOUSE_IMPORT_HISTORY: '/warehouse-import-history',
+
         LOGIN:'/login',
         LOGOUT:'/logout'
     }

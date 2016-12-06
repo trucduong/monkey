@@ -58,6 +58,10 @@ export class SmartGridCmp<T extends BaseModel> extends BaseGridCmp<T> implements
         this.filter();
     }
 
+    hasAction(): boolean {
+        return this.info.option.editable || this.info.option.addable || this.info.option.deleteable;
+    }
+
     execute(action: string, item: T) {
         if (action == 'select') {
             if (!this.info.option.selectable) {

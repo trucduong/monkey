@@ -140,4 +140,9 @@ export abstract class BaseController {
     log(data: any) {
         console.log(data);
     }
+
+    // Auth
+    getCurrentUser() {
+        return {loginName: 'admin', employeeId: '1', employeeName: 'admin'};
+    }
 }

@@ -3,10 +3,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
-import { BaseController, GridColumn, SortInfo, SmartGridInfo,
-  GridOption, TextFieldInfo, CmbFieldInfo, NumberFieldInfo, ComboboxService } from '../../shared/index';
-import {WarehouseService, ImportModel } from '../shared/index';
+import { BaseController, GridColumn, SortInfo, SmartGridInfo, FormInfo, AlertType,
+  GridOption, TextFieldInfo, CmbFieldInfo, SmartCmbFieldInfo, NumberFieldInfo, ComboboxService } from '../../shared/index';
+import {WarehouseService, ImportModel, RefWarehouseService } from '../shared/index';
 import {Product, RefProductService} from '../../product/shared/index';
+import {RefSupplierService} from '../../supplier/shared/index';
 
 @Component({
   selector: 'warehouse-import',
@@ -15,7 +16,10 @@ import {Product, RefProductService} from '../../product/shared/index';
 
 export class WarehouseImportCmp extends BaseController implements OnInit {
 
+  model: ImportModel;
   gridInfo: SmartGridInfo;
+  formInfo: FormInfo;
+  currentDate: Date;
 
   constructor(
     route: ActivatedRoute,
@@ -23,6 +27,17 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
     translate: TranslateService,
     private warehouseService: WarehouseService) {
     super(router, translate);
+
+    this.model = new ImportModel();
+    this.updateCurrentDate();
+  }
+
+  updateCurrentDate() {
+    let mthis = this;
+    mthis.currentDate = new Date();
+    window.setTimeout(tick => {
+      mthis.updateCurrentDate();
+    }, 1000);
   }
 
   getCurrentUrl(): string {
@@ -31,8 +46,9 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
 
   ngOnInit() {
     this.showLoading();
+    this.formInfo = this.buildInputForm();
 
-    this.gridInfo = this.build();
+    this.gridInfo = this.buildGrid();
     this.gridInfo.model = this.createModel();
     this.gridInfo.translateServices = this.getTranslateServices();
     this.gridInfo.columns.forEach(col => {
@@ -49,7 +65,7 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
     return services;
   }
 
-  build(): SmartGridInfo {
+  buildGrid(): SmartGridInfo {
     let option = new GridOption(false, false, true, false);
 
     // let idField = new TextFieldInfo(this.getTranslator(), 'id', 'product.id', true, 0, 100);
@@ -73,15 +89,57 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
     return grid;
   }
 
+  buildInputForm(): FormInfo {
+    let form = new FormInfo(this.getTranslator(), this.model, '');
+
+    form.addField(new TextFieldInfo(this.getTranslator(), 'referenceNo', 'warehouse.import.referenceNo', false, 0, 100));
+
+    let refWarehouseService = new RefWarehouseService(this.warehouseService);
+    form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.import.warehouseId', true));
+
+    let refSupplierService = new RefSupplierService(this.warehouseService);
+    form.addField(new SmartCmbFieldInfo(this.getTranslator(), refSupplierService, 'supplier', 'warehouse.import.supplier', false, true));
+
+    return form;
+  }
+
   createModel(): Product {
     return new Product();
   }
 
   onExecute(param: any) {
+    let mthis = this;
     if (param.action == 'add') {
       let product = <Product>param.data;
       product.remaining = 1;
-      param.callBack({action: 'add', data: product});
+      param.callBack({ action: 'add', data: product });
+    } else if (param.action == 'saveAll') {
+      // validaion
+      let products = <Product[]>param.data
+      if (!products || products.length == 0) {
+        return;
+      }
+
+      if (!mthis.formInfo.validate(mthis.model)) {
+        return;
+      }
+
+      // repare data
+      mthis.model.details = products;
+      mthis.model.employeeId = mthis.getCurrentUser().employeeId;
+
+      // call save service
+      mthis.showLoading();
+      mthis.warehouseService.importProducts(mthis.model)
+      .then(res => {
+        mthis.hideLoading();
+        mthis.alert(AlertType.success, 'common.alert.content.update.success');
+        param.callBack({action:'clear'});
+      })
+      .catch(err => {
+        mthis.hideLoading();
+        mthis.alert(AlertType.danger, err);
+      });
     }
   }
 }

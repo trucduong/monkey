@@ -7,6 +7,7 @@ import { routing } from './warehouse.routing';
 
 import { WarehouseCmp } from './warehouse';
 import { WarehouseImportCmp } from './import/import';
+import { WarehouseImportHistoryCmp } from './importhistory/import.history';
 
 
 import {WarehouseService} from './shared/index';
@@ -19,6 +20,7 @@ import {WarehouseService} from './shared/index';
   declarations: [
     WarehouseCmp,
     WarehouseImportCmp,
+    WarehouseImportHistoryCmp,
   ],
   providers: [
       WarehouseService

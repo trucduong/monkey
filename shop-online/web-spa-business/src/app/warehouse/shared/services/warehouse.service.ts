@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import { SERVICES, BaseHttpService } from '../../../shared/index';
 
 import {Warehouse} from '../models/warehouse'
+import {ImportModel} from '../models/import.model'
 
 @Injectable()
 export class WarehouseService extends BaseHttpService {
@@ -34,4 +35,16 @@ export class WarehouseService extends BaseHttpService {
     deleteWarehouse(id: string) {
         return this.post(SERVICES.URLS.warehouse, SERVICES.ACTIONS.DELETE, {}, [id]);
     }
+
+    /**
+     * import
+     */
+    importProducts(importModel: ImportModel) {
+        return this.post(SERVICES.URLS.warehouse, SERVICES.ACTIONS.WAREHOUSE_IMPORT, importModel, []);
+    }
+
+    getImportHistories() {
+        return this.get(SERVICES.URLS.warehouse, SERVICES.ACTIONS.WAREHOUSE_IMPORT_HISTORY, []);
+    }
+    
 }
