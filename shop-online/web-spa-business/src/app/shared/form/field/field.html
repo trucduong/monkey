@@ -1,4 +1,4 @@
-<div *ngIf="info.visible" [attr.disabled]="!info.enabled" class="form-group" [class.required]="info.required">
+<div *ngIf="info.visible" [attr.disabled]="!info.enabled" class="custom-field form-group" [class.required]="info.required">
     <label *ngIf="!info.isSingle" class="control-label">{{ info.label | translate}}</label>
     <ng-content></ng-content>
 

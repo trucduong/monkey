@@ -4,17 +4,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import { BaseController, GridColumn, SortInfo, SmartGridInfo, FormInfo, AlertType,
-  GridOption, TextFieldInfo, CmbFieldInfo, SmartCmbFieldInfo, NumberFieldInfo, ComboboxService } from '../../shared/index';
+  GridOption, TextFieldInfo, CmbFieldInfo, NumberFieldInfo, ComboboxService } from '../../shared/index';
 import {WarehouseService, WarehouseModel, RefWarehouseService } from '../shared/index';
 import {Product, RefProductService} from '../../product/shared/index';
-import {RefSupplierService} from '../../supplier/shared/index';
+import {RefEmployeeService} from '../../employee/shared/index';
 
 @Component({
-  selector: 'warehouse-import',
-  templateUrl: 'src/app/warehouse/import/import.html'
+  selector: 'warehouse-detail',
+  templateUrl: 'src/app/warehouse/detail/detail.html'
 })
 
-export class WarehouseImportCmp extends BaseController implements OnInit {
+export class WarehouseDetailCmp extends BaseController implements OnInit {
 
   model: WarehouseModel;
   gridInfo: SmartGridInfo;
@@ -41,7 +41,7 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
   }
 
   getCurrentUrl(): string {
-    return '/warehouse-import';
+    return '/warehouse-detail';
   }
 
   ngOnInit() {
@@ -72,17 +72,11 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
     // idField.visible = false;
     let nameField = new TextFieldInfo(this.getTranslator(), 'name', 'product.name', true, 0, 100);
     let remainingField = new NumberFieldInfo(this.getTranslator(), 'remaining', 'product.remaining', true, 0, 0);
-    let inputPriceField = new NumberFieldInfo(this.getTranslator(), 'inputPrice', 'product.inputPrice', true, 0, 0, 1000);
-    let wholesalePriceField = new NumberFieldInfo(this.getTranslator(), 'wholesalePrice', 'product.wholesalePrice', true, 0, 0, 1000);
-    let retailPriceField = new NumberFieldInfo(this.getTranslator(), 'retailPrice', 'product.retailPrice', true, 0, 0, 1000);
 
     let columns: GridColumn[] = [
       // { fieldInfo: idField, editable: false, sortable: true, width: 1 },
-      { fieldInfo: nameField, editable: false, sortable: true, width: 30 },
-      { fieldInfo: remainingField, editable: true, sortable: true, width: 10 },
-      { fieldInfo: inputPriceField, editable: true, sortable: true, width: 20 },
-      { fieldInfo: wholesalePriceField, editable: true, sortable: true, width: 20 },
-      { fieldInfo: retailPriceField, editable: true, sortable: true, width: 20 },
+      { fieldInfo: nameField, editable: false, sortable: true, width: 80 },
+      { fieldInfo: remainingField, editable: true, sortable: true, width: 20 }
     ];
 
     let grid = new SmartGridInfo(option, columns, [], new SortInfo('name', 'asc'), null);
@@ -92,13 +86,12 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
   buildInputForm(): FormInfo {
     let form = new FormInfo(this.getTranslator(), this.model, '');
 
-    form.addField(new TextFieldInfo(this.getTranslator(), 'referenceNo', 'warehouse.import.referenceNo', false, 0, 100));
-
     let refWarehouseService = new RefWarehouseService(this.warehouseService);
     form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.import.warehouseId', true));
 
-    let refSupplierService = new RefSupplierService(this.warehouseService);
-    form.addField(new SmartCmbFieldInfo(this.getTranslator(), refSupplierService, 'supplier', 'warehouse.import.supplier', false, false));
+    let refEmployeeService = new RefEmployeeService(this.warehouseService);
+    form.addField(new CmbFieldInfo(this.getTranslator(), refEmployeeService, 'employeeId', 'warehouse.import.employee', true));
+    this.model.employeeId = this.getCurrentUser().employeeId;
 
     return form;
   }
@@ -110,9 +103,8 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
   onExecute(param: any) {
     let mthis = this;
     if (param.action == 'add') {
-      let product = <Product>param.data;
-      product.remaining = 1;
-      param.callBack({ action: 'add', data: product });
+      mthis.onAdd(param);
+
     } else if (param.action == 'saveAll') {
       // validaion
       let products = <Product[]>param.data
@@ -126,20 +118,46 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
 
       // repare data
       mthis.model.details = products;
-      mthis.model.employeeId = mthis.getCurrentUser().employeeId;
 
       // call save service
       mthis.showLoading();
-      mthis.warehouseService.importProducts(mthis.model)
-      .then(res => {
-        mthis.hideLoading();
-        mthis.alert(AlertType.success, 'common.alert.content.update.success');
-        param.callBack({action:'clear'});
-      })
-      .catch(err => {
-        mthis.hideLoading();
-        mthis.alert(AlertType.danger, err);
-      });
+      mthis.warehouseService.saveDetails(mthis.model)
+        .then(res => {
+          mthis.hideLoading();
+          mthis.alert(AlertType.success, 'common.alert.content.update.success');
+          param.callBack({ action: 'clear' });
+        })
+        .catch(err => {
+          mthis.hideLoading();
+          mthis.alert(AlertType.danger, err);
+        });
     }
+  }
+
+  onAdd(param: any) {
+    let mthis = this;
+    let warehouseId = mthis.model.warehouseId;
+    let product = <Product>param.data;
+    if (!warehouseId) {
+      product.remaining = 1;
+      param.callBack({ action: 'add', data: product });
+    } else {
+      mthis.showLoading();
+      mthis.warehouseService.getDetail(warehouseId, product.id)
+        .then(res => {
+          mthis.hideLoading();
+          product.remaining = res.remaining;
+          param.callBack({ action: 'add', data: product });
+        })
+        .catch(err => {
+          mthis.hideLoading();
+          product.remaining = 0;
+          param.callBack({ action: 'add', data: product });
+        });
+    }
+  }
+
+  onExport() {
+    this.warehouseService.downloadDetails();
   }
 }

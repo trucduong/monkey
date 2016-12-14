@@ -1,7 +1,12 @@
 <form-field-cmp [info]="info" [fieldModel]="fieldModel">
     <div class="input-group">
         <input type="search" [(ngModel)]="searchText" onfocus="this.select()" (keyup)="onFilter($event)" class="form-control" placeholder="{{info.label | translate}}">
-        <span class="input-group-btn"><button type="button" class="btn btn-default" (click)="showAll()"><i class="fa fa-angle-down"></i></button></span>
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" (click)="showAll()">
+                <i *ngIf="filteredList.length == 0" class="fa fa-angle-down"></i>
+                <i *ngIf="filteredList.length > 0" class="fa fa-angle-up"></i>
+            </button>
+        </span>
     </div>
     <div class="smart-combobox list-group" *ngIf="filteredList.length > 0">
         <a class="list-group-item" *ngFor="let item of filteredList" (click)="select(item)">{{info.getLabel(item)}}</a>

@@ -23,9 +23,9 @@ import core.service.utils.ServiceErrorCode;
 import core.service.utils.ServiceResult;
 import web.monkey.dao.ProductDao;
 import web.monkey.dao.ProductDetailDao;
+import web.monkey.dto.xsl.ProductPricesSheet;
 import web.monkey.entities.Product;
 import web.monkey.entities.ProductDetail;
-import web.monkey.importexport.catalogue.ProductPricesSheet;
 import web.monkey.shared.dto.ProductDto;
 import web.monkey.shared.dto.ProductStatus;
 import web.monkey.shared.utils.ServiceActions;
@@ -111,7 +111,7 @@ public class ProductService extends CRUDService<Product, ProductDto> {
 				throw new CommonException(ServiceErrorCode.NOT_FOUND);
 			}
 
-			InputStream file = getClass().getClassLoader().getResourceAsStream("prices/product_prices_export_vi.xlsx");
+			InputStream file = getClass().getClassLoader().getResourceAsStream("template/product/product_prices_export_vi.xlsx");
 
 			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 

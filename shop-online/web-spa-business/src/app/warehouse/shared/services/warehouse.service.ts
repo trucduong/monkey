@@ -4,8 +4,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { SERVICES, BaseHttpService } from '../../../shared/index';
 
-import {Warehouse} from '../models/warehouse'
-import {ImportModel} from '../models/import.model'
+import {Warehouse, WarehouseModel, WareHouseSearchCondition} from '../models/warehouse'
 
 @Injectable()
 export class WarehouseService extends BaseHttpService {
@@ -39,12 +38,61 @@ export class WarehouseService extends BaseHttpService {
     /**
      * import
      */
-    importProducts(importModel: ImportModel) {
-        return this.post(SERVICES.URLS.warehouse, SERVICES.ACTIONS.WAREHOUSE_IMPORT, importModel, []);
+    importProducts(importModel: WarehouseModel) {
+        return this.post(SERVICES.URLS.warehouse, SERVICES.ACTIONS.WAREHOUSE_TRACKING, importModel, ['import']);
     }
 
-    getImportHistories() {
-        return this.get(SERVICES.URLS.warehouse, SERVICES.ACTIONS.WAREHOUSE_IMPORT_HISTORY, []);
+    /**
+     * Tracking
+     */
+    saveDetails(importModel: WarehouseModel) {
+        return this.post(SERVICES.URLS.warehouse, SERVICES.ACTIONS.WAREHOUSE_TRACKING, importModel, ['detail']);
     }
-    
+
+    getDetail(warehouseId: string, productId: string) {
+        return this.get(SERVICES.URLS.warehouse, SERVICES.ACTIONS.WAREHOUSE_DETAIL, [warehouseId, productId]);
+    }
+
+    downloadDetails() {
+        window.open(SERVICES.URLS.warehouse + SERVICES.ACTIONS.DOWNLOAD_DETAILS);
+    }
+
+    getHistories(condition: WareHouseSearchCondition, historyType: string) {
+        return this.get(SERVICES.URLS.warehouse, SERVICES.ACTIONS.WAREHOUSE_HISTORY + this.buildSearchConditionStr(condition), [historyType]);
+    }
+
+    private buildSearchConditionStr(condition: WareHouseSearchCondition): string {
+        let paramStr = '?';
+        if (condition) {
+            if (condition.customerId) {
+                paramStr += '&customerId=' + condition.customerId; 
+            }
+
+            if (condition.employeeId) {
+                paramStr += '&employeeId=' + condition.employeeId;
+            }
+
+            if (condition.historyDateTime) {
+                paramStr += '&historyDateTime=' + condition.historyDateTime;
+            }
+
+            if (condition.productId) {
+                paramStr += '&productId=' + condition.productId;
+            }
+
+            if (condition.referenceNo) {
+                paramStr += '&referenceNo=' + condition.referenceNo;
+            }
+
+            if (condition.supplierId) {
+                paramStr += '&supplierId=' + condition.supplierId;
+            }
+
+            if (condition.warehouseId) {
+                paramStr += '&warehouseId=' + condition.warehouseId;
+            }
+        }
+        
+        return paramStr;
+    }
 }

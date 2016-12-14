@@ -204,7 +204,11 @@ export class SmartCmbFieldCmp extends CustomField implements OnChanges {
     }
 
     showAll() {
-        this.filteredList = this.dataSources;
+        if (this.filteredList.length > 0) {
+            this.filteredList = [];
+        } else {
+            this.filteredList = this.dataSources;
+        }
     }
 
     updateSearchText() {

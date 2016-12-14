@@ -182,3 +182,11 @@ body {
 .form-control{
     min-width: 100px;
 }
+
+table td .custom-field {
+  margin-bottom: 0;
+}
+
+table td .alert {
+  margin-bottom: 0;
+}

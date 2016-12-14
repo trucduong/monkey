@@ -1,4 +1,5 @@
 import { BaseModel } from '../../../shared/index';
+import {Product} from '../../../product/shared/index';
 
 export class Warehouse extends BaseModel {
   id: string;
@@ -16,4 +17,53 @@ export class Warehouse extends BaseModel {
     super();
     this.id = '-1';
   }
+}
+
+
+export class WareHouseSearchCondition extends BaseModel {
+    referenceNo: string;
+    historyDateTime: Date;
+    warehouseId: string;
+    supplierId: string;
+    employeeId: string;
+    customerId: string;
+    productId: string;
+
+    constructor() {
+        super();
+    }
+}
+
+export class WarehouseModel extends BaseModel {
+
+    id: string;
+    warehouseId: string;
+    referenceNo: string;
+    historyDateTime: Date;
+    supplier: string;
+    employeeId: string;
+    details: Product[];
+
+    constructor() {
+        super();
+    }
+}
+
+export class WarehouseHistory extends BaseModel {
+    warehouse: string;
+    referenceNo: string;
+    historyDateTime: Date;
+    historyType: string;
+    supplier: string;
+    customer: string;
+    employee: string;
+    product: string;
+    remaining: number;
+    inputPrice: number;
+    wholesalePrice: number;
+    retailPrice: number;
+
+    constructor() {
+        super();
+    }
 }

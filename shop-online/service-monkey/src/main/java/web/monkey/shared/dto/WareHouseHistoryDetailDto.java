@@ -13,7 +13,7 @@ public class WareHouseHistoryDetailDto extends BaseDto {
 
 	private Date historyDateTime;
 
-	private ImportExportType historyType;
+	private WarehouseHistoryType historyType;
 
 	private String supplier;
 
@@ -55,11 +55,11 @@ public class WareHouseHistoryDetailDto extends BaseDto {
 		this.historyDateTime = historyDateTime;
 	}
 
-	public ImportExportType getHistoryType() {
+	public WarehouseHistoryType getHistoryType() {
 		return historyType;
 	}
 
-	public void setHistoryType(ImportExportType historyType) {
+	public void setHistoryType(WarehouseHistoryType historyType) {
 		this.historyType = historyType;
 	}
 

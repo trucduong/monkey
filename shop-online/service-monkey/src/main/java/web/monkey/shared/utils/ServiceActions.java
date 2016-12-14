@@ -35,7 +35,13 @@ public class ServiceActions extends CRUDServiceAction {
 
 	public static final String READ_CMB = "/read-cmb/{type}";
 	
-	public static final String WAREHOUSE_IMPORT = "/warehouse-import";
-	public static final String WAREHOUSE_IMPORT_HISTORY = "/warehouse-import-history";
-
+//	public static final String WAREHOUSE_IMPORT = "/import";
+//	public static final String WAREHOUSE_IMPORT_HISTORY = "/import-history";
+//	public static final String WAREHOUSE_UPDATE_DETAILS = "/update-details";
+//	public static final String WAREHOUSE_DETAILS = "/details";
+	public static final String DOWNLOAD_DETAILS = "/download-details";
+	public static final String WAREHOUSE_DETAIL = "/detail"; // ?warehouse=0&product=0
+	
+	public static final String WAREHOUSE_TRACKING = "/tracking/{type}";
+	public static final String WAREHOUSE_HISTORY = "/history/{type}";
 }

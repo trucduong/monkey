@@ -1,4 +1,4 @@
-package web.monkey.importexport.catalogue;
+package web.monkey.dto.xsl;
 
 import java.math.BigDecimal;
 

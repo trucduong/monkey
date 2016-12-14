@@ -18,7 +18,7 @@ import com.google.gson.reflect.TypeToken;
 import core.common.format.json.JsonFormatter;
 import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
-import web.monkey.shared.dto.ImportExportType;
+import web.monkey.shared.dto.WarehouseHistoryType;
 import web.monkey.shared.dto.ProductDto;
 import web.monkey.shared.dto.WareHouseHistoryDto;
 
@@ -41,33 +41,22 @@ public class WareHouseHistory extends BaseEntity {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "history_type", columnDefinition = SHORT_5)
-	private ImportExportType historyType;
+	private WarehouseHistoryType historyType;
 
-	@Column(name = "supplier_name", columnDefinition = MEDIUM_1)
-	private String supplier;
+	@Column(name = "supplier_id", columnDefinition = MEDIUM_1)
+	private Long supplier;
 
-	@Column(name = "customer_name", columnDefinition = MEDIUM_1)
-	private String customer;
+	@Column(name = "customer_id", columnDefinition = MEDIUM_1)
+	private Long customer;
 
 	@Column(name = "employee_id", columnDefinition = LONG)
 	private Long employee;
 
 	@Column(name = "details", columnDefinition = LONG_1)
 	private String details;
-	// @Column(name = "product_id", columnDefinition = BaseEntity.LONG)
-	// private long productId;
-	//
-	// @Column(name = "remaining", columnDefinition = BaseEntity.LONG)
-	// private long remaining;
-	//
-	// @Column(name = "input_price", columnDefinition = BaseEntity.CURRENCY)
-	// private BigDecimal inputPrice;
-	//
-	// @Column(name = "wholesale_price", columnDefinition = BaseEntity.CURRENCY)
-	// private BigDecimal wholesalePrice;
-	//
-	// @Column(name = "retail_price", columnDefinition = BaseEntity.CURRENCY)
-	// private BigDecimal retailPrice;
+	
+	@Column(name = "description", columnDefinition = LONG_1)
+	private String description;
 
 	
 	@Override
@@ -82,6 +71,7 @@ public class WareHouseHistory extends BaseEntity {
 		this.historyType = dto.getHistoryType();
 		this.referenceNo = dto.getReferenceNo();
 		this.supplier = dto.getSupplier();
+		this.description = dto.getDescription();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -98,6 +88,7 @@ public class WareHouseHistory extends BaseEntity {
 		dto.setHistoryType(historyType);
 		dto.setReferenceNo(referenceNo);
 		dto.setSupplier(supplier);
+		dto.setDescription(description);
 	}
 	
 	public String getReferenceNo() {
@@ -116,27 +107,27 @@ public class WareHouseHistory extends BaseEntity {
 		this.historyDateTime = historyDateTime;
 	}
 
-	public ImportExportType getHistoryType() {
+	public WarehouseHistoryType getHistoryType() {
 		return historyType;
 	}
 
-	public void setHistoryType(ImportExportType historyType) {
+	public void setHistoryType(WarehouseHistoryType historyType) {
 		this.historyType = historyType;
 	}
 
-	public String getSupplier() {
+	public Long getSupplier() {
 		return supplier;
 	}
 
-	public void setSupplier(String supplier) {
+	public void setSupplier(Long supplier) {
 		this.supplier = supplier;
 	}
 
-	public String getCustomer() {
+	public Long getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(String customer) {
+	public void setCustomer(Long customer) {
 		this.customer = customer;
 	}
 
@@ -164,4 +155,11 @@ public class WareHouseHistory extends BaseEntity {
 		this.warehouseId = warehouseId;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

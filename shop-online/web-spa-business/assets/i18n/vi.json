@@ -59,6 +59,7 @@
 "common.error.save": "Đã có lỗi xảy ra, xin vui lòng thực hiện lại!",
 
 "common.list.action":"Tác vụ",
+"common.list.search":"Tìm kiếm",
 
 "common.upload.queue":"Danh sách file",
 "common.upload.queue.length":"Số lượng",
@@ -193,6 +194,16 @@
 "warehouse.import.retailPrice":"Giá bán lẻ",
 "warehouse.import.wholesalePrice":"Giá bán sỉ",
 "warehouse.import.historyDateTime":"Ngày tháng",
+"warehouse.detail.title":"Kiểm kho",
+"warehouse.detail.history":"Xem lịch sử kiểm kho",
+"warehouse.detail.export":"Xuất Bảng kiểm kho",
+"warehouse.history.detail.list.title":"Lịch sử kiểm kho",
+"warehouse.history.import.list.title":"lịch sử nhập kho",
+"warehouse.history.returns.list.title":"lịch sử nhập kho",
+
+"warehouse.returns.title":"Trả hàng (từ khách hàng)",
+"warehouse.returns.history":"Xem lịch sử trả hàng",
+
 
 
 "account.list.title":"Tài khoản",
@@ -209,3 +220,4 @@
 "account.permission.change.title":"Phân quyền",
 "account.permission.change.info":"Hệ thống sử dụng tên đăng nhập làm mật khẩu mặc định."
 }
+

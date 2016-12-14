@@ -39,6 +39,9 @@ public class ConverterUtils {
 
 	public static String toString(Object obj, String defaultVal) {
 		try {
+			if (obj == null) {
+				return defaultVal;
+			}
 			return String.valueOf(obj);
 		} catch (Exception e) {
 		}

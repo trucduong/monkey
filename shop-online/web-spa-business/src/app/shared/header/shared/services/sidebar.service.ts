@@ -9,7 +9,7 @@ export const SIDEBARS: SidebarItem[] = [
       {href: '/blank', name:'sidebar.nhaptra', isActive: false, icon: null, childs: null},
       {href: '/blank', name:'sidebar.xuattra', isActive: false, icon: null, childs: null},
       {href: '/blank', name:'sidebar.dieuchuyen', isActive: false, icon: null, childs: null},
-      {href: '/blank', name:'sidebar.kiemke', isActive: false, icon: null, childs: null}
+      {href: '/warehouse-detail', name:'sidebar.kiemke', isActive: false, icon: null, childs: null}
   ]},
   {href: '/blank', name:'sidebar.tien', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: [
       {href: '/blank', name:'sidebar.thuchi', isActive: false, icon: null, childs: null},

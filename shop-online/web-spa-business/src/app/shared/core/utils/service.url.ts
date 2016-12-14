@@ -41,8 +41,11 @@ export const SERVICES: any = {
         UPDATE_PASSWORD: '/update-password/{0}',
         READ_ALL_PERMISSION: '/permission/read-all',
 
-        WAREHOUSE_IMPORT: '/warehouse-import',
-        WAREHOUSE_IMPORT_HISTORY: '/warehouse-import-history',
+        WAREHOUSE_TRACKING: '/tracking/{0}',
+	    WAREHOUSE_HISTORY: '/history/{0}',
+
+        WAREHOUSE_DETAIL: '/detail?warehouse={0}&product={1}',
+        DOWNLOAD_DETAILS: '/download-details',
 
         LOGIN:'/login',
         LOGOUT:'/logout'

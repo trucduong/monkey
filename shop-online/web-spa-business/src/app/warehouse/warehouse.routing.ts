@@ -3,11 +3,12 @@ import { RouterModule } from '@angular/router';
 
 import { WarehouseCmp } from './warehouse';
 import { WarehouseImportCmp } from './import/import';
-import { WarehouseImportHistoryCmp } from './importhistory/import.history';
-
+import { WarehouseHistoryCmp } from './history/history';
+import { WarehouseDetailCmp } from './detail/detail';
 
 export const routing: ModuleWithProviders = RouterModule.forChild([
   { path: 'warehouse', component: WarehouseCmp },
   {path: 'warehouse-import', component: WarehouseImportCmp },
-  {path: 'warehouse-import-history', component: WarehouseImportHistoryCmp }
+  {path: 'warehouse-history/:type', component: WarehouseHistoryCmp },
+  {path: 'warehouse-detail', component: WarehouseDetailCmp },
 ]);

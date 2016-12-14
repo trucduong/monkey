@@ -1,0 +1,34 @@
+<wrapper [info]="pageInfo">
+    <!-- page header -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ title | translate}}</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <alert-cmp [info]="alertInfo"></alert-cmp>
+        <smartgrid-cmp [info]="gridInfo" [data-source]="dataSource" (onExecute)="onExecute($event)">
+            <grid-action-cmp>
+                <button (click)="onSearchSetting()" type="button" class="btn btn-info">{{'common.list.search' | translate}}</button>
+            </grid-action-cmp>
+        </smartgrid-cmp>
+    </div>
+    <div class="row">
+        <a class="btn btn-default btn-back" *ngIf="canNavigateBack()" (click)="onBack()"><i class="glyphicon glyphicon-arrow-left"></i></a>
+    </div>
+    <!-- Search dialog -->
+    <dialog-cmp *ngIf="searchDialog" [info]="searchDialog">
+        <dialog-header-cmp [info]="searchDialog" (onClose)="closeDialog(searchDialog)">{{'common.list.search' | translate}}</dialog-header-cmp>
+        <dialog-body-cmp>
+            <div *ngFor="let field of searchForm?.fields">
+                <text-field-cmp *ngIf="field.type=='text'" [info]="field" [(fieldModel)]="searchForm?.model[field.name]"></text-field-cmp>
+                <cmb-field-cmp *ngIf="field.type=='combobox'" [info]="field" [(fieldModel)]="searchForm?.model[field.name]"></cmb-field-cmp>
+                <date-field-cmp *ngIf="field.type=='date'" [info]="field" [(fieldModel)]="searchForm?.model[field.name]"></date-field-cmp>
+            </div>
+        </dialog-body-cmp>
+        <dialog-footer-cmp>
+            <button (click)="onSearch()" type="button" class="btn btn-primary form-action"><i class="fa fa-search"></i></button>
+        </dialog-footer-cmp>
+    </dialog-cmp>
+</wrapper>

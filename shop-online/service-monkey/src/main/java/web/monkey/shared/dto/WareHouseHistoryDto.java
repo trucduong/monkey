@@ -13,15 +13,17 @@ public class WareHouseHistoryDto extends BaseDto {
 
 	private Date historyDateTime;
 
-	private ImportExportType historyType;
+	private WarehouseHistoryType historyType;
 
-	private String supplier;
+	private Long supplier;
 
-	private String customer;
+	private Long customer;
 
 	private Long employeeId;
 
 	private List<ProductDto> details;
+	
+	private String description;
 
 	public String getReferenceNo() {
 		return referenceNo;
@@ -39,27 +41,27 @@ public class WareHouseHistoryDto extends BaseDto {
 		this.historyDateTime = historyDateTime;
 	}
 
-	public ImportExportType getHistoryType() {
+	public WarehouseHistoryType getHistoryType() {
 		return historyType;
 	}
 
-	public void setHistoryType(ImportExportType historyType) {
+	public void setHistoryType(WarehouseHistoryType historyType) {
 		this.historyType = historyType;
 	}
 
-	public String getSupplier() {
+	public Long getSupplier() {
 		return supplier;
 	}
 
-	public void setSupplier(String supplier) {
+	public void setSupplier(Long supplier) {
 		this.supplier = supplier;
 	}
 
-	public String getCustomer() {
+	public Long getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(String customer) {
+	public void setCustomer(Long customer) {
 		this.customer = customer;
 	}
 
@@ -85,5 +87,13 @@ public class WareHouseHistoryDto extends BaseDto {
 	
 	public void setWarehouseId(long warehouseId) {
 		this.warehouseId = warehouseId;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
