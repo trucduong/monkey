@@ -18,6 +18,9 @@ import core.dao.entities.IEntity;
 
 public class BaseDao<E extends IEntity> implements Serializable {
 	private static final long serialVersionUID = 899460822359446551L;
+	
+	protected static final String UN_DELETED = " AND (e.deleted=FALSE OR e.deleted IS NULL)";
+	protected static final String DELETED = " AND e.deleted=TRUE";
 
 	@PersistenceContext(unitName = "persistenceUnit")
 	private EntityManager em;
@@ -76,22 +79,22 @@ public class BaseDao<E extends IEntity> implements Serializable {
 	}
 
 	public E find(long id) {
-		return find(id, false);
+		return getEm().find(getPersistentClass(), id);
 	}
 
-	public E find(long id, boolean refresh) {
-		E persistent = getEm().find(getPersistentClass(), id);
-		if (persistent == null) {
-			return null;
-		}
-
-		// get fresh data of entity from db
-		if (refresh) {
-			getEm().refresh(persistent);
-		}
-
-		return persistent;
-	}
+//	public E find(long id, boolean refresh) {
+//		E persistent = getEm().find(getPersistentClass(), id);
+//		if (persistent == null) {
+//			return null;
+//		}
+//
+//		// get fresh data of entity from db
+//		if (refresh) {
+//			getEm().refresh(persistent);
+//		}
+//
+//		return persistent;
+//	}
 
 	public E find(String name, Object value) {
 		List<E> list = getAllDataByColumn(name, value);
@@ -269,7 +272,7 @@ public class BaseDao<E extends IEntity> implements Serializable {
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<E> getAllDataWithOrder(List<String> orderColumns, int firstIndex, int maxResult) {
+	protected List<E> getAllDataWithOrder(List<String> orderColumns, int firstIndex, int maxResult) {
 		String className = getClassName();
 		String strQuery = " SELECT  e " + " FROM " + className + " e ";
 		if (orderColumns != null && orderColumns.size() > 0) {
@@ -287,7 +290,7 @@ public class BaseDao<E extends IEntity> implements Serializable {
 		return query.getResultList();
 	}
 
-	private Object formatParam(Object value) {
+	protected Object formatParam(Object value) {
 		if (value instanceof Integer) {
 			return value;
 		} else if (value instanceof String) {

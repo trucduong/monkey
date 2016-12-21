@@ -2,15 +2,17 @@ package web.monkey.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import core.dao.dto.BaseDto;
-import core.dao.entities.BaseEntity;
+import core.dao.entities.BaseCachedEntity;
 import web.monkey.shared.dto.SupplierDto;
 
 @Entity
 @Table(name="suppliers")
-public class Supplier extends BaseEntity {
+public class Supplier extends BaseCachedEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "name", columnDefinition = MEDIUM_1)
@@ -21,27 +23,16 @@ public class Supplier extends BaseEntity {
 	
 	@Column(name = "email", columnDefinition = MEDIUM_1)
 	private String email;
-	
-	@Column(name = "address_detail", columnDefinition = MEDIUM_2)
-	private String addressDetail;
 
-	@Column(name = "address_1", columnDefinition = SHORT_5)
-	private String address1;
-
-	@Column(name = "address_2", columnDefinition = SHORT_5)
-	private String address2;
-
-	@Column(name = "address_3", columnDefinition = SHORT_5)
-	private String address3;
+	@Column(name = "address", columnDefinition = MEDIUM_2)
+	private String address;
 	
 	@Column(name = "description", columnDefinition = MEDIUM_5)
 	private String description;
 
-	@Column(name = "details", columnDefinition = LONG_1)
-	private String details;
-
-	@Column(name="supplier_group", columnDefinition=LONG)
-	private Long group;
+	@ManyToOne
+	@JoinColumn(name="supplier_group")
+	private SupplierGroup supplierGroup;
 	
 	public String getName() {
 		return name;
@@ -67,52 +58,8 @@ public class Supplier extends BaseEntity {
 		this.email = email;
 	}
 
-	public String getAddressDetail() {
-		return addressDetail;
-	}
-
-	public void setAddressDetail(String addressDetail) {
-		this.addressDetail = addressDetail;
-	}
-
-	public String getAddress1() {
-		return address1;
-	}
-
-	public void setAddress1(String address1) {
-		this.address1 = address1;
-	}
-
-	public String getAddress2() {
-		return address2;
-	}
-
-	public void setAddress2(String address2) {
-		this.address2 = address2;
-	}
-
-	public String getAddress3() {
-		return address3;
-	}
-
-	public void setAddress3(String address3) {
-		this.address3 = address3;
-	}
-
-	public String getDetails() {
-		return details;
-	}
-
-	public void setDetails(String details) {
-		this.details = details;
-	}
-	
-	public Long getGroup() {
-		return group;
-	}
-	
-	public void setGroup(Long group) {
-		this.group = group;
+	public String getAddress() {
+		return address;
 	}
 	
 	public String getDescription() {
@@ -123,17 +70,25 @@ public class Supplier extends BaseEntity {
 		this.description = description;
 	}
 	
+	public SupplierGroup getSupplierGroup() {
+		return supplierGroup;
+	}
+	
+	public void setSupplierGroup(SupplierGroup supplierGroup) {
+		this.supplierGroup = supplierGroup;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	@Override
 	public void bind(BaseDto baseDto) {
 		super.bind(baseDto);
 		SupplierDto dto = (SupplierDto) baseDto;
-		this.address1 = dto.getAddress1();
-		this.address2 = dto.getAddress2();
-		this.address3 = dto.getAddress3();
-		this.addressDetail = dto.getAddressDetail();
+		this.address = dto.getAddress();
 		this.description = dto.getDescription();
 		this.email = dto.getEmail();
-		this.group = dto.getGroup();
 		this.name = dto.getName();
 		this.phone = dto.getPhone();
 	}
@@ -142,14 +97,15 @@ public class Supplier extends BaseEntity {
 	public void unBind(BaseDto baseDto) {
 		super.unBind(baseDto);
 		SupplierDto dto = (SupplierDto) baseDto;
-		dto.setAddress1(address1);
-		dto.setAddress2(address2);
-		dto.setAddress3(address3);
-		dto.setAddressDetail(addressDetail);
+		dto.setAddress(address);
 		dto.setDescription(description);
 		dto.setEmail(email);
-		dto.setGroup(group);
 		dto.setName(name);
 		dto.setPhone(phone);
+		
+		if (supplierGroup != null) {
+			dto.setGroupId(supplierGroup.getId());
+			dto.setGroupName(supplierGroup.getName());
+		}
 	}
 }

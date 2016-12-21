@@ -10,11 +10,11 @@ import {Product, RefProductService} from '../../product/shared/index';
 import {RefEmployeeService} from '../../employee/shared/index';
 
 @Component({
-  selector: 'warehouse-refund',
-  templateUrl: 'src/app/warehouse/detail/detail.html'
+  selector: 'warehouse-transfer',
+  templateUrl: 'src/app/warehouse/transfer/transfer.html'
 })
 
-export class WarehouseDetailCmp extends BaseController implements OnInit {
+export class WarehouseTransferCmp extends BaseController implements OnInit {
 
   model: WarehouseModel;
   gridInfo: SmartGridInfo;
@@ -41,7 +41,7 @@ export class WarehouseDetailCmp extends BaseController implements OnInit {
   }
 
   getCurrentUrl(): string {
-    return '/warehouse-detail';
+    return '/warehouse-transfer';
   }
 
   ngOnInit() {
@@ -87,7 +87,9 @@ export class WarehouseDetailCmp extends BaseController implements OnInit {
     let form = new FormInfo(this.getTranslator(), this.model, '');
 
     let refWarehouseService = new RefWarehouseService(this.warehouseService);
-    form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.import.warehouseId', true));
+    form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.transfer.from', true));
+
+    form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'customer', 'warehouse.transfer.to', true));
 
     let refEmployeeService = new RefEmployeeService(this.warehouseService);
     form.addField(new CmbFieldInfo(this.getTranslator(), refEmployeeService, 'employeeId', 'warehouse.import.employee', true));
@@ -121,7 +123,7 @@ export class WarehouseDetailCmp extends BaseController implements OnInit {
 
       // call save service
       mthis.showLoading();
-      mthis.warehouseService.saveDetails(mthis.model)
+      mthis.warehouseService.saveDetails(mthis.model, 'transfer')
         .then(res => {
           mthis.hideLoading();
           mthis.alert(AlertType.success, 'common.alert.content.update.success');
@@ -155,9 +157,5 @@ export class WarehouseDetailCmp extends BaseController implements OnInit {
           param.callBack({ action: 'add', data: product });
         });
     }
-  }
-
-  onExport() {
-    this.warehouseService.downloadDetails();
   }
 }

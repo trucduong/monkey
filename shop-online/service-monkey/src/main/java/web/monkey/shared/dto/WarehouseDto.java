@@ -7,17 +7,13 @@ public class WarehouseDto extends BaseDto {
 
 	private String ownerName;
 
+	private Long ownerId;
+
 	private String phone;
 
 	private WarehouseStatus status;
 
-	private String addressDetail;
-
-	private String address1;
-
-	private String address2;
-
-	private String address3;
+	private String address;
 
 	public String getName() {
 		return name;
@@ -33,6 +29,14 @@ public class WarehouseDto extends BaseDto {
 
 	public void setOwnerName(String ownerName) {
 		this.ownerName = ownerName;
+	}
+
+	public Long getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Long ownerId) {
+		this.ownerId = ownerId;
 	}
 
 	public String getPhone() {
@@ -51,36 +55,12 @@ public class WarehouseDto extends BaseDto {
 		this.status = status;
 	}
 
-	public String getAddressDetail() {
-		return addressDetail;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAddressDetail(String addressDetail) {
-		this.addressDetail = addressDetail;
-	}
-
-	public String getAddress1() {
-		return address1;
-	}
-
-	public void setAddress1(String address1) {
-		this.address1 = address1;
-	}
-
-	public String getAddress2() {
-		return address2;
-	}
-
-	public void setAddress2(String address2) {
-		this.address2 = address2;
-	}
-
-	public String getAddress3() {
-		return address3;
-	}
-
-	public void setAddress3(String address3) {
-		this.address3 = address3;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 }

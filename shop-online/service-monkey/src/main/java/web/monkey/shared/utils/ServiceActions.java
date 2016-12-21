@@ -16,6 +16,7 @@ public class ServiceActions extends CRUDServiceAction {
 	public static final String SUPPLIER_SERVICE = "/supplier";
 	public static final String SUPPLIER_GROUP_SERVICE = "/supplier-group";
 	public static final String EMPLOYEE_SERVICE = "/employee";
+	public static final String SELL_SERVICE = "/sell";
 
 	public static final String GET_ACCOUNT_BY_NAME = "/account/{name}";
 	public static final String GET_ACCOUNT_BY_NAME__NAME = "name";

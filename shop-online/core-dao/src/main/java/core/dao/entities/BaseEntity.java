@@ -60,13 +60,13 @@ public abstract class BaseEntity implements Serializable, IEntity {
 	@Column(name = "id", columnDefinition = LONG)
 	protected long id = 0;
 	
-	@Column(name = "tenant", columnDefinition = SHORT_1)
-	private String tenant;
+//	@Column(name = "tenant", columnDefinition = SHORT_1)
+//	private String tenant;
 
 	@Version
 	@Column(name = "version")
 	private int version;
-
+	
 	/**
 	 * @return the version
 	 */
@@ -82,25 +82,25 @@ public abstract class BaseEntity implements Serializable, IEntity {
 		this.id = id;
 	}
 	
-	public String getTenant() {
-		return tenant;
-	}
-	
-	public void setTenant(String tenant) {
-		this.tenant = tenant;
-	}
-	
+//	public String getTenant() {
+//		return tenant;
+//	}
+//	
+//	public void setTenant(String tenant) {
+//		this.tenant = tenant;
+//	}
+
 	@Override
 	public void bind(BaseDto baseDto) {
 		this.id = baseDto.getId();
 //		this.version =dto.getVersion();
-		this.tenant = baseDto.getTenant();
+//		this.tenant = baseDto.getTenant();
 	}
 
 	@Override
 	public void unBind(BaseDto baseDto) {
 		baseDto.setId(id);
-		baseDto.setTenant(tenant);
+//		baseDto.setTenant(tenant);
 //		dto.setVersion(version);
 	}
 }

@@ -14,7 +14,9 @@ public class ProductDto extends BaseDto {
 
 	private String unit;
 
-	private Long group;
+	private Long groupId;
+	
+	private String groupName;
 
 	private String description;
 
@@ -72,12 +74,20 @@ public class ProductDto extends BaseDto {
 		this.unit = unit;
 	}
 
-	public Long getGroup() {
-		return group;
+	public Long getGroupId() {
+		return groupId;
 	}
-
-	public void setGroup(Long group) {
-		this.group = group;
+	
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
+	}
+	
+	public String getGroupName() {
+		return groupName;
+	}
+	
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 
 	public String getDescription() {

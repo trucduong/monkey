@@ -41,7 +41,9 @@ export class WarehouseModel extends BaseModel {
     referenceNo: string;
     historyDateTime: Date;
     supplier: string;
+    customer: string;
     employeeId: string;
+    description: string;
     details: Product[];
 
     constructor() {
@@ -62,6 +64,7 @@ export class WarehouseHistory extends BaseModel {
     inputPrice: number;
     wholesalePrice: number;
     retailPrice: number;
+    description: string;
 
     constructor() {
         super();

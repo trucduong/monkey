@@ -1,19 +1,24 @@
 package web.monkey.entities;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import core.dao.dto.BaseDto;
+import core.dao.entities.BaseCachedEntity;
 import core.dao.entities.BaseEntity;
 import web.monkey.shared.dto.ProductDto;
 import web.monkey.shared.dto.ProductStatus;
 
 @Entity
 @Table(name = "products")
-public class Product extends BaseEntity {
+public class Product extends BaseCachedEntity {
 	
 	public static final String NAME = "name";
 	public static final String STATUS = "status";
@@ -32,8 +37,9 @@ public class Product extends BaseEntity {
 	@Column(name = "unit", columnDefinition = SHORT_5)
 	private String unit;
 
-	@Column(name = "product_group", columnDefinition = LONG)
-	private Long group;
+	@ManyToOne
+	@JoinColumn(name="product_group")
+	private ProductGroup productGroup;
 
 	@Column(name = "description", columnDefinition = MEDIUM_5)
 	private String description;
@@ -44,7 +50,19 @@ public class Product extends BaseEntity {
 
 	@Column(name = "warning_remaining", columnDefinition = LONG)
 	private long warningRemaining;
+	
+	@Column(name = "discount", columnDefinition = BaseEntity.INT)
+	private int discount;
 
+	@Column(name = "input_price", columnDefinition = BaseEntity.CURRENCY)
+	private BigDecimal inputPrice;
+
+	@Column(name = "wholesale_price", columnDefinition = BaseEntity.CURRENCY)
+	private BigDecimal wholesalePrice;
+
+	@Column(name = "retail_price", columnDefinition = BaseEntity.CURRENCY)
+	private BigDecimal retailPrice;
+	
 	public String getCode() {
 		return code;
 	}
@@ -61,7 +79,7 @@ public class Product extends BaseEntity {
 		this.name = name;
 	}
 
-	public Object getImage() {
+	public String getImage() {
 		return image;
 	}
 
@@ -75,6 +93,14 @@ public class Product extends BaseEntity {
 
 	public void setUnit(String unit) {
 		this.unit = unit;
+	}
+
+	public ProductGroup getProductGroup() {
+		return productGroup;
+	}
+
+	public void setProductGroup(ProductGroup productGroup) {
+		this.productGroup = productGroup;
 	}
 
 	public String getDescription() {
@@ -101,12 +127,36 @@ public class Product extends BaseEntity {
 		this.warningRemaining = warningRemaining;
 	}
 
-	public Long getGroup() {
-		return group;
+	public int getDiscount() {
+		return discount;
 	}
 
-	public void setGroup(Long group) {
-		this.group = group;
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+
+	public BigDecimal getInputPrice() {
+		return inputPrice;
+	}
+
+	public void setInputPrice(BigDecimal inputPrice) {
+		this.inputPrice = inputPrice;
+	}
+
+	public BigDecimal getWholesalePrice() {
+		return wholesalePrice;
+	}
+
+	public void setWholesalePrice(BigDecimal wholesalePrice) {
+		this.wholesalePrice = wholesalePrice;
+	}
+
+	public BigDecimal getRetailPrice() {
+		return retailPrice;
+	}
+
+	public void setRetailPrice(BigDecimal retailPrice) {
+		this.retailPrice = retailPrice;
 	}
 
 	@Override
@@ -117,10 +167,14 @@ public class Product extends BaseEntity {
 		this.code = dto.getCode();
 		this.description = dto.getDescription();
 		this.unit = dto.getUnit();
-		this.group = dto.getGroup();
+//		this.group = dto.getGroup();
 		this.warningRemaining = dto.getWarningRemaining();
 		this.image = dto.getImage();
 		this.status = dto.getStatus();
+		this.discount = dto.getDiscount();
+		this.inputPrice = dto.getInputPrice();
+		this.retailPrice = dto.getRetailPrice();
+		this.wholesalePrice = dto.getWholesalePrice();
 	}
 
 	@Override
@@ -129,12 +183,19 @@ public class Product extends BaseEntity {
 		ProductDto dto = (ProductDto) basedto;
 		dto.setDescription(description);
 		dto.setCode(code);
-		dto.setGroup(group);
 		dto.setImage(image);
 		dto.setName(name);
 		dto.setStatus(status);
 		dto.setWarningRemaining(warningRemaining);
 		dto.setUnit(unit);
+		dto.setDiscount(discount);
+		dto.setInputPrice(inputPrice);
+		dto.setRetailPrice(retailPrice);
+		dto.setWholesalePrice(wholesalePrice);
+		
+		if (productGroup != null) {
+			dto.setGroupId(productGroup.getId());
+			dto.setGroupName(productGroup.getName());
+		}
 	}
-
 }

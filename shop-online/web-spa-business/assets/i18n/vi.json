@@ -198,12 +198,17 @@
 "warehouse.detail.history":"Xem lịch sử kiểm kho",
 "warehouse.detail.export":"Xuất Bảng kiểm kho",
 "warehouse.history.detail.list.title":"Lịch sử kiểm kho",
-"warehouse.history.import.list.title":"lịch sử nhập kho",
-"warehouse.history.returns.list.title":"lịch sử nhập kho",
+"warehouse.history.import.list.title":"Lịch sử nhập kho",
+"warehouse.history.returns.list.title":"Lịch sử trả hàng",
+"warehouse.history.transfer.list.title":"Lịch sử chuyển kho",
 
 "warehouse.returns.title":"Trả hàng (từ khách hàng)",
 "warehouse.returns.history":"Xem lịch sử trả hàng",
-
+"warehouse.export.returns.title":"Trả hàng (trả về nhà cung cấp)",
+"warehouse.transfer.title":"Điều chuyển sản phẩm",
+"warehouse.transfer.history":"Xem lịch sử",
+"warehouse.transfer.from":"Kho hàng (Xuất)",
+"warehouse.transfer.to":"Kho hàng (Nhập)",
 
 
 "account.list.title":"Tài khoản",

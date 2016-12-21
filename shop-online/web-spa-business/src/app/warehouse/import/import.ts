@@ -130,7 +130,7 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
 
       // call save service
       mthis.showLoading();
-      mthis.warehouseService.importProducts(mthis.model)
+      mthis.warehouseService.saveDetails(mthis.model, 'import')
       .then(res => {
         mthis.hideLoading();
         mthis.alert(AlertType.success, 'common.alert.content.update.success');

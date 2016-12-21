@@ -4,23 +4,26 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import core.dao.dto.BaseDto;
-import core.dao.entities.BaseEntity;
+import core.dao.entities.BaseCachedEntity;
 import web.monkey.shared.dto.WarehouseDto;
 import web.monkey.shared.dto.WarehouseStatus;
 
 @Entity
 @Table(name = "warehouses")
-public class Warehouse extends BaseEntity {
+public class Warehouse extends BaseCachedEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "name", columnDefinition = MEDIUM_1)
 	private String name;
 
-	@Column(name = "owner_name", columnDefinition = MEDIUM_1)
-	private String ownerName;
+	@ManyToOne
+	@JoinColumn(name="owner_id")
+	private Employee owner;
 
 	@Column(name = "phone", columnDefinition = SHORT_2)
 	private String phone;
@@ -29,17 +32,8 @@ public class Warehouse extends BaseEntity {
 	@Column(name = "warehouse_status", columnDefinition = SHORT_5)
 	private WarehouseStatus status;
 
-	@Column(name = "address_detail", columnDefinition = MEDIUM_2)
-	private String addressDetail;
-
-	@Column(name = "address_1", columnDefinition = SHORT_5)
-	private String address1;
-
-	@Column(name = "address_2", columnDefinition = SHORT_5)
-	private String address2;
-
-	@Column(name = "address_3", columnDefinition = SHORT_5)
-	private String address3;
+	@Column(name = "address", columnDefinition = SHORT_5)
+	private String address;
 
 	public String getName() {
 		return name;
@@ -49,12 +43,12 @@ public class Warehouse extends BaseEntity {
 		this.name = name;
 	}
 
-	public String getOwnerName() {
-		return ownerName;
+	public Employee getOwner() {
+		return owner;
 	}
 
-	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
+	public void setOwner(Employee owner) {
+		this.owner = owner;
 	}
 
 	public String getPhone() {
@@ -73,48 +67,20 @@ public class Warehouse extends BaseEntity {
 		this.status = status;
 	}
 
-	public String getAddressDetail() {
-		return addressDetail;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAddressDetail(String addressDetail) {
-		this.addressDetail = addressDetail;
-	}
-
-	public String getAddress1() {
-		return address1;
-	}
-
-	public void setAddress1(String address1) {
-		this.address1 = address1;
-	}
-
-	public String getAddress2() {
-		return address2;
-	}
-
-	public void setAddress2(String address2) {
-		this.address2 = address2;
-	}
-
-	public String getAddress3() {
-		return address3;
-	}
-
-	public void setAddress3(String address3) {
-		this.address3 = address3;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	@Override
 	public void bind(BaseDto baseDto) {
 		super.bind(baseDto);
 		WarehouseDto dto = (WarehouseDto) baseDto;
-		this.address1 = dto.getAddress1();
-		this.address2 = dto.getAddress2();
-		this.address3 = dto.getAddress3();
-		this.addressDetail = dto.getAddressDetail();
+		this.address = dto.getAddress();
 		this.name = dto.getName();
-		this.ownerName = dto.getOwnerName();
 		this.phone = dto.getPhone();
 		this.status = dto.getStatus();
 	}
@@ -123,13 +89,14 @@ public class Warehouse extends BaseEntity {
 	public void unBind(BaseDto baseDto) {
 		super.unBind(baseDto);
 		WarehouseDto dto = (WarehouseDto) baseDto;
-		dto.setAddress1(address1);
-		dto.setAddress2(address2);
-		dto.setAddress3(address3);
-		dto.setAddressDetail(addressDetail);
+		dto.setAddress(address);
 		dto.setName(name);
-		dto.setOwnerName(ownerName);
 		dto.setPhone(phone);
 		dto.setStatus(status);
+		
+		if (owner != null) {
+			dto.setOwnerId(owner.getId());
+			dto.setOwnerName(owner.getName());
+		}
 	}
 }

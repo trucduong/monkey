@@ -3,43 +3,38 @@ package web.monkey.dao;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.google.gson.reflect.TypeToken;
 
+import core.common.convert.Converter;
 import core.common.convert.ConverterUtils;
 import core.common.format.json.JsonFormatter;
 import core.dao.utils.BaseDao;
+import core.dao.utils.DaoUtils;
 import core.dao.utils.QueryBuilder;
 import web.monkey.entities.WareHouseHistory;
-import web.monkey.shared.dto.ProductDto;
-import web.monkey.shared.dto.WareHouseHistoryDetailDto;
+import web.monkey.shared.dto.WareHouseHistoryDto;
+import web.monkey.shared.dto.WareHouseHistoryDto.ProductDto;
 import web.monkey.shared.dto.WarehouseHistoryType;
 import web.monkey.shared.dto.WarehouseSearchCondition;
-import web.monkey.translation.EmployeeTranslation;
-import web.monkey.translation.SupplierTranslation;
-import web.monkey.translation.WarehouseTranslation;
 
 @Repository
 public class WarehouseHistoryDao extends BaseDao<WareHouseHistory> {
 	private static final long serialVersionUID = 1L;
-	
-	@Autowired
-	private WarehouseTranslation warehouseTranslation;
-	
-	@Autowired
-	private EmployeeTranslation employeeTranslation;
-	
-	@Autowired
-	private SupplierTranslation supplierTranslation;
 
-	public List<WareHouseHistoryDetailDto> getAllHistory(WarehouseHistoryType type, WarehouseSearchCondition condition) {
-		List<WareHouseHistoryDetailDto> list = new ArrayList<>();
+	public List<WareHouseHistoryDto> getAllHistory(WarehouseHistoryType type, WarehouseSearchCondition condition) {
 		QueryBuilder queryBuilder = new QueryBuilder();
-		queryBuilder.append("select h.referenceNo, h.historyDateTime, h.warehouseId, h.supplier, h.customer, h.employee, h.details from WareHouseHistory h where 1=1");
+		queryBuilder.append("SELECT h.warehouseId, h.warehouseName, h.warehouseId1, h.warehouseName1");
+		queryBuilder.append(", h.supplierId, h.supplierName, h.customerId, h.customerName, h.employeeId, h.employeeName");
+		queryBuilder.append(", h.referenceNo, h.historyDateTime, h.historyType, h.description, h.details");
+		queryBuilder.append(" FROM WareHouseHistory h");
+		queryBuilder.append(" WHERE 1=1");
+		
 		if (type != null) {
 			queryBuilder.append(" and h.historyType = :historyType", "historyType", type);
 		}
@@ -57,15 +52,15 @@ public class WarehouseHistoryDao extends BaseDao<WareHouseHistory> {
 		}
 		
 		if (condition.getSupplierId() != null) {
-			queryBuilder.append(" and h.supplier = :supplier", "supplier", condition.getSupplierId());
+			queryBuilder.append(" and h.supplierId = :supplierId", "supplierId", condition.getSupplierId());
 		}
 		
 		if (condition.getCustomerId() != null) {
-			queryBuilder.append(" and h.customer = :customer", "customer", condition.getCustomerId());
+			queryBuilder.append(" and h.customerId = :customerId", "customerId", condition.getCustomerId());
 		}
 		
 		if (condition.getEmployeeId() != null) {
-			queryBuilder.append(" and h.employee = :employee", "employee", condition.getEmployeeId());
+			queryBuilder.append(" and h.employeeId = :employeeId", "employeeId", condition.getEmployeeId());
 		}
 		
 		if (condition.getProductId() != null) {
@@ -73,32 +68,22 @@ public class WarehouseHistoryDao extends BaseDao<WareHouseHistory> {
 			queryBuilder.append(" and h.details like :product", "product", productCondition);
 		}
 		
-		List<Object[]> histories = queryBuilder.build(getEm()).getResultList();
-		for (Object[] history : histories) {
-			Type listType = new TypeToken<ArrayList<ProductDto>>(){}.getType();
-			List<ProductDto> products = JsonFormatter.fromJson(ConverterUtils.toString(history[6]), listType);
-			for (ProductDto product : products) {
-				if (condition.getProductId() != null && !condition.getProductId().equals(product.getId())) {
-					continue;
-				}
-				WareHouseHistoryDetailDto dto = new WareHouseHistoryDetailDto();
-//				dto.setCustomer(history.getCustomer());
-				dto.setEmployee(employeeTranslation.translate(ConverterUtils.toString(history[5])));
-				dto.setHistoryDateTime(ConverterUtils.toDate(history[1]));
-				dto.setId(product.getId());
-				dto.setInputPrice(product.getInputPrice());
-				dto.setProduct(product.getName());
-				dto.setReferenceNo(ConverterUtils.toString(history[0]));
-				dto.setRemaining(product.getRemaining());
-				dto.setRetailPrice(product.getRetailPrice());
-				dto.setSupplier(supplierTranslation.translate(ConverterUtils.toString(history[3])));
-				dto.setWholesalePrice(product.getWholesalePrice());
-				dto.setWarehouse(warehouseTranslation.translate(ConverterUtils.toString(history[2])));
-				
-				list.add(dto);
-			}
-		}
 		
-		return list;
+		String[] columns = new String[] {"warehouseId", "warehouseName", "warehouseId1", "warehouseName1", "supplierId", "supplierName", "customerId", "customerName", "employeeId", "employeeName", 
+				"referenceNo", "historyDateTime", "historyType", "description", "details"};
+		Map<String, Converter<?>> converters = new HashedMap<>();
+		converters.put("details", new Converter<List<ProductDto>>() {
+
+			@Override
+			public List<ProductDto> convert(Object value) {
+				Type listType = new TypeToken<ArrayList<ProductDto>>(){}.getType();
+				List<ProductDto> products = JsonFormatter.fromJson(ConverterUtils.toString(value), listType);
+				return products;
+			}
+		});
+		
+		List<WareHouseHistoryDto> histories = DaoUtils.selectAll(getEm(), queryBuilder, WareHouseHistoryDto.class, columns, converters);
+		
+		return histories;
 	}
 }

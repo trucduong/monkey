@@ -11,6 +11,8 @@ public class WarehouseDetailDto extends BaseDto {
 	private String productName;
 
 	private long remaining;
+	
+	private String description;
 
 	public long getWarehouseId() {
 		return warehouseId;
@@ -50,5 +52,13 @@ public class WarehouseDetailDto extends BaseDto {
 
 	public void setRemaining(long remaining) {
 		this.remaining = remaining;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

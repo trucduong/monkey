@@ -2,11 +2,11 @@ package web.monkey.dao;
 
 import org.springframework.stereotype.Repository;
 
-import core.dao.utils.BaseCachedDao;
-import web.monkey.entities.Warehouse;
+import core.dao.utils.BaseDao;
+import web.monkey.entities.Order;
 
 @Repository
-public class WarehouseDao extends BaseCachedDao<Warehouse> {
+public class OrderDao extends BaseDao<Order> {
 	private static final long serialVersionUID = 1L;
 
 }

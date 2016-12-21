@@ -22,10 +22,8 @@ import core.service.services.CRUDService;
 import core.service.utils.ServiceErrorCode;
 import core.service.utils.ServiceResult;
 import web.monkey.dao.ProductDao;
-import web.monkey.dao.ProductDetailDao;
 import web.monkey.dto.xsl.ProductPricesSheet;
 import web.monkey.entities.Product;
-import web.monkey.entities.ProductDetail;
 import web.monkey.shared.dto.ProductDto;
 import web.monkey.shared.dto.ProductStatus;
 import web.monkey.shared.utils.ServiceActions;
@@ -37,8 +35,8 @@ public class ProductService extends CRUDService<Product, ProductDto> {
 	@Autowired
 	private ProductDao dao;
 	
-	@Autowired
-	private ProductDetailDao detailDao;
+//	@Autowired
+//	private ProductDetailDao detailDao;
 
 	@Override
 	protected Class<?> getThis() {
@@ -80,12 +78,12 @@ public class ProductService extends CRUDService<Product, ProductDto> {
 		}
 
 		// create or update detail
-		ProductDetail detail = detailDao.find(id);
-		if (detail == null) {
-			detail = new ProductDetail();
-		}
-		detail.bind(dto);
-		detailDao.update(detail);
+//		ProductDetail detail = detailDao.find(id);
+//		if (detail == null) {
+//			detail = new ProductDetail();
+//		}
+//		detail.bind(dto);
+//		detailDao.update(detail);
 
 		return success(dto);
 	}
@@ -138,6 +136,6 @@ public class ProductService extends CRUDService<Product, ProductDto> {
 	@Override
 	protected void onDeleteSucceed(long id) {
 		// remove detail
-		detailDao.delete(id);
+//		detailDao.delete(id);
 	}
 }

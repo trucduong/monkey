@@ -46,6 +46,12 @@ export class WarehouseHistoryCmp extends SmartListController<WarehouseHistory> i
       this.title = 'warehouse.history.import.list.title';
     } else if (this.historyType == 'detail') {
       this.title = 'warehouse.history.detail.list.title';
+    } else if (this.historyType == 'import_returns') {
+      this.title = 'warehouse.history.returns.list.title';
+    } else if (this.historyType == 'export_returns') {
+      this.title = 'warehouse.history.returns.list.title';
+    } else if (this.historyType == 'transfer') {
+      this.title = 'warehouse.history.transfer.list.title';
     }
 
     super.ngOnInit();
@@ -111,7 +117,70 @@ export class WarehouseHistoryCmp extends SmartListController<WarehouseHistory> i
 
       let field6 = new TextFieldInfo(this.getTranslator(), 'remaining', 'warehouse.import.remaining', true, 0, 100);
       columns.push({ fieldInfo: field6, editable: false, sortable: true, width: 10 });
+
+    } else if (this.historyType == 'import_returns') {
+      let field10 = new DateFieldInfo(this.getTranslator(), 'historyDateTime', 'warehouse.import.historyDateTime', true, 'datetime');
+      columns.push({ fieldInfo: field10, editable: false, sortable: true, width: 15 });
+
+      let field2 = new TextFieldInfo(this.getTranslator(), 'warehouse', 'warehouse.import.warehouse', true, 0, 100);
+      columns.push({ fieldInfo: field2, editable: false, sortable: true, width: 20 });
+
+      let field4 = new TextFieldInfo(this.getTranslator(), 'employee', 'warehouse.import.employee', true, 0, 100);
+      columns.push({ fieldInfo: field4, editable: false, sortable: true, width: 15 });
+
+      let field5 = new TextFieldInfo(this.getTranslator(), 'product', 'warehouse.import.product', true, 0, 100);
+      columns.push({ fieldInfo: field5, editable: false, sortable: true, width: 20 });
+
+      let field6 = new TextFieldInfo(this.getTranslator(), 'remaining', 'warehouse.import.remaining', true, 0, 100);
+      columns.push({ fieldInfo: field6, editable: false, sortable: true, width: 10 });
+
+      let field7 = new TextFieldInfo(this.getTranslator(), 'description', 'product.description', true, 0, 500);
+      columns.push({ fieldInfo: field7, editable: false, sortable: true, width: 20 });
+
+    } else if (this.historyType == 'export_returns') {
+      let field10 = new DateFieldInfo(this.getTranslator(), 'historyDateTime', 'warehouse.import.historyDateTime', true, 'datetime');
+      columns.push({ fieldInfo: field10, editable: false, sortable: true, width: 15 });
+
+      let field2 = new TextFieldInfo(this.getTranslator(), 'warehouse', 'warehouse.import.warehouse', true, 0, 100);
+      columns.push({ fieldInfo: field2, editable: false, sortable: true, width: 15 });
+
+      let field4 = new TextFieldInfo(this.getTranslator(), 'employee', 'warehouse.import.employee', true, 0, 100);
+      columns.push({ fieldInfo: field4, editable: false, sortable: true, width: 15 });
+
+      let field8 = new TextFieldInfo(this.getTranslator(), 'supplier', 'warehouse.import.supplier', true, 0, 100);
+      columns.push({ fieldInfo: field8, editable: false, sortable: true, width: 15 });
+
+      let field5 = new TextFieldInfo(this.getTranslator(), 'product', 'warehouse.import.product', true, 0, 100);
+      columns.push({ fieldInfo: field5, editable: false, sortable: true, width: 15 });
+
+      let field6 = new TextFieldInfo(this.getTranslator(), 'remaining', 'warehouse.import.remaining', true, 0, 100);
+      columns.push({ fieldInfo: field6, editable: false, sortable: true, width: 10 });
+
+      let field7 = new TextFieldInfo(this.getTranslator(), 'description', 'product.description', true, 0, 500);
+      columns.push({ fieldInfo: field7, editable: false, sortable: true, width: 15 });
+
+    } else if (this.historyType == 'transfer') {
+
+      let field10 = new DateFieldInfo(this.getTranslator(), 'historyDateTime', 'warehouse.import.historyDateTime', true, 'datetime');
+      columns.push({ fieldInfo: field10, editable: false, sortable: true, width: 15 });
+
+      let field2 = new TextFieldInfo(this.getTranslator(), 'warehouse', 'warehouse.transfer.from', true, 0, 100);
+      columns.push({ fieldInfo: field2, editable: false, sortable: true, width: 20 });
+
+      let field7 = new TextFieldInfo(this.getTranslator(), 'customer', 'warehouse.transfer.to', true, 0, 100);
+      columns.push({ fieldInfo: field2, editable: false, sortable: true, width: 20 });
+
+      let field4 = new TextFieldInfo(this.getTranslator(), 'employee', 'warehouse.import.employee', true, 0, 100);
+      columns.push({ fieldInfo: field4, editable: false, sortable: true, width: 15 });
+
+      let field5 = new TextFieldInfo(this.getTranslator(), 'product', 'warehouse.import.product', true, 0, 100);
+      columns.push({ fieldInfo: field5, editable: false, sortable: true, width: 20 });
+
+      let field6 = new TextFieldInfo(this.getTranslator(), 'remaining', 'warehouse.import.remaining', true, 0, 100);
+      columns.push({ fieldInfo: field6, editable: false, sortable: true, width: 10 });
+
     }
+
 
 
     let grid = new SmartGridInfo(option, columns, [], new SortInfo('historyDateTime', 'desc'), new FilterInfo(['employee', 'product', 'warehouse']));
@@ -146,34 +215,26 @@ export class WarehouseHistoryCmp extends SmartListController<WarehouseHistory> i
     let model = new WareHouseSearchCondition();
     let form = new FormInfo(this.getTranslator(), model, '');
 
+    form.addField(new DateFieldInfo(this.getTranslator(), 'historyDateTime', 'warehouse.import.historyDateTime', false, 'date'));
+
     if (this.historyType == 'import') {
-      form.addField(new DateFieldInfo(this.getTranslator(), 'historyDateTime', 'warehouse.import.historyDateTime', false, 'date'));
       form.addField(new TextFieldInfo(this.getTranslator(), 'referenceNo', 'warehouse.import.referenceNo', false, 0, 100));
+    }
 
-      let refWarehouseService = new RefWarehouseService(this.warehouseService);
-      form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.import.warehouseId', false));
+    let refWarehouseService = new RefWarehouseService(this.warehouseService);
+    form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.import.warehouseId', false));
 
+    if (this.historyType == 'import' || this.historyType == 'export_returns') {
       let refSupplierService = new RefSupplierService(this.warehouseService);
       form.addField(new CmbFieldInfo(this.getTranslator(), refSupplierService, 'supplierId', 'warehouse.import.supplier', false));
-
-      let refEmployeeService = new RefEmployeeService(this.warehouseService);
-      form.addField(new CmbFieldInfo(this.getTranslator(), refEmployeeService, 'employeeId', 'warehouse.import.employee', false));
-
-      let refProductService = new RefProductService(this.warehouseService);
-      form.addField(new CmbFieldInfo(this.getTranslator(), refProductService, 'productId', 'warehouse.import.product', false));
-
-    } else if (this.historyType == 'detail') {
-      form.addField(new DateFieldInfo(this.getTranslator(), 'historyDateTime', 'warehouse.import.historyDateTime', false, 'date'));
-
-      let refWarehouseService = new RefWarehouseService(this.warehouseService);
-      form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.import.warehouseId', false));
-
-      let refEmployeeService = new RefEmployeeService(this.warehouseService);
-      form.addField(new CmbFieldInfo(this.getTranslator(), refEmployeeService, 'employeeId', 'warehouse.import.employee', false));
-
-      let refProductService = new RefProductService(this.warehouseService);
-      form.addField(new CmbFieldInfo(this.getTranslator(), refProductService, 'productId', 'warehouse.import.product', false));
     }
+
+    let refEmployeeService = new RefEmployeeService(this.warehouseService);
+    form.addField(new CmbFieldInfo(this.getTranslator(), refEmployeeService, 'employeeId', 'warehouse.import.employee', false));
+
+    let refProductService = new RefProductService(this.warehouseService);
+    form.addField(new CmbFieldInfo(this.getTranslator(), refProductService, 'productId', 'warehouse.import.product', false));
+
     return form;
   }
 

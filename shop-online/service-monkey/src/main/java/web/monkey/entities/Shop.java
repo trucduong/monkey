@@ -2,15 +2,17 @@ package web.monkey.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import core.dao.dto.BaseDto;
-import core.dao.entities.BaseEntity;
+import core.dao.entities.BaseCachedEntity;
 import web.monkey.shared.dto.ShopDto;
 
 @Entity
 @Table(name = "shops")
-public class Shop extends BaseEntity {
+public class Shop extends BaseCachedEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "name", columnDefinition = MEDIUM_1)
@@ -25,11 +27,9 @@ public class Shop extends BaseEntity {
 	@Column(name = "tax_code", columnDefinition = MEDIUM_1)
 	private String taxCode;
 
-	@Column(name = "owner_id", columnDefinition = LONG)
-	private Long ownerId;
-
-	@Column(name = "owner_name", columnDefinition = MEDIUM_1)
-	private String ownerName;
+	@ManyToOne
+	@JoinColumn(name="owner_id")
+	private Employee owner;
 
 	public String getName() {
 		return name;
@@ -63,20 +63,12 @@ public class Shop extends BaseEntity {
 		this.taxCode = taxCode;
 	}
 
-	public Long getOwnerId() {
-		return ownerId;
+	public Employee getOwner() {
+		return owner;
 	}
-
-	public void setOwnerId(Long ownerId) {
-		this.ownerId = ownerId;
-	}
-
-	public String getOwnerName() {
-		return ownerName;
-	}
-
-	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
+	
+	public void setOwner(Employee owner) {
+		this.owner = owner;
 	}
 	
 	@Override
@@ -85,8 +77,6 @@ public class Shop extends BaseEntity {
 		ShopDto dto = (ShopDto) baseDto;
 		this.email = dto.getEmail();
 		this.name = dto.getName();
-		this.ownerId = dto.getOwnerId();
-		this.ownerName = dto.getOwnerName();
 		this.phone = dto.getPhone();
 		this.taxCode = dto.getTaxCode();
 	}
@@ -97,9 +87,12 @@ public class Shop extends BaseEntity {
 		ShopDto dto = (ShopDto) baseDto;
 		dto.setEmail(email);
 		dto.setName(name);
-		dto.setOwnerId(ownerId);
-		dto.setOwnerName(ownerName);
 		dto.setPhone(phone);
 		dto.setTaxCode(taxCode);
+		
+		if (owner != null) {
+			dto.setOwnerId(owner.getId());
+			dto.setOwnerName(owner.getName());
+		}
 	}
 }

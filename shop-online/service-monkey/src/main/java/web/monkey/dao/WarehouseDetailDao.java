@@ -1,129 +1,62 @@
 package web.monkey.dao;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import core.common.convert.ConverterUtils;
 import core.dao.utils.BaseDao;
+import core.dao.utils.DaoUtils;
+import core.dao.utils.NativeQueryBuilder;
 import core.dao.utils.QueryBuilder;
 import web.monkey.dto.xsl.WarehouseDetailSheet;
 import web.monkey.entities.WarehouseDetail;
 import web.monkey.shared.dto.WarehouseDetailDto;
-import web.monkey.translation.ProductTranslation;
-import web.monkey.translation.WarehouseTranslation;
 
 @Repository
 public class WarehouseDetailDao extends BaseDao<WarehouseDetail> {
 	private static final long serialVersionUID = 1L;
 	
-	@Autowired
-	private ProductTranslation productTranslation;
-	
-	@Autowired
-	private WarehouseTranslation warehouseTranslation;
-	
 	public WarehouseDetailDto getDetail(long warehouseId, long productId) {
-		WarehouseDetailDto dto = null;
-		QueryBuilder builder = new QueryBuilder();
-		builder.append("select d.id, d.warehouseId, d.productId, d.remaining from WarehouseDetail d");
-		builder.append(" where d.warehouseId = :warehouseId and d.productId = :productId", "warehouseId", warehouseId,
+		NativeQueryBuilder builder = new NativeQueryBuilder();
+		builder.append("select d.id, d.warehouse_id, d.product_id, d.remaining, d.description from warehouse_details d");
+		builder.append(" where d.warehouse_id = :warehouseId and d.product_id = :productId", "warehouseId", warehouseId,
 				"productId", productId);
-		Query query = builder.build(getEm());
-		List<Object[]> resultList = query.getResultList();
-		if (resultList.size() > 0) {
-			Object[] objects = resultList.get(0);
-			dto = new WarehouseDetailDto();
-			dto.setId(ConverterUtils.toLong(objects[0]));
-			dto.setWarehouseId(warehouseId);
-			dto.setProductId(productId);
-			dto.setRemaining(ConverterUtils.toLong(objects[3]));
-		}
-
+		
+		
+		String[] columns = new String[] {"id", "warehouseId", "productId", "remaining", "description"};
+		WarehouseDetailDto dto = DaoUtils.selectFirst(getEm(), builder, WarehouseDetailDto.class, columns);
 		return dto;
 	}
 
 	public List<WarehouseDetailDto> getDetailsByProduct(long... productIds) {
-		List<WarehouseDetailDto> dtos = new ArrayList<>();
 		String idStr = StringUtils.join(productIds, ",");
-		QueryBuilder builder = new QueryBuilder();
-		builder.append("SELECT d.id, d.warehouseId, d.productId, d.remaining from WarehouseDetail d");
-		builder.append(" WHERE d.productId IN (" + idStr + ")");
-		Query query = builder.build(getEm());
-		List<Object[]> resultList = query.getResultList();
-		for (Object[] objects : resultList) {
-			WarehouseDetailDto dto = new WarehouseDetailDto();
-			dto.setId(ConverterUtils.toLong(objects[0]));
-			dto.setWarehouseId(ConverterUtils.toLong(objects[1]));
-			dto.setProductId(ConverterUtils.toLong(objects[2]));
-			dto.setRemaining(ConverterUtils.toLong(objects[3]));
-
-			dtos.add(dto);
-		}
-
+		NativeQueryBuilder builder = new NativeQueryBuilder();
+		builder.append("select d.id, d.warehouse_id, d.product_id, d.remaining, d.description from warehouse_details d");
+		builder.append(" WHERE d.product_id IN (" + idStr + ")");
+		
+		String[] columns = new String[] {"id", "warehouseId", "productId", "remaining", "description"};
+		List<WarehouseDetailDto> dtos = DaoUtils.selectAll(getEm(), builder, WarehouseDetailDto.class, columns);
 		return dtos;
 	}
 
 	public List<WarehouseDetailDto> getDetailsByWarehouse(long... warehouseIds) {
-		List<WarehouseDetailDto> dtos = new ArrayList<>();
 		String idStr = StringUtils.join(warehouseIds, ",");
-		QueryBuilder builder = new QueryBuilder();
-		builder.append("SELECT d.id, d.warehouseId, d.productId, d.remaining from WarehouseDetail d");
-		builder.append(" WHERE d.warehouseId IN (" + idStr + ")");
-		Query query = builder.build(getEm());
-		List<Object[]> resultList = query.getResultList();
-		for (Object[] objects : resultList) {
-			WarehouseDetailDto dto = new WarehouseDetailDto();
-			dto.setId(ConverterUtils.toLong(objects[0]));
-			dto.setWarehouseId(ConverterUtils.toLong(objects[1]));
-			dto.setProductId(ConverterUtils.toLong(objects[2]));
-			dto.setRemaining(ConverterUtils.toLong(objects[3]));
-
-			dtos.add(dto);
-		}
-
+		NativeQueryBuilder builder = new NativeQueryBuilder();
+		builder.append("select d.id, d.warehouse_id, d.product_id, d.remaining, d.description from warehouse_details d");
+		builder.append(" WHERE d.warehouse_id IN (" + idStr + ")");
+		
+		String[] columns = new String[] {"id", "warehouseId", "productId", "remaining", "description"};
+		List<WarehouseDetailDto> dtos = DaoUtils.selectAll(getEm(), builder, WarehouseDetailDto.class, columns);
 		return dtos;
-	}
-
-	public Map<Long, Long> getProductRemaining(Object... productIds) {
-		Map<Long, Long> map = new HashMap<>();
-		String idStr = StringUtils.join(productIds, ",");
-		QueryBuilder builder = new QueryBuilder();
-		builder.append("SELECT d.productId, d.remaining from WarehouseDetail d");
-		builder.append(" WHERE d.productId IN (" + idStr + ")");
-		Query query = builder.build(getEm());
-		List<Object[]> resultList = query.getResultList();
-		for (Object[] objects : resultList) {
-			Long productId = ConverterUtils.toLong(objects[0]);
-			long remaining = ConverterUtils.toLong(map.get(productId)) + ConverterUtils.toLong(objects[1]);
-			map.put(productId, remaining);
-		}
-
-		return map;
 	}
 	
 	public List<WarehouseDetailSheet> getDetailsToExport() {
-		List<WarehouseDetailSheet> dtos = new ArrayList<>();
 		QueryBuilder builder = new QueryBuilder();
-		builder.append("select d.warehouseId, d.productId, d.remaining from WarehouseDetail d order by d.warehouseId asc");
-		Query query = builder.build(getEm());
-		List<Object[]> resultList = query.getResultList();
-		for (Object[] objects : resultList) {
-			WarehouseDetailSheet dto = new WarehouseDetailSheet();
-			dto.setWarehouse(warehouseTranslation.translate(ConverterUtils.toString(objects[0])));
-			dto.setProduct(productTranslation.translate(ConverterUtils.toString(objects[1])));
-			dto.setRemaining(ConverterUtils.toLong(objects[2]));
-			
-			dtos.add(dto);
-		}
-
+		builder.append("select w.name, p.name, e.remaining from WarehouseDetail e LEFT JOIN e.warehouse w LEFT JOIN e.product p order by w.name asc, p.name asc");
+		
+		String[] columns = new String[] {"warehouse", "product", "remaining"};
+		List<WarehouseDetailSheet> dtos = DaoUtils.selectAll(getEm(), builder, WarehouseDetailSheet.class, columns);
 		return dtos;
 	}
 }

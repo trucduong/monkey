@@ -121,7 +121,7 @@ export class WarehouseDetailCmp extends BaseController implements OnInit {
 
       // call save service
       mthis.showLoading();
-      mthis.warehouseService.saveDetails(mthis.model)
+      mthis.warehouseService.saveDetails(mthis.model, 'detail')
         .then(res => {
           mthis.hideLoading();
           mthis.alert(AlertType.success, 'common.alert.content.update.success');

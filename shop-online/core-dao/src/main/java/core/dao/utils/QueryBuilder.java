@@ -7,8 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 public class QueryBuilder {
-	private Map<String, Object> params;
-	private StringBuilder strQuery;
+	protected Map<String, Object> params;
+	protected StringBuilder strQuery;
 
 	public QueryBuilder() {
 		this.params = new HashMap<String, Object>();

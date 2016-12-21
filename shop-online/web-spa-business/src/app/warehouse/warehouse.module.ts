@@ -9,7 +9,9 @@ import { WarehouseCmp } from './warehouse';
 import { WarehouseImportCmp } from './import/import';
 import { WarehouseHistoryCmp } from './history/history';
 import { WarehouseDetailCmp } from './detail/detail';
-
+import { WarehouseReturnCmp } from './returns/returns';
+import { WarehouseExportReturnCmp } from './export/export';
+import { WarehouseTransferCmp } from './transfer/transfer';
 
 import {WarehouseService} from './shared/index';
 
@@ -22,7 +24,10 @@ import {WarehouseService} from './shared/index';
     WarehouseCmp,
     WarehouseImportCmp,
     WarehouseHistoryCmp,
-    WarehouseDetailCmp
+    WarehouseDetailCmp,
+    WarehouseReturnCmp,
+    WarehouseExportReturnCmp,
+    WarehouseTransferCmp
   ],
   providers: [
       WarehouseService

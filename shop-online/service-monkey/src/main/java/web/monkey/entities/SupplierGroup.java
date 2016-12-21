@@ -1,16 +1,19 @@
 package web.monkey.entities;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import core.dao.dto.BaseDto;
-import core.dao.entities.BaseEntity;
+import core.dao.entities.BaseCachedEntity;
 import web.monkey.shared.dto.SupplierGroupDto;
 
 @Entity
 @Table(name="supplier_groups")
-public class SupplierGroup extends BaseEntity {
+public class SupplierGroup extends BaseCachedEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "name", columnDefinition = MEDIUM_1)
@@ -18,6 +21,9 @@ public class SupplierGroup extends BaseEntity {
 
 	@Column(name = "description", columnDefinition = MEDIUM_5)
 	private String description;
+	
+	@OneToMany(mappedBy="supplierGroup")
+	private Set<Supplier> suppliers;
 
 	public String getName() {
 		return name;

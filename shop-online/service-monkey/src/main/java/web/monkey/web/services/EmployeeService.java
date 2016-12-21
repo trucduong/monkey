@@ -15,9 +15,7 @@ import core.service.services.CRUDService;
 import core.service.utils.ServiceErrorCode;
 import core.service.utils.ServiceResult;
 import web.monkey.dao.EmployeeDao;
-import web.monkey.dao.EmployeeDetailDao;
 import web.monkey.entities.Employee;
-import web.monkey.entities.EmployeeDetail;
 import web.monkey.shared.dto.EmployeeDto;
 import web.monkey.shared.dto.WorkingStatus;
 import web.monkey.shared.utils.ServiceActions;
@@ -28,9 +26,6 @@ public class EmployeeService extends CRUDService<Employee, EmployeeDto> {
 
 	@Autowired
 	private EmployeeDao dao;
-	
-	@Autowired
-	private EmployeeDetailDao detailDao;
 	
 	@Override
 	protected BaseDao<Employee> getDao() {
@@ -61,12 +56,12 @@ public class EmployeeService extends CRUDService<Employee, EmployeeDto> {
 		}
 
 		// create or update detail
-		EmployeeDetail detail = detailDao.find(id);
-		if (detail == null) {
-			detail = new EmployeeDetail();
-		}
-		detail.bind(dto);
-		detailDao.update(detail);
+//		EmployeeDetail detail = detailDao.find(id);
+//		if (detail == null) {
+//			detail = new EmployeeDetail();
+//		}
+//		detail.bind(dto);
+//		detailDao.update(detail);
 
 		return success(dto);
 	}
@@ -84,6 +79,6 @@ public class EmployeeService extends CRUDService<Employee, EmployeeDto> {
 	@Override
 	protected void onDeleteSucceed(long id) {
 		// remove detail
-		detailDao.delete(id);
+//		detailDao.delete(id);
 	}
 }

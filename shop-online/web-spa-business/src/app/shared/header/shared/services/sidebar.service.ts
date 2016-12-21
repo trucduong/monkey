@@ -6,9 +6,9 @@ export const SIDEBARS: SidebarItem[] = [
   {href: '/blank', name:'sidebar.banhang', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: null},
   {href: '/blank', name:'sidebar.khohang', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: [
       {href: '/warehouse-import', name:'sidebar.nhapmua', isActive: false, icon: null, childs: null},
-      {href: '/blank', name:'sidebar.nhaptra', isActive: false, icon: null, childs: null},
-      {href: '/blank', name:'sidebar.xuattra', isActive: false, icon: null, childs: null},
-      {href: '/blank', name:'sidebar.dieuchuyen', isActive: false, icon: null, childs: null},
+      {href: '/warehouse-returns', name:'sidebar.nhaptra', isActive: false, icon: null, childs: null},
+      {href: '/warehouse-export-returns', name:'sidebar.xuattra', isActive: false, icon: null, childs: null},
+      {href: '/warehouse-transfer', name:'sidebar.dieuchuyen', isActive: false, icon: null, childs: null},
       {href: '/warehouse-detail', name:'sidebar.kiemke', isActive: false, icon: null, childs: null}
   ]},
   {href: '/blank', name:'sidebar.tien', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: [

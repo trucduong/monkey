@@ -1,5 +1,6 @@
 package web.monkey.entities;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,13 +12,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import core.dao.dto.BaseDto;
+import core.dao.entities.BaseCachedEntity;
 import core.dao.entities.BaseEntity;
 import web.monkey.shared.dto.EmployeeDto;
 import web.monkey.shared.dto.WorkingStatus;
 
 @Entity
 @Table(name = "employees")
-public class Employee extends BaseEntity {
+public class Employee extends BaseCachedEntity {
 	public static final String WORKING_STATUS = "workingStatus";
 	private static final long serialVersionUID = 1L;
 
@@ -44,21 +46,16 @@ public class Employee extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private WorkingStatus workingStatus;
 
-	@Column(name = "address_detail", columnDefinition = MEDIUM_2)
-	private String addressDetail;
+	@Column(name = "address", columnDefinition = MEDIUM_2)
+	private String address;
+	
+	@Column(name = "join_date", columnDefinition = BaseEntity.DATE)
+	@Temporal(TemporalType.DATE)
+	private Date joinDate;
 
-	@Column(name = "address_1", columnDefinition = SHORT_5)
-	private String address1;
-
-	@Column(name = "address_2", columnDefinition = SHORT_5)
-	private String address2;
-
-	@Column(name = "address_3", columnDefinition = SHORT_5)
-	private String address3;
-
-	@Column(name = "details", columnDefinition = LONG_1)
-	private String details;
-
+	@Column(name = "face_amount", columnDefinition = BaseEntity.CURRENCY)
+	private BigDecimal faceAmount;
+	
 	public String getName() {
 		return name;
 	}
@@ -115,46 +112,30 @@ public class Employee extends BaseEntity {
 		this.workingStatus = workingStatus;
 	}
 
-	public String getAddressDetail() {
-		return addressDetail;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAddressDetail(String addressDetail) {
-		this.addressDetail = addressDetail;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public String getAddress1() {
-		return address1;
+	public Date getJoinDate() {
+		return joinDate;
 	}
 
-	public void setAddress1(String address1) {
-		this.address1 = address1;
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
 	}
 
-	public String getAddress2() {
-		return address2;
+	public BigDecimal getFaceAmount() {
+		return faceAmount;
 	}
 
-	public void setAddress2(String address2) {
-		this.address2 = address2;
+	public void setFaceAmount(BigDecimal faceAmount) {
+		this.faceAmount = faceAmount;
 	}
 
-	public String getAddress3() {
-		return address3;
-	}
-
-	public void setAddress3(String address3) {
-		this.address3 = address3;
-	}
-
-	public String getDetails() {
-		return details;
-	}
-
-	public void setDetails(String details) {
-		this.details = details;
-	}
-	
 	@Override
 	public void bind(BaseDto baseDto) {
 		super.bind(baseDto);
@@ -166,10 +147,9 @@ public class Employee extends BaseEntity {
 		this.email = dto.getEmail();
 		this.birthDate = dto.getBirthDate();
 		this.workingStatus = dto.getWorkingStatus();
-		this.addressDetail = dto.getAddressDetail();
-		this.address1 = dto.getAddress1();
-		this.address2 = dto.getAddress2();
-		this.address3 = dto.getAddress3();
+		this.joinDate = dto.getJoinDate();
+		this.faceAmount = dto.getFaceAmount();
+		this.address = dto.getAddress();
 	}
 	
 	@Override
@@ -183,10 +163,9 @@ public class Employee extends BaseEntity {
 		dto.setEmail(this.email);
 		dto.setBirthDate(this.birthDate);
 		dto.setWorkingStatus(this.workingStatus);
-		dto.setAddressDetail(this.addressDetail);
-		dto.setAddress1(this.address1);
-		dto.setAddress2(this.address2);
-		dto.setAddress3(this.address3);
+		dto.setJoinDate(this.joinDate);
+		dto.setFaceAmount(this.faceAmount);
+		dto.setAddress(this.address);
 	}
 	
 

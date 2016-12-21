@@ -18,9 +18,9 @@ import com.google.gson.reflect.TypeToken;
 import core.common.format.json.JsonFormatter;
 import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
-import web.monkey.shared.dto.WarehouseHistoryType;
-import web.monkey.shared.dto.ProductDto;
 import web.monkey.shared.dto.WareHouseHistoryDto;
+import web.monkey.shared.dto.WareHouseHistoryDto.ProductDto;
+import web.monkey.shared.dto.WarehouseHistoryType;
 
 @Entity
 @Table(name = "warehouse_histories")
@@ -30,8 +30,35 @@ public class WareHouseHistory extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "warehouse_id", columnDefinition = LONG)
-	private long warehouseId;
-	
+	private Long warehouseId;
+
+	@Column(name = "warehouse_name", columnDefinition = MEDIUM_1)
+	private String warehouseName;
+
+	@Column(name = "warehouse_id1", columnDefinition = LONG)
+	private Long warehouseId1;
+
+	@Column(name = "warehouse_name1", columnDefinition = MEDIUM_1)
+	private String warehouseName1;
+
+	@Column(name = "supplier_id", columnDefinition = LONG)
+	private Long supplierId;
+
+	@Column(name = "supplier_name", columnDefinition = MEDIUM_1)
+	private String supplierName;
+
+	@Column(name = "customer_id", columnDefinition = LONG)
+	private Long customerId;
+
+	@Column(name = "customer_name", columnDefinition = MEDIUM_1)
+	private String customerName;
+
+	@Column(name = "employee_id", columnDefinition = LONG)
+	private Long employeeId;
+
+	@Column(name = "employee_name", columnDefinition = MEDIUM_1)
+	private String employeeName;
+
 	@Column(name = "reference_no", columnDefinition = MEDIUM_1)
 	private String referenceNo;
 
@@ -43,54 +70,136 @@ public class WareHouseHistory extends BaseEntity {
 	@Column(name = "history_type", columnDefinition = SHORT_5)
 	private WarehouseHistoryType historyType;
 
-	@Column(name = "supplier_id", columnDefinition = MEDIUM_1)
-	private Long supplier;
-
-	@Column(name = "customer_id", columnDefinition = MEDIUM_1)
-	private Long customer;
-
-	@Column(name = "employee_id", columnDefinition = LONG)
-	private Long employee;
-
 	@Column(name = "details", columnDefinition = LONG_1)
 	private String details;
-	
+
 	@Column(name = "description", columnDefinition = LONG_1)
 	private String description;
 
-	
 	@Override
 	public void bind(BaseDto baseDto) {
 		super.bind(baseDto);
 		WareHouseHistoryDto dto = (WareHouseHistoryDto) baseDto;
-		this.warehouseId = dto.getWarehouseId();
-		this.customer = dto.getCustomer();
 		this.details = JsonFormatter.toJson(dto.getDetails());
-		this.employee = dto.getEmployeeId();
 		this.historyDateTime = dto.getHistoryDateTime();
 		this.historyType = dto.getHistoryType();
 		this.referenceNo = dto.getReferenceNo();
-		this.supplier = dto.getSupplier();
 		this.description = dto.getDescription();
+		this.warehouseId = dto.getWarehouseId();
+		this.warehouseName = dto.getWarehouseName();
+		this.warehouseId1 = dto.getWarehouseId1();
+		this.warehouseName1 = dto.getWarehouseName1();
+		this.customerId = dto.getCustomerId();
+		this.customerName = dto.getCustomerName();
+		this.employeeId = dto.getEmployeeId();
+		this.employeeName = dto.getEmployeeName();
+		this.supplierId = dto.getSupplierId();
+		this.supplierName = dto.getSupplierName();	
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void unBind(BaseDto baseDto) {
 		super.unBind(baseDto);
 		WareHouseHistoryDto dto = (WareHouseHistoryDto) baseDto;
-		dto.setWarehouseId(warehouseId);
-		dto.setCustomer(customer);
-		Type listType = new TypeToken<ArrayList<ProductDto>>(){}.getType();
+		Type listType = new TypeToken<ArrayList<ProductDto>>() { }.getType();
 		dto.setDetails((List<ProductDto>) JsonFormatter.fromJson(details, listType));
-		dto.setEmployeeId(employee);
 		dto.setHistoryDateTime(historyDateTime);
 		dto.setHistoryType(historyType);
 		dto.setReferenceNo(referenceNo);
-		dto.setSupplier(supplier);
 		dto.setDescription(description);
+		dto.setWarehouseId(warehouseId);
+		dto.setWarehouseName(warehouseName);
+		dto.setWarehouseId1(warehouseId1);
+		dto.setWarehouseName1(warehouseName1);
+		dto.setCustomerId(customerId);
+		dto.setCustomerName(customerName);
+		dto.setSupplierId(supplierId);
+		dto.setSupplierName(supplierName);
+		dto.setEmployeeId(employeeId);
+		dto.setEmployeeName(employeeName);
 	}
-	
+
+	public Long getWarehouseId() {
+		return warehouseId;
+	}
+
+	public void setWarehouseId(Long warehouseId) {
+		this.warehouseId = warehouseId;
+	}
+
+	public String getWarehouseName() {
+		return warehouseName;
+	}
+
+	public void setWarehouseName(String warehouseName) {
+		this.warehouseName = warehouseName;
+	}
+
+	public Long getWarehouseId1() {
+		return warehouseId1;
+	}
+
+	public void setWarehouseId1(Long warehouseId1) {
+		this.warehouseId1 = warehouseId1;
+	}
+
+	public String getWarehouseName1() {
+		return warehouseName1;
+	}
+
+	public void setWarehouseName1(String warehouseName1) {
+		this.warehouseName1 = warehouseName1;
+	}
+
+	public Long getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(Long supplierId) {
+		this.supplierId = supplierId;
+	}
+
+	public String getSupplierName() {
+		return supplierName;
+	}
+
+	public void setSupplierName(String supplierName) {
+		this.supplierName = supplierName;
+	}
+
+	public Long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public Long getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(Long employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public String getEmployeeName() {
+		return employeeName;
+	}
+
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+
 	public String getReferenceNo() {
 		return referenceNo;
 	}
@@ -115,30 +224,6 @@ public class WareHouseHistory extends BaseEntity {
 		this.historyType = historyType;
 	}
 
-	public Long getSupplier() {
-		return supplier;
-	}
-
-	public void setSupplier(Long supplier) {
-		this.supplier = supplier;
-	}
-
-	public Long getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Long customer) {
-		this.customer = customer;
-	}
-
-	public Long getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Long employee) {
-		this.employee = employee;
-	}
-
 	public String getDetails() {
 		return details;
 	}
@@ -147,18 +232,10 @@ public class WareHouseHistory extends BaseEntity {
 		this.details = details;
 	}
 
-	public long getWarehouseId() {
-		return warehouseId;
-	}
-
-	public void setWarehouseId(long warehouseId) {
-		this.warehouseId = warehouseId;
-	}
-
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public void setDescription(String description) {
 		this.description = description;
 	}

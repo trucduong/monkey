@@ -36,17 +36,10 @@ export class WarehouseService extends BaseHttpService {
     }
 
     /**
-     * import
+     * warehouse history
      */
-    importProducts(importModel: WarehouseModel) {
-        return this.post(SERVICES.URLS.warehouse, SERVICES.ACTIONS.WAREHOUSE_TRACKING, importModel, ['import']);
-    }
-
-    /**
-     * Tracking
-     */
-    saveDetails(importModel: WarehouseModel) {
-        return this.post(SERVICES.URLS.warehouse, SERVICES.ACTIONS.WAREHOUSE_TRACKING, importModel, ['detail']);
+    saveDetails(importModel: WarehouseModel, historyType: string) {
+        return this.post(SERVICES.URLS.warehouse, SERVICES.ACTIONS.WAREHOUSE_TRACKING, importModel, [historyType]);
     }
 
     getDetail(warehouseId: string, productId: string) {

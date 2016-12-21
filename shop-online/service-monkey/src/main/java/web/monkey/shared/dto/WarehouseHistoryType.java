@@ -5,7 +5,8 @@ public enum WarehouseHistoryType {
 	IMPORT_RETURNS, // nhap tra hang
 	EXPORT, // xuat ban
 	EXPORT_RETURNS, // xuat tra hang
-	DETAIL; // Kiem ke
+	DETAIL, // Kiem ke
+	TRANSFER; // chueyn kho
 	
 	public static WarehouseHistoryType fromString(String str) {
 		if (str == null) {

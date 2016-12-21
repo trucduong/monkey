@@ -4,17 +4,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import { BaseController, GridColumn, SortInfo, SmartGridInfo, FormInfo, AlertType,
-  GridOption, TextFieldInfo, CmbFieldInfo, NumberFieldInfo, ComboboxService } from '../../shared/index';
+  GridOption, TextFieldInfo, CmbFieldInfo, SmartCmbFieldInfo, NumberFieldInfo, ComboboxService } from '../../shared/index';
 import {WarehouseService, WarehouseModel, RefWarehouseService } from '../shared/index';
 import {Product, RefProductService} from '../../product/shared/index';
 import {RefEmployeeService} from '../../employee/shared/index';
+import {RefSupplierService} from '../../supplier/shared/index';
 
 @Component({
-  selector: 'warehouse-returns',
-  templateUrl: 'src/app/warehouse/returns/returns.html'
+  selector: 'warehouse-export-returns',
+  templateUrl: 'src/app/warehouse/export/export.html'
 })
 
-export class WarehouseReturnCmp extends BaseController implements OnInit {
+export class WarehouseExportReturnCmp extends BaseController implements OnInit {
 
   model: WarehouseModel;
   gridInfo: SmartGridInfo;
@@ -41,7 +42,7 @@ export class WarehouseReturnCmp extends BaseController implements OnInit {
   }
 
   getCurrentUrl(): string {
-    return '/warehouse-returns';
+    return '/warehouse-export-returns';
   }
 
   ngOnInit() {
@@ -95,6 +96,9 @@ export class WarehouseReturnCmp extends BaseController implements OnInit {
     form.addField(new CmbFieldInfo(this.getTranslator(), refEmployeeService, 'employeeId', 'warehouse.import.employee', true));
     this.model.employeeId = this.getCurrentUser().employeeId;
 
+    let refSupplierService = new RefSupplierService(this.warehouseService);
+    form.addField(new SmartCmbFieldInfo(this.getTranslator(), refSupplierService, 'supplier', 'warehouse.import.supplier', false, false));
+
     return form;
   }
 
@@ -125,7 +129,7 @@ export class WarehouseReturnCmp extends BaseController implements OnInit {
 
       // call save service
       mthis.showLoading();
-      mthis.warehouseService.saveDetails(mthis.model, 'import_returns')
+      mthis.warehouseService.saveDetails(mthis.model, 'export_returns')
         .then(res => {
           mthis.hideLoading();
           mthis.alert(AlertType.success, 'common.alert.content.update.success');
