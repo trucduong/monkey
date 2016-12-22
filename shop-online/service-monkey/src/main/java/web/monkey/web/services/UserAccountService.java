@@ -52,13 +52,13 @@ public class UserAccountService extends CRUDService<UserProfile, UserAccountDto>
 		return this.getClass();
 	}
 	
-	@Override
-	protected void onCreateSucceed(UserAccountDto dto) {
-		UserAccount account = new UserAccount();
-		account.bind(dto);
-		account.setPassword(PasswordEncoder.encode(dto.getLoginName()));
-		accountDao.create(account);
-	}
+//	@Override
+//	protected void onCreateSucceed(UserAccountDto dto) {
+//		UserAccount account = new UserAccount();
+//		account.bind(dto);
+//		account.setPassword(PasswordEncoder.encode(dto.getLoginName()));
+//		accountDao.create(account);
+//	}
 	
 	@Override
 	@RequestMapping(value = CRUDServiceAction.DELETE, method = RequestMethod.POST)

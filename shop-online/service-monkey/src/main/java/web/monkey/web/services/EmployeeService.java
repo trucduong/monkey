@@ -75,10 +75,4 @@ public class EmployeeService extends CRUDService<Employee, EmployeeDto> {
 
 		return success(dtos);
 	}
-	
-	@Override
-	protected void onDeleteSucceed(long id) {
-		// remove detail
-//		detailDao.delete(id);
-	}
 }

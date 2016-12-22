@@ -15,7 +15,9 @@ import core.service.utils.CRUDServiceAction;
 import core.service.utils.ServiceErrorCode;
 import core.service.utils.ServiceResult;
 import web.monkey.dao.CustomerDao;
+import web.monkey.dao.CustomerGroupDao;
 import web.monkey.entities.Customer;
+import web.monkey.entities.CustomerGroup;
 import web.monkey.shared.dto.CustomerDto;
 import web.monkey.shared.utils.ServiceActions;
 
@@ -25,6 +27,9 @@ public class CustomerService extends CRUDService<Customer, CustomerDto> {
 
 	@Autowired
 	private CustomerDao dao;
+	
+	@Autowired
+	private CustomerGroupDao groupDao;
 	
 	@Override
 	protected BaseDao<Customer> getDao() {
@@ -46,6 +51,27 @@ public class CustomerService extends CRUDService<Customer, CustomerDto> {
 		return this.getClass();
 	}
 	
+	@Override
+	protected void onBeforeCreate(Customer entity, CustomerDto dto) {
+		super.onBeforeCreate(entity, dto);
+		if (dto.getGroupId() != null) {
+			CustomerGroup group = groupDao.find(dto.getGroupId());
+			if (group != null) {
+				entity.setCustomerGroup(group);
+			}
+		}
+	}
+	
+	@Override
+	protected void onBeforeUpdate(Customer entity, CustomerDto dto, String action) {
+		super.onBeforeUpdate(entity, dto, action);
+		if (dto.getGroupId() != null && !dto.getGroupId().equals(entity.getCustomerGroup().getId())) {
+			CustomerGroup group = groupDao.find(dto.getGroupId());
+			if (group != null) {
+				entity.setCustomerGroup(group);
+			}
+		}
+	}
 	
 	@RequestMapping(value = ServiceActions.READ_D, method = RequestMethod.GET)
 	public ServiceResult readD(@PathVariable(value = CRUDServiceAction.PARAM_ID) long id) throws CommonException {

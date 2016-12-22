@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import core.common.exception.CommonException;
 import core.common.utils.CommonConstants;
@@ -27,9 +28,17 @@ public abstract class CRUDService<E extends IEntity, D extends BaseDto> extends 
 	
 	protected void onDeleteSucceed(long id) { }
 	
-	protected void onUpdateSucceed(D dto) {}
+	protected void onBeforeUpdate(E entity, D dto, String action) {
+		entity.bind(dto);
+	}
 	
-	protected void onCreateSucceed(D dto) {}
+	protected void onAfterUpdate(E entity) {}
+	
+	protected void onBeforeCreate(E entity, D dto) {
+		entity.bind(dto);
+	}
+	
+	protected void onAfterCreate(E entity) {}
 
 	@RequestMapping(value = CRUDServiceAction.READ, method = RequestMethod.GET)
 	public ServiceResult read(@PathVariable(value = CRUDServiceAction.PARAM_ID) long id) throws CommonException {
@@ -108,22 +117,22 @@ public abstract class CRUDService<E extends IEntity, D extends BaseDto> extends 
 		init(ServiceErrorCode.CREATE_ERROR);
 		dto.setId(0);
 		E entity = createEntity();
-		entity.bind(dto);
+		onBeforeCreate(entity, dto);
 		getDao().create(entity);
-		onCreateSucceed(dto);
+		onAfterCreate(entity);
 		return success(dto);
 	}
 
 	@RequestMapping(value = CRUDServiceAction.UPDATE, method = RequestMethod.POST)
-	public ServiceResult update(@RequestBody D dto, @PathVariable("id") long id) throws CommonException {
+	public ServiceResult update(@RequestBody D dto, @PathVariable("id") long id, @RequestParam(name="action", required=false, defaultValue="") String action) throws CommonException {
 		init(ServiceErrorCode.UPDATE_ERROR);
 		E entity = getDao().find(id);
 		if (entity == null) {
 			return error(ServiceErrorCode.NOT_FOUND);
 		}
-		entity.bind(dto);
+		onBeforeUpdate(entity, dto, action);
 		getDao().update(entity);
-		onUpdateSucceed(dto);
+		onAfterUpdate(entity);
 		return success(dto);
 	}
 

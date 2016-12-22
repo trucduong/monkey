@@ -29,12 +29,10 @@ import web.monkey.dao.WarehouseHistoryDao;
 import web.monkey.dto.xsl.WarehouseDetailSheet;
 import web.monkey.entities.WareHouseHistory;
 import web.monkey.entities.Warehouse;
-import web.monkey.shared.dto.WareHouseHistoryDetailDto;
 import web.monkey.shared.dto.WareHouseHistoryDto;
 import web.monkey.shared.dto.WarehouseDetailDto;
 import web.monkey.shared.dto.WarehouseDto;
 import web.monkey.shared.dto.WarehouseHistoryType;
-import web.monkey.shared.dto.WarehouseSearchCondition;
 import web.monkey.shared.utils.ServiceActions;
 
 @RestController
@@ -154,17 +152,17 @@ public class WarehouseService extends CRUDService<Warehouse, WarehouseDto> {
 		return success(true);
 	}
 
-	@RequestMapping(value = ServiceActions.WAREHOUSE_HISTORY, method = RequestMethod.GET)
-	public ServiceResult getAllImportHistory(@PathVariable("type") String type, WarehouseSearchCondition condition) throws CommonException {
-		init();
-		WarehouseHistoryType historyType = WarehouseHistoryType.fromString(type);
-		List<WareHouseHistoryDetailDto> histories = historyDao.getAllHistory(historyType, condition);
-		if (histories.isEmpty()) {
-			return error(ServiceErrorCode.NOT_FOUND);
-		}
-
-		return success(histories);
-	}
+//	@RequestMapping(value = ServiceActions.WAREHOUSE_HISTORY, method = RequestMethod.GET)
+//	public ServiceResult getAllImportHistory(@PathVariable("type") String type, WarehouseSearchCondition condition) throws CommonException {
+//		init();
+//		WarehouseHistoryType historyType = WarehouseHistoryType.fromString(type);
+//		List<WareHouseHistoryDetailDto> histories = historyDao.getAllHistory(historyType, condition);
+//		if (histories.isEmpty()) {
+//			return error(ServiceErrorCode.NOT_FOUND);
+//		}
+//
+//		return success(histories);
+//	}
 
 
 	@RequestMapping(value = ServiceActions.WAREHOUSE_DETAIL, method = RequestMethod.GET)

@@ -67,17 +67,17 @@ public class RefService extends CRUDService<RefEntity, RefDto> {
 			public List<CmbItem> load() {
 				List<CmbItem> items = new ArrayList<CmbItem>();
 				List<RefEntity> entities = getDao().getAllDataByColumn(RefEntity.TYPE, type, RefEntity.ORDER_WEIGHT);
-				if (!entities.isEmpty()) {
-					// convert
-					for (RefEntity refEntity : entities) {
-						CmbItem item = new CmbItem();
-						item.setType(type);
-						item.setValue(refEntity.getRefValue());
-						item.setLabel(type + "." + refEntity.getRefValue());
-						item.setOrderWeight(refEntity.getOrderWeight());
-						items.add(item);
-					}
-				}
+//				if (!entities.isEmpty()) {
+//					// convert
+//					for (RefEntity refEntity : entities) {
+//						CmbItem item = new CmbItem();
+//						item.setType(type);
+//						item.setValue(refEntity.getRefValue());
+//						item.setLabel(type + "." + refEntity.getRefValue());
+//						item.setOrderWeight(refEntity.getOrderWeight());
+//						items.add(item);
+//					}
+//				}
 				
 				return items;
 			}

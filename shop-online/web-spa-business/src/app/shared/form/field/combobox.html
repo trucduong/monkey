@@ -1,5 +1,5 @@
 <form-field-cmp [info]="info" [fieldModel]="fieldModel">
-        <select class="form-control" [ngModel]="fieldModel" (ngModelChange)="updateData($event)">
+        <select #cmb class="form-control" [ngModel]="fieldModel" (ngModelChange)="updateData($event, cmb)">
             <option *ngIf="info.hasBlankItem" value=""></option>
             <option *ngFor="let item of info.items" [value]="info.getValue(item)">{{info.getLable(item) | translate}}</option>
         </select>

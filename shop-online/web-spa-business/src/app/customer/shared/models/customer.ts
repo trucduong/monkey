@@ -4,7 +4,8 @@ export class Customer extends BaseModel {
   id: string;
   name: string;
   phone: string;
-  group: string;
+  groupId: string;
+  groupName: string;
   sex: string;
   email: string;
   addressDetail: string;

@@ -52,7 +52,7 @@ export class CustomerCmp extends SmartListController<Customer> implements OnInit
     let addressField = new TextFieldInfo(this.getTranslator(), 'addressDetail', 'address.addressDetail', false, 0, 200)
 
     let refCustomerGroupService = new RefCustomerGroupService(this.customerService);
-    let groupField = new CmbFieldInfo(this.getTranslator(), refCustomerGroupService, 'group', 'customer.group', true);
+    let groupField = new CmbFieldInfo(this.getTranslator(), refCustomerGroupService, 'groupId', 'customer.group', true);
 
     let description = new TextFieldInfo(this.getTranslator(), 'description', 'customer.description', false, 0, 500)
 
