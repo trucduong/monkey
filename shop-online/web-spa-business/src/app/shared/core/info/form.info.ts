@@ -430,6 +430,7 @@ export class CmbFieldInfo extends FormFieldInfo {
     filter: any;
     hasBlankItem: boolean;
     items: {value: string, label: string}[];
+    dispLayText: string;
     
     constructor(translate: TranslateService, service: ComboboxService, name: string, label: string, required: boolean, hasBlankItem?: boolean) {
         super(translate, name, label, required);

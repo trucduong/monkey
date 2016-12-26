@@ -156,7 +156,7 @@ public class WareHouseHistoryDto extends BaseDto {
 
 
 	public class ProductDto {
-		private String id;
+		private long id;
 		private String name;
 
 		private long remaining;
@@ -169,11 +169,11 @@ public class WareHouseHistoryDto extends BaseDto {
 		
 		private String description;
 
-		public String getId() {
+		public long getId() {
 			return id;
 		}
-
-		public void setId(String id) {
+		
+		public void setId(long id) {
 			this.id = id;
 		}
 

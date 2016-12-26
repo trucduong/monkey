@@ -1,11 +1,13 @@
 package core.dao.entities;
 
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 
 /**
  * Base entity
  *
  */
+@MappedSuperclass
 public abstract class BaseCachedEntity extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	

@@ -137,16 +137,8 @@ export class CmbFieldCmp extends CustomField implements OnChanges {
     }
 
     updateData(event, data?: any) {
-        console.log(data);
+        this.info['dispLayText']=data.options[data.selectedIndex].text;
         super.updateData(event, data);
-        // let oldValue = this.fieldModel;
-        // this.fieldModel = event;
-        // if (this.info) {
-        //     this.info.validate(this.fieldModel);
-        // }
-        // this.fieldModelChange.emit(event);
-
-        // this.info.fireValueChangeListener(new ValueChangeEvent(oldValue, event, data));
     }
 }
 

@@ -23,6 +23,7 @@ import core.dao.utils.BaseDao;
 import core.service.services.CRUDService;
 import core.service.utils.ServiceErrorCode;
 import core.service.utils.ServiceResult;
+import web.monkey.dao.ProductDao;
 import web.monkey.dao.WarehouseDao;
 import web.monkey.dao.WarehouseDetailDao;
 import web.monkey.dao.WarehouseHistoryDao;
@@ -30,9 +31,11 @@ import web.monkey.dto.xsl.WarehouseDetailSheet;
 import web.monkey.entities.WareHouseHistory;
 import web.monkey.entities.Warehouse;
 import web.monkey.shared.dto.WareHouseHistoryDto;
+import web.monkey.shared.dto.WareHouseHistoryDto.ProductDto;
 import web.monkey.shared.dto.WarehouseDetailDto;
 import web.monkey.shared.dto.WarehouseDto;
 import web.monkey.shared.dto.WarehouseHistoryType;
+import web.monkey.shared.dto.WarehouseSearchCondition;
 import web.monkey.shared.utils.ServiceActions;
 
 @RestController
@@ -41,12 +44,12 @@ public class WarehouseService extends CRUDService<Warehouse, WarehouseDto> {
 
 	@Autowired
 	private WarehouseDao dao;
+	
+	@Autowired
+	private ProductDao productDao;
 
 	@Autowired
 	private WarehouseHistoryDao historyDao;
-
-//	@Autowired
-//	private ProductDetailDao productDetailDao;
 
 	@Autowired
 	private WarehouseDetailDao warehouseDetailDao;
@@ -96,73 +99,68 @@ public class WarehouseService extends CRUDService<Warehouse, WarehouseDto> {
 		history.bind(dto);
 		historyDao.create(history);
 
-		// update product detail
-//		if (historyType == WarehouseHistoryType.IMPORT) {
-//			productDetailDao.importDetails(dto.getDetails());
-//		}
+		//update product detail
+		if (historyType == WarehouseHistoryType.IMPORT) {
+			productDao.updatePrices(dto.getDetails());
+		}
 
 		// update product remaining
-//		for (ProductDto product : dto.getDetails()) {
-//			WarehouseDetail detail = warehouseDetailDao.find(
-//					new String[] { WarehouseDetail.WAREHOUSE_ID, WarehouseDetail.PRODUCT_ID },
-//					new Long[] { dto.getWarehouseId(), product.getId() });
-//			if (detail == null) {
-//				detail = new WarehouseDetail();
-//				detail.setProductId(product.getId());
-//				detail.setWarehouseId(dto.getWarehouseId());
-//				detail.setRemaining(0);
-//			}
-//
-//			if (historyType == WarehouseHistoryType.IMPORT 
-//					|| historyType == WarehouseHistoryType.IMPORT_RETURNS) {
-//				detail.setRemaining(detail.getRemaining() + product.getRemaining());
-//
-//			} else if (historyType == WarehouseHistoryType.EXPORT
-//					|| historyType == WarehouseHistoryType.EXPORT_RETURNS) {
-//				long remaining = detail.getRemaining() - product.getRemaining();
-//				remaining = remaining > 0 ? remaining : 0;
-//				detail.setRemaining(remaining);
-//
-//			} else if (historyType == WarehouseHistoryType.DETAIL) {
-//				detail.setRemaining(product.getRemaining());
-//				
-//			} else if (historyType == WarehouseHistoryType.TRANSFER) {
-//				long remaining = detail.getRemaining() - product.getRemaining();
-//				remaining = remaining > 0 ? remaining : 0;
-//				detail.setRemaining(remaining);
-//				
-//				
-//				WarehouseDetail detail2 = warehouseDetailDao.find(
-//						new String[] { WarehouseDetail.WAREHOUSE_ID, WarehouseDetail.PRODUCT_ID },
-//						new Long[] { dto.getCustomer(), product.getId() }); // use customerfield as second warehouse
-//				if (detail2 == null) {
-//					detail2 = new WarehouseDetail();
-//					detail2.setWarehouseId(dto.getCustomer());
-//					detail2.setProductId(product.getId());
-//					detail2.setRemaining(0);
-//				} else {
-//					detail2.setRemaining(detail2.getRemaining() + product.getRemaining());
-//				}
-//				warehouseDetailDao.update(detail2);
-//			}
-//
-//			warehouseDetailDao.update(detail);
-//		}
+		for (ProductDto product : dto.getDetails()) {
+			WarehouseDetailDto detailDto = warehouseDetailDao.getDetail(dto.getWarehouseId(), product.getId());
+			if (detailDto == null) {
+				detailDto = new WarehouseDetailDto();
+				detailDto.setProductId(product.getId());
+				detailDto.setWarehouseId(dto.getWarehouseId());
+				detailDto.setRemaining(0);
+			}
+
+			if (historyType == WarehouseHistoryType.IMPORT 
+					|| historyType == WarehouseHistoryType.IMPORT_RETURNS) {
+				detailDto.setRemaining(detailDto.getRemaining() + product.getRemaining());
+
+			} else if (historyType == WarehouseHistoryType.EXPORT
+					|| historyType == WarehouseHistoryType.EXPORT_RETURNS) {
+				long remaining = detailDto.getRemaining() - product.getRemaining();
+				remaining = remaining > 0 ? remaining : 0;
+				detailDto.setRemaining(remaining);
+
+			} else if (historyType == WarehouseHistoryType.DETAIL) {
+				detailDto.setRemaining(product.getRemaining());
+				
+			} else if (historyType == WarehouseHistoryType.TRANSFER) {
+				long remaining = detailDto.getRemaining() - product.getRemaining();
+				remaining = remaining > 0 ? remaining : 0;
+				detailDto.setRemaining(remaining);
+				
+				WarehouseDetailDto detailDto2 = warehouseDetailDao.getDetail(dto.getWarehouseId1(), product.getId());
+				if (detailDto2 == null) {
+					detailDto2 = new WarehouseDetailDto();
+					detailDto2.setWarehouseId(dto.getWarehouseId1());
+					detailDto2.setProductId(product.getId());
+					detailDto2.setRemaining(0);
+				} else {
+					detailDto2.setRemaining(detailDto2.getRemaining() + product.getRemaining());
+				}
+				warehouseDetailDao.createOrUpdate(detailDto2);
+			}
+
+			warehouseDetailDao.createOrUpdate(detailDto);
+		}
 
 		return success(true);
 	}
 
-//	@RequestMapping(value = ServiceActions.WAREHOUSE_HISTORY, method = RequestMethod.GET)
-//	public ServiceResult getAllImportHistory(@PathVariable("type") String type, WarehouseSearchCondition condition) throws CommonException {
-//		init();
-//		WarehouseHistoryType historyType = WarehouseHistoryType.fromString(type);
-//		List<WareHouseHistoryDetailDto> histories = historyDao.getAllHistory(historyType, condition);
-//		if (histories.isEmpty()) {
-//			return error(ServiceErrorCode.NOT_FOUND);
-//		}
-//
-//		return success(histories);
-//	}
+	@RequestMapping(value = ServiceActions.WAREHOUSE_HISTORY, method = RequestMethod.GET)
+	public ServiceResult getAllImportHistory(@PathVariable("type") String type, WarehouseSearchCondition condition) throws CommonException {
+		init();
+		WarehouseHistoryType historyType = WarehouseHistoryType.fromString(type);
+		List<WareHouseHistoryDto> histories = historyDao.getAllHistory(historyType, condition);
+		if (histories.isEmpty()) {
+			return error(ServiceErrorCode.NOT_FOUND);
+		}
+
+		return success(histories);
+	}
 
 
 	@RequestMapping(value = ServiceActions.WAREHOUSE_DETAIL, method = RequestMethod.GET)

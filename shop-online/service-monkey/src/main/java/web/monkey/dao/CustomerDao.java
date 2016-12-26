@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import core.dao.utils.BaseCachedDao;
-import core.dao.utils.BaseDao;
 import core.dao.utils.DaoUtils;
 import core.dao.utils.QueryBuilder;
 import web.monkey.entities.Customer;

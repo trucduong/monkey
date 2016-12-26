@@ -3,14 +3,14 @@ package web.monkey.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import core.dao.utils.BaseCachedDao;
 import web.monkey.entities.Employee;
 import web.monkey.shared.dto.EmployeeDto;
 import web.monkey.shared.dto.WorkingStatus;
 
-@Service
+@Repository
 public class EmployeeDao extends BaseCachedDao<Employee> {
 	private static final long serialVersionUID = 1L;
 

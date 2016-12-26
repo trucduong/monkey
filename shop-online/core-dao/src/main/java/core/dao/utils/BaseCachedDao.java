@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -54,7 +53,7 @@ public class BaseCachedDao<E extends BaseCachedEntity> extends BaseDao<E> {
 		super.deleteAllData();
 	}
 
-	@Autowired
+	@Override
 	public List<E> getAllDataByColumns(String[] names, Object[] values, String... orderColumns) {
 		Class<E> entityClass = getPersistentClass();
 		String className = getClassName();
@@ -89,7 +88,7 @@ public class BaseCachedDao<E extends BaseCachedEntity> extends BaseDao<E> {
 		return query.getResultList();
 	}
 	
-	@Autowired
+	@Override
 	public List<E> getAllDataByColumns(String name, Object[] values) {
 		Class<E> entityClass = getPersistentClass();
 		String className = getClassName();
@@ -104,7 +103,7 @@ public class BaseCachedDao<E extends BaseCachedEntity> extends BaseDao<E> {
 		return query.getResultList();
 	}
 
-	@Autowired
+	@Override
 	public int deleteAllDataByColumn(String name, Object value) {
 		String className = getClassName();
 		String strQuery = " UPDATE " + className + " e SET e.deleted=TRUE " + " WHERE e." + name + " = ?1";
@@ -112,7 +111,7 @@ public class BaseCachedDao<E extends BaseCachedEntity> extends BaseDao<E> {
 		return query.executeUpdate();
 	}
 
-	@Autowired
+	@Override
 	public int deleteAllDataByColumns(String[] names, Object[] values) {
 		String className = getClassName();
 		String strQuery = " UPDATE " + className + " e SET e.deleted=TRUE" + " WHERE e.";// +
@@ -147,7 +146,7 @@ public class BaseCachedDao<E extends BaseCachedEntity> extends BaseDao<E> {
 	}
 
 
-	@Autowired
+	@Override
 	@SuppressWarnings("unchecked")
 	protected List<E> getAllDataWithOrder(List<String> orderColumns, int firstIndex, int maxResult) {
 		String className = getClassName();

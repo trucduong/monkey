@@ -32,7 +32,7 @@ export class CustomerCmp extends SmartListController<Customer> implements OnInit
 
   getTranslateServices(): Map<string, ComboboxService> {
     let map = new Map<string, ComboboxService>();
-    map.set('customer.group', new RefCustomerGroupService(this.customerService));
+    // map.set('customer.group', new RefCustomerGroupService(this.customerService));
     return map;
   }
 

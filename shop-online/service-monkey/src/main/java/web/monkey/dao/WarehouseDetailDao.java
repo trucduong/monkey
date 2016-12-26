@@ -3,6 +3,7 @@ package web.monkey.dao;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import core.dao.utils.BaseDao;
@@ -10,12 +11,21 @@ import core.dao.utils.DaoUtils;
 import core.dao.utils.NativeQueryBuilder;
 import core.dao.utils.QueryBuilder;
 import web.monkey.dto.xsl.WarehouseDetailSheet;
+import web.monkey.entities.Product;
+import web.monkey.entities.Warehouse;
 import web.monkey.entities.WarehouseDetail;
+import web.monkey.shared.dto.WareHouseHistoryDto.ProductDto;
 import web.monkey.shared.dto.WarehouseDetailDto;
 
 @Repository
 public class WarehouseDetailDao extends BaseDao<WarehouseDetail> {
 	private static final long serialVersionUID = 1L;
+	
+	@Autowired
+	private ProductDao productDao;
+	
+	@Autowired
+	private WarehouseDao warehouseDao;
 	
 	public WarehouseDetailDto getDetail(long warehouseId, long productId) {
 		NativeQueryBuilder builder = new NativeQueryBuilder();
@@ -58,5 +68,33 @@ public class WarehouseDetailDao extends BaseDao<WarehouseDetail> {
 		String[] columns = new String[] {"warehouse", "product", "remaining"};
 		List<WarehouseDetailSheet> dtos = DaoUtils.selectAll(getEm(), builder, WarehouseDetailSheet.class, columns);
 		return dtos;
+	}
+	
+	public int updateRemainings(long warehouseId, List<ProductDto> products) {
+		NativeQueryBuilder builder = new NativeQueryBuilder();
+		for (ProductDto product : products) {
+			builder.append("UPDATE warehouse_details d SET");
+			builder.append(" d.remaining=:remaining", "remaining", product.getRemaining());
+			builder.append(", d.description=:description", "description", product.getDescription());
+			builder.append("WHERE d.product_id=:productId AND d.warehouse_id=:warehouseId; ", "productId", product.getId(), "warehouseId", warehouseId);
+		}
+		int result = builder.build(getEm()).executeUpdate();
+		return result;
+	}
+	
+	public void createOrUpdate(WarehouseDetailDto dto) {
+		WarehouseDetail entity = find(dto.getId());
+		if (entity == null) {
+			entity = new WarehouseDetail();
+		}
+		entity.bind(dto);
+
+		Product product = productDao.find(dto.getProductId());
+		entity.setProduct(product);
+
+		Warehouse warehouse = warehouseDao.find(dto.getWarehouseId());
+		entity.setWarehouse(warehouse);
+
+		update(entity);
 	}
 }

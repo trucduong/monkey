@@ -64,4 +64,17 @@ public class ProductDao extends BaseCachedDao<Product> {
 
 		return items;
 	}
+
+	public int updatePrices(List<web.monkey.shared.dto.WareHouseHistoryDto.ProductDto> products) {
+		QueryBuilder builder = new QueryBuilder();
+		for (web.monkey.shared.dto.WareHouseHistoryDto.ProductDto product : products) {
+			builder.append("UPDATE Product SET");
+			builder.append(" inputPrice=:inputPrice", "inputPrice", product.getInputPrice());
+			builder.append(", wholesalePrice=:wholesalePrice","wholesalePrice", product.getWholesalePrice());
+			builder.append(", retailPrice=:retailPrice","retailPrice", product.getWholesalePrice());
+			builder.append("WHERE id=:id ; ", "id", product.getId());
+		}
+		int result = builder.build(getEm()).executeUpdate();
+		return result;
+	}
 }
