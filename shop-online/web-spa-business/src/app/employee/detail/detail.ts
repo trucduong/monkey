@@ -56,7 +56,7 @@ export class EmployeeDetailCmp extends SmartListController<Employee> implements 
       { fieldInfo: joinDateField, editable: true, sortable: true, width: 10 }
     ];
 
-    let grid = new SmartGridInfo(option, columns, [], new SortInfo('name', 'asc'), new FilterInfo(['name', 'addressDetail']));
+    let grid = new SmartGridInfo(option, columns, [], new SortInfo('name', 'asc'), new FilterInfo(['name', 'address']));
     return grid;
   }
 

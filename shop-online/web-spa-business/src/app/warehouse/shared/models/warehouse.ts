@@ -7,10 +7,7 @@ export class Warehouse extends BaseModel {
   ownerName: string;
   phone: string;
   status: string;
-  addressDetail: string;
-  address1: string;
-  address2: string;
-  address3: string;
+  address: string;
 
 
   constructor() {

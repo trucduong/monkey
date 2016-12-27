@@ -8,10 +8,7 @@ export class Customer extends BaseModel {
   groupName: string;
   sex: string;
   email: string;
-  addressDetail: string;
-  address1: string;
-  address2: string;
-  address3: string;
+  address: string;
   description: string;
 
   constructor() {

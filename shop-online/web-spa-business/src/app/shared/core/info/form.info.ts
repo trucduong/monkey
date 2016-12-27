@@ -73,6 +73,7 @@ export abstract class ValidatorHandler {
 export class FormFieldInfo extends ValidatorHandler {
     label: string;
     name: string;
+    displayName: string;
     //model: any;
     isSingle: boolean; // this fiel is in grid
 
@@ -426,7 +427,6 @@ export class RadioFieldInfo extends FormFieldInfo {
 }
 
 export class CmbFieldInfo extends FormFieldInfo {
-    displayName: string;
     service: ComboboxService;
     filter: any;
     hasBlankItem: boolean;
@@ -455,7 +455,6 @@ export class CmbFieldInfo extends FormFieldInfo {
 }
 
 export class SmartCmbFieldInfo extends FormFieldInfo {
-    displayName: string;
     service: ComboboxService;
     useLabelAsValue: boolean;
     

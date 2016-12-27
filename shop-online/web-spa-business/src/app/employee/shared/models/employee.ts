@@ -9,10 +9,7 @@ export class Employee extends BaseModel {
   email: string;
   birthDate: Date;
   workingStatus: string;
-  addressDetail: string;
-  address1: string;
-  address2: string;
-  address3: string;
+  address: string;
 
   joinDate: Date;
   faceAmount: number;

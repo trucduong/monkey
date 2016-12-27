@@ -28,6 +28,7 @@
                                         <div *ngIf="!(header.editable)">
                                             <span *ngIf="isRefText(header.fieldInfo.label)">{{header.fieldInfo.label+'.'+item[header.fieldInfo.name] | translate}}</span>
                                             <span *ngIf="isCustomRefText(header.fieldInfo.label)">{{item[header.fieldInfo.name]|cusTranslate:info.translateServices.get(header.fieldInfo.label)}}</span>
+                                            <span *ngIf="isNormalRefText(header.fieldInfo)">{{item[header.fieldInfo.displayName]}}</span>
                                             <span *ngIf="isNormalText(header.fieldInfo.label) && !isCustomFormatText(header.fieldInfo)">{{item[header.fieldInfo.name]}}</span>
                                             <span *ngIf="header.fieldInfo.type=='date'">{{item[header.fieldInfo.name] | date:'MM/dd/yyyy'}}</span>
                                             <span *ngIf="header.fieldInfo.type=='number'">{{item[header.fieldInfo.name] | cusNumber:{separated: true} }}</span>

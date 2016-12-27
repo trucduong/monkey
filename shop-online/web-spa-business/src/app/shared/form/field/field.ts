@@ -120,6 +120,9 @@ export class RadioFieldCmp extends CheckboxFieldCmp {
     styleUrls: ['src/app/shared/form/field/field.css']
 })
 export class CmbFieldCmp extends CustomField implements OnChanges {
+    @Input('info') info: FormFieldInfo;
+    @Input('fieldModel') fieldModel: any;
+    @Output() fieldModelChange: any = new EventEmitter();
     @Input('displayFieldModel') displayFieldModel: any;
     @Output() displayFieldModelChange: any = new EventEmitter();
 
@@ -154,6 +157,9 @@ export class CmbFieldCmp extends CustomField implements OnChanges {
         'src/app/shared/form/field/smartcombobox.css',]
 })
 export class SmartCmbFieldCmp extends CustomField implements OnChanges {
+    @Input('info') info: FormFieldInfo;
+    @Input('fieldModel') fieldModel: any;
+    @Output() fieldModelChange: any = new EventEmitter();
     @Input('displayFieldModel') displayFieldModel: any;
     @Output() displayFieldModelChange: any = new EventEmitter();
 

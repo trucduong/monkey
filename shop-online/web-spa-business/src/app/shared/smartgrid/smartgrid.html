@@ -43,7 +43,7 @@
                                     <td *ngFor="let header of info.columns">
                                         <div *ngIf="!(info.option.editable && header.editable && item.isDirty)">
                                             <span *ngIf="isRefText(header.fieldInfo.label)">{{header.fieldInfo.label+'.'+item[header.fieldInfo.name] | translate}}</span>
-                                            <span *ngIf="header.fieldInfo.dispLayText">{{header.fieldInfo.dispLayText|translate}}</span>
+                                            <span *ngIf="isNormalRefText(header.fieldInfo)">{{item[header.fieldInfo.displayName]}}</span>
                                             <span *ngIf="isCustomRefText(header.fieldInfo.label)">{{item[header.fieldInfo.name]|cusTranslate:info.translateServices.get(header.fieldInfo.label)}}</span>
                                             <span *ngIf="isNormalText(header.fieldInfo.label) && !isCustomFormatText(header.fieldInfo)">{{item[header.fieldInfo.name]}}</span>
                                             <span *ngIf="header.fieldInfo.fieldType=='date'">{{item[header.fieldInfo.name] | date:header.fieldInfo.format}}</span>

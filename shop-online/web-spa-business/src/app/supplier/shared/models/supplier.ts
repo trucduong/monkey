@@ -6,10 +6,7 @@ export class Supplier extends BaseModel {
   phone: string;
   group: string;
   email: string;
-  addressDetail: string;
-  address1: string;
-  address2: string;
-  address3: string;
+  address: string;
   description: string;
 
   constructor() {

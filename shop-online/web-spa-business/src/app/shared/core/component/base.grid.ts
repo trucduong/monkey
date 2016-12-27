@@ -151,6 +151,15 @@ export abstract class BaseGridCmp<T extends BaseModel> {
         return false;
     }
 
+    isNormalRefText(fieldInfo) {
+        if (!(fieldInfo['type'] == 'smartcombobox'
+            || fieldInfo['type'] == 'combobox')) {
+                return false;
+        }
+
+        return !this.isRefText(fieldInfo['label']) && !this.isCustomRefText(fieldInfo['label']);
+    }
+
     isNormalText(labelKey: string) {
         return !this.isRefText(labelKey) && !this.isCustomRefText(labelKey);
     }
@@ -159,7 +168,9 @@ export abstract class BaseGridCmp<T extends BaseModel> {
         if (fieldInfo['type'] == 'date'
             || fieldInfo['type'] == 'datetime'
             || fieldInfo['type'] == 'time'
-            || fieldInfo['type'] == 'number') {
+            || fieldInfo['type'] == 'number'
+            || fieldInfo['type'] == 'smartcombobox'
+            || fieldInfo['type'] == 'combobox') {
             return true;
         }
 

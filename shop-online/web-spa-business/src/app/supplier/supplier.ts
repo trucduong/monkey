@@ -46,7 +46,7 @@ export class SupplierCmp extends SmartListController<Supplier> implements OnInit
     let emailField = new EmailFieldInfo(this.getTranslator(), 'email', 'supplier.email', false, 0, 100);
 
     // TODO: replace this by AddressField
-    let addressField = new TextFieldInfo(this.getTranslator(), 'addressDetail', 'address.addressDetail', false, 0, 200)
+    let addressField = new TextFieldInfo(this.getTranslator(), 'address', 'address.addressDetail', false, 0, 200)
 
     let refSupplierGroupService = new RefSupplierGroupService(this.supplierService);
     let groupField = new CmbFieldInfo(this.getTranslator(), refSupplierGroupService, 'group', 'supplier.group', true);
@@ -62,7 +62,7 @@ export class SupplierCmp extends SmartListController<Supplier> implements OnInit
       {fieldInfo: description, editable: true, sortable: true, width: 10}
     ];
 
-    let grid = new SmartGridInfo(option, columns, [], new SortInfo('name', 'asc'), new FilterInfo(['name', 'addressDetail']));
+    let grid = new SmartGridInfo(option, columns, [], new SortInfo('name', 'asc'), new FilterInfo(['name', 'address']));
     return grid;
   }
 

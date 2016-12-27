@@ -52,7 +52,7 @@ export class WarehouseCmp extends SmartListController<Warehouse> implements OnIn
     let statusField = new CmbFieldInfo(this.getTranslator(), refStatusService, 'status', 'ref.warehouse.status', true);
 
     // TODO: replace this by AddressField
-    let addressField = new TextFieldInfo(this.getTranslator(), 'addressDetail', 'address.addressDetail', false, 0, 200)
+    let addressField = new TextFieldInfo(this.getTranslator(), 'address', 'address.addressDetail', false, 0, 200)
 
     let columns: GridColumn[] = [
       { fieldInfo: nameField, editable: true, sortable: true, width: 25 },
@@ -62,7 +62,7 @@ export class WarehouseCmp extends SmartListController<Warehouse> implements OnIn
       { fieldInfo: addressField, editable: true, sortable: true, width: 25 }
     ];
 
-    let grid = new SmartGridInfo(option, columns, [], new SortInfo('name', 'asc'), new FilterInfo(['name', 'ownerName', 'addressDetail']));
+    let grid = new SmartGridInfo(option, columns, [], new SortInfo('name', 'asc'), new FilterInfo(['name', 'ownerName', 'address']));
     return grid;
   }
 
