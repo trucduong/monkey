@@ -1,0 +1,13 @@
+[{"id":1, "tenant":"MOK", "version":1, "order_weight":10, "ref_type":"ref.unit", "ref_value":"KG", "deleted":""},
+ {"id":2, "tenant":"MOK", "version":1, "order_weight":20, "ref_type":"ref.unit", "ref_value":"LIT", "deleted":""},
+ {"id":3, "tenant":"MOK", "version":1, "order_weight":30, "ref_type":"ref.unit", "ref_value":"COUNT", "deleted":""},
+ {"id":4, "tenant":"MOK", "version":1, "order_weight":10, "ref_type":"ref.product.status", "ref_value":"ACTIVE", "deleted":""},
+ {"id":5, "tenant":"MOK", "version":1, "order_weight":20, "ref_type":"ref.product.status", "ref_value":"EXPIRED", "deleted":""},
+ {"id":6, "tenant":"MOK", "version":1, "order_weight":10, "ref_type":"ref.sex", "ref_value":"MALE", "deleted":""},
+ {"id":7, "tenant":"MOK", "version":1, "order_weight":20, "ref_type":"ref.sex", "ref_value":"FEMALE", "deleted":""},
+ {"id":8, "tenant":"MOK", "version":1, "order_weight":10, "ref_type":"ref.employee.status", "ref_value":"WORKING", "deleted":""},
+ {"id":9, "tenant":"MOK", "version":1, "order_weight":20, "ref_type":"ref.employee.status", "ref_value":"LEAVED", "deleted":""},
+ {"id":10, "tenant":"MOK", "version":1, "order_weight":10, "ref_type":"ref.warehouse.status", "ref_value":"ACTIVE", "deleted":""},
+ {"id":11, "tenant":"MOK", "version":1, "order_weight":20, "ref_type":"ref.warehouse.status", "ref_value":"INACTIVE", "deleted":""},
+ {"id":12, "tenant":"MOK", "version":1, "order_weight":10, "ref_type":"ref.account.status", "ref_value":"ACTIVE", "deleted":""},
+ {"id":13, "tenant":"MOK", "version":1, "order_weight":20, "ref_type":"ref.account.status", "ref_value":"INACTIVE", "deleted":""}]

@@ -426,6 +426,7 @@ export class RadioFieldInfo extends FormFieldInfo {
 }
 
 export class CmbFieldInfo extends FormFieldInfo {
+    displayName: string;
     service: ComboboxService;
     filter: any;
     hasBlankItem: boolean;
@@ -441,6 +442,7 @@ export class CmbFieldInfo extends FormFieldInfo {
             this.hasBlankItem = true;
         }
         this.type = 'combobox';
+        this.displayName = name.replace('Id', 'Name');
     }
 
     getLable(item): string {
@@ -453,6 +455,7 @@ export class CmbFieldInfo extends FormFieldInfo {
 }
 
 export class SmartCmbFieldInfo extends FormFieldInfo {
+    displayName: string;
     service: ComboboxService;
     useLabelAsValue: boolean;
     
@@ -461,6 +464,7 @@ export class SmartCmbFieldInfo extends FormFieldInfo {
         this.service = service;
         this.useLabelAsValue = useLabelAsValue;
         this.type = 'smartcombobox';
+        this.displayName = name.replace('Id', 'Name');
     }
 
     getLabel(item): string {

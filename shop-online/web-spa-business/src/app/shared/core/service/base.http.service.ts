@@ -18,6 +18,7 @@ export class BaseHttpService {
     }
 
     public get(service: string, action: string, params: string[]) {
+        console.log("GET");console.log(service);console.log(action);console.log(params);
         let url = service + action;
         return this.http
             .get(CommonUtils.formatStr(url, params), { headers: this.getHeader() })
@@ -33,6 +34,7 @@ export class BaseHttpService {
     }
 
     public post(service: string, action: string, data: any, params: string[]) {
+        console.log("POST");console.log(service);console.log(action);console.log(data);console.log(params);
         let url = service + action;
         return this.http
             .post(CommonUtils.formatStr(url, params), JSON.stringify(data), { headers: this.getHeader() })

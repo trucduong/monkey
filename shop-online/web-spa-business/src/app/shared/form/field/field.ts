@@ -120,6 +120,9 @@ export class RadioFieldCmp extends CheckboxFieldCmp {
     styleUrls: ['src/app/shared/form/field/field.css']
 })
 export class CmbFieldCmp extends CustomField implements OnChanges {
+    @Input('displayFieldModel') displayFieldModel: any;
+    @Output() displayFieldModelChange: any = new EventEmitter();
+
     ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
         if (changes['info']) {
             if (this.info) {
@@ -137,7 +140,9 @@ export class CmbFieldCmp extends CustomField implements OnChanges {
     }
 
     updateData(event, data?: any) {
-        this.info['dispLayText']=data.options[data.selectedIndex].text;
+        this.displayFieldModel=data.options[data.selectedIndex].text;
+        this.displayFieldModelChange.emit(this.displayFieldModel);
+
         super.updateData(event, data);
     }
 }
@@ -149,6 +154,9 @@ export class CmbFieldCmp extends CustomField implements OnChanges {
         'src/app/shared/form/field/smartcombobox.css',]
 })
 export class SmartCmbFieldCmp extends CustomField implements OnChanges {
+    @Input('displayFieldModel') displayFieldModel: any;
+    @Output() displayFieldModelChange: any = new EventEmitter();
+
     dataSources: any[];
     filteredList: any[];
     searchText: string;
@@ -243,5 +251,12 @@ export class SmartCmbFieldCmp extends CustomField implements OnChanges {
         let newValue = cmbInfo.getValue(item)
         mthis.updateData(newValue, item);
         mthis.filteredList = [];
+    }
+
+    updateData(event, data?: any) {
+        this.displayFieldModel=this.searchText;
+        this.displayFieldModelChange.emit(this.displayFieldModel);
+
+        super.updateData(event, data);
     }
 }

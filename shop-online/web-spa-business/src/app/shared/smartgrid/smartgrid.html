@@ -26,8 +26,8 @@
                             <tbody>
                                 <tr *ngIf="info.option.addable && !isEditingMode">
                                     <td *ngFor="let header of info.columns">
-                                        <cmb-field-cmp *ngIf="header.fieldInfo.type=='combobox'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]"></cmb-field-cmp>
-                                        <smartcmb-field-cmp *ngIf="header.fieldInfo.type=='smartcombobox'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]"></smartcmb-field-cmp>
+                                        <cmb-field-cmp *ngIf="header.fieldInfo.type=='combobox'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]" [(displayFieldModel)]="info.model[header.fieldInfo.displayName]"></cmb-field-cmp>
+                                        <smartcmb-field-cmp *ngIf="header.fieldInfo.type=='smartcombobox'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]" [(displayFieldModel)]="info.model[header.fieldInfo.displayName]"></smartcmb-field-cmp>
                                         <text-field-cmp *ngIf="header.fieldInfo.type=='text'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]"></text-field-cmp>
                                         <text-field-cmp *ngIf="header.fieldInfo.type=='email'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]"></text-field-cmp>
                                         <number-field-cmp *ngIf="header.fieldInfo.type=='number'" [info]="header.fieldInfo" [(fieldModel)]="info.model[header.fieldInfo.name]"></number-field-cmp>
@@ -50,8 +50,8 @@
                                             <span *ngIf="header.fieldInfo.type=='number'">{{item[header.fieldInfo.name] | cusNumber:{separated: true} }}</span>
                                         </div>
                                         <div *ngIf="info.option.editable && header.editable && item.isDirty">
-                                            <cmb-field-cmp *ngIf="header.fieldInfo.type=='combobox'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></cmb-field-cmp>
-                                            <smartcmb-field-cmp *ngIf="header.fieldInfo.type=='smartcombobox'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></smartcmb-field-cmp>
+                                            <cmb-field-cmp *ngIf="header.fieldInfo.type=='combobox'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]" [(displayFieldModel)]="item[header.fieldInfo.displayName]"></cmb-field-cmp>
+                                            <smartcmb-field-cmp *ngIf="header.fieldInfo.type=='smartcombobox'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]" [(displayFieldModel)]="item[header.fieldInfo.displayName]"></smartcmb-field-cmp>
                                             <text-field-cmp *ngIf="header.fieldInfo.type=='text'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></text-field-cmp>
                                             <text-field-cmp *ngIf="header.fieldInfo.type=='email'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></text-field-cmp>
                                             <number-field-cmp *ngIf="header.fieldInfo.type=='number'" [info]="header.fieldInfo" [(fieldModel)]="item[header.fieldInfo.name]"></number-field-cmp>

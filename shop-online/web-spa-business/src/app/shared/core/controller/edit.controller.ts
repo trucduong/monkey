@@ -67,6 +67,7 @@ export abstract class EditController<T extends BaseModel> extends BaseController
             this.formInfo.model = item;
             this.onBack();
             this.hideLoading();
+            this.alert(AlertType.success, 'common.alert.content.update.success');
         })
         .catch(error => {
             this.showErrorMessage({key: "common.error.save", params: []});

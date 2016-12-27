@@ -120,6 +120,8 @@ public abstract class CRUDService<E extends IEntity, D extends BaseDto> extends 
 		onBeforeCreate(entity, dto);
 		getDao().create(entity);
 		onAfterCreate(entity);
+		
+		entity.unBind(dto);
 		return success(dto);
 	}
 
