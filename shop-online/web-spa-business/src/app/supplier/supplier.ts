@@ -32,7 +32,6 @@ export class SupplierCmp extends SmartListController<Supplier> implements OnInit
 
   getTranslateServices(): Map<string, ComboboxService> {
     let map = new Map<string, ComboboxService>();
-    map.set('supplier.group', new RefSupplierGroupService(this.supplierService));
     return map;
   }
 
@@ -49,7 +48,7 @@ export class SupplierCmp extends SmartListController<Supplier> implements OnInit
     let addressField = new TextFieldInfo(this.getTranslator(), 'address', 'address.addressDetail', false, 0, 200)
 
     let refSupplierGroupService = new RefSupplierGroupService(this.supplierService);
-    let groupField = new CmbFieldInfo(this.getTranslator(), refSupplierGroupService, 'group', 'supplier.group', true);
+    let groupField = new CmbFieldInfo(this.getTranslator(), refSupplierGroupService, 'groupId', 'supplier.group', true);
 
     let description = new TextFieldInfo(this.getTranslator(), 'description', 'supplier.description', false, 0, 500)
 

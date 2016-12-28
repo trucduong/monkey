@@ -98,7 +98,7 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
     form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.import.warehouseId', true));
 
     let refSupplierService = new RefSupplierService(this.warehouseService);
-    form.addField(new SmartCmbFieldInfo(this.getTranslator(), refSupplierService, 'supplier', 'warehouse.import.supplier', false, false));
+    form.addField(new SmartCmbFieldInfo(this.getTranslator(), refSupplierService, 'supplierId', 'warehouse.import.supplier', false, false));
 
     return form;
   }

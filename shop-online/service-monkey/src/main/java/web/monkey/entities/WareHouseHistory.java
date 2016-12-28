@@ -19,8 +19,8 @@ import core.common.format.json.JsonFormatter;
 import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
 import web.monkey.shared.dto.WareHouseHistoryDto;
-import web.monkey.shared.dto.WareHouseHistoryDto.ProductDto;
 import web.monkey.shared.dto.WarehouseHistoryType;
+import web.monkey.shared.dto.WarehouseProductDto;
 
 @Entity
 @Table(name = "warehouse_histories")
@@ -102,8 +102,8 @@ public class WareHouseHistory extends BaseEntity {
 	public void unBind(BaseDto baseDto) {
 		super.unBind(baseDto);
 		WareHouseHistoryDto dto = (WareHouseHistoryDto) baseDto;
-		Type listType = new TypeToken<ArrayList<ProductDto>>() { }.getType();
-		dto.setDetails((List<ProductDto>) JsonFormatter.fromJson(details, listType));
+		Type listType = new TypeToken<ArrayList<WarehouseProductDto>>() { }.getType();
+		dto.setDetails((List<WarehouseProductDto>) JsonFormatter.fromJson(details, listType));
 		dto.setHistoryDateTime(historyDateTime);
 		dto.setHistoryType(historyType);
 		dto.setReferenceNo(referenceNo);

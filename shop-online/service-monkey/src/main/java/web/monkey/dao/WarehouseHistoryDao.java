@@ -19,8 +19,8 @@ import core.dao.utils.DaoUtils;
 import core.dao.utils.QueryBuilder;
 import web.monkey.entities.WareHouseHistory;
 import web.monkey.shared.dto.WareHouseHistoryDto;
-import web.monkey.shared.dto.WareHouseHistoryDto.ProductDto;
 import web.monkey.shared.dto.WarehouseHistoryType;
+import web.monkey.shared.dto.WarehouseProductDto;
 import web.monkey.shared.dto.WarehouseSearchCondition;
 
 @Repository
@@ -72,12 +72,12 @@ public class WarehouseHistoryDao extends BaseDao<WareHouseHistory> {
 		String[] columns = new String[] {"warehouseId", "warehouseName", "warehouseId1", "warehouseName1", "supplierId", "supplierName", "customerId", "customerName", "employeeId", "employeeName", 
 				"referenceNo", "historyDateTime", "historyType", "description", "details"};
 		Map<String, Converter<?>> converters = new HashedMap<>();
-		converters.put("details", new Converter<List<ProductDto>>() {
+		converters.put("details", new Converter<List<WarehouseProductDto>>() {
 
 			@Override
-			public List<ProductDto> convert(Object value) {
-				Type listType = new TypeToken<ArrayList<ProductDto>>(){}.getType();
-				List<ProductDto> products = JsonFormatter.fromJson(ConverterUtils.toString(value), listType);
+			public List<WarehouseProductDto> convert(Object value) {
+				Type listType = new TypeToken<ArrayList<WarehouseProductDto>>(){}.getType();
+				List<WarehouseProductDto> products = JsonFormatter.fromJson(ConverterUtils.toString(value), listType);
 				return products;
 			}
 		});

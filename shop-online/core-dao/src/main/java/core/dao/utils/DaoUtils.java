@@ -34,12 +34,12 @@ public class DaoUtils {
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> selectAll(EntityManager entityManager, QueryBuilder builder, Class<T> cls,
 			String[] columns, Map<String, Converter<?>> converters) {
+		List<T> list = new ArrayList<T>();
 		List<Object[]> resultList = builder.build(entityManager).getResultList();
 		if (resultList.isEmpty()) {
-			return null;
+			return list;
 		}
 
-		List<T> list = new ArrayList<T>();
 		for (Object[] objects : resultList) {
 			T obj = convert(cls, columns, objects, converters);
 			if (obj != null) {

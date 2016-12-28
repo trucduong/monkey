@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import { SmartListController, SmartGridInfo, GridColumn, GridOption, SortInfo, FilterInfo,
-  TextFieldInfo, CmbFieldInfo, NumberFieldInfo,
+  TextFieldInfo, NumberFieldInfo,
   CMB_FILTERS, ComboboxService } from '../../shared/index';
 import { ProductService, RefProductGroupService, Product } from '../shared/index';
 
@@ -27,7 +27,6 @@ export class ProductPricesCmp extends SmartListController<Product> implements On
 
   getTranslateServices(): Map<string, ComboboxService> {
     let map = new Map<string, ComboboxService>();
-    map.set('product.group', new RefProductGroupService(this.productService));
     return map;
   }
 
@@ -36,8 +35,7 @@ export class ProductPricesCmp extends SmartListController<Product> implements On
 
     let nameField = new TextFieldInfo(this.getTranslator(), 'name', 'product.name', true, 0, 100);
 
-    let refProductGroupService = new RefProductGroupService(this.productService);
-    let groupField = new CmbFieldInfo(this.getTranslator(), refProductGroupService, 'group', 'product.group', true);
+    let groupField = new TextFieldInfo(this.getTranslator(), 'groupName', 'product.group', true, 0, 100);
 
     let remainingField = new NumberFieldInfo(this.getTranslator(), 'remaining', 'product.remaining', true, 0, 0);
     let discountField = new NumberFieldInfo(this.getTranslator(), 'discount', 'product.discount', true, 0, 100);
@@ -55,7 +53,7 @@ export class ProductPricesCmp extends SmartListController<Product> implements On
       { fieldInfo: retailPriceField, editable: true, sortable: true, width: 20 },
     ];
 
-    let grid = new SmartGridInfo(option, columns, [], new SortInfo('name', 'asc'), new FilterInfo(['name']));
+    let grid = new SmartGridInfo(option, columns, [], new SortInfo('name', 'asc'), new FilterInfo(['name', 'groupName']));
     return grid;
   }
 
@@ -76,15 +74,5 @@ export class ProductPricesCmp extends SmartListController<Product> implements On
 
   downloadPrices() {
     this.productService.downloadPrices();
-    // this.showLoading();
-    // this.productService.downloadPrices()
-    //   .then(res => {
-    //     window.open(window.URL.createObjectURL(res));
-    //     this.hideLoading();
-    //   })
-    //   .catch(err => {
-    //     this.hideLoading();
-    //     this.showErrorMessage({ key: 'download error', params: [] });
-    //   });
   }
 }

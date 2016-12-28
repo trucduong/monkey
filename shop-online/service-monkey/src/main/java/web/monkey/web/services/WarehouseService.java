@@ -20,21 +20,24 @@ import org.springframework.web.bind.annotation.RestController;
 import core.common.exception.CommonException;
 import core.common.xsl.ExcelMappingProvider;
 import core.dao.utils.BaseDao;
+import core.dao.utils.DaoUtils;
 import core.service.services.CRUDService;
 import core.service.utils.ServiceErrorCode;
 import core.service.utils.ServiceResult;
+import web.monkey.dao.EmployeeDao;
 import web.monkey.dao.ProductDao;
 import web.monkey.dao.WarehouseDao;
 import web.monkey.dao.WarehouseDetailDao;
 import web.monkey.dao.WarehouseHistoryDao;
 import web.monkey.dto.xsl.WarehouseDetailSheet;
+import web.monkey.entities.Employee;
 import web.monkey.entities.WareHouseHistory;
 import web.monkey.entities.Warehouse;
 import web.monkey.shared.dto.WareHouseHistoryDto;
-import web.monkey.shared.dto.WareHouseHistoryDto.ProductDto;
 import web.monkey.shared.dto.WarehouseDetailDto;
 import web.monkey.shared.dto.WarehouseDto;
 import web.monkey.shared.dto.WarehouseHistoryType;
+import web.monkey.shared.dto.WarehouseProductDto;
 import web.monkey.shared.dto.WarehouseSearchCondition;
 import web.monkey.shared.utils.ServiceActions;
 
@@ -53,6 +56,9 @@ public class WarehouseService extends CRUDService<Warehouse, WarehouseDto> {
 
 	@Autowired
 	private WarehouseDetailDao warehouseDetailDao;
+	
+	@Autowired
+	private EmployeeDao employeeDao;
 
 	@Override
 	protected BaseDao<Warehouse> getDao() {
@@ -105,7 +111,7 @@ public class WarehouseService extends CRUDService<Warehouse, WarehouseDto> {
 		}
 
 		// update product remaining
-		for (ProductDto product : dto.getDetails()) {
+		for (WarehouseProductDto product : dto.getDetails()) {
 			WarehouseDetailDto detailDto = warehouseDetailDao.getDetail(dto.getWarehouseId(), product.getId());
 			if (detailDto == null) {
 				detailDto = new WarehouseDetailDto();
@@ -226,6 +232,14 @@ public class WarehouseService extends CRUDService<Warehouse, WarehouseDto> {
 			OutputStream outputStream = response.getOutputStream();
 			outputStream.write(errorMessage.getBytes(Charset.forName("UTF-8")));
 			outputStream.close();
+		}
+	}
+	
+	@Override
+	protected void bindRealtionShip(Warehouse entity, WarehouseDto dto) {
+		if(DaoUtils.isValidId(dto.getOwnerId())) {
+			Employee employee = employeeDao.find(dto.getOwnerId());
+			entity.setOwner(employee);
 		}
 	}
 }

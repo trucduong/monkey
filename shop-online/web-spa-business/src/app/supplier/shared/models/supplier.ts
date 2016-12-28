@@ -4,7 +4,8 @@ export class Supplier extends BaseModel {
   id: string;
   name: string;
   phone: string;
-  group: string;
+  groupId: string;
+  groupName: string;
   email: string;
   address: string;
   description: string;

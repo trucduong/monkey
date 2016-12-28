@@ -14,8 +14,8 @@ import web.monkey.dto.xsl.WarehouseDetailSheet;
 import web.monkey.entities.Product;
 import web.monkey.entities.Warehouse;
 import web.monkey.entities.WarehouseDetail;
-import web.monkey.shared.dto.WareHouseHistoryDto.ProductDto;
 import web.monkey.shared.dto.WarehouseDetailDto;
+import web.monkey.shared.dto.WarehouseProductDto;
 
 @Repository
 public class WarehouseDetailDao extends BaseDao<WarehouseDetail> {
@@ -70,9 +70,9 @@ public class WarehouseDetailDao extends BaseDao<WarehouseDetail> {
 		return dtos;
 	}
 	
-	public int updateRemainings(long warehouseId, List<ProductDto> products) {
+	public int updateRemainings(long warehouseId, List<WarehouseProductDto> products) {
 		NativeQueryBuilder builder = new NativeQueryBuilder();
-		for (ProductDto product : products) {
+		for (WarehouseProductDto product : products) {
 			builder.append("UPDATE warehouse_details d SET");
 			builder.append(" d.remaining=:remaining", "remaining", product.getRemaining());
 			builder.append(", d.description=:description", "description", product.getDescription());

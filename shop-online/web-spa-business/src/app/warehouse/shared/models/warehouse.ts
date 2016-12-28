@@ -4,6 +4,7 @@ import {Product} from '../../../product/shared/index';
 export class Warehouse extends BaseModel {
   id: string;
   name: string;
+  ownerId: string;
   ownerName: string;
   phone: string;
   status: string;
@@ -35,11 +36,17 @@ export class WarehouseModel extends BaseModel {
 
     id: string;
     warehouseId: string;
+    warehouseName: string;
+    warehouseId1: string;
+    warehouseName1: string;
     referenceNo: string;
     historyDateTime: Date;
-    supplier: string;
-    customer: string;
+    supplierId: string;
+    supplierName: string;
+    customerId: string;
+    customerName: string;
     employeeId: string;
+    employeeName: string;
     description: string;
     details: Product[];
 

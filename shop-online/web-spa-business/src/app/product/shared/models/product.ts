@@ -6,7 +6,8 @@ export class Product extends BaseModel {
   name: string;
   image: string;
   unit: string;
-  group: string;
+  groupId: string;
+  groupName: string;
   description: string;
   status: string;
   discount: number;

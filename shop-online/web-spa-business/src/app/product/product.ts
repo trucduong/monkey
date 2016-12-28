@@ -32,7 +32,6 @@ export class ProductCmp extends SmartListController<Product> implements OnInit {
 
   getTranslateServices(): Map<string, ComboboxService> {
     let map = new Map<string, ComboboxService>();
-    map.set('product.group', new RefProductGroupService(this.productService));
     return map;
   }
 
@@ -45,7 +44,7 @@ export class ProductCmp extends SmartListController<Product> implements OnInit {
     let unitField = new CmbFieldInfo(this.getTranslator(), refUnitService, 'unit', 'ref.unit', true);
 
     let refProductGroupService = new RefProductGroupService(this.productService);
-    let groupField = new CmbFieldInfo(this.getTranslator(), refProductGroupService, 'group', 'product.group', true);
+    let groupField = new CmbFieldInfo(this.getTranslator(), refProductGroupService, 'groupId', 'product.group', true);
 
     let description = new TextFieldInfo(this.getTranslator(), 'description', 'product.description', false, 0, 500)
 

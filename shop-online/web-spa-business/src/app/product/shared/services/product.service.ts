@@ -80,6 +80,5 @@ export class ProductService extends BaseHttpService {
 
     downloadPrices() {
         window.open(SERVICES.URLS.product + SERVICES.ACTIONS.DOWNLOAD_PRICES);
-        // return this.downloadfile(SERVICES.URLS.product, SERVICES.ACTIONS.DOWNLOAD_PRICES, []);
     }
 }

@@ -44,7 +44,7 @@ export class WarehouseCmp extends SmartListController<Warehouse> implements OnIn
 
     let refEmployeeService = new RefEmployeeService(this.warehouseService);
     // let ownerField = new TextFieldInfo(this.getTranslator(), 'ownerName', 'warehouse.owner', false, 0, 100);
-    let ownerField = new SmartCmbFieldInfo(this.getTranslator(), refEmployeeService, 'ownerName', 'warehouse.owner', false, true);
+    let ownerField = new SmartCmbFieldInfo(this.getTranslator(), refEmployeeService, 'ownerId', 'warehouse.owner', false);
 
     let phoneField = new TextFieldInfo(this.getTranslator(), 'phone', 'warehouse.phone', true, 0, 20);
 

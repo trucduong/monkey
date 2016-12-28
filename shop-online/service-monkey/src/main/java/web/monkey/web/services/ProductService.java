@@ -18,12 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 import core.common.exception.CommonException;
 import core.common.xsl.ExcelMappingProvider;
 import core.dao.utils.BaseDao;
+import core.dao.utils.DaoUtils;
 import core.service.services.CRUDService;
 import core.service.utils.ServiceErrorCode;
 import core.service.utils.ServiceResult;
 import web.monkey.dao.ProductDao;
+import web.monkey.dao.ProductGroupDao;
 import web.monkey.dto.xsl.ProductPricesSheet;
 import web.monkey.entities.Product;
+import web.monkey.entities.ProductGroup;
+import web.monkey.shared.dto.CmbItem;
 import web.monkey.shared.dto.ProductDto;
 import web.monkey.shared.dto.ProductStatus;
 import web.monkey.shared.utils.ServiceActions;
@@ -35,8 +39,8 @@ public class ProductService extends CRUDService<Product, ProductDto> {
 	@Autowired
 	private ProductDao dao;
 	
-//	@Autowired
-//	private ProductDetailDao detailDao;
+	@Autowired
+	private ProductGroupDao groupDao;
 
 	@Override
 	protected Class<?> getThis() {
@@ -61,13 +65,12 @@ public class ProductService extends CRUDService<Product, ProductDto> {
 	@RequestMapping(value = ServiceActions.READ_ALL_REF, method = RequestMethod.GET)
 	public ServiceResult readAllRef() throws CommonException {
 		init();
-//		List<ProductDto> products = dao.getProductRef(ProductStatus.ACTIVE);
-//		if (products.size() == 0) {
-//			return error(ServiceErrorCode.NOT_FOUND);
-//		}
+		List<ProductDto> products = dao.getProductRef(ProductStatus.ACTIVE);
+		if (products.size() == 0) {
+			return error(ServiceErrorCode.NOT_FOUND);
+		}
 
-//		return success(products);
-		return null;
+		return success(products);
 	}
 	
 	@RequestMapping(value = ServiceActions.UPDATE_D, method = RequestMethod.POST)
@@ -78,13 +81,11 @@ public class ProductService extends CRUDService<Product, ProductDto> {
 			return error(ServiceErrorCode.NOT_FOUND);
 		}
 
-		// create or update detail
-//		ProductDetail detail = detailDao.find(id);
-//		if (detail == null) {
-//			detail = new ProductDetail();
-//		}
-//		detail.bind(dto);
-//		detailDao.update(detail);
+		product.setDiscount(dto.getDiscount());
+		product.setInputPrice(dto.getInputPrice());
+		product.setRetailPrice(dto.getRetailPrice());
+		product.setWholesalePrice(dto.getWholesalePrice());
+		dao.update(product);
 
 		return success(dto);
 	}
@@ -135,8 +136,10 @@ public class ProductService extends CRUDService<Product, ProductDto> {
 	}
 	
 	@Override
-	protected void onDeleteSucceed(long id) {
-		// remove detail
-//		detailDao.delete(id);
+	protected void bindRealtionShip(Product entity, ProductDto dto) {
+		if (DaoUtils.isValidId(dto.getGroupId())) {
+			ProductGroup group = groupDao.find(dto.getGroupId());
+			entity.setProductGroup(group);
+		}
 	}
 }
