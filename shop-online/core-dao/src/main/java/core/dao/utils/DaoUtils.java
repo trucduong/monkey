@@ -72,4 +72,8 @@ public class DaoUtils {
 		}
 		return obj;
 	}
+
+	public static boolean isValidId(Long id) {
+		return id != null && id > 0;
+	}
 }

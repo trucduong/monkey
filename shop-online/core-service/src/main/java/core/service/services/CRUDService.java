@@ -26,16 +26,20 @@ public abstract class CRUDService<E extends IEntity, D extends BaseDto> extends 
 
 	protected abstract D createDto();
 	
+	protected void bindRealtionShip(E entity, D dto) { }
+	
 	protected void onDeleteSucceed(long id) { }
 	
 	protected void onBeforeUpdate(E entity, D dto, String action) {
 		entity.bind(dto);
+		bindRealtionShip(entity, dto);
 	}
 	
 	protected void onAfterUpdate(E entity) {}
 	
 	protected void onBeforeCreate(E entity, D dto) {
 		entity.bind(dto);
+		bindRealtionShip(entity, dto);
 	}
 	
 	protected void onAfterCreate(E entity) {}

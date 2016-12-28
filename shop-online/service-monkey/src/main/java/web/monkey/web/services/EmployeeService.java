@@ -55,13 +55,11 @@ public class EmployeeService extends CRUDService<Employee, EmployeeDto> {
 			return error(ServiceErrorCode.NOT_FOUND);
 		}
 
-		// create or update detail
-//		EmployeeDetail detail = detailDao.find(id);
-//		if (detail == null) {
-//			detail = new EmployeeDetail();
-//		}
-//		detail.bind(dto);
-//		detailDao.update(detail);
+		employee.setFaceAmount(dto.getFaceAmount());
+		if (dto.getJoinDate() != null) {
+			employee.setJoinDate(dto.getJoinDate());
+		}
+		dao.update(employee);
 
 		return success(dto);
 	}
