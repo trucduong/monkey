@@ -118,6 +118,7 @@ public class WarehouseService extends CRUDService<Warehouse, WarehouseDto> {
 				detailDto.setProductId(product.getId());
 				detailDto.setWarehouseId(dto.getWarehouseId());
 				detailDto.setRemaining(0);
+				detailDto.setDescription(product.getDescription());
 			}
 
 			if (historyType == WarehouseHistoryType.IMPORT 

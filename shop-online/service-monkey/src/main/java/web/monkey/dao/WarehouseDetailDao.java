@@ -2,6 +2,8 @@ package web.monkey.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -70,6 +72,7 @@ public class WarehouseDetailDao extends BaseDao<WarehouseDetail> {
 		return dtos;
 	}
 	
+	@Transactional
 	public int updateRemainings(long warehouseId, List<WarehouseProductDto> products) {
 		NativeQueryBuilder builder = new NativeQueryBuilder();
 		for (WarehouseProductDto product : products) {
@@ -82,6 +85,7 @@ public class WarehouseDetailDao extends BaseDao<WarehouseDetail> {
 		return result;
 	}
 	
+	@Transactional
 	public void createOrUpdate(WarehouseDetailDto dto) {
 		WarehouseDetail entity = find(dto.getId());
 		if (entity == null) {

@@ -57,6 +57,7 @@ export class WarehouseModel extends BaseModel {
 
 export class WarehouseHistory extends BaseModel {
     warehouse: string;
+    warehouse1: string;
     referenceNo: string;
     historyDateTime: Date;
     historyType: string;

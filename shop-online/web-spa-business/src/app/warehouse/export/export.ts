@@ -95,9 +95,10 @@ export class WarehouseExportReturnCmp extends BaseController implements OnInit {
     let refEmployeeService = new RefEmployeeService(this.warehouseService);
     form.addField(new CmbFieldInfo(this.getTranslator(), refEmployeeService, 'employeeId', 'warehouse.import.employee', true));
     this.model.employeeId = this.getCurrentUser().employeeId;
+    this.model.employeeName = this.getCurrentUser().employeeName;
 
     let refSupplierService = new RefSupplierService(this.warehouseService);
-    form.addField(new SmartCmbFieldInfo(this.getTranslator(), refSupplierService, 'supplier', 'warehouse.import.supplier', false, false));
+    form.addField(new SmartCmbFieldInfo(this.getTranslator(), refSupplierService, 'supplierId', 'warehouse.import.supplier', false));
 
     return form;
   }

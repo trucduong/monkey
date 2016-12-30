@@ -8,13 +8,16 @@ import { ShopCmp } from './shop';
 import { routing } from './shop.routing';
 import { ShopService } from './shared/index';
 
+import { SellCmp } from './sell/sell';
+
 @NgModule({
   imports: [
     SharedModule,
     routing
   ],
   declarations: [
-    ShopCmp
+    ShopCmp,
+    SellCmp
   ],
   providers: [
       ShopService

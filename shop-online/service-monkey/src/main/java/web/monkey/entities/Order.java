@@ -1,25 +1,23 @@
 package web.monkey.entities;
 
-import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.google.gson.reflect.TypeToken;
-
-import core.common.format.json.JsonFormatter;
 import core.dao.dto.BaseDto;
 import core.dao.entities.BaseEntity;
-import web.monkey.shared.dto.OrderDetailDto;
 import web.monkey.shared.dto.OrderDto;
 import web.monkey.shared.dto.OrderStatus;
+import web.monkey.shared.dto.PaymentStatus;
 
 @Entity
 @Table(name = "orders")
@@ -29,43 +27,44 @@ public class Order extends BaseEntity {
 	@Column(name = "create_date", columnDefinition = TIMESTAMP)
 	private Date createDate;
 
-	@Column(name = "employeeId", columnDefinition = LONG)
-	private long employeeId;
-
-	@Column(name = "customerId", columnDefinition = LONG)
-	private long customerId;
-
-	@Column(name = "warehouseId", columnDefinition = LONG)
-	private long warehouseId;
+	@ManyToOne
+	@JoinColumn(name="employee_id")
+	private Employee employee;
+	
+	@ManyToOne
+	@JoinColumn(name="customer_id")
+	private Customer customer;
 
 	@Column(name = "description", columnDefinition = LONG_1)
 	private String description;
 
-	@Column(name = "details", columnDefinition = LONG_1)
-	private String details;
-
 	@Enumerated(EnumType.STRING)
-	@Column(name = "product_status", columnDefinition = SHORT_5)
+	@Column(name = "order_status", columnDefinition = SHORT_5)
 	private OrderStatus status;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "payment_status", columnDefinition = SHORT_5)
+	private PaymentStatus paymentStatus;
 
 	@Column(name = "total", columnDefinition = CURRENCY)
 	private BigDecimal total;
 
 	@Column(name = "total_discount", columnDefinition = CURRENCY)
 	private BigDecimal totalDiscount;
+	
+	@OneToMany(mappedBy="order")
+	private Set<OrderDetail> details;
 
 	@Override
 	public void bind(BaseDto baseDto) {
 		super.bind(baseDto);
 		OrderDto dto = (OrderDto) baseDto;
 		this.createDate = dto.getCreateDate();
-		this.customerId = dto.getCustomerId();
 		this.description = dto.getDescription();
-		this.details = JsonFormatter.toJson(dto.getDetails());
-		this.employeeId = dto.getEmployeeId();
-		this.warehouseId = dto.getWarehouseId();
 		this.total = dto.getTotal();
 		this.totalDiscount = dto.getTotalDiscount();
+		this.status = dto.getStatus();
+		this.paymentStatus = dto.getPaymentStatus();
 	}
 
 	@Override
@@ -73,15 +72,21 @@ public class Order extends BaseEntity {
 		super.unBind(baseDto);
 		OrderDto dto = (OrderDto) baseDto;
 		dto.setCreateDate(createDate);
-		dto.setCustomerId(customerId);
 		dto.setDescription(description);
-		dto.setEmployeeId(employeeId);
-		Type listType = new TypeToken<ArrayList<OrderDetailDto>>() {
-		}.getType();
-		dto.setDetails((List<OrderDetailDto>) JsonFormatter.fromJson(details, listType));
-		dto.setWarehouseId(warehouseId);
 		dto.setTotal(total);
 		dto.setTotalDiscount(totalDiscount);
+		dto.setStatus(status);
+		dto.setPaymentStatus(paymentStatus);
+		
+		if (employee != null) {
+			dto.setEmployeeId(employee.getId());
+			dto.setEmployeeName(employee.getName());
+		}
+		
+		if (customer != null) {
+			dto.setCustomerId(customer.getId());
+			dto.setCustomerName(customer.getName());
+		}
 	}
 
 	public Date getCreateDate() {
@@ -92,28 +97,20 @@ public class Order extends BaseEntity {
 		this.createDate = createDate;
 	}
 
-	public long getEmployeeId() {
-		return employeeId;
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setEmployeeId(long employeeId) {
-		this.employeeId = employeeId;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
-	public long getCustomerId() {
-		return customerId;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(long customerId) {
-		this.customerId = customerId;
-	}
-
-	public long getWarehouseId() {
-		return warehouseId;
-	}
-
-	public void setWarehouseId(long warehouseId) {
-		this.warehouseId = warehouseId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public String getDescription() {
@@ -124,20 +121,20 @@ public class Order extends BaseEntity {
 		this.description = description;
 	}
 
-	public String getDetails() {
-		return details;
-	}
-
-	public void setDetails(String details) {
-		this.details = details;
-	}
-
 	public OrderStatus getStatus() {
 		return status;
 	}
 
 	public void setStatus(OrderStatus status) {
 		this.status = status;
+	}
+
+	public PaymentStatus getPaymentStatus() {
+		return paymentStatus;
+	}
+
+	public void setPaymentStatus(PaymentStatus paymentStatus) {
+		this.paymentStatus = paymentStatus;
 	}
 
 	public BigDecimal getTotal() {
@@ -156,4 +153,11 @@ public class Order extends BaseEntity {
 		this.totalDiscount = totalDiscount;
 	}
 
+	public Set<OrderDetail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(Set<OrderDetail> details) {
+		this.details = details;
+	}
 }

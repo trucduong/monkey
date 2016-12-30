@@ -2,7 +2,7 @@ package web.monkey.shared.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import core.dao.dto.BaseDto;
 
@@ -18,17 +18,17 @@ public class OrderDto extends BaseDto {
 
 	private String customerName;
 
-	private long warehouseId;
-
-	private String warehouseName;
-
 	private String description;
+
+	private OrderStatus status;
+
+	private PaymentStatus paymentStatus;
 
 	private BigDecimal total;
 
 	private BigDecimal totalDiscount;
 
-	private List<OrderDetailDto> details;
+	private Set<OrderDetailDto> details;
 
 	public Date getCreateDate() {
 		return createDate;
@@ -70,28 +70,28 @@ public class OrderDto extends BaseDto {
 		this.customerName = customerName;
 	}
 
-	public long getWarehouseId() {
-		return warehouseId;
-	}
-
-	public void setWarehouseId(long warehouseId) {
-		this.warehouseId = warehouseId;
-	}
-
-	public String getWarehouseName() {
-		return warehouseName;
-	}
-
-	public void setWarehouseName(String warehouseName) {
-		this.warehouseName = warehouseName;
-	}
-
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
+	}
+
+	public PaymentStatus getPaymentStatus() {
+		return paymentStatus;
+	}
+
+	public void setPaymentStatus(PaymentStatus paymentStatus) {
+		this.paymentStatus = paymentStatus;
 	}
 
 	public BigDecimal getTotal() {
@@ -110,12 +110,11 @@ public class OrderDto extends BaseDto {
 		this.totalDiscount = totalDiscount;
 	}
 
-	public List<OrderDetailDto> getDetails() {
+	public Set<OrderDetailDto> getDetails() {
 		return details;
 	}
 
-	public void setDetails(List<OrderDetailDto> details) {
+	public void setDetails(Set<OrderDetailDto> details) {
 		this.details = details;
 	}
-
 }

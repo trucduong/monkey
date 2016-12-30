@@ -27,7 +27,6 @@ import web.monkey.dao.ProductGroupDao;
 import web.monkey.dto.xsl.ProductPricesSheet;
 import web.monkey.entities.Product;
 import web.monkey.entities.ProductGroup;
-import web.monkey.shared.dto.CmbItem;
 import web.monkey.shared.dto.ProductDto;
 import web.monkey.shared.dto.ProductStatus;
 import web.monkey.shared.utils.ServiceActions;

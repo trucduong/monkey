@@ -2,8 +2,12 @@ package web.monkey.shared.dto;
 
 import java.math.BigDecimal;
 
-public class OrderDetailDto {
+import core.dao.dto.BaseDto;
+
+public class OrderDetailDto extends BaseDto {
+	private long orderId;
 	private long pruductId;
+	private String pruductName;
 	private long remaining;
 	private BigDecimal discount;
 	private BigDecimal prices;
@@ -56,6 +60,22 @@ public class OrderDetailDto {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
+	}
+
+	public String getPruductName() {
+		return pruductName;
+	}
+
+	public void setPruductName(String pruductName) {
+		this.pruductName = pruductName;
 	}
 
 }

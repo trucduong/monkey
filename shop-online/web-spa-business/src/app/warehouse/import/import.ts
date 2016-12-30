@@ -96,9 +96,9 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
 
     let refWarehouseService = new RefWarehouseService(this.warehouseService);
     form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.import.warehouseId', true));
-
+    
     let refSupplierService = new RefSupplierService(this.warehouseService);
-    form.addField(new SmartCmbFieldInfo(this.getTranslator(), refSupplierService, 'supplierId', 'warehouse.import.supplier', false, false));
+    form.addField(new SmartCmbFieldInfo(this.getTranslator(), refSupplierService, 'supplierId', 'warehouse.import.supplier', false));
 
     return form;
   }
@@ -127,6 +127,7 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
       // repare data
       mthis.model.details = products;
       mthis.model.employeeId = mthis.getCurrentUser().employeeId;
+      mthis.model.employeeName = mthis.getCurrentUser().employeeName;
 
       // call save service
       mthis.showLoading();

@@ -6,7 +6,7 @@ import {TranslateService} from 'ng2-translate/ng2-translate';
 import { SmartListController, SmartGridInfo, GridColumn, GridOption, SortInfo, FilterInfo,
   DialogInfo, FormInfo, DialogService,
   TextFieldInfo, DateFieldInfo, CmbFieldInfo, ComboboxService } from '../../shared/index';
-import { WarehouseService, RefWarehouseService, WareHouseSearchCondition, WarehouseHistory } from '../shared/index';
+import { WarehouseService, RefWarehouseService, WareHouseSearchCondition, WarehouseHistory, WarehouseModel } from '../shared/index';
 
 import { RefEmployeeService } from '../../employee/index';
 import { RefProductService } from '../../product/index';
@@ -167,8 +167,8 @@ export class WarehouseHistoryCmp extends SmartListController<WarehouseHistory> i
       let field2 = new TextFieldInfo(this.getTranslator(), 'warehouse', 'warehouse.transfer.from', true, 0, 100);
       columns.push({ fieldInfo: field2, editable: false, sortable: true, width: 20 });
 
-      let field7 = new TextFieldInfo(this.getTranslator(), 'customer', 'warehouse.transfer.to', true, 0, 100);
-      columns.push({ fieldInfo: field2, editable: false, sortable: true, width: 20 });
+      let field7 = new TextFieldInfo(this.getTranslator(), 'warehouse1', 'warehouse.transfer.to', true, 0, 100);
+      columns.push({ fieldInfo: field7, editable: false, sortable: true, width: 20 });
 
       let field4 = new TextFieldInfo(this.getTranslator(), 'employee', 'warehouse.import.employee', true, 0, 100);
       columns.push({ fieldInfo: field4, editable: false, sortable: true, width: 15 });
@@ -192,11 +192,12 @@ export class WarehouseHistoryCmp extends SmartListController<WarehouseHistory> i
   }
 
   load(): Promise<WarehouseHistory[]> {
+    let mthis = this;
     if (this.searchDialog && !this.searchDialog.isShow) {
       let model = this.searchForm ? this.searchForm.model : null;
       return this.warehouseService.getHistories(model, this.historyType)
         .then(items => {
-          return items;
+          return mthis.convertToHistories(model, items);
         })
         .catch(error => {
           return [];
@@ -204,6 +205,37 @@ export class WarehouseHistoryCmp extends SmartListController<WarehouseHistory> i
     } else {
       return Promise.resolve([]);
     }
+  }
+
+  convertToHistories(condition: any, models: WarehouseModel[]): WarehouseHistory[] {
+    let mthis = this;
+    let histories: WarehouseHistory[] = [];
+    let filerProductId = condition['productId']?condition['productId']:null;
+    models.forEach(item => {
+      let description = item.description;
+      item.details.forEach(product => {
+        if (filerProductId == null || product.id == filerProductId) {
+          let history:WarehouseHistory = new WarehouseHistory();
+          history.warehouse = item.warehouseName;
+          history.warehouse1 = item.warehouseName1;
+          history.referenceNo = item.referenceNo;
+          history.historyDateTime = item.historyDateTime;
+          history.historyType = mthis.historyType;
+          history.supplier = item.supplierName;
+          history.customer = item.customerName;
+          history.employee = item.employeeName;
+          history.product = product.name;
+          history.remaining = product.remaining;
+          history.inputPrice = product.inputPrice;
+          history.wholesalePrice = product.wholesalePrice;
+          history.retailPrice = product.retailPrice;
+          history.description = product.description ? product.description : description;
+
+          histories.push(history);
+        }
+      });
+    });
+    return histories;
   }
 
   closeDialog(dialog: DialogInfo) {

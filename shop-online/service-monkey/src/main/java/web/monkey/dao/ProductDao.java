@@ -1,11 +1,15 @@
 package web.monkey.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.stereotype.Repository;
 
+import core.common.convert.Converter;
+import core.common.convert.StringToLongConverter;
 import core.dao.utils.BaseCachedDao;
 import core.dao.utils.DaoUtils;
 import core.dao.utils.NativeQueryBuilder;
@@ -34,7 +38,9 @@ public class ProductDao extends BaseCachedDao<Product> {
 		}
 		String[] columns = new String[] {"id", "code", "name", "image", "unit", "description", "status", "warningRemaining", 
 				"discount", "inputPrice", "wholesalePrice", "retailPrice", "groupId", "groupName", "remaining"};
-		List<ProductDto> dtos = DaoUtils.selectAll(getEm(), builder, ProductDto.class, columns);
+		Map<String, Converter<?>> converters = new HashedMap<>();
+		converters.put("remaining", new StringToLongConverter());
+		List<ProductDto> dtos = DaoUtils.selectAll(getEm(), builder, ProductDto.class, columns, converters);
 		return dtos;
 	}
 
@@ -50,7 +56,9 @@ public class ProductDao extends BaseCachedDao<Product> {
 			builder.append(" AND e.product_status = :status", "status", status.name());
 		}
 		String[] columns = new String[] {"id", "code", "name", "discount", "inputPrice", "wholesalePrice", "retailPrice", "group", "remaining"};
-		List<ProductPricesSheet> dtos = DaoUtils.selectAll(getEm(), builder, ProductPricesSheet.class, columns);
+		Map<String, Converter<?>> converters = new HashedMap<>();
+		converters.put("remaining", new StringToLongConverter());
+		List<ProductPricesSheet> dtos = DaoUtils.selectAll(getEm(), builder, ProductPricesSheet.class, columns, converters);
 		return dtos;
 	}
 
@@ -69,17 +77,15 @@ public class ProductDao extends BaseCachedDao<Product> {
 
 	@Transactional
 	public int updatePrices(List<WarehouseProductDto> products) {
-		NativeQueryBuilder builder = new NativeQueryBuilder();
-		int i = 0;
-		for (WarehouseProductDto product : products) {
-			builder.append("UPDATE products SET");
-			builder.append(" input_price=:inputPrice" + i, "inputPrice" + i, product.getInputPrice());
-			builder.append(", wholesale_price=:wholesalePrice" + i,"wholesalePrice" + i, product.getWholesalePrice());
-			builder.append(", retail_price=:retailPrice" + i,"retailPrice" + i, product.getWholesalePrice());
-			builder.append(" WHERE id=:id"+ i +" ; ", "id" + i, product.getId());
-			i++;
+		for (WarehouseProductDto dto : products) {
+			Product product = find(dto.getId());
+			product.setInputPrice(dto.getInputPrice());
+			product.setWholesalePrice(dto.getWholesalePrice());
+			product.setRetailPrice(dto.getRetailPrice());
+
+			merge(product);
 		}
-		int result = builder.build(getEm()).executeUpdate();
-		return result;
+		getEm().flush();
+		return products.size();
 	}
 }

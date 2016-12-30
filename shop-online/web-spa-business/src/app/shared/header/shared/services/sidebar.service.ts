@@ -3,7 +3,7 @@ import { SidebarItem } from '../models/sidebar.item';
 
 export const SIDEBARS: SidebarItem[] = [
   {href: '/blank', name:'sidebar.tongquan', isActive: true, icon: 'fa fa-dashboard fa-fw', childs: null},
-  {href: '/blank', name:'sidebar.banhang', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: null},
+  {href: '/sell', name:'sidebar.banhang', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: null},
   {href: '/blank', name:'sidebar.khohang', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: [
       {href: '/warehouse-import', name:'sidebar.nhapmua', isActive: false, icon: null, childs: null},
       {href: '/warehouse-returns', name:'sidebar.nhaptra', isActive: false, icon: null, childs: null},

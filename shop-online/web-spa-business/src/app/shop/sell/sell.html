@@ -1,0 +1,57 @@
+<wrapper [info]="pageInfo">
+    <!-- page header -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ 'shop.sell.title' | translate}}</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <alert-cmp [info]="alertInfo"></alert-cmp>
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <button type="button" class="btn btn-default" (click)="navigateTo(['\warehouse-history', 'import'])">{{'warehouse.import.history'|translate}}</button>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <text-field-cmp [info]="formInfo.getField('referenceNo')" [(fieldModel)]="model['referenceNo']"></text-field-cmp>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="employee">{{'warehouse.import.employee'|translate}}</label>
+                                    <input type="text" class="form-control" id="employee" [ngModel]="getCurrentUser()['employeeName']" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="curentDate">{{'warehouse.import.curentDate'|translate}}</label>
+                                    <input type="text" class="form-control" id="curentDate" [ngModel]="currentDate | date:'dd/MM/yyyy hh:mm:ss'" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <cmb-field-cmp [info]="formInfo.getField('warehouseId')" [(fieldModel)]="model['warehouseId']" [(displayFieldModel)]="model['warehouseName']"></cmb-field-cmp>
+                            </div>
+                            <div class="col-md-6">
+                                <smartcmb-field-cmp [info]="formInfo.getField('supplierId')" [(fieldModel)]="model['supplierId']" [(displayFieldModel)]="model['supplierName']"></smartcmb-field-cmp>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <gridinput-cmp [info]="gridInfo" (onExecute)="onExecute($event)"></gridinput-cmp>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <a class="btn btn-default btn-back" *ngIf="canNavigateBack()" (click)="onBack()"><i class="glyphicon glyphicon-arrow-left"></i></a>
+    </div>
+</wrapper>

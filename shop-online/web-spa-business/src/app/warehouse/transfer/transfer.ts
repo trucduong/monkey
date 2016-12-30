@@ -89,11 +89,12 @@ export class WarehouseTransferCmp extends BaseController implements OnInit {
     let refWarehouseService = new RefWarehouseService(this.warehouseService);
     form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.transfer.from', true));
 
-    form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'customer', 'warehouse.transfer.to', true));
+    form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId1', 'warehouse.transfer.to', true));
 
     let refEmployeeService = new RefEmployeeService(this.warehouseService);
     form.addField(new CmbFieldInfo(this.getTranslator(), refEmployeeService, 'employeeId', 'warehouse.import.employee', true));
     this.model.employeeId = this.getCurrentUser().employeeId;
+    this.model.employeeName = this.getCurrentUser().employeeName;
 
     return form;
   }

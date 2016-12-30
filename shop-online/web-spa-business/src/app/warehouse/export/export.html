@@ -18,7 +18,7 @@
                     <div class="col-xs-12">
                         <div class="row">
                             <div class="col-md-6">
-                                <cmb-field-cmp [info]="formInfo.getField('warehouseId')" [(fieldModel)]="model['warehouseId']"></cmb-field-cmp>
+                                <cmb-field-cmp [info]="formInfo.getField('warehouseId')" [(fieldModel)]="model['warehouseId']" [(displayFieldModel)]="model['warehouseName']"></cmb-field-cmp>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -29,10 +29,10 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <cmb-field-cmp [info]="formInfo.getField('employeeId')" [(fieldModel)]="model['employeeId']"></cmb-field-cmp>
+                                <cmb-field-cmp [info]="formInfo.getField('employeeId')" [(fieldModel)]="model['employeeId']" [(displayFieldModel)]="model['employeeName']"></cmb-field-cmp>
                             </div>
                             <div class="col-md-6">
-                                <smartcmb-field-cmp [info]="formInfo.getField('supplier')" [(fieldModel)]="model['supplier']"></smartcmb-field-cmp>
+                                <smartcmb-field-cmp [info]="formInfo.getField('supplierId')" [(fieldModel)]="model['supplierId']" [(displayFieldModel)]="model['supplierName']"></smartcmb-field-cmp>
                             </div>
                         </div>
                         <div class="row">

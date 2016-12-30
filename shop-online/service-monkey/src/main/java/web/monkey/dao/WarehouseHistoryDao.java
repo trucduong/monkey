@@ -64,7 +64,7 @@ public class WarehouseHistoryDao extends BaseDao<WareHouseHistory> {
 		}
 		
 		if (condition.getProductId() != null) {
-			String productCondition = "%,\"id\":" + condition.getProductId() + ",%";
+			String productCondition = "%\"id\":" + condition.getProductId() + ",%";
 			queryBuilder.append(" and h.details like :product", "product", productCondition);
 		}
 		

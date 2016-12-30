@@ -92,6 +92,7 @@ export class WarehouseDetailCmp extends BaseController implements OnInit {
     let refEmployeeService = new RefEmployeeService(this.warehouseService);
     form.addField(new CmbFieldInfo(this.getTranslator(), refEmployeeService, 'employeeId', 'warehouse.import.employee', true));
     this.model.employeeId = this.getCurrentUser().employeeId;
+    this.model.employeeName = this.getCurrentUser().employeeName;
 
     return form;
   }
