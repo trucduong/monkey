@@ -18,13 +18,10 @@
                     <div class="col-xs-12">
                         <div class="row">
                             <div class="col-md-4">
-                                <text-field-cmp [info]="formInfo.getField('referenceNo')" [(fieldModel)]="model['referenceNo']"></text-field-cmp>
+                                <cmb-field-cmp [info]="formInfo.getField('warehouseId')" [(fieldModel)]="model['warehouseId']" [(displayFieldModel)]="model['warehouseName']"></cmb-field-cmp>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="employee">{{'warehouse.import.employee'|translate}}</label>
-                                    <input type="text" class="form-control" id="employee" [ngModel]="getCurrentUser()['employeeName']" disabled>
-                                </div>
+                                <smartcmb-field-cmp [info]="formInfo.getField('employeeId')" [(fieldModel)]="model['employeeId']" [(displayFieldModel)]="model['employeeName']"></smartcmb-field-cmp>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -33,18 +30,36 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
-                            <div class="col-md-6">
-                                <cmb-field-cmp [info]="formInfo.getField('warehouseId')" [(fieldModel)]="model['warehouseId']" [(displayFieldModel)]="model['warehouseName']"></cmb-field-cmp>
-                            </div>
-                            <div class="col-md-6">
-                                <smartcmb-field-cmp [info]="formInfo.getField('supplierId')" [(fieldModel)]="model['supplierId']" [(displayFieldModel)]="model['supplierName']"></smartcmb-field-cmp>
+                            <div class="col-md-12">
+                                <textarea-field-cmp [info]="formInfo.getField('description')" [(fieldModel)]="model['description']"></textarea-field-cmp>
                             </div>
                         </div>
 
                         <div class="row">
-                            <gridinput-cmp [info]="gridInfo" (onExecute)="onExecute($event)"></gridinput-cmp>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <text-field-cmp [info]="formInfo.getField('discount')" [(fieldModel)]="model['discount']"></text-field-cmp>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <text-field-cmp [info]="formInfo.getField('totalPrice')" [(fieldModel)]="model['totalPrice']"></text-field-cmp>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <text-field-cmp [info]="formInfo.getField('total')" [(fieldModel)]="model['total']"></text-field-cmp>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <gridinput-cmp [info]="gridInfo" (onExecute)="onExecute($event)"></gridinput-cmp>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -54,4 +69,5 @@
     <div class="row">
         <a class="btn btn-default btn-back" *ngIf="canNavigateBack()" (click)="onBack()"><i class="glyphicon glyphicon-arrow-left"></i></a>
     </div>
+    <input [ngModel]="tempTxt">
 </wrapper>

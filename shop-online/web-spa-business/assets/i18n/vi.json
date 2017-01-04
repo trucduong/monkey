@@ -90,6 +90,8 @@
 "ref.account.status":"Trạng thái",
 "ref.account.status.ACTIVE":"Kích hoạt",
 "ref.account.status.INACTIVE":"Đã bị khóa",
+"ref.order.payment.status.NOT_PAID":"Chưa trả tiền",
+"ref.order.payment.status.PAID":"Đã trả tiền",
 
 "login.title":"Xin vui lòng đăng nhập",
 "login.login":"Đăng nhập",
@@ -195,6 +197,7 @@
 "warehouse.import.retailPrice":"Giá bán lẻ",
 "warehouse.import.wholesalePrice":"Giá bán sỉ",
 "warehouse.import.historyDateTime":"Ngày tháng",
+"warehouse.import.description":"Mô tả",
 "warehouse.detail.title":"Kiểm kho",
 "warehouse.detail.history":"Xem lịch sử kiểm kho",
 "warehouse.detail.export":"Xuất Bảng kiểm kho",
@@ -211,6 +214,13 @@
 "warehouse.transfer.from":"Kho hàng (Xuất)",
 "warehouse.transfer.to":"Kho hàng (Nhập)",
 
+"shop.order.total.discount":"Giảm giá",
+"shop.order.total.price":"Tổng cộng",
+"shop.order.total":"Thành tiền",
+"shop.order.name":"Tên",
+"shop.order.price":"Giá bán",
+"shop.order.description":"Ghi chu",
+"shop.order.payment.status":"Thanh toán",
 
 "account.list.title":"Tài khoản",
 "account.name":"Tên đăng nhập",

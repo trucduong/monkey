@@ -4,10 +4,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import { BaseController, GridColumn, SortInfo, SmartGridInfo, FormInfo, AlertType,
-  GridOption, TextFieldInfo, CmbFieldInfo, SmartCmbFieldInfo, NumberFieldInfo, ComboboxService } from '../../shared/index';
-import {WarehouseService, WarehouseModel, RefWarehouseService } from '../../warehouse/shared/index';
+  GridOption, TextAreaFieldInfo, TextFieldInfo, CmbFieldInfo, SmartCmbFieldInfo, NumberFieldInfo, ComboboxService } from '../../shared/index';
+import {WarehouseService, RefWarehouseService } from '../../warehouse/shared/index';
 import {Product, RefProductService} from '../../product/shared/index';
-import {RefSupplierService} from '../../supplier/shared/index';
+import {RefEmployeeService} from '../../employee/shared/index';
+import { OrderModel, OrderDetailModel } from '../shared/index';
 
 @Component({
   selector: 'sell-cmp',
@@ -16,10 +17,12 @@ import {RefSupplierService} from '../../supplier/shared/index';
 
 export class SellCmp extends BaseController implements OnInit {
 
-  model: WarehouseModel;
+  model: OrderModel;
   gridInfo: SmartGridInfo;
   formInfo: FormInfo;
   currentDate: Date;
+
+  tempTxt: string;
 
   constructor(
     route: ActivatedRoute,
@@ -28,7 +31,7 @@ export class SellCmp extends BaseController implements OnInit {
     private warehouseService: WarehouseService) {
     super(router, translate);
 
-    this.model = new WarehouseModel();
+    this.model = new OrderModel();
     this.updateCurrentDate();
   }
 
@@ -49,7 +52,7 @@ export class SellCmp extends BaseController implements OnInit {
     this.formInfo = this.buildInputForm();
 
     this.gridInfo = this.buildGrid();
-    this.gridInfo.model = this.createModel();
+    this.gridInfo.model = new OrderDetailModel();
     this.gridInfo.translateServices = this.getTranslateServices();
     this.gridInfo.columns.forEach(col => {
       col.fieldInfo.isSingle = true; // hide lable
@@ -70,53 +73,72 @@ export class SellCmp extends BaseController implements OnInit {
 
     // let idField = new TextFieldInfo(this.getTranslator(), 'id', 'product.id', true, 0, 100);
     // idField.visible = false;
-    let nameField = new TextFieldInfo(this.getTranslator(), 'name', 'product.name', true, 0, 100);
+    let nameField = new TextFieldInfo(this.getTranslator(), 'productName', 'shop.order.name', true, 0, 100);
     let remainingField = new NumberFieldInfo(this.getTranslator(), 'remaining', 'product.remaining', true, 0, 0);
-    let inputPriceField = new NumberFieldInfo(this.getTranslator(), 'inputPrice', 'product.inputPrice', true, 0, 0, 1000);
-    let wholesalePriceField = new NumberFieldInfo(this.getTranslator(), 'wholesalePrice', 'product.wholesalePrice', true, 0, 0, 1000);
-    let retailPriceField = new NumberFieldInfo(this.getTranslator(), 'retailPrice', 'product.retailPrice', true, 0, 0, 1000);
+    let priceField = new NumberFieldInfo(this.getTranslator(), 'price', 'shop.order.price', true, 0, 0, 1000);
+    let discountField = new NumberFieldInfo(this.getTranslator(), 'discount', 'shop.order.total.discount', true, 0, 0, 1000);
+    let totalField = new NumberFieldInfo(this.getTranslator(), 'total', 'shop.order.total', true, 0, 0, 1000);
+    let descriptionField = new TextFieldInfo(this.getTranslator(), 'description', 'shop.order.description', true, 0, 500);
 
     let columns: GridColumn[] = [
       // { fieldInfo: idField, editable: false, sortable: true, width: 1 },
       { fieldInfo: nameField, editable: false, sortable: true, width: 30 },
       { fieldInfo: remainingField, editable: true, sortable: true, width: 10 },
-      { fieldInfo: inputPriceField, editable: true, sortable: true, width: 20 },
-      { fieldInfo: wholesalePriceField, editable: true, sortable: true, width: 20 },
-      { fieldInfo: retailPriceField, editable: true, sortable: true, width: 20 },
+      { fieldInfo: priceField, editable: true, sortable: true, width: 15 },
+      { fieldInfo: discountField, editable: true, sortable: true, width: 15 },
+      { fieldInfo: totalField, editable: true, sortable: true, width: 20 },
+      { fieldInfo: descriptionField, editable: true, sortable: false, width: 10 }
     ];
 
     let grid = new SmartGridInfo(option, columns, [], new SortInfo('name', 'asc'), null);
+
+    let mthis = this;
+    grid.addValueChangeListener({
+      onChanged(event) {
+        mthis.tempTxt = event.field +': '+ event.newValue;
+      }
+    });
+
+
     return grid;
   }
 
   buildInputForm(): FormInfo {
     let form = new FormInfo(this.getTranslator(), this.model, '');
 
-    form.addField(new TextFieldInfo(this.getTranslator(), 'referenceNo', 'warehouse.import.referenceNo', false, 0, 100));
+    form.addField(new TextAreaFieldInfo(this.getTranslator(), 'description', 'shop.order.description', false, 1000, 3));
 
     let refWarehouseService = new RefWarehouseService(this.warehouseService);
     form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.import.warehouseId', true));
     
-    let refSupplierService = new RefSupplierService(this.warehouseService);
-    form.addField(new SmartCmbFieldInfo(this.getTranslator(), refSupplierService, 'supplierId', 'warehouse.import.supplier', false));
+    let refEmployeeService = new RefEmployeeService(this.warehouseService);
+    form.addField(new SmartCmbFieldInfo(this.getTranslator(), refEmployeeService, 'employeeId', 'warehouse.import.employee', true));
+
+    let totalPriceField = new TextFieldInfo(this.getTranslator(),'totalPrice','shop.order.total.price',true, 0, 100);
+    totalPriceField.enabled = false;
+    form.addField(totalPriceField);
+
+    let discountField = new TextFieldInfo(this.getTranslator(),'discount','shop.order.total.discount',true, 0, 100);
+    discountField.enabled = false;
+    form.addField(discountField);
+
+    let totalField = new TextFieldInfo(this.getTranslator(),'total','shop.order.total',true, 0, 100);
+    totalField.enabled = false;
+    form.addField(totalField);
 
     return form;
-  }
-
-  createModel(): Product {
-    return new Product();
   }
 
   onExecute(param: any) {
     let mthis = this;
     if (param.action == 'add') {
-      let product = <Product>param.data;
-      product.remaining = 1;
-      param.callBack({ action: 'add', data: product });
+      let model = <OrderDetailModel>param.data;
+      model.remaining = 1;
+      param.callBack({ action: 'add', data: model });
     } else if (param.action == 'saveAll') {
       // validaion
-      let products = <Product[]>param.data
-      if (!products || products.length == 0) {
+      let models = <OrderDetailModel[]>param.data
+      if (!models || models.length == 0) {
         return;
       }
 
@@ -124,23 +146,23 @@ export class SellCmp extends BaseController implements OnInit {
         return;
       }
 
-      // repare data
-      mthis.model.details = products;
-      mthis.model.employeeId = mthis.getCurrentUser().employeeId;
-      mthis.model.employeeName = mthis.getCurrentUser().employeeName;
+      // // repare data
+      // mthis.model.details = models;
+      // mthis.model.employeeId = mthis.getCurrentUser().employeeId;
+      // mthis.model.employeeName = mthis.getCurrentUser().employeeName;
 
-      // call save service
-      mthis.showLoading();
-      mthis.warehouseService.saveDetails(mthis.model, 'import')
-      .then(res => {
-        mthis.hideLoading();
-        mthis.alert(AlertType.success, 'common.alert.content.update.success');
-        param.callBack({action:'clear'});
-      })
-      .catch(err => {
-        mthis.hideLoading();
-        mthis.alert(AlertType.danger, err);
-      });
+      // // call save service
+      // mthis.showLoading();
+      // mthis.warehouseService.saveDetails(mthis.model, 'import')
+      // .then(res => {
+      //   mthis.hideLoading();
+      //   mthis.alert(AlertType.success, 'common.alert.content.update.success');
+      //   param.callBack({action:'clear'});
+      // })
+      // .catch(err => {
+      //   mthis.hideLoading();
+      //   mthis.alert(AlertType.danger, err);
+      // });
     }
   }
 }

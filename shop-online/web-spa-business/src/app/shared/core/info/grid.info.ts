@@ -140,6 +140,24 @@ export class GridOption {
     }
 }
 
+export class GridValueChangeEvent {
+    field: any;
+    oldValue: any;
+    newValue: any;
+    src: any;
+
+    constructor(field: any, oldValue: any, newValue: any, src?: any) {
+        this.field = field;
+        this.oldValue = oldValue;
+        this.newValue = newValue;
+        this.src = src;
+    }
+}
+
+export interface GridValueChangeListener {
+    onChanged(obj: any);
+}
+
 export class SmartGridInfo {
     option: GridOption;
     columns: GridColumn[];
@@ -149,20 +167,52 @@ export class SmartGridInfo {
     model: any;
     translateServices: Map<string, ComboboxService>;
 
+    private valuechangelisteners: GridValueChangeListener[];
+
     constructor(option: GridOption,
         columns: GridColumn[],
         actions: GridAction[],
         sortInfo?: SortInfo,
         filterInfo?: FilterInfo) {
 
+        this.valuechangelisteners = [];
+
         this.option = option;
         this.columns = columns;
         this.actions = actions;
         this.filterInfo = filterInfo;
         this.sortInfo = sortInfo;
+
+        // regis value change
+        this.regisValueChange();
+    }
+
+    private regisValueChange() {
+        let mthis = this;
+        if (!mthis.columns) {
+            return;
+        }
+
+        mthis.columns.forEach(col => {
+            col.fieldInfo.addValueChangeListener({
+                onChanged(event) {
+                    mthis.fireValueChangeListener({field: col.fieldInfo.name, oldValue: event.oldValue, newValue: event.newValue, src: event.detail});
+                }
+            })
+        });
     }
 
     hasFilterInfo() {
         return this.filterInfo && !this.filterInfo.isEmpty();
+    }
+
+    addValueChangeListener(listener: GridValueChangeListener) {
+        this.valuechangelisteners.push(listener);
+    }
+
+    fireValueChangeListener(event: GridValueChangeEvent) {
+        this.valuechangelisteners.forEach(listener => {
+            listener.onChanged(event);
+        });
     }
 }
