@@ -57,7 +57,7 @@ export abstract class EditController<T extends BaseModel> extends BaseController
 
         // validate
         if (!this.formInfo.validate({})) {
-            this.showErrorMessage({key:"common.validator.error", params: []});
+            this.showErrorMessage({key:"common.validator.error"});
             return;
         }
 
@@ -70,7 +70,7 @@ export abstract class EditController<T extends BaseModel> extends BaseController
             this.alert(AlertType.success, 'common.alert.content.update.success');
         })
         .catch(error => {
-            this.showErrorMessage({key: "common.error.save", params: []});
+            this.showErrorMessage({key: "common.error.save"});
             this.log(error);
             this.hideLoading();
         });

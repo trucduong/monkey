@@ -106,7 +106,9 @@ export class WarehouseReturnCmp extends BaseController implements OnInit {
   onExecute(param: any) {
     let mthis = this;
     if (param.action == 'add') {
-      let product = <Product>param.data;
+      let product = new Product()
+      product.id = param.data.value;
+      product.name = param.data.label;
       product.remaining = 1;
       param.callBack({ action: 'add', data: product });
 
@@ -134,7 +136,7 @@ export class WarehouseReturnCmp extends BaseController implements OnInit {
         })
         .catch(err => {
           mthis.hideLoading();
-          mthis.alert(AlertType.danger, err);
+          mthis.alert(AlertType.danger, err.msg);
         });
     }
   }

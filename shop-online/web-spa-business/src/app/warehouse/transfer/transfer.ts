@@ -132,7 +132,7 @@ export class WarehouseTransferCmp extends BaseController implements OnInit {
         })
         .catch(err => {
           mthis.hideLoading();
-          mthis.alert(AlertType.danger, err);
+          mthis.alert(AlertType.danger, err.msg);
         });
     }
   }
@@ -140,7 +140,9 @@ export class WarehouseTransferCmp extends BaseController implements OnInit {
   onAdd(param: any) {
     let mthis = this;
     let warehouseId = mthis.model.warehouseId;
-    let product = <Product>param.data;
+    let product = new Product()
+    product.id = param.data.value;
+    product.name = param.data.label;
     if (!warehouseId) {
       product.remaining = 1;
       param.callBack({ action: 'add', data: product });

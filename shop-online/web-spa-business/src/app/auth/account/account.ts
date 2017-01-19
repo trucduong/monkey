@@ -166,7 +166,7 @@ export class UserAccountCmp extends SmartListController<UserAccount> implements 
         this.alert(AlertType.success, 'common.alert.content.update.success');
       })
       .catch(error => {
-        this.showErrorMessage({ key: error, params: [] });
+        this.showErrorMessage({ key: error.msg });
         this.hideLoading();
       });
   }
@@ -208,7 +208,7 @@ export class UserAccountCmp extends SmartListController<UserAccount> implements 
     })
     .catch(error => {
       this.hideLoading();
-      this.showErrorMessage({ key: error, params: [] });
+      this.showErrorMessage({ key: error.msg});
     });
   }
   
@@ -232,7 +232,7 @@ export class UserAccountCmp extends SmartListController<UserAccount> implements 
         mthis.alert(AlertType.success, 'common.alert.content.update.success');
       })
       .catch(error => {
-        mthis.showErrorMessage({ key: error, params: [] });
+        mthis.showErrorMessage({ key: error.msg});
         mthis.hideLoading();
       });
   }

@@ -234,7 +234,7 @@ public class BaseDao<E extends IEntity> implements Serializable {
 		this.em = em;
 	}
 
-	protected EntityManager getEm() {
+	public EntityManager getEm() {
 		return em;
 	}
 

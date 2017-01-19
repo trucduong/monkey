@@ -90,9 +90,9 @@ export abstract class BaseController {
     /**
      * Alert
      */
-    alert(alertType: AlertType, message: string) {
+    alert(alertType: AlertType, message: string, param?: any) {
         let mthis = this;
-        mthis.alertInfo.push(new AlertInfo(AlertType[alertType], message));
+        mthis.alertInfo.push(new AlertInfo(AlertType[alertType], message, param));
         setTimeout(function(){ 
             mthis.clearAlert();
         }, 10000);
@@ -105,31 +105,31 @@ export abstract class BaseController {
     /**
      * Message box
      */
-    showMessage(title: string, message: {key: string, params: any[]}, actions: DialogButton[], listener: DialogListener) {
+    showMessage(title: string, message: {key: string, param?: any}, actions: DialogButton[], listener: DialogListener) {
         this.hideLoading();
         
         this.translateText(message.key).then(msg => {
-            if (message.params) {
-                msg = CommonUtils.formatStr(msg, message.params);
+            if (message.param) {
+                msg = CommonUtils.formatMessage(msg, message.param);
             }
             this.pageInfo.dialog = new AlertDialogInfo(title, msg, actions, listener);
             this.pageInfo.dialog.isShow = true;
         });
     }
 
-    showQuestionMessage(message: {key: string, params: any[]}, listener?: DialogListener) {
+    showQuestionMessage(message: {key: string, param?: any}, listener?: DialogListener) {
         this.showMessage('common.alert.title.question', message, [DIALOG_ACTIONS.YES, DIALOG_ACTIONS.NO], listener);
     }
 
-    showConfirmMessage(message: {key: string, params: any[]}, listener?: DialogListener) {
+    showConfirmMessage(message: {key: string, param?: any}, listener?: DialogListener) {
         this.showMessage('common.alert.title.confirm', message, [DIALOG_ACTIONS.OK, DIALOG_ACTIONS.CANCEL], listener);
     }
 
-    showInfoMessage(message: {key: string, params: any[]}, listener?: DialogListener) {
+    showInfoMessage(message: {key: string, param?: any}, listener?: DialogListener) {
         this.showMessage('common.alert.title.info', message, [DIALOG_ACTIONS.CLOSE], listener);
     }
 
-    showErrorMessage(message: {key: string, params: any[]}, listener?: DialogListener) {
+    showErrorMessage(message: {key: string, param?: any}, listener?: DialogListener) {
         this.showMessage('common.alert.title.error', message, [DIALOG_ACTIONS.CLOSE], listener);
     }
 

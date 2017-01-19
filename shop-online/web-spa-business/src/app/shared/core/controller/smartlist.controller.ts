@@ -86,7 +86,7 @@ export abstract class SmartListController<T extends BaseModel> extends BaseContr
                 this.hideLoading();
             })
             .catch(error => {
-                this.showErrorMessage({ key: "common.error.save", params: [] });
+                this.showErrorMessage({ key: "common.error.save"});
                 this.log(error);
                 this.hideLoading();
             });
@@ -97,7 +97,7 @@ export abstract class SmartListController<T extends BaseModel> extends BaseContr
         let item = param.data;
         let mthis = this;
         // TODO: show confirm message
-        mthis.showQuestionMessage({ key: 'common.alert.content.delete', params: [] }, {
+        mthis.showQuestionMessage({ key: 'common.alert.content.delete' }, {
             onExecute(event) {
                 if (event.action == 'yes') {
                     // delete

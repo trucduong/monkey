@@ -11,6 +11,7 @@ public class DateFormatter implements Formatter<Date> {
 	public static final char COLON = ':';
 	
 	
+	public static final String ddMMyyyyHHMMSS = "dd/MM/yyyy HH:mm:ss";
 	public static final String ddMMyyyy = "dd/MM/yyyy";
 	public static final String MMyyyy = "MM/yyyy";
 	public static final String Mdyyyy = "M/d/yyyy";
@@ -162,5 +163,9 @@ public class DateFormatter implements Formatter<Date> {
 		}
 		
 		return new DateFormatter(pattern, locale);
+	}
+	
+	public static DateFormatter ddMMyyyyHHMMSS() {
+		return new DateFormatter(ddMMyyyyHHMMSS, Locale.US);
 	}
 }

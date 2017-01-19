@@ -15,6 +15,7 @@ export class GridInputCmp<T extends BaseModel> extends BaseGridCmp<T> implements
     @Output('onExecute') onExecute = new EventEmitter<any>();
     searchField: SmartCmbFieldInfo;
     searchText: string;
+    selectedItem: T;
 
     constructor(private translate: TranslateService) {
         super();
@@ -28,14 +29,13 @@ export class GridInputCmp<T extends BaseModel> extends BaseGridCmp<T> implements
         mthis.searchField.addValueChangeListener({
             onChanged(event: ValueChangeEvent) {
                 if (event.detail) {
-                    //mthis.items.push(event.detail['src']);
-                    let id = event.detail.src.id;
+                    let id = event.detail.value;
                     let product = mthis.items.filter(item => {
                         return item['id'] == id;
                     });
 
                     if (product.length == 0) {
-                        mthis.execute('add', event.detail['src']);
+                        mthis.execute('add', event.detail);
                     }
                 }
             }
@@ -58,6 +58,12 @@ export class GridInputCmp<T extends BaseModel> extends BaseGridCmp<T> implements
 
     execute(action: string, data: any) {
         let mthis = this;
+        if (action == 'select') {
+            if (!this.info.option.selectable) {
+                return;
+            }
+            mthis.selectedItem = data;
+        }
         if (action == 'save') {
             if (!mthis.validate(data)) {
                 return;

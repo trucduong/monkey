@@ -46,6 +46,10 @@ public abstract class BaseService {
 	protected ServiceResult error(String errorCode, String description) {
 		return ServiceProvider.error(errorCode, description);
 	}
+	
+	protected ServiceResult error(String errorCode, Object description) {
+		return ServiceProvider.error(errorCode, JsonFormatter.toJson(description));
+	}
 
 	@ExceptionHandler({ CommonException.class })
 	public ServiceResult commonException(CommonException ex) {

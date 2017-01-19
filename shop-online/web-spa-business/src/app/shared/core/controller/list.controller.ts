@@ -102,7 +102,7 @@ export abstract class ListController<T> extends BaseController {
     onDelete(item: T) {
         let mthis = this;
         // TODO: show confirm message
-        mthis.showQuestionMessage({ key: 'common.alert.content.delete', params: [] }, {
+        mthis.showQuestionMessage({ key: 'common.alert.content.delete' }, {
             onExecute(event) {
                 if (event.action == 'yes') {
                     // delete

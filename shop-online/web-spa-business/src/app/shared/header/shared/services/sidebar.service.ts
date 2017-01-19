@@ -3,18 +3,19 @@ import { SidebarItem } from '../models/sidebar.item';
 
 export const SIDEBARS: SidebarItem[] = [
   {href: '/blank', name:'sidebar.tongquan', isActive: true, icon: 'fa fa-dashboard fa-fw', childs: null},
-  {href: '/sell', name:'sidebar.banhang', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: null},
+  {href: '/blank', name:'sidebar.banhang', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: [
+      {href: '/sell', name:'sidebar.bansy', isActive: false, icon: null, childs: null},
+      {href: '/blank', name:'sidebar.banle', isActive: false, icon: null, childs: null},
+      {href: '/blank', name:'sidebar.thuchi', isActive: false, icon: null, childs: null},
+      {href: '/blank', name:'sidebar.ketca', isActive: false, icon: null, childs: null},
+      {href: '/blank', name:'sidebar.dieuchinhtientrongket', isActive: false, icon: null, childs: null}
+  ]},
   {href: '/blank', name:'sidebar.khohang', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: [
       {href: '/warehouse-import', name:'sidebar.nhapmua', isActive: false, icon: null, childs: null},
       {href: '/warehouse-returns', name:'sidebar.nhaptra', isActive: false, icon: null, childs: null},
       {href: '/warehouse-export-returns', name:'sidebar.xuattra', isActive: false, icon: null, childs: null},
       {href: '/warehouse-transfer', name:'sidebar.dieuchuyen', isActive: false, icon: null, childs: null},
       {href: '/warehouse-detail', name:'sidebar.kiemke', isActive: false, icon: null, childs: null}
-  ]},
-  {href: '/blank', name:'sidebar.tien', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: [
-      {href: '/blank', name:'sidebar.thuchi', isActive: false, icon: null, childs: null},
-      {href: '/blank', name:'sidebar.ketca', isActive: false, icon: null, childs: null},
-      {href: '/blank', name:'sidebar.dieuchinhtientrongket', isActive: false, icon: null, childs: null}
   ]},
   {href: '/blank', name:'sidebar.doitac', isActive: false, icon: 'fa fa-dashboard fa-fw', childs: [
       {href: '/customer', name:'sidebar.khachhang', isActive: false, icon: null, childs: null},

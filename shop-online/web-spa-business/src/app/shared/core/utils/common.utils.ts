@@ -9,4 +9,14 @@ export class CommonUtils {
 
         return result;
     }
+
+    // {{value}}
+    public static formatMessage(str: string, param: any): string {
+        let result = str;
+        for (let key in param) {
+            result = result.replace('{{' + key + '}}', param[key]);
+        }
+        
+        return result;
+    }
 }

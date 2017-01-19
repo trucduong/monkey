@@ -30,9 +30,18 @@ export abstract class ValidatorHandler {
 
     translateErrors(errs: Error[]) {
         errs.forEach(err => {
+            let param = {};
+            if (err.params) {
+                let i = 0;
+                err.params.forEach(p => {
+                    param['v' + i] = p;
+                    i++;
+                });
+            }
+
             this.translate.get(err.name).toPromise()
                 .then(msg => {
-                    err.message = CommonUtils.formatStr(msg, err.params);
+                    err.message = CommonUtils.formatMessage(msg, param);
                 }).catch(e => {
                     err.message = '';
                 });

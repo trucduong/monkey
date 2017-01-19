@@ -35,7 +35,7 @@ export class LoginCmp extends BaseController {
         mthis.navigateTo(['/blank']);
       })
       .catch(err => {
-        mthis.alert(AlertType.danger, err);
+        mthis.alert(AlertType.danger, err.msg);
       });
   }
 

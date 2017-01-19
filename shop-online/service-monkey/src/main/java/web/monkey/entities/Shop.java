@@ -26,6 +26,9 @@ public class Shop extends BaseCachedEntity {
 
 	@Column(name = "tax_code", columnDefinition = MEDIUM_1)
 	private String taxCode;
+	
+	@Column(name = "address", columnDefinition = MEDIUM_2)
+	private String address;
 
 	@ManyToOne
 	@JoinColumn(name="owner_id")
@@ -71,6 +74,14 @@ public class Shop extends BaseCachedEntity {
 		this.owner = owner;
 	}
 	
+	public String getAddress() {
+		return address;
+	}
+	
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
 	@Override
 	public void bind(BaseDto baseDto) {
 		super.bind(baseDto);
@@ -79,6 +90,7 @@ public class Shop extends BaseCachedEntity {
 		this.name = dto.getName();
 		this.phone = dto.getPhone();
 		this.taxCode = dto.getTaxCode();
+		this.address = dto.getAddress();
 	}
 	
 	@Override
@@ -89,6 +101,7 @@ public class Shop extends BaseCachedEntity {
 		dto.setName(name);
 		dto.setPhone(phone);
 		dto.setTaxCode(taxCode);
+		dto.setAddress(address);
 		
 		if (owner != null) {
 			dto.setOwnerId(owner.getId());

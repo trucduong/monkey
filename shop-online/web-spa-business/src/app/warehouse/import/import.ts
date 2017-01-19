@@ -96,7 +96,7 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
 
     let refWarehouseService = new RefWarehouseService(this.warehouseService);
     form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.import.warehouseId', true));
-    
+
     let refSupplierService = new RefSupplierService(this.warehouseService);
     form.addField(new SmartCmbFieldInfo(this.getTranslator(), refSupplierService, 'supplierId', 'warehouse.import.supplier', false));
 
@@ -110,7 +110,9 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
   onExecute(param: any) {
     let mthis = this;
     if (param.action == 'add') {
-      let product = <Product>param.data;
+      let product = new Product()
+      product.id = param.data.value;
+      product.name = param.data.label;
       product.remaining = 1;
       param.callBack({ action: 'add', data: product });
     } else if (param.action == 'saveAll') {
@@ -132,15 +134,15 @@ export class WarehouseImportCmp extends BaseController implements OnInit {
       // call save service
       mthis.showLoading();
       mthis.warehouseService.saveDetails(mthis.model, 'import')
-      .then(res => {
-        mthis.hideLoading();
-        mthis.alert(AlertType.success, 'common.alert.content.update.success');
-        param.callBack({action:'clear'});
-      })
-      .catch(err => {
-        mthis.hideLoading();
-        mthis.alert(AlertType.danger, err);
-      });
+        .then(res => {
+          mthis.hideLoading();
+          mthis.alert(AlertType.success, 'common.alert.content.update.success');
+          param.callBack({ action: 'clear' });
+        })
+        .catch(err => {
+          mthis.hideLoading();
+          mthis.alert(AlertType.danger, err.msg);
+        });
     }
   }
 }

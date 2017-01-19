@@ -45,4 +45,6 @@ public class ServiceActions extends CRUDServiceAction {
 	
 	public static final String WAREHOUSE_TRACKING = "/tracking/{type}";
 	public static final String WAREHOUSE_HISTORY = "/history/{type}";
+	
+	public static final String DOWNLOAD_ORDER = "/download-order/{id}";
 }

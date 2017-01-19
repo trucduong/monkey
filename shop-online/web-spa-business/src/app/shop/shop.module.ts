@@ -6,7 +6,7 @@ import { SharedModule } from '../shared/index';
 
 import { ShopCmp } from './shop';
 import { routing } from './shop.routing';
-import { ShopService } from './shared/index';
+import { ShopService, OrderService } from './shared/index';
 
 import { SellCmp } from './sell/sell';
 
@@ -20,7 +20,8 @@ import { SellCmp } from './sell/sell';
     SellCmp
   ],
   providers: [
-      ShopService
+      ShopService,
+      OrderService
   ]
 })
 export class ShopModule {}

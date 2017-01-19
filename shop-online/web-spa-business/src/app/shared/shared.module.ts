@@ -75,7 +75,7 @@ import { AlertDialogCmp } from './alert.dialog/alert.dialog';
     FormCmp, FormActionCmp, FormContentCmp, FormFieldCmp,
     TextFieldCmp, TextAreaFieldCmp, NumberFieldCmp, DateFieldCmp, CheckboxFieldCmp, RadioFieldCmp, CmbFieldCmp, SmartCmbFieldCmp,
     DialogCmp, DialogHeaderCmp, DialogBodyCmp, DialogFooterCmp,
-    AlertDialogCmp
+    AlertDialogCmp,CustomNumberPipe
   ],
   providers: [
       DialogService,

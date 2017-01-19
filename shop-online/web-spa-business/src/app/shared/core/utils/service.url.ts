@@ -13,6 +13,7 @@ export const SERVICES: any = {
         employee: 'http://localhost:7070/service-monkey/employee',
 
         shop: 'http://localhost:7070/service-monkey/shop',
+        order:'http://localhost:7070/service-monkey/order',
         
         user_account: 'http://localhost:7070/service-monkey/user-account',
         auth: 'http://localhost:7070/service-monkey/auth'
@@ -32,6 +33,7 @@ export const SERVICES: any = {
         READ_CMB: '/read-cmb/{0}',
 
         DOWNLOAD_PRICES: '/download-prices',
+        DOWNLOAD_ORDER: '/download-order',
         
         UPLOAD_TEMP: '/upload-temp',
         DOWNLOAD_TEMP: '/download-temp/{0}',

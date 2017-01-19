@@ -238,9 +238,11 @@ export class SmartCmbFieldCmp extends CustomField implements OnChanges {
             mthis.oldSearchText = mthis.searchText;
             mthis.searchText = mthis.fieldModel;
         } else {
+            let oldSearchText = mthis.searchText;
+            mthis.searchText = "";
             mthis.dataSources.forEach(item => {
                 if (cmbInfo.getValue(item) == mthis.fieldModel) {
-                    mthis.oldSearchText = mthis.searchText;
+                    mthis.oldSearchText = oldSearchText;
                     mthis.searchText = cmbInfo.getLabel(item);
                 }
             });

@@ -70,7 +70,7 @@ export abstract class ListInputController<T> extends BaseController {
 
     onDelete(item: T) {
         let mthis = this;
-        mthis.showQuestionMessage({ key: 'common.alert.content.delete', params: [] }, {
+        mthis.showQuestionMessage({ key: 'common.alert.content.delete'}, {
             onExecute(event) {
                 if (event.action == 'yes') {
                     // delete

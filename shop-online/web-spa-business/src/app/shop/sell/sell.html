@@ -11,7 +11,8 @@
         <div class="col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <button type="button" class="btn btn-default" (click)="navigateTo(['\warehouse-history', 'import'])">{{'warehouse.import.history'|translate}}</button>
+                    <button type="button" class="btn btn-primary" (click)="onExecute({action:'saveAll'})">{{'shop.order.checkout'|translate}}</button>
+                    <button type="button" class="btn btn-default" (click)="cancel()">{{'shop.order.cancel'|translate}}</button>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -37,27 +38,33 @@
                         </div>
 
                         <div class="row">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <gridinput-cmp [info]="gridInfo" (onExecute)="onExecute($event)"></gridinput-cmp>
+                                </div>
+                            </div>
                             <div class="col-md-3">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <text-field-cmp [info]="formInfo.getField('discount')" [(fieldModel)]="model['discount']"></text-field-cmp>
+                                        <div class="form-group">
+                                            <label for="totalPrice">{{'shop.order.total.price'|translate}}</label>
+                                            <input type="text" class="form-control" id="totalPrice" [ngModel]="model['totalPrice'] | cusNumber:{separated: true}" disabled>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <text-field-cmp [info]="formInfo.getField('totalPrice')" [(fieldModel)]="model['totalPrice']"></text-field-cmp>
+                                        <number-field-cmp [info]="formInfo.getField('totalDiscount')" [(fieldModel)]="model['totalDiscount']"></number-field-cmp>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <text-field-cmp [info]="formInfo.getField('total')" [(fieldModel)]="model['total']"></text-field-cmp>
+                                        <div class="form-group">
+                                            <label for="total">{{'shop.order.total'|translate}}</label>
+                                            <input type="text" class="form-control" id="total" [ngModel]="model['total'] | cusNumber:{separated: true}" disabled>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="row">
-                                    <gridinput-cmp [info]="gridInfo" (onExecute)="onExecute($event)"></gridinput-cmp>
                                 </div>
                             </div>
                         </div>
@@ -66,8 +73,57 @@
             </div>
         </div>
     </div>
+
+    <!-- Change pass dialog -->
+    <dialog-cmp [info]="paymentDialog">
+        <dialog-header-cmp [info]="paymentDialog" (onClose)="closeDialog(paymentDialog)">{{'shop.order.payment' | translate}}</dialog-header-cmp>
+        <dialog-body-cmp *ngIf="paymentModel">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="total">{{'shop.order.total'|translate}}</label>
+                        <input type="text" class="form-control" id="total" [ngModel]="paymentModel['total'] | cusNumber:{separated: true}" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <number-field-cmp [info]="paymentForm.getField('received')" [(fieldModel)]="paymentModel['received']"></number-field-cmp>
+                    <!--<div class="form-group">
+                        <label for="received">{{'shop.payment.received'|translate}}</label>
+                        <input type="number" class="form-control" id="received" [(ngModel)]="paymentModel['received']" min="0">
+                    </div>-->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="rest">{{'shop.payment.rest'|translate}}</label>
+                        <input type="text" class="form-control" id="rest" [ngModel]="paymentModel['total']-paymentModel['received'] | cusNumber:{separated: true}" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="description">{{'shop.payment.description'|translate}}</label>
+                        <textarea rows="3" class="form-control" id="description" [(ngModel)]="paymentModel['description']"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label><input type="checkbox" name="print" [(ngModel)]="paymentModel['print']">{{'shop.payment.print'|translate}}</label>
+                </div>
+            </div>
+        </dialog-body-cmp>
+        <dialog-footer-cmp>
+            <button (click)="onPayment('OK')" type="button" class="btn btn-primary form-action"><i class="fa fa-floppy-o"></i></button>
+            <button (click)="onPayment('CANCEL')" type="button" class="btn btn-default form-action"><i class="fa fa-times"></i></button>
+        </dialog-footer-cmp>
+    </dialog-cmp>
+
     <div class="row">
         <a class="btn btn-default btn-back" *ngIf="canNavigateBack()" (click)="onBack()"><i class="glyphicon glyphicon-arrow-left"></i></a>
     </div>
-    <input [ngModel]="tempTxt">
 </wrapper>

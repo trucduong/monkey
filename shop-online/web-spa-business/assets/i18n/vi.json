@@ -1,13 +1,14 @@
 {
 "sidebar.tongquan":"Tổng quan",
 "sidebar.banhang":"Bán hàng",
+"sidebar.bansy":"Bán cho nhân viên (sỉ)",
+"sidebar.banle":"Bán cho khách hàng (lẻ)",
 "sidebar.khohang":"Kho hàng",
 "sidebar.nhapmua":"Nhập mua",
 "sidebar.nhaptra":"Nhập trả hàng",
 "sidebar.xuattra":"Xuất trả hàng",
 "sidebar.dieuchuyen":"Điều chuyển",
 "sidebar.kiemke":"Kiểm kê",
-"sidebar.tien":"Tiền",
 "sidebar.thuchi":"Thu chi",
 "sidebar.ketca":"Kết ca",
 "sidebar.dieuchinhtientrongket":"Điều chỉnh tiền trong két",
@@ -30,6 +31,7 @@
 "service.error.persis.update":"Không thể cập nhật thông tin, xin vui lòng thực hiện lại",
 "service.error.persis.delete":"Đã có lỗi xảy ra, xin vui lòng thực hiện lại!",
 "service.error.password.not.match":"Mật khẩu không đúng!, xin vui lòng nhập lại",
+"service.error.invalid.value":"Thông tin chưa đúng!",
 
 "common.dialog.btn.yes":"Có",
 "common.dialog.btn.no":"Không",
@@ -49,12 +51,12 @@
 
 "common.validator.error.required":"Xin vui lòng nhập!",
 "common.validator.error":"Thông tin bạn nhập chưa đúng, Xin vui lòng thử lại!",
-"common.validator.error.minlength": "Không được ít hơn {0} ký tự!",
-"common.validator.error.maxlength": "Không đươc vượt quá {0} ký tự!",
-"common.validator.error.minvalue": "Giá trị tối thiểu là {0}",
-"common.validator.error.maxvalue": "Giá trị tối đa là {0}",
-"common.validator.error.mindate": "Vui lòng nhập sau ngày {0}",
-"common.validator.error.maxdate": "Vui lòng nhập trước ngày {0}",
+"common.validator.error.minlength": "Không được ít hơn {{v0}} ký tự!",
+"common.validator.error.maxlength": "Không đươc vượt quá {{v0}} ký tự!",
+"common.validator.error.minvalue": "Giá trị tối thiểu là {{v0}}",
+"common.validator.error.maxvalue": "Giá trị tối đa là {{v0}}",
+"common.validator.error.mindate": "Vui lòng nhập sau ngày {{v0}}",
+"common.validator.error.maxdate": "Vui lòng nhập trước ngày {{v0}}",
 
 "common.error.save": "Đã có lỗi xảy ra, xin vui lòng thực hiện lại!",
 
@@ -214,6 +216,7 @@
 "warehouse.transfer.from":"Kho hàng (Xuất)",
 "warehouse.transfer.to":"Kho hàng (Nhập)",
 
+"shop.order.discount":"Giảm giá (%)",
 "shop.order.total.discount":"Giảm giá",
 "shop.order.total.price":"Tổng cộng",
 "shop.order.total":"Thành tiền",
@@ -221,6 +224,18 @@
 "shop.order.price":"Giá bán",
 "shop.order.description":"Ghi chu",
 "shop.order.payment.status":"Thanh toán",
+"shop.order.checkout":"Thanh toán",
+"shop.order.cancel":"Hủy",
+"shop.order.error.product.remaining":"Sản phẩm: {{product}}, tồn kho: {{remaining}}",
+"shop.order.payment":"Thanh toán",
+"shop.payment.received":"Đã nhận",
+"shop.payment.rest":"Còn lại",
+"shop.payment.print":"In phiếu xuất kho",
+"shop.payment.description":"Ghi chú",
+
+
+
+
 
 "account.list.title":"Tài khoản",
 "account.name":"Tên đăng nhập",

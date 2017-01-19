@@ -2,12 +2,15 @@ package web.monkey.entities;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -28,11 +31,15 @@ public class Order extends BaseEntity {
 	private Date createDate;
 
 	@ManyToOne
-	@JoinColumn(name="employee_id")
-	private Employee employee;
-	
+	@JoinColumn(name = "warehouse_id")
+	private Warehouse warehouse;
+
 	@ManyToOne
-	@JoinColumn(name="customer_id")
+	@JoinColumn(name = "employee_id")
+	private Employee employee;
+
+	@ManyToOne
+	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
 	@Column(name = "description", columnDefinition = LONG_1)
@@ -41,7 +48,7 @@ public class Order extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "order_status", columnDefinition = SHORT_5)
 	private OrderStatus status;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "payment_status", columnDefinition = SHORT_5)
 	private PaymentStatus paymentStatus;
@@ -51,9 +58,12 @@ public class Order extends BaseEntity {
 
 	@Column(name = "total_discount", columnDefinition = CURRENCY)
 	private BigDecimal totalDiscount;
+
+	@OneToMany(mappedBy = "order", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	private Set<OrderDetail> details = new HashSet<OrderDetail>();
 	
-	@OneToMany(mappedBy="order")
-	private Set<OrderDetail> details;
+	@OneToMany(mappedBy = "order", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	private Set<OrderPayment> payments = new HashSet<OrderPayment>();
 
 	@Override
 	public void bind(BaseDto baseDto) {
@@ -77,15 +87,20 @@ public class Order extends BaseEntity {
 		dto.setTotalDiscount(totalDiscount);
 		dto.setStatus(status);
 		dto.setPaymentStatus(paymentStatus);
-		
+
 		if (employee != null) {
 			dto.setEmployeeId(employee.getId());
 			dto.setEmployeeName(employee.getName());
 		}
-		
+
 		if (customer != null) {
 			dto.setCustomerId(customer.getId());
 			dto.setCustomerName(customer.getName());
+		}
+
+		if (warehouse != null) {
+			dto.setWarehouseId(warehouse.getId());
+			dto.setWarehouseName(warehouse.getName());
 		}
 	}
 
@@ -160,4 +175,35 @@ public class Order extends BaseEntity {
 	public void setDetails(Set<OrderDetail> details) {
 		this.details = details;
 	}
+	
+	public void addDetail(OrderDetail detail) {
+		if (this.details == null) {
+			this.details = new HashSet<OrderDetail>();
+		}
+		this.details.add(detail);
+	}
+
+	public Warehouse getWarehouse() {
+		return warehouse;
+	}
+
+	public void setWarehouse(Warehouse warehouse) {
+		this.warehouse = warehouse;
+	}
+
+	public Set<OrderPayment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(Set<OrderPayment> payments) {
+		this.payments = payments;
+	}
+	
+	public void addPayment(OrderPayment payment) {
+		if (this.payments == null) {
+			this.payments = new HashSet<OrderPayment>();
+		}
+		this.payments.add(payment);
+	}
+
 }

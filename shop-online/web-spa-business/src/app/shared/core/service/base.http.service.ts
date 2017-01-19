@@ -28,7 +28,7 @@ export class BaseHttpService {
                 if (this.isSuccess(json)) {
                     return Promise.resolve(JSON.parse(json.value));
                 }
-                return Promise.reject({ isCustom: true, error: json.value });
+                return Promise.reject({ isCustom: true, error: json.value, description: json.description });
             })
             .catch(this.handleError);
     }
@@ -44,7 +44,7 @@ export class BaseHttpService {
                 if (this.isSuccess(json)) {
                     return Promise.resolve(JSON.parse(json.value));
                 }
-                return Promise.reject({ isCustom: true, error: json.value });
+                return Promise.reject({ isCustom: true, error: json.value, description: json.description });
             })
             .catch(this.handleError);
     }
@@ -69,9 +69,9 @@ export class BaseHttpService {
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
         if (error['isCustom']) {
-            return Promise.reject(error['error']);
+            return Promise.reject({msg: error['error'], detail: error['description']});
         }
-        return Promise.reject('service.error.unknow');
+        return Promise.reject({msg: 'service.error.unknow'});
     }
 
 

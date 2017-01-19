@@ -1,1 +1,1 @@
-<div *ngFor="let item of info" [class]="'alert alert-' + item.type">{{item.message | translate}}</div>
+<div *ngFor="let item of info" [class]="'alert alert-' + item.type">{{item.message | translate:item.param}}</div>

@@ -15,4 +15,6 @@ public class ServiceErrorCode {
 	
 	public static final String LOGIN_ERROR = "service.error.login";
 	public static final String LOGOUT_ERROR = "service.error.logout";
+	
+	public static final String INVALID_VALUE = "service.error.invalid.value";
 }

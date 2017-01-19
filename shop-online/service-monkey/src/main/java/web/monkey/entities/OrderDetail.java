@@ -31,40 +31,40 @@ public class OrderDetail extends BaseEntity {
 	@Column(name = "discount", columnDefinition = BaseEntity.CURRENCY)
 	private BigDecimal discount;
 
-	@Column(name = "prices", columnDefinition = BaseEntity.CURRENCY)
-	private BigDecimal prices;
+	@Column(name = "price", columnDefinition = BaseEntity.CURRENCY)
+	private BigDecimal price;
 
 	@Column(name = "total", columnDefinition = BaseEntity.CURRENCY)
 	private BigDecimal total;
 
 	@Column(name = "description", columnDefinition = MEDIUM_5)
 	private String description;
-	
+
 	@Override
 	public void bind(BaseDto baseDto) {
 		super.bind(baseDto);
 		OrderDetailDto dto = (OrderDetailDto) baseDto;
 		this.description = dto.getDescription();
 		this.discount = dto.getDiscount();
-		this.prices = dto.getPrices();
+		this.price = dto.getPrice();
 		this.remaining = dto.getRemaining();
 		this.total = dto.getTotal();
 	}
-	
+
 	@Override
 	public void unBind(BaseDto baseDto) {
 		super.unBind(baseDto);
 		OrderDetailDto dto = (OrderDetailDto) baseDto;
 		dto.setDescription(description);
 		dto.setDiscount(discount);
-		dto.setPrices(prices);
+		dto.setPrice(price);
 		dto.setRemaining(remaining);
 		dto.setTotal(total);
 		dto.setOrderId(order.getId());
-		
+
 		if (product != null) {
-			dto.setPruductId(product.getId());
-			dto.setPruductName(product.getName());
+			dto.setProductId(product.getId());
+			dto.setProductName(product.getName());
 		}
 	}
 
@@ -79,7 +79,7 @@ public class OrderDetail extends BaseEntity {
 	public Product getProduct() {
 		return product;
 	}
-
+	
 	public void setProduct(Product product) {
 		this.product = product;
 	}
@@ -100,12 +100,12 @@ public class OrderDetail extends BaseEntity {
 		this.discount = discount;
 	}
 
-	public BigDecimal getPrices() {
-		return prices;
+	public BigDecimal getPrice() {
+		return price;
 	}
 
-	public void setPrices(BigDecimal prices) {
-		this.prices = prices;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
 	public BigDecimal getTotal() {
@@ -123,4 +123,5 @@ public class OrderDetail extends BaseEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 }

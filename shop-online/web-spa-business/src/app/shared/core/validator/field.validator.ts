@@ -36,6 +36,10 @@ export class NumberValidator implements Validator {
     }
 
     validate(obj: any): Error {
+        if (this.min == this.max) {
+            return null;
+        }
+
         if (!obj) {
             return null;
         }

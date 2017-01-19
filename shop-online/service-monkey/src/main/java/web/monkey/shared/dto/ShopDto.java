@@ -16,6 +16,8 @@ public class ShopDto extends BaseDto {
 
 	private String ownerName;
 
+	private String address;
+
 	public String getName() {
 		return name;
 	}
@@ -62,6 +64,14 @@ public class ShopDto extends BaseDto {
 
 	public void setOwnerName(String ownerName) {
 		this.ownerName = ownerName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 }

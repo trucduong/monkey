@@ -1,10 +1,12 @@
 package core.common.locate;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.Properties;
+
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 public class LocalizeUtil {
 	
@@ -34,7 +36,8 @@ public class LocalizeUtil {
 		InputStream input = null;
 
 		try {
-			input = new FileInputStream(path + ".properties");
+			Resource resource = new ClassPathResource(path);
+			input = resource.getInputStream();
 			// load a properties file
 			prop.load(input);
 

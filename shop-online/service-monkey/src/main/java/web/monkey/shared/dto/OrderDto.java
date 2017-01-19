@@ -10,6 +10,10 @@ public class OrderDto extends BaseDto {
 
 	private Date createDate;
 
+	private long warehouseId;
+
+	private String warehouseName;
+
 	private long employeeId;
 
 	private String employeeName;
@@ -29,6 +33,8 @@ public class OrderDto extends BaseDto {
 	private BigDecimal totalDiscount;
 
 	private Set<OrderDetailDto> details;
+	
+	private Set<OrderPaymentDto> payments;
 
 	public Date getCreateDate() {
 		return createDate;
@@ -117,4 +123,29 @@ public class OrderDto extends BaseDto {
 	public void setDetails(Set<OrderDetailDto> details) {
 		this.details = details;
 	}
+
+	public long getWarehouseId() {
+		return warehouseId;
+	}
+
+	public void setWarehouseId(long warehouseId) {
+		this.warehouseId = warehouseId;
+	}
+
+	public String getWarehouseName() {
+		return warehouseName;
+	}
+
+	public void setWarehouseName(String warehouseName) {
+		this.warehouseName = warehouseName;
+	}
+
+	public Set<OrderPaymentDto> getPayments() {
+		return payments;
+	}
+	
+	public void setPayments(Set<OrderPaymentDto> payments) {
+		this.payments = payments;
+	}
+	
 }

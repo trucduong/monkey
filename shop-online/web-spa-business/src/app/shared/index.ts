@@ -6,5 +6,6 @@ export * from './dialog/dialog.service';
 export * from './alert.dialog/alert.dialog.info';
 
 export * from './smartgrid/smartgrid';
+export * from './gridinput/gridinput';
 
 export * from './shared.module';

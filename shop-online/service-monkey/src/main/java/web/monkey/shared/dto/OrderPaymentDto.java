@@ -12,6 +12,8 @@ public class OrderPaymentDto extends BaseDto {
 	private String employeeName;
 	private String customerName;
 	private String description;
+	private BigDecimal received;
+    private BigDecimal rest;
 
 	public long getOrderId() {
 		return orderId;
@@ -59,6 +61,22 @@ public class OrderPaymentDto extends BaseDto {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public BigDecimal getReceived() {
+		return received;
+	}
+
+	public void setReceived(BigDecimal received) {
+		this.received = received;
+	}
+
+	public BigDecimal getRest() {
+		return rest;
+	}
+
+	public void setRest(BigDecimal rest) {
+		this.rest = rest;
 	}
 
 }

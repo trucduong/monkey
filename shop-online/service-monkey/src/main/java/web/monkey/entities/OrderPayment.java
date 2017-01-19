@@ -46,7 +46,7 @@ public class OrderPayment extends BaseEntity {
 		this.customerName = dto.getCustomerName();
 		this.employeeName = dto.getEmployeeName();
 		this.description = dto.getDescription();
-		this.total = dto.getTotal();
+		this.total = dto.getReceived();
 	}
 
 	@Override
@@ -58,7 +58,8 @@ public class OrderPayment extends BaseEntity {
 		dto.setCustomerName(customerName);
 		dto.setEmployeeName(employeeName);
 		dto.setOrderId(order.getId());
-		dto.setTotal(total);
+//		dto.setTotal(total);
+		dto.setReceived(total);
 	}
 
 	public Order getOrder() {

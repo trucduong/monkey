@@ -6,20 +6,20 @@ import core.dao.dto.BaseDto;
 
 public class OrderDetailDto extends BaseDto {
 	private long orderId;
-	private long pruductId;
-	private String pruductName;
+	private long productId;
+	private String productName;
 	private long remaining;
 	private BigDecimal discount;
-	private BigDecimal prices;
+	private BigDecimal price;
 	private BigDecimal total;
 	private String description;
 
-	public long getPruductId() {
-		return pruductId;
+	public long getProductId() {
+		return productId;
 	}
 
-	public void setPruductId(long pruductId) {
-		this.pruductId = pruductId;
+	public void setProductId(long productId) {
+		this.productId = productId;
 	}
 
 	public long getRemaining() {
@@ -38,12 +38,12 @@ public class OrderDetailDto extends BaseDto {
 		this.discount = discount;
 	}
 
-	public BigDecimal getPrices() {
-		return prices;
+	public BigDecimal getPrice() {
+		return price;
 	}
 
-	public void setPrices(BigDecimal prices) {
-		this.prices = prices;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
 	public BigDecimal getTotal() {
@@ -70,12 +70,12 @@ public class OrderDetailDto extends BaseDto {
 		this.orderId = orderId;
 	}
 
-	public String getPruductName() {
-		return pruductName;
+	public String getProductName() {
+		return productName;
 	}
-
-	public void setPruductName(String pruductName) {
-		this.pruductName = pruductName;
+	
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 }

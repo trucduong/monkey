@@ -215,4 +215,27 @@ export class SmartGridInfo {
             listener.onChanged(event);
         });
     }
+
+    // public validate(obj: any): boolean {
+    //     let mthis = this;
+    //     this.clearErrors();
+
+    //     // validate fields
+    //     this.fields.forEach(field => {
+    //         field.validate(this.model[field.name]);
+    //     });
+
+    //     // validate form
+    //     if (this.getValidators().length > 0) {
+    //         this.getValidators().forEach(validator => {
+    //             let err = validator.validate(mthis.model);
+    //             if (err) {
+    //                 mthis.addError(err);
+    //             }
+    //         });
+    //     }
+
+    //     this.translateErrors(this.getErrors());
+    //     return !this.hasError();
+    // }
 }
