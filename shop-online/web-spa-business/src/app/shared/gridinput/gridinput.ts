@@ -102,4 +102,9 @@ export class GridInputCmp<T extends BaseModel> extends BaseGridCmp<T> implements
         });
     }
 
+    clearAll() {
+        this.items = [];
+        this.searchText = '';
+        this.selectedItem = null;
+    }
 }

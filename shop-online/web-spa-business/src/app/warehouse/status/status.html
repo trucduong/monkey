@@ -1,0 +1,35 @@
+<wrapper [info]="pageInfo">
+    <!-- page header -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ 'warehouse.status.title' | translate}}</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <alert-cmp [info]="alertInfo"></alert-cmp>
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <button type="button" class="btn btn-primary" (click)="onExport()">{{'warehouse.status.export'|translate}}</button>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-6">
+                                <cmb-field-cmp [info]="warehouseFilter" [(fieldModel)]="warehouseId" [(displayFieldModel)]="warehouseName"></cmb-field-cmp>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <smartgrid-cmp [info]="gridInfo" [data-source]="dataSource" (onExecute)="onExecute($event)"></smartgrid-cmp>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <a class="btn btn-default btn-back" *ngIf="canNavigateBack()" (click)="onBack()"><i class="glyphicon glyphicon-arrow-left"></i></a>
+    </div>
+</wrapper>

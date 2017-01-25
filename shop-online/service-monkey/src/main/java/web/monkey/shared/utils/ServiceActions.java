@@ -17,6 +17,8 @@ public class ServiceActions extends CRUDServiceAction {
 	public static final String SUPPLIER_GROUP_SERVICE = "/supplier-group";
 	public static final String EMPLOYEE_SERVICE = "/employee";
 	public static final String ORDER_SERVICE = "/order";
+	public static final String REVENUES_SERVICE = "/revenues";
+	public static final String ARTICLE_SERVICE = "/articles";
 
 	public static final String GET_ACCOUNT_BY_NAME = "/account/{name}";
 	public static final String GET_ACCOUNT_BY_NAME__NAME = "name";
@@ -45,6 +47,9 @@ public class ServiceActions extends CRUDServiceAction {
 	
 	public static final String WAREHOUSE_TRACKING = "/tracking/{type}";
 	public static final String WAREHOUSE_HISTORY = "/history/{type}";
+	
+	public static final String WAREHOUSE_DOWNLOAD_STATUS = "/download-status/{id}";
+	public static final String WAREHOUSE_DETAIL_STATUS = "/detail-status";
 	
 	public static final String DOWNLOAD_ORDER = "/download-order/{id}";
 }

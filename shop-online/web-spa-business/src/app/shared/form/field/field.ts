@@ -184,7 +184,7 @@ export class SmartCmbFieldCmp extends CustomField implements OnChanges {
                 mthis.info.clearErrors();
 
                 let mInfo = (<SmartCmbFieldInfo>mthis.info);
-                mInfo.service.getItems({})
+                mInfo.service.getItems(mInfo.filter)
                     .then(data => {
                         mthis.dataSources = data;
                         mthis.updateSearchText();

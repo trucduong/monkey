@@ -42,7 +42,7 @@ public class WarehouseDetailDao extends BaseDao<WarehouseDetail> {
 	}
 
 	public List<WarehouseDetailDto> getDetailsByProduct(long... productIds) {
-		String idStr = StringUtils.join(productIds, ",");
+		String idStr = StringUtils.join(productIds, ',');
 		NativeQueryBuilder builder = new NativeQueryBuilder();
 		builder.append("select d.id, d.warehouse_id, d.product_id, d.remaining, d.description from warehouse_details d");
 		builder.append(" WHERE d.product_id IN (" + idStr + ")");
@@ -53,7 +53,7 @@ public class WarehouseDetailDao extends BaseDao<WarehouseDetail> {
 	}
 
 	public List<WarehouseDetailDto> getDetailsByWarehouse(long... warehouseIds) {
-		String idStr = StringUtils.join(warehouseIds, ",");
+		String idStr = StringUtils.join(warehouseIds, ',');
 		NativeQueryBuilder builder = new NativeQueryBuilder();
 		builder.append("select d.id, d.warehouse_id, d.product_id, d.remaining, d.description from warehouse_details d");
 		builder.append(" WHERE d.warehouse_id IN (" + idStr + ")");
@@ -63,9 +63,30 @@ public class WarehouseDetailDao extends BaseDao<WarehouseDetail> {
 		return dtos;
 	}
 	
-	public List<WarehouseDetailSheet> getDetailsToExport() {
+	public List<WarehouseDetailDto> getWarehouseDetail(long warehouseId) {
 		QueryBuilder builder = new QueryBuilder();
-		builder.append("select w.name, p.name, e.remaining from WarehouseDetail e LEFT JOIN e.warehouse w LEFT JOIN e.product p order by w.name asc, p.name asc");
+		builder.append("select w.id, w.name, p.id, p.name, e.remaining, e.description from WarehouseDetail e LEFT JOIN e.warehouse w LEFT JOIN e.product p");
+		if (DaoUtils.isValidId(warehouseId)) {
+			builder.append(" WHERE w.id = :id", "id", warehouseId);
+		}
+		builder.append(" order by w.name asc, p.name asc");
+		
+		String[] columns = new String[] {"warehouseId", "warehouseName", "productId", "productName", "remaining", "description"};
+		List<WarehouseDetailDto> dtos = DaoUtils.selectAll(getEm(), builder, WarehouseDetailDto.class, columns);
+		return dtos;
+	}
+	
+	public List<WarehouseDetailSheet> getDetailsToExport() {
+		return getDetailsToExport(0);
+	}
+	
+	public List<WarehouseDetailSheet> getDetailsToExport(long warehouseId) {
+		QueryBuilder builder = new QueryBuilder();
+		builder.append("select w.name, p.name, e.remaining from WarehouseDetail e LEFT JOIN e.warehouse w LEFT JOIN e.product p");
+		if (DaoUtils.isValidId(warehouseId)) {
+			builder.append(" WHERE w.id = :id", "id", warehouseId);
+		}
+		builder.append(" order by w.name asc, p.name asc");
 		
 		String[] columns = new String[] {"warehouse", "product", "remaining"};
 		List<WarehouseDetailSheet> dtos = DaoUtils.selectAll(getEm(), builder, WarehouseDetailSheet.class, columns);

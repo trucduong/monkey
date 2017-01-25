@@ -54,6 +54,14 @@ export class WarehouseService extends BaseHttpService {
         return this.get(SERVICES.URLS.warehouse, SERVICES.ACTIONS.WAREHOUSE_HISTORY + this.buildSearchConditionStr(condition), [historyType]);
     }
 
+    getStatus(warehouseId: string) {
+        return this.get(SERVICES.URLS.warehouse, SERVICES.ACTIONS.WAREHOUSE_STATUS, [warehouseId]);
+    }
+
+    downloadStatus(warehouseId: string) {
+        window.open(SERVICES.URLS.warehouse + SERVICES.ACTIONS.DOWNLOAD_STATUS + warehouseId);
+    }
+
     private buildSearchConditionStr(condition: WareHouseSearchCondition): string {
         let paramStr = '?';
         if (condition) {

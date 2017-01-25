@@ -34,9 +34,15 @@ export abstract class ComboboxService {
             return mthis.onload(filter).then(res => {
                 mthis.isLoading = false;
                 CacheUtils.set(mthis.type, res);
+                if (filter.filter) {
+                    res = filter.filter(res);
+                }
                 return Promise.resolve(res);
             });
         } else {
+            if (filter.filter) {
+                items = filter.filter(items);
+            }
             return Promise.resolve(items);
         }
     }

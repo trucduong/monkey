@@ -84,12 +84,22 @@ export class WarehouseTransferCmp extends BaseController implements OnInit {
   }
 
   buildInputForm(): FormInfo {
+    let mthis = this;
     let form = new FormInfo(this.getTranslator(), this.model, '');
 
     let refWarehouseService = new RefWarehouseService(this.warehouseService);
-    form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.transfer.from', true));
+    let warehouseField = new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.transfer.from', true);
+    form.addField(warehouseField);
 
-    form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId1', 'warehouse.transfer.to', true));
+    let warehouse1Field = new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId1', 'warehouse.transfer.to', true);
+    warehouse1Field.setFilter(this.warehouseFilter);
+    form.addField(warehouse1Field);
+
+    warehouseField.addValueChangeListener({
+      onChanged(event) {
+        warehouse1Field.reFilter(mthis.model.warehouseId);
+      }
+    });
 
     let refEmployeeService = new RefEmployeeService(this.warehouseService);
     form.addField(new CmbFieldInfo(this.getTranslator(), refEmployeeService, 'employeeId', 'warehouse.import.employee', true));
@@ -97,6 +107,14 @@ export class WarehouseTransferCmp extends BaseController implements OnInit {
     this.model.employeeName = this.getCurrentUser().employeeName;
 
     return form;
+  }
+
+  warehouseFilter(items: any[]) {
+    let filter = this;
+    let warehouseId = filter['param'];
+    return items.filter(item => {
+      return item.value != warehouseId;
+    });
   }
 
   createModel(): Product {

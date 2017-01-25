@@ -172,12 +172,12 @@ public class WarehouseService extends CRUDService<Warehouse, WarehouseDto> {
 
 	@RequestMapping(value = ServiceActions.WAREHOUSE_DETAIL, method = RequestMethod.GET)
 	public ServiceResult readBy(
-			@RequestParam(name = "warehouse", required = false, defaultValue = "0") long warehouseId,
-			@RequestParam(name = "product", required = false, defaultValue = "0") long productId)
+			@RequestParam(name = "warehouse", required = false, defaultValue = "0") Long warehouseId,
+			@RequestParam(name = "product", required = false, defaultValue = "0") Long productId)
 			throws CommonException {
 		init();
-		if (warehouseId > 0) {
-			if (productId > 0) {
+		if (DaoUtils.isValidId(warehouseId)) {
+			if (DaoUtils.isValidId(productId)) {
 				WarehouseDetailDto detail = warehouseDetailDao.getDetail(warehouseId, productId);
 				if (detail == null) {
 					return error(ServiceErrorCode.NOT_FOUND);
@@ -197,6 +197,17 @@ public class WarehouseService extends CRUDService<Warehouse, WarehouseDto> {
 			}
 			return success(details);
 		}
+	}
+	
+	@RequestMapping(value = ServiceActions.WAREHOUSE_DETAIL_STATUS, method = RequestMethod.GET)
+	public ServiceResult readBy(@RequestParam(name = "warehouse", required = false, defaultValue = "0") Long warehouseId)
+			throws CommonException {
+		init();
+		List<WarehouseDetailDto> details = warehouseDetailDao.getWarehouseDetail(warehouseId);
+		if (details.size() == 0) {
+			return error(ServiceErrorCode.NOT_FOUND);
+		}
+		return success(details);
 	}
 
 	@RequestMapping(value = ServiceActions.DOWNLOAD_DETAILS, method = RequestMethod.GET)
@@ -235,6 +246,44 @@ public class WarehouseService extends CRUDService<Warehouse, WarehouseDto> {
 			outputStream.close();
 		}
 	}
+	
+	@RequestMapping(value = ServiceActions.WAREHOUSE_DOWNLOAD_STATUS, method = RequestMethod.GET)
+	public void exportStatus(@PathVariable("id") long warehouseId, HttpServletResponse response) throws IOException, CommonException {
+		try {
+			init();
+			// load
+			List<WarehouseDetailSheet> items = warehouseDetailDao.getDetailsToExport(warehouseId);
+			if (items.size() == 0) {
+				throw new CommonException(ServiceErrorCode.NOT_FOUND);
+			}
+
+			InputStream file = getClass().getClassLoader()
+					.getResourceAsStream("template/warehouse/warehouse_detail_export_vi.xlsx");
+
+			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+
+			/*
+			 * "Content-Disposition : attachment" will be directly download, may
+			 * provide save as popup, based on your browser setting
+			 */
+			response.setHeader("Content-Disposition",
+					String.format("attachment; filename=\"%s\"", "Ton Kho.xlsx"));
+
+			// response.setContentLength(resource.getContent().length);
+
+			boolean result = ExcelMappingProvider.write(WarehouseDetailSheet.class, items, file,
+					response.getOutputStream());
+			if (!result) {
+				throw new CommonException(ServiceErrorCode.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			String errorMessage = "Sorry. The file you are looking for does not exist";
+			OutputStream outputStream = response.getOutputStream();
+			outputStream.write(errorMessage.getBytes(Charset.forName("UTF-8")));
+			outputStream.close();
+		}
+	}
+	
 	
 	@Override
 	protected void bindRealtionShip(Warehouse entity, WarehouseDto dto) {

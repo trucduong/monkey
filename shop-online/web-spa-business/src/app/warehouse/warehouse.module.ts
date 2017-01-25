@@ -12,6 +12,7 @@ import { WarehouseDetailCmp } from './detail/detail';
 import { WarehouseReturnCmp } from './returns/returns';
 import { WarehouseExportReturnCmp } from './export/export';
 import { WarehouseTransferCmp } from './transfer/transfer';
+import { WarehouseStatusCmp } from './status/status';
 
 import {WarehouseService} from './shared/index';
 
@@ -27,7 +28,8 @@ import {WarehouseService} from './shared/index';
     WarehouseDetailCmp,
     WarehouseReturnCmp,
     WarehouseExportReturnCmp,
-    WarehouseTransferCmp
+    WarehouseTransferCmp,
+    WarehouseStatusCmp
   ],
   providers: [
       WarehouseService

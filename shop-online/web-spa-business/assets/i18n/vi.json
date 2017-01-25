@@ -22,6 +22,7 @@
 "sidebar.nhanvien":"Nhân viên",
 "sidebar.dsnhanvien":"DS Nhân viên",
 "sidebar.dstaikhoan":"DS Tài khoản",
+"sidebar.warehouse.status": "Tồn kho",
 
 "service.error.unknow":"Đã có lỗi xảy ra, xin vui lòng thực hiện lại!",
 "service.error.connection":"Không thể kết nối với máy chủ, xin vui lòng kiểm tra lại mạng internet!",
@@ -207,6 +208,12 @@
 "warehouse.history.import.list.title":"Lịch sử nhập kho",
 "warehouse.history.returns.list.title":"Lịch sử trả hàng",
 "warehouse.history.transfer.list.title":"Lịch sử chuyển kho",
+"warehouse.status.title":"Tồn kho",
+"warehouse.status.warehouse":"Kho hàng",
+"warehouse.status.product":"Sản phẩm",
+"warehouse.status.remaining":"Số lượng",
+"warehouse.status.description":"Mô tả",
+"warehouse.status.export":"Xuất ra Excel",
 
 "warehouse.returns.title":"Trả hàng (từ khách hàng)",
 "warehouse.returns.history":"Xem lịch sử trả hàng",

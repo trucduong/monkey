@@ -2,19 +2,19 @@ import { BaseModel } from '../../../shared/index';
 import {Product} from '../../../product/shared/index';
 
 export class Warehouse extends BaseModel {
-  id: string;
-  name: string;
-  ownerId: string;
-  ownerName: string;
-  phone: string;
-  status: string;
-  address: string;
+    id: string;
+    name: string;
+    ownerId: string;
+    ownerName: string;
+    phone: string;
+    status: string;
+    address: string;
 
 
-  constructor() {
-    super();
-    this.id = '-1';
-  }
+    constructor() {
+        super();
+        this.id = '-1';
+    }
 }
 
 
@@ -26,6 +26,19 @@ export class WareHouseSearchCondition extends BaseModel {
     employeeId: string;
     customerId: string;
     productId: string;
+
+    constructor() {
+        super();
+    }
+}
+
+export class WarehouseDetail extends BaseModel {
+    warehouseId: string;
+    warehouseName: string;
+    productId: string;
+    productName: string;
+    remaining: number;
+    description: string;
 
     constructor() {
         super();

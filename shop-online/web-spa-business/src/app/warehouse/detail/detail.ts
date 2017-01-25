@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
-import { BaseController, GridColumn, SortInfo, SmartGridInfo, FormInfo, AlertType,
+import { BaseController, GridColumn, SortInfo, SmartGridInfo, FormInfo, AlertType,GridInputCmp,
   GridOption, TextFieldInfo, CmbFieldInfo, NumberFieldInfo, ComboboxService } from '../../shared/index';
 import {WarehouseService, WarehouseModel, RefWarehouseService } from '../shared/index';
 import {Product, RefProductService} from '../../product/shared/index';
@@ -20,6 +20,9 @@ export class WarehouseDetailCmp extends BaseController implements OnInit {
   gridInfo: SmartGridInfo;
   formInfo: FormInfo;
   currentDate: Date;
+
+  @ViewChild(GridInputCmp)
+  gridInputCmp: GridInputCmp<Product>;
 
   constructor(
     route: ActivatedRoute,
@@ -84,10 +87,17 @@ export class WarehouseDetailCmp extends BaseController implements OnInit {
   }
 
   buildInputForm(): FormInfo {
+    let mthis = this;
     let form = new FormInfo(this.getTranslator(), this.model, '');
 
     let refWarehouseService = new RefWarehouseService(this.warehouseService);
-    form.addField(new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.import.warehouseId', true));
+    let warehouseField = new CmbFieldInfo(this.getTranslator(), refWarehouseService, 'warehouseId', 'warehouse.import.warehouseId', true);
+    form.addField(warehouseField);
+    warehouseField.addValueChangeListener({
+      onChanged(event) {
+        mthis.gridInputCmp.clearAll();
+      }
+    });
 
     let refEmployeeService = new RefEmployeeService(this.warehouseService);
     form.addField(new CmbFieldInfo(this.getTranslator(), refEmployeeService, 'employeeId', 'warehouse.import.employee', true));

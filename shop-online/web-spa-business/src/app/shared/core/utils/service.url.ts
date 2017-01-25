@@ -34,6 +34,7 @@ export const SERVICES: any = {
 
         DOWNLOAD_PRICES: '/download-prices',
         DOWNLOAD_ORDER: '/download-order',
+        DOWNLOAD_STATUS:'/download-status/',
         
         UPLOAD_TEMP: '/upload-temp',
         DOWNLOAD_TEMP: '/download-temp/{0}',
@@ -48,6 +49,8 @@ export const SERVICES: any = {
 
         WAREHOUSE_DETAIL: '/detail?warehouse={0}&product={1}',
         DOWNLOAD_DETAILS: '/download-details',
+
+        WAREHOUSE_STATUS: '/detail-status?warehouse={0}',
 
         LOGIN:'/login',
         LOGOUT:'/logout'

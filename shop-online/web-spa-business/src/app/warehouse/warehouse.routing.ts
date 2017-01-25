@@ -8,6 +8,7 @@ import { WarehouseDetailCmp } from './detail/detail';
 import { WarehouseReturnCmp } from './returns/returns';
 import { WarehouseExportReturnCmp } from './export/export';
 import { WarehouseTransferCmp } from './transfer/transfer';
+import { WarehouseStatusCmp } from './status/status';
 
 export const routing: ModuleWithProviders = RouterModule.forChild([
   { path: 'warehouse', component: WarehouseCmp },
@@ -16,5 +17,6 @@ export const routing: ModuleWithProviders = RouterModule.forChild([
   {path: 'warehouse-detail', component: WarehouseDetailCmp },
   {path: 'warehouse-returns', component: WarehouseReturnCmp },
   {path: 'warehouse-export-returns', component: WarehouseExportReturnCmp },
-  {path: 'warehouse-transfer', component: WarehouseTransferCmp }
+  {path: 'warehouse-transfer', component: WarehouseTransferCmp },
+  {path: 'warehouse-status', component: WarehouseStatusCmp }
 ]);

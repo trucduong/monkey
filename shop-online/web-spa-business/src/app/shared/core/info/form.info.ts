@@ -294,7 +294,7 @@ export class DateFieldInfo extends FormFieldInfo {
     constructor(translate: TranslateService, name: string, label: string, required: boolean, type?: string) {
         super(translate, name, label, required);
         this.fieldType = 'date';
-        
+
         if (!type) {
             type = 'date';
         }
@@ -439,9 +439,9 @@ export class CmbFieldInfo extends FormFieldInfo {
     service: ComboboxService;
     filter: any;
     hasBlankItem: boolean;
-    items: {value: string, label: string}[];
+    items: { value: string, label: string }[];
     dispLayText: string;
-    
+
     constructor(translate: TranslateService, service: ComboboxService, name: string, label: string, required: boolean, hasBlankItem?: boolean) {
         super(translate, name, label, required);
         this.service = service;
@@ -452,6 +452,7 @@ export class CmbFieldInfo extends FormFieldInfo {
         }
         this.type = 'combobox';
         this.displayName = name.replace('Id', 'Name');
+        this.filter = {};
     }
 
     getLable(item): string {
@@ -461,18 +462,49 @@ export class CmbFieldInfo extends FormFieldInfo {
     getValue(item): string {
         return this.service.getValue(item);
     }
+
+    setFilter(filter: any) {
+        this.filter.filter = filter;
+        this.reFilter();
+    }
+
+    removeFilter() {
+        delete this.filter.filter;
+        this.reFilter();
+    }
+
+    reFilter(param?: any) {
+        let mthis = this;
+        this.filter.reload = false;
+        this.filter.param=param;
+        this.service.getItems(this.filter)
+            .then(data => {
+                mthis.items = data;
+            });
+    }
+
+    reLoad() {
+        let mthis = this;
+        this.filter.reload = true;
+        this.service.getItems(this.filter)
+            .then(data => {
+                mthis.items = data;
+            });
+    }
 }
 
 export class SmartCmbFieldInfo extends FormFieldInfo {
     service: ComboboxService;
     useLabelAsValue: boolean;
-    
-    constructor(translate: TranslateService, service: ComboboxService, name: string, label: string, required: boolean, useLabelAsValue?:boolean) {
+    filter: any;
+
+    constructor(translate: TranslateService, service: ComboboxService, name: string, label: string, required: boolean, useLabelAsValue?: boolean) {
         super(translate, name, label, required);
         this.service = service;
         this.useLabelAsValue = useLabelAsValue;
         this.type = 'smartcombobox';
         this.displayName = name.replace('Id', 'Name');
+        this.filter = {};
     }
 
     getLabel(item): string {
@@ -484,6 +516,14 @@ export class SmartCmbFieldInfo extends FormFieldInfo {
             return this.getLabel(item);
         }
         return this.service.getValue(item);
+    }
+
+    setFilter(filter: any) {
+        this.filter.filter = filter;
+    }
+
+    removeFilter() {
+        delete this.filter.filter;
     }
 }
 
