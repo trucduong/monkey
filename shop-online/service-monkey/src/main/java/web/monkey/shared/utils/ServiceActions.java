@@ -52,4 +52,5 @@ public class ServiceActions extends CRUDServiceAction {
 	public static final String WAREHOUSE_DETAIL_STATUS = "/detail-status";
 	
 	public static final String DOWNLOAD_ORDER = "/download-order/{id}";
+	public static final String READ_PAYMENTS = "/read-payments/{id}";
 }

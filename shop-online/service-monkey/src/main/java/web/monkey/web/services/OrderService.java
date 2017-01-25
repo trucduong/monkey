@@ -23,10 +23,11 @@ import core.dao.utils.DaoUtils;
 import core.service.error.InvalidValueError;
 import core.service.error.ServiceError;
 import core.service.services.BaseService;
-import core.service.utils.CRUDServiceAction;
 import core.service.utils.ServiceErrorCode;
 import core.service.utils.ServiceResult;
 import web.monkey.dao.OrderDao;
+import web.monkey.dao.OrderDetailDao;
+import web.monkey.dao.OrderPaymentDao;
 import web.monkey.dao.ShopDao;
 import web.monkey.dao.WarehouseDetailDao;
 import web.monkey.entities.Customer;
@@ -43,6 +44,7 @@ import web.monkey.pdf.order.OrderPdfGeneratorModel.OrderPdfDetail;
 import web.monkey.shared.dto.OrderDetailDto;
 import web.monkey.shared.dto.OrderDto;
 import web.monkey.shared.dto.OrderPaymentDto;
+import web.monkey.shared.dto.OrderSearchCondition;
 import web.monkey.shared.dto.OrderStatus;
 import web.monkey.shared.dto.PaymentStatus;
 import web.monkey.shared.dto.WarehouseDetailDto;
@@ -56,6 +58,12 @@ public class OrderService extends BaseService {
 	private OrderDao dao;
 	
 	@Autowired
+	private OrderDetailDao detailDao;
+	
+	@Autowired
+	private OrderPaymentDao paymentDao;
+	
+	@Autowired
 	private ShopDao shopDao;
 
 	@Autowired
@@ -66,14 +74,13 @@ public class OrderService extends BaseService {
 		return this.getClass();
 	}
 
-	@RequestMapping(value = CRUDServiceAction.CREATE, method = RequestMethod.POST)
+	@RequestMapping(value = ServiceActions.CREATE, method = RequestMethod.POST)
 	public ServiceResult create(@RequestBody OrderDto dto) throws CommonException {
 		// validation
 		List<ServiceError> errors = new ArrayList<ServiceError>();
 		List<WarehouseDetailDto> warehouseDetails = new ArrayList<WarehouseDetailDto>();
 		for (OrderDetailDto detail : dto.getDetails()) {
-			WarehouseDetailDto warehouseDetail = warehouseDetailDao.getDetail(dto.getWarehouseId(),
-					detail.getProductId());
+			WarehouseDetailDto warehouseDetail = warehouseDetailDao.getDetail(dto.getWarehouseId(), detail.getProductId());
 			long currentRemaining = warehouseDetail != null ? warehouseDetail.getRemaining() : 0;
 			if (detail.getRemaining() <= 0 || detail.getRemaining() > currentRemaining) {
 				errors.add(InvalidValueError.greaterThan("remaining", detail.getRemaining(), currentRemaining,
@@ -155,8 +162,8 @@ public class OrderService extends BaseService {
 		return success(dto);
 	}
 
-	@RequestMapping(value = CRUDServiceAction.READ, method = RequestMethod.GET)
-	public ServiceResult read(@PathVariable(value = CRUDServiceAction.PARAM_ID) long id) throws CommonException {
+	@RequestMapping(value = ServiceActions.READ, method = RequestMethod.GET)
+	public ServiceResult read(@PathVariable(value = ServiceActions.PARAM_ID) long id) throws CommonException {
 
 		Order entity = dao.find(id);
 
@@ -170,8 +177,37 @@ public class OrderService extends BaseService {
 		return success(dto);
 	}
 	
+	@RequestMapping(value = ServiceActions.READ_D, method = RequestMethod.GET)
+	public ServiceResult readDetail(@PathVariable(value = ServiceActions.PARAM_ID) long id) throws CommonException {
+		List<OrderDetailDto> details = detailDao.getDetail(id);
+		if (details.isEmpty()) {
+			return error(ServiceErrorCode.NOT_FOUND);
+		}
+		return success(details);
+	}
+	
+	@RequestMapping(value = ServiceActions.READ_PAYMENTS, method = RequestMethod.GET)
+	public ServiceResult readPayments(@PathVariable(value = ServiceActions.PARAM_ID) long id) throws CommonException {
+		List<OrderPaymentDto> details = paymentDao.getAllByOrder(id);
+		if (details.isEmpty()) {
+			return error(ServiceErrorCode.NOT_FOUND);
+		}
+		return success(details);
+	}
+	
+	@RequestMapping(value = ServiceActions.READ_ALL_BY, method = RequestMethod.GET)
+	public ServiceResult getAllBy(OrderSearchCondition condition) throws CommonException {
+		init();
+		List<OrderDto> results = dao.search(condition);
+		if (results.isEmpty()) {
+			return error(ServiceErrorCode.NOT_FOUND);
+		}
+
+		return success(results);
+	}
+	
 	@RequestMapping(value = ServiceActions.DOWNLOAD_ORDER, method = RequestMethod.GET)
-	public void exportPrices(@PathVariable(value = CRUDServiceAction.PARAM_ID) long id, HttpServletResponse response) throws IOException, CommonException {
+	public void exportPrices(@PathVariable(value = ServiceActions.PARAM_ID) long id, HttpServletResponse response) throws IOException, CommonException {
 		try {
 			init();
 			OrderPdfGenerator generator = new OrderPdfGenerator(id);

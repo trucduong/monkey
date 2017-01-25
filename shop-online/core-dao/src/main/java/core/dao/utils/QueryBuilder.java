@@ -6,6 +6,10 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import core.dao.search.FieldTransformation;
+import core.dao.search.OrderInfo;
+import core.dao.search.PaggingInfo;
+
 public class QueryBuilder {
 	protected Map<String, Object> params;
 	protected StringBuilder strQuery;
@@ -30,6 +34,19 @@ public class QueryBuilder {
 		}
 		return this;
 	}
+	
+	public QueryBuilder appendSort(OrderInfo order, FieldTransformation transformer) {
+		if (order != null && !order.isEmpty()) {
+			strQuery.append(" ORDER BY ");
+			for (String field : order.getFields()) {
+				strQuery.append(transformer.transform(field)).append(" ")
+				.append(order.getOrder(field)).append(",");
+			}
+			strQuery.deleteCharAt(strQuery.length());
+		}
+		
+		return this;
+	}
 
 	public QueryBuilder addParam(String name, Object value) {
 		this.params.put(name, value);
@@ -43,4 +60,14 @@ public class QueryBuilder {
 		}
 		return query;
 	}
+	
+	public Query build(EntityManager em, PaggingInfo paging) {
+		Query query = build(em);
+		
+		query.setFirstResult(paging.getFirstRowIndex());
+		query.setMaxResults(paging.getNumberRowsOfPage());
+		
+		return query;
+	}
+
 }
